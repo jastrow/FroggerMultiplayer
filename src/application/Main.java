@@ -3,6 +3,7 @@ package application;
 import java.util.Observable;
 import java.util.Observer;
 
+import controller.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -21,7 +22,6 @@ public class Main extends Application implements Observer {
 		this.sceneController = new SceneController();
 		this.gameData = new GameLogic();
 		this.actionController = new ActionController();
-		this.observer = new Observer();
 		
 		
 		this.sceneController.setGame(this.gameData);
@@ -30,10 +30,10 @@ public class Main extends Application implements Observer {
 		
 		try {
 			BorderPane root = new BorderPane();
-//			Scene scene = new Scene(root,400,400);
-//			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-//			primaryStage.setScene(scene);
-//			primaryStage.show();
+			Scene scene = new Scene(root,400,400);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			primaryStage.setScene(scene);
+			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
