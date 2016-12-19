@@ -49,27 +49,31 @@ public class ScoreScene extends Scene {
 		//Äußere VertikalBox zur Aufnahme aller weiteren Elemente
 		VBox verboAeussereBox = new VBox();
 		
+		verboAeussereBox.setAlignment(Pos.CENTER);
+		verboAeussereBox.setStyle("-fx-padding: 270 0 0 0;");
+		
 		for(int i = 0; i < 3 ;i++ ) {
 			horBox[i] = new HBox(); 
 			verboAeussereBox.getChildren().add(horBox[i]);
 			
 			for(int j = 0 ; j < 3; j++) {
 				highScoreListe[i][j] = new Label("Test");
+				highScoreListe[i][j].setPrefWidth(100);
+				highScoreListe[i][j].setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;" + "-fx-border-width: 2;" + "-fx-border-insets: 5;" + "-fx-border-radius: 5;" + "-fx-border-color: green;");
 				horBox[i].getChildren().add(highScoreListe[i][j]); 
 			};
 		};
 
 		Button neuesSpiel = new Button();
-		neuesSpiel.setPrefWidth(100);
+		neuesSpiel.setGraphic(new ImageView(new Image(getClass().getResource("btn_NeuesSpiel.png").toExternalForm())));
+		neuesSpiel.setStyle("-fx-background-color: rgb(255,255,255);" + "-fx-padding: 15 0 0 0;");
 		
-		BackgroundImage backgroundImage = new BackgroundImage(new Image(getClass().getResource("balken.jpg").toExternalForm()), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,null);
-		Background buttonBackground = new Background(backgroundImage);
-		
-		neuesSpiel.setBackground(buttonBackground);
+
 		verboAeussereBox.getChildren().add(neuesSpiel);
 		
 		this.wurzel.getChildren().add(verboAeussereBox);	
 	}
+
 		
 	public Scene getScene() {
 		return this;

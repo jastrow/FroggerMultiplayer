@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -42,24 +43,22 @@ public class StartScene extends Scene{
 		//Äußere VertikalBox zur Aufnahme aller weiteren Elemente
 		VBox verboAeussereBox = new VBox();
 		
-		verboAeussereBox.setStyle("-fx-padding: 150 0 0 0;");
+		verboAeussereBox.setAlignment(Pos.CENTER);
+		verboAeussereBox.setStyle("-fx-padding: 300 0 0 0;");
 		
 		spielerName.setPrefWidth(300);
 		spielerName.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;" + "-fx-border-width: 2;" + "-fx-border-insets: 5;" + "-fx-border-radius: 5;" + "-fx-border-color: green;");
 		
 		Button sucheSpieler = new Button();
-		sucheSpieler.setPrefWidth(100);
-		BackgroundImage backgroundImageSuchen = new BackgroundImage(new Image(getClass().getResource("balken.jpg").toExternalForm()), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,null);
-		Background buttonSucheBackground = new Background(backgroundImageSuchen);
-		sucheSpieler.setBackground(buttonSucheBackground);
-		
+		sucheSpieler.setGraphic(new ImageView(new Image(getClass().getResource("img/btn_SpielerSuchen.png").toExternalForm())));
+		sucheSpieler.setStyle("-fx-background-color: rgb(255,255,255);" + "-fx-padding: 15 0 0 0;");
+
 		
 		Button starteSpiel = new Button();
-		starteSpiel.setPrefWidth(100);
-		BackgroundImage backgroundImageStart = new BackgroundImage(new Image(getClass().getResource("gras.jpg").toExternalForm()), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,null);
-		Background buttonStartBackground = new Background(backgroundImageStart);
-		starteSpiel.setBackground(buttonStartBackground);	
+		starteSpiel.setGraphic(new ImageView(new Image(getClass().getResource("img/btn_Start.png").toExternalForm())));
+		starteSpiel.setStyle("-fx-background-color: rgb(255,255,255);" + "-fx-padding: 15 0 0 0;");
 
+		
 		verboAeussereBox.getChildren().add(spielerName);
 		verboAeussereBox.getChildren().add(sucheSpieler);
 		verboAeussereBox.getChildren().add(starteSpiel);

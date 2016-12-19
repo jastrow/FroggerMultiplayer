@@ -1,7 +1,7 @@
 package views;
 
 import application.Configuration;
-import application.model.Frog;
+import model.Frog;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.image.*;
