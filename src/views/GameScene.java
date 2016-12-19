@@ -1,6 +1,7 @@
 package views;
 
 import application.Configuration;
+import model.Balken;
 import model.Frog;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -14,19 +15,25 @@ import javafx.scene.layout.*;
 	public class GameScene extends Scene {
 
 		// Hauptpanel
-		private static GridPane wurzel = new GridPane();
+		private static GridPane root = new GridPane();
 
 		// Array für die Spielfelder
 		private ImageView[][] imgSpielfelder = new ImageView[Configuration.yFields][Configuration.xFields];
 		// Array an Horizontalboxen
 		private HBox[] horBox = new HBox[Configuration.yFields];
+		//Bilder
+		private Image Brett = new Image(getClass().getResource("img/Brett01.png").toExternalForm());
+		private Image runterFrosch = new Image(getClass().getResource("img/Frosch_Animation_hochRunter_Stand.png").toExternalForm());
+		private Image hochFrosch = new Image(getClass().getResource("img/Frosch_Animation_runterHoch_Stand.png").toExternalForm());
+		private Image totFrosch = new Image(getClass().getResource("img/Frosch_GameOver.png").toExternalForm());
+
 
 		/**
 		 * Konstruktor
 		 */
 		public GameScene() {
 			
-			super(wurzel,Configuration.xFields * 50,Configuration.yFields * 50);
+			super(root,Configuration.xFields * 50,Configuration.yFields * 50);
 			
 			// new Image(url)
 			Image hinterGrundBild = new Image(getClass().getResource("img/Hintergrund_Game.jpg").toExternalForm());
@@ -37,20 +44,19 @@ import javafx.scene.layout.*;
 			// new Background(images...)
 			Background background = new Background(backgroundImage);
 			
-			this.wurzel.setAlignment(Pos.CENTER);
-			this.wurzel.setBackground(background);
-			// ImageView hintergrund = new ImageView(getClass().getResource("Hintergrund_Game.jpg").toExternalForm());
-			// this.wurzel.getChildren().add();
-			this.erstelleScene();
+			this.root.setAlignment(Pos.CENTER);
+			this.root.setBackground(background);
+
+			this.buildScene();
 			//Szene Formatierungs CSS  zuweisen
-			//this.scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			this.getStylesheets().add(getClass().getResource("gamescene.css").toExternalForm());
 		}
 
 		/**
 		 * Funktion zum erstellen der Szene mit ihren Elementen
 		 * @return komplette Szene mit allen Elementen
 		 */
-		private void erstelleScene() {
+		private void buildScene() {
 
 			//Äußere VertikalBox zur Aufnahme aller weiteren Elemente
 			VBox verboAeussereBox = new VBox();
@@ -67,29 +73,29 @@ import javafx.scene.layout.*;
 				};
 			};
 
-			this.wurzel.getChildren().add(verboAeussereBox);	
+			this.root.getChildren().add(verboAeussereBox);	
 		}
 		
 		
-	/*	public void setzeBalken(Balken balkenObjekt) {
+		public void setBalken(Balken balkenObjekt) {
 			
 				for(int i = balkenObjekt.getPositionX() ; i < balkenObjekt.getPositionX() + balkenObjekt.getLaenge(); i++) {
-					imgSpielfelder[balkenObjekt.getPositionY()][i].setImage(null);
+					imgSpielfelder[balkenObjekt.getPositionY()][i].setImage(Brett);
 				};
 			
 		}
 		
 		
-		public void setzeFrosch(Frog frosch) {
+		public void setFrog(Frog frosch) {
 			
 			if (frosch.getFroschIndex() == 1)
-				imgSpielfelder[frosch.getPositionY()][frosch.getPositionX()].setImage(null);
+				imgSpielfelder[frosch.getPositionY()][frosch.getPositionX()].setImage(runterFrosch);
 			else
-				imgSpielfelder[frosch.getPositionY()][frosch.getPositionX()].setImage(null);
+				imgSpielfelder[frosch.getPositionY()][frosch.getPositionX()].setImage(hochFrosch);
 
 		}
 		
-		public void bewegeBalken(Balken balkenObjekt, int richtungsindex) {
+/*		public void bewegeBalken(Balken balkenObjekt, int richtungsindex) {
 			
 			if (((balkenObjekt.getPositionX() + 1) <= Configuration.xFields) && ((balkenObjekt.getPositionX() -1) >= 0 )) {
 			
@@ -123,11 +129,17 @@ import javafx.scene.layout.*;
 			
 					setzeFrosch(frosch);
 			
-		} 
+		} */
 	
 		
 	
-		private VBox baueTotBildschirm(Frog frosch){
+		public void baueTotBildschirm(Frog frosch) {
+			
+			imgSpielfelder[frosch.getPositionY()][frosch.getPositionX()].setImage(totFrosch);
+			
+			
+			
+			/*
 			VBox vertBox = new VBox();  
 			ImageView ende = new ImageView(getClass().getResource("ende.jpg").toExternalForm());
 			ende.setFitHeight((Configuration.yFields-30)/2);
@@ -144,7 +156,7 @@ import javafx.scene.layout.*;
 				spieler.setFitWidth(Configuration.xFields);
 				vertBox.getChildren().add(spieler);				
 			}
-			return vertBox;
+
 		}
 
 		private VBox baueSiegBildschirm(Frog frosch){
@@ -164,8 +176,8 @@ import javafx.scene.layout.*;
 				spieler.setFitWidth(Configuration.xFields);
 				vertBox.getChildren().add(spieler);				
 			}
-			return vertBox;
-		}	*/
+			return vertBox; */
+		}	
 		
 		/**
 		 * Hilfsfunktion zur Rückgabe der Szene
