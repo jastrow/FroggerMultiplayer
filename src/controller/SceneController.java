@@ -30,7 +30,7 @@ public class SceneController {
 		}
 	}
 	
-	public void updateGameScene(Frog frosch, Balken balken, Auto auto) {
+	public void updateGameScene(Frog frosch, Balken balken, car auto) {
 		
 		for (i = 0 ; i < frosch.length; i++ ) {
 			gameScene.setFrog(frosch[i]);
