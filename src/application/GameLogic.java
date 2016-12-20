@@ -38,8 +38,8 @@ public class GameLogic extends Observable {
 	/////////////
 	
 	public void GameLogic() {
-		this.frogPlayer1 = new Frog();
-		this.frogPlayer2 = new Frog();
+		this.frogPlayer1 = new Frog(1,1,"Spieler1",null);
+		this.frogPlayer2 = new Frog(2,2,"Spieler2",null);
 		this.streets = new Streets(Configuration.streetLines);
 		this.rivers = new River(Configuration.riverLines);
 		this.timer = new TimeMachine(Configuration.timeEnd);
