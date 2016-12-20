@@ -78,22 +78,30 @@ import javafx.scene.layout.*;
 		
 		
 		public void setBalken(Balken balkenObjekt) {
+			for(int i = balkenObjekt.getOldPositionX() ; i < balkenObjekt.getOldPositionX() + balkenObjekt.getLaenge(); i++) {
+				imgSpielfelder[balkenObjekt.getOldPositionY()][i].setImage(null);
+				};
 			
-				for(int i = balkenObjekt.getPositionX() ; i < balkenObjekt.getPositionX() + balkenObjekt.getLaenge(); i++) {
-					imgSpielfelder[balkenObjekt.getPositionY()][i].setImage(Brett);
+			for(int i = balkenObjekt.getPositionX() ; i < balkenObjekt.getPositionX() + balkenObjekt.getLaenge(); i++) {
+				imgSpielfelder[balkenObjekt.getPositionY()][i].setImage(Brett);
 				};
 			
 		}
 		
 		
 		public void setFrog(Frog frosch) {
-			
-			if (frosch.getFroschIndex() == 1)
-				imgSpielfelder[frosch.getPositionY()][frosch.getPositionX()].setImage(runterFrosch);
-			else
-				imgSpielfelder[frosch.getPositionY()][frosch.getPositionX()].setImage(hochFrosch);
+				imgSpielfelder[frosch.getOldPositionX()][frosch.getOldPositionY()].setImage(null);
+				imgSpielfelder[frosch.getPositionX()][frosch.getPositionY()].setImage(frosch.getImage());
 
 		}
+		
+		public void setBalken(Auto autoObjekt) {
+			imgSpielfelder[autoObjekt.getOldPositionX()][autoObjekt.getOldPositionY()].setImage(null);
+			imgSpielfelder[autoObjekt.getPositionX()][autoObjekt.getPositionY()].setImage(autoObject.getImage());
+			
+			
+		}
+		
 		
 /*		public void bewegeBalken(Balken balkenObjekt, int richtungsindex) {
 			
