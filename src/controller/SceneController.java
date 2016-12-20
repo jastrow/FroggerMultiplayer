@@ -19,6 +19,35 @@ public class SceneController {
 		this.scoreScene = new ScoreScene();
 	}
 	
+	public Scene getScene(int sceneID) {
+	switch(sceneID) {
+		case 1: return startScene.getScene();
+			break;
+		case 2: return scoreScene.getScene();
+			break;
+		default: return gameScene.getScene();
+			break;
+		}
+	}
+	
+	public void updateGameScene(Frog frosch, Balken balken, Auto auto) {
+		
+		for (i = 0 ; i < frosch.length; i++ ) {
+			gameScene.setFrog(frosch[i]);
+		}
+		
+		for (i = 0 ; i < balken.length; i++ ) {
+			gameScene.setBalken(balken[i]);
+		}
+		
+		for (i = 0 ; i < auto.length; i++ ) {
+			gameScene.setAuto(auto[i]);
+		}
+	
+	} 
+	
+	/*
+	
 	public Scene zeigeGameScene() {
 		return gameScene.getScene();
 	}
@@ -33,5 +62,5 @@ public class SceneController {
 	
 	public void setGame(GameLogic game) {
 		this.game = game;
-	}
+	} */
 }
