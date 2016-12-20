@@ -3,26 +3,18 @@ package model;
 public class Frog {
 
 	
-	private int feldindex;			// 1 = Gras / 2 = Balken / 3 = Wasser
+	private int oldPositionX;
+	private int oldPositionY;
 	private int positionX;
 	private int positionY; 
-	private int froschIndex;
 	private String spielername;
+	private Image frogPic;
 	
-	public Frog (int positionY, int positionX, int froschIndex, String spielername) {
-		this.feldindex = 1;
+	public Frog (int positionY, int positionX, String spielername, Image frogPic) {
 		this.positionX = positionX;
 		this.positionY = positionY;
-		this.froschIndex = froschIndex;
+		this.frogPic = frogPic;
 		this.spielername = spielername;
-	}
-	
-	public int getFroschIndex() {
-		return this.froschIndex;
-	}		
-	
-	public int getFeldindex() {
-		return this.feldindex;
 	}
 	
 	public int getPositionX() {
@@ -32,17 +24,34 @@ public class Frog {
 	public int getPositionY() {
 		return this.positionY;
 	}
-
-	public void setFeldindex(int feldindex) {
-		this.feldindex = feldindex;
+	
+	public int getOldPositionX() {
+		return this.oldPositionX;
 	}
 	
+	public int getOldPositionY() {
+		return this.oldPositionY;
+	}
+
+
 	public void setPositionX(int positionX) {
 		this.positionX = positionX;
 	}
 	
 	public void setPositionY(int positionY) {
 		this.positionY = positionY;
+	}
+	
+	public void setOldPositionX(int oldPositionX) {
+		this.oldPositionX = oldPositionX;
+	}
+	
+	public void setOldPositionY(int oldPositionY) {
+		this.oldPositionY = oldPositionY;
+	}
+	
+	public void getImage() {
+		return this.frogPic;
 	}
 	
 	public void setSpielername(String Spielername) {
