@@ -1,11 +1,12 @@
 package application;
 
 import java.util.List;
+import java.util.Observable;
 
 import controller.*;
 import model.*;
 
-public class GameLogic {
+public class GameLogic extends Observable {
 
 	////////////////
 	// Attributes //
@@ -42,6 +43,11 @@ public class GameLogic {
 		this.streets = new Streets(Configuration.streetLines);
 		this.rivers = new River(Configuration.riverLines);
 		this.timer = new TimeMachine(Configuration.timeEnd);
+		
+		// Observertest
+		setChanged();
+		Action info = new Action();
+		notifyObservers(info);
 	}
 	
 	public void setScene(SceneController scene) {
