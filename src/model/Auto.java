@@ -1,6 +1,18 @@
 package model;
 
-public class Auto {
+public class Car {
+
+	private int oldPositionX;
+	private int oldPositionY;
+	private int positionX;
+	private int positionY; 
+	private Image carPic;
+	
+	public Auto (int positionY, int positionX, Image carPic) {
+		this.positionX = positionX;
+		this.positionY = positionY;
+		this.carPic = carPic;
+	}
 
 
 	public int getPositionX() {
@@ -37,7 +49,7 @@ public class Auto {
 	}
 	
 	public void getImage() {
-		return this.frogPic;
+		return this.carPic;
 	}  
   
   
