@@ -3,6 +3,7 @@ package views;
 import application.Configuration;
 import model.Balken;
 import model.Frog;
+import model.Car;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.image.*;
@@ -23,8 +24,6 @@ import javafx.scene.layout.*;
 		private HBox[] horBox = new HBox[Configuration.yFields];
 		//Bilder
 		private Image Brett = new Image(getClass().getResource("img/Brett01.png").toExternalForm());
-		private Image runterFrosch = new Image(getClass().getResource("img/Frosch_Animation_hochRunter_Stand.png").toExternalForm());
-		private Image hochFrosch = new Image(getClass().getResource("img/Frosch_Animation_runterHoch_Stand.png").toExternalForm());
 		private Image totFrosch = new Image(getClass().getResource("img/Frosch_GameOver.png").toExternalForm());
 
 
@@ -89,13 +88,13 @@ import javafx.scene.layout.*;
 		}
 		
 		
-		public void setFrog(Frog frosch) {
-				imgSpielfelder[frosch.getOldPositionX()][frosch.getOldPositionY()].setImage(null);
-				imgSpielfelder[frosch.getPositionX()][frosch.getPositionY()].setImage(frosch.getImage());
+		public void setFrog(Frog froschObjekt) {
+				imgSpielfelder[froschObjekt.getOldPositionX()][froschObjekt.getOldPositionY()].setImage(null);
+				imgSpielfelder[froschObjekt.getPositionX()][froschObjekt.getPositionY()].setImage(froschObjekt.getImage());
 
 		}
 		
-		public void setBalken(Auto autoObjekt) {
+		public void setBalken(Car autoObjekt) {
 			imgSpielfelder[autoObjekt.getOldPositionX()][autoObjekt.getOldPositionY()].setImage(null);
 			imgSpielfelder[autoObjekt.getPositionX()][autoObjekt.getPositionY()].setImage(autoObject.getImage());
 			
@@ -141,9 +140,9 @@ import javafx.scene.layout.*;
 	
 		
 	
-		public void baueTotBildschirm(Frog frosch) {
+		public void baueTotBildschirm(Frog froschObjekt) {
 			
-			imgSpielfelder[frosch.getPositionY()][frosch.getPositionX()].setImage(totFrosch);
+			imgSpielfelder[froschObjekt.getPositionY()][froschObjekt.getPositionX()].setImage(totFrosch);
 			
 			
 			
