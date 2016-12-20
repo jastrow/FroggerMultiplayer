@@ -1,1 +1,12 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+.root{
+    -fx-font-size: 20pt;
+    -fx-font-family: "";
+    -fx-base: rgb(234, 231, 219);
+    -fx-background-image: url("img/Hintergrund_Game.jpg");
+    -fx-background-repeat: no-repeat;   
+    -fx-background-size: 950 600;
+    -fx-background-position: center center;
+    -fx-alignment: center;
+}

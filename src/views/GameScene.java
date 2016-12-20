@@ -4,7 +4,6 @@ import application.Configuration;
 import model.Balken;
 import model.Frog;
 import model.Car;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
@@ -33,22 +32,9 @@ import javafx.scene.layout.*;
 		public GameScene() {
 			
 			super(root,Configuration.xFields * 50,Configuration.yFields * 50);
-			
-			// new Image(url)
-			Image hinterGrundBild = new Image(getClass().getResource("img/Hintergrund_Game.jpg").toExternalForm());
-			// new BackgroundSize(width, height, widthAsPercentage, heightAsPercentage, contain, cover)
-			BackgroundSize backgroundSize = new BackgroundSize(Configuration.xFields * 50, Configuration.yFields * 50, false, false, false, false);
-			// new BackgroundImage(image, repeatX, repeatY, position, size)
-			BackgroundImage backgroundImage = new BackgroundImage(hinterGrundBild, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
-			// new Background(images...)
-			Background background = new Background(backgroundImage);
-			
-			this.root.setAlignment(Pos.CENTER);
-			this.root.setBackground(background);
-
 			this.buildScene();
 			//Szene Formatierungs CSS  zuweisen
-			this.getStylesheets().add(getClass().getResource("gamescene.css").toExternalForm());
+			this.getStylesheets().add(getClass().getResource("gameScene.css").toExternalForm());
 		}
 
 		/**
@@ -94,96 +80,17 @@ import javafx.scene.layout.*;
 
 		}
 		
-		public void setBalken(Car autoObjekt) {
+		public void setCar(Car autoObjekt) {
 			imgSpielfelder[autoObjekt.getOldPositionX()][autoObjekt.getOldPositionY()].setImage(null);
-			imgSpielfelder[autoObjekt.getPositionX()][autoObjekt.getPositionY()].setImage(autoObject.getImage());
+			imgSpielfelder[autoObjekt.getPositionX()][autoObjekt.getPositionY()].setImage(autoObjekt.getImage());
 			
 			
 		}
 		
-		
-/*		public void bewegeBalken(Balken balkenObjekt, int richtungsindex) {
-			
-			if (((balkenObjekt.getPositionX() + 1) <= Configuration.xFields) && ((balkenObjekt.getPositionX() -1) >= 0 )) {
-			
-				if (richtungsindex == 1) {
-				imgSpielfelder[balkenObjekt.getPositionY()][balkenObjekt.getPositionX()].setImage(null);
-				imgSpielfelder[balkenObjekt.getPositionY()][balkenObjekt.getPositionX() + balkenObjekt.getLaenge()].setImage(null);
-				balkenObjekt.setPositionX(balkenObjekt.getPositionX() + 1);
-			} else {
-				imgSpielfelder[balkenObjekt.getPositionY()][balkenObjekt.getPositionX()-1].setImage(null);
-				imgSpielfelder[balkenObjekt.getPositionY()][balkenObjekt.getPositionX()-1 + balkenObjekt.getLaenge()].setImage(null);
-				balkenObjekt.setPositionX(balkenObjekt.getPositionX() -1);
-			}
-			}
-					
-		} 
-		
-	public void bewegeFrosch(Frog frosch, int bewegungY, int bewegungX) {
-			
-					if (frosch.getFeldindex() == 1)
-						imgSpielfelder[frosch.getPositionY()][frosch.getPositionX()].setImage(null);
-					else
-						imgSpielfelder[frosch.getPositionY()][frosch.getPositionX()].setImage(null);
-						
-					if (imgSpielfelder[frosch.getPositionY() + bewegungY][frosch.getPositionX() + bewegungX].getImage() == null)
-						frosch.setFeldindex(1);
-					else
-						frosch.setFeldindex(2);
-			
-					frosch.setPositionY(frosch.getPositionY() + bewegungY);
-					frosch.setPositionX(frosch.getPositionX() + bewegungX);
-			
-					setzeFrosch(frosch);
-			
-		} */
-	
-		
-	
 		public void baueTotBildschirm(Frog froschObjekt) {
 			
 			imgSpielfelder[froschObjekt.getPositionY()][froschObjekt.getPositionX()].setImage(totFrosch);
 			
-			
-			
-			/*
-			VBox vertBox = new VBox();  
-			ImageView ende = new ImageView(getClass().getResource("ende.jpg").toExternalForm());
-			ende.setFitHeight((Configuration.yFields-30)/2);
-			ende.setFitWidth(Configuration.xFields);
-			vertBox.getChildren().add(ende);
-			if (frosch.getFroschIndex() == 1) {
-				ImageView spieler = new ImageView(getClass().getResource("gestorbenSpieler1.jpg").toExternalForm());
-				spieler.setFitHeight((Configuration.yFields-30)/2);
-				spieler.setFitWidth(Configuration.xFields);
-				vertBox.getChildren().add(spieler);
-			} else {
-				ImageView spieler = new ImageView(getClass().getResource("gestorbenSpieler2.jpg").toExternalForm());
-				spieler.setFitHeight((Configuration.yFields-30)/2);
-				spieler.setFitWidth(Configuration.xFields);
-				vertBox.getChildren().add(spieler);				
-			}
-
-		}
-
-		private VBox baueSiegBildschirm(Frog frosch){
-			VBox vertBox = new VBox();  
-			ImageView ende = new ImageView(getClass().getResource("ende.jpg").toExternalForm());
-			ende.setFitHeight((Configuration.yFields-30)/2);
-			ende.setFitWidth(Configuration.xFields);
-			vertBox.getChildren().add(ende);
-			if (frosch.getFroschIndex() == 1) {
-				ImageView spieler = new ImageView(getClass().getResource("gewonnenSpieler1.jpg").toExternalForm());
-				spieler.setFitHeight((Configuration.yFields-30)/2);
-				spieler.setFitWidth(Configuration.xFields);
-				vertBox.getChildren().add(spieler);
-			} else {
-				ImageView spieler = new ImageView(getClass().getResource("gewonnenSpieler2.jpg").toExternalForm());
-				spieler.setFitHeight((Configuration.yFields-30)/2);
-				spieler.setFitWidth(Configuration.xFields);
-				vertBox.getChildren().add(spieler);				
-			}
-			return vertBox; */
 		}	
 		
 		/**

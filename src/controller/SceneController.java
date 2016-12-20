@@ -3,6 +3,7 @@ package controller;
 import application.*;
 import javafx.scene.Scene;
 import views.*;
+import model.*;
 
 
 public class SceneController {
@@ -22,45 +23,28 @@ public class SceneController {
 	public Scene getScene(int sceneID) {
 	switch(sceneID) {
 		case 1: return startScene.getScene();
-			break;
 		case 2: return scoreScene.getScene();
-			break;
 		default: return gameScene.getScene();
-			break;
 		}
 	}
 	
-	public void updateGameScene(Frog frosch, Balken balken, car auto) {
+	public void updateGameScene(Frog[] frosch, Balken[] balken, Car[] auto) {
 		
-		for (i = 0 ; i < frosch.length; i++ ) {
+		for (int i = 0 ; i < frosch.length; i++ ) {
 			gameScene.setFrog(frosch[i]);
 		}
 		
-		for (i = 0 ; i < balken.length; i++ ) {
+		for (int i = 0 ; i < balken.length; i++ ) {
 			gameScene.setBalken(balken[i]);
 		}
 		
-		for (i = 0 ; i < auto.length; i++ ) {
-			gameScene.setAuto(auto[i]);
+		for (int i = 0 ; i < auto.length; i++ ) {
+			gameScene.setCar(auto[i]);
 		}
 	
 	} 
 	
-	/*
-	
-	public Scene zeigeGameScene() {
-		return gameScene.getScene();
-	}
-	
-	public Scene zeigeStartScene() {
-		return startScene.getScene();
-	}
-	
-	public Scene zeigeScoreScene() {
-		return scoreScene.getScene();
-	}
-	
 	public void setGame(GameLogic game) {
 		this.game = game;
-	} */
+	} 
 }

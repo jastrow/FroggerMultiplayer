@@ -1,14 +1,16 @@
 package model;
 
+import javafx.scene.image.Image;
+
 public class Car {
 
-	private int oldPositionX;
-	private int oldPositionY;
-	private int positionX;
-	private int positionY; 
+	private int oldPositionX = 0;
+	private int oldPositionY = 0;
+	private int positionX = 0;
+	private int positionY = 0; 
 	private Image carPic;
 	
-	public Auto (int positionY, int positionX, Image carPic) {
+	public Car (int positionY, int positionX, Image carPic) {
 		this.positionX = positionX;
 		this.positionY = positionY;
 		this.carPic = carPic;
@@ -33,22 +35,24 @@ public class Car {
 
 
 	public void setPositionX(int positionX) {
+		this.oldPositionX = this.positionX;
 		this.positionX = positionX;
 	}
 	
 	public void setPositionY(int positionY) {
+		this.oldPositionY = this.positionY;
 		this.positionY = positionY;
 	}
 	
-	public void setOldPositionX(int oldPositionX) {
+	/* public void setOldPositionX(int oldPositionX) {
 		this.oldPositionX = oldPositionX;
 	}
 	
 	public void setOldPositionY(int oldPositionY) {
 		this.oldPositionY = oldPositionY;
-	}
+	}*/
 	
-	public void getImage() {
+	public Image getImage() {
 		return this.carPic;
 	}  
   

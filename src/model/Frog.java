@@ -1,12 +1,14 @@
 package model;
 
+import javafx.scene.image.Image;
+
 public class Frog {
 
 	
-	private int oldPositionX;
-	private int oldPositionY;
-	private int positionX;
-	private int positionY; 
+	private int oldPositionX = 0;
+	private int oldPositionY = 0;
+	private int positionX = 0;
+	private int positionY = 0; 
 	private String spielername;
 	private Image frogPic;
 	
@@ -35,10 +37,12 @@ public class Frog {
 
 
 	public void setPositionX(int positionX) {
+		this.oldPositionX = this.positionX;
 		this.positionX = positionX;
 	}
 	
 	public void setPositionY(int positionY) {
+		this.oldPositionY = this.positionY;
 		this.positionY = positionY;
 	}
 	
@@ -50,7 +54,7 @@ public class Frog {
 		this.oldPositionY = oldPositionY;
 	}
 	
-	public void getImage() {
+	public Image getImage() {
 		return this.frogPic;
 	}
 	
