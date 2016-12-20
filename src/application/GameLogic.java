@@ -37,8 +37,8 @@ public class GameLogic {
 	/////////////
 	
 	public void GameLogic() {
-		this.frogPlayer1 = new Frog();
-		this.frogPlayer2 = new Frog();
+		this.frogPlayer1 = new Frog(1,1,1,"1");
+		this.frogPlayer2 = new Frog(2,2,2,"2");
 		this.streets = new Streets(Configuration.streetLines);
 		this.rivers = new River(Configuration.riverLines);
 		this.timer = new TimeMachine(Configuration.timeEnd);
