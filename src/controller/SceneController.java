@@ -32,6 +32,10 @@ public class SceneController {
 		return this.startScene.getScene();
 	}
 	
+	public void updateScene(Data data) {
+		this.gameScene.updateScene(data);
+	}
+	
 	public void setGame(GameLogic game) {
 		this.game = game;
 	} 

@@ -6,6 +6,7 @@ import java.util.Observer;
 import controller.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import model.Data;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
@@ -21,7 +22,7 @@ public class Main extends Application implements Observer {
 		
 		this.sceneController = new SceneController();
 		this.gameData = new GameLogic();
-		this.actionController = new ActionController();
+		this.actionController = new ActionController(this.sceneController);
 		
 		
 		this.sceneController.setGame(this.gameData);

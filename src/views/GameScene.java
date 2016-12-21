@@ -23,9 +23,9 @@ import model.Data;
 		private GridPane root = new GridPane();
 		private  Group content = new Group();
 		//Bilder
-		private Image[] bar; //= new Image(getClass().getResource("../img/Brett_01.png").toExternalForm());
-		private Image[] frog; //= new Image(getClass().getResource("../img/Frosch_GameOver.png").toExternalForm());
-		private Image[] car;
+		private Image[] bar = new Image[3]; //= new Image(getClass().getResource("../img/Brett_01.png").toExternalForm());
+		private Image[] frog = new Image[2]; //= new Image(getClass().getResource("../img/Frosch_GameOver.png").toExternalForm());
+		private Image[] car  = new Image[4];
 		
 		private ArrayList<ImageView> pictureCont = new ArrayList<ImageView>(); 
 		
@@ -42,10 +42,6 @@ import model.Data;
 			scene = new Scene(root,Configuration.xFields * 50,Configuration.yFields * 50);
 			//Szene Formatierungs CSS  zuweisen
 			scene.getStylesheets().add(getClass().getResource("../gameScene.css").toExternalForm());
-			
-			for (int i = 0 ; i < 100; i++) {
-				rand.nextInt(3);
-			}
 			
 		}
 		
@@ -72,44 +68,94 @@ import model.Data;
 		
 		}
 		
-		private void deleteObject(Data data) {		
-				pictureCont.remove(data.getID());
+		private void deleteObject(Integer index) {		
+				pictureCont.remove(index);
 		}
 		
-		private ImageView setPosition (Data data, ImageView hilf) {
-			hilf.setX(data.getXPosition()*50);
-			hilf.setY(data.getYPosition()*50);
-			return hilf;
+		private boolean checkImageExist(Data data) {
+			for(ImageView help: pictureCont) {
+				if (help.getId() == data.getID().toString()) return true;
+			}
+			return false;
+		}
+		
+		private void updateElements() {
+			content.getChildren().clear();
+			for(ImageView help: pictureCont){
+				content.getChildren().add(help);
+			}
 		}
 		
 		public void updateScene(Data data){
+			 
+			ImageView help = new ImageView();
+			Integer position = 0;
+			Boolean exist = false;
 			
+			if(this.checkImageExist(data)) {
 			
+				for(ImageView view: pictureCont) {
+				if (view.getId() == data.getID().toString()) {
+					help = view;
+					position = pictureCont.indexOf(view);
+					}	
+				}
+			exist = true;
+			}
 			
 			if (data.getXPosition() == 0 || data.getYPosition() == 0) {
-				deleteObject(data);
+				deleteObject(position);
 				return;
 			}
 			
 			switch (data.getName()) {
 			
 			case "car": {
-				if (pictureCont.size() <= data.getID()) {
-					ImageView help = pictureCont.get(data.getID());
-					pictureCont.set(data.getID(), this.setPosition(data, help));	
+				if (exist) {
+					help.setX(data.getXPosition()*50);
+					help.setY(data.getYPosition()*50);
+					pictureCont.set(position, help);
 				} else {
-					ImageView help = new ImageView(car[rand.nextInt(3)]);
+					help.setImage(car[rand.nextInt(3)]);
+					help.setX(data.getXPosition()*50);
+					help.setY(data.getYPosition()*50);
+					help.setId(data.getID().toString());
+					pictureCont.add(help);
 				}
 				break;
 			}
 			case "frog": {
+				if (exist) {
+					help.setX(data.getXPosition()*50);
+					help.setY(data.getYPosition()*50);
+					pictureCont.set(position, help);
+				} else {
+					help.setImage(frog[rand.nextInt(1)]);
+					help.setX(data.getXPosition()*50);
+					help.setY(data.getYPosition()*50);
+					help.setId(data.getID().toString());
+					pictureCont.add(help);
+					System.out.println(help);
+				}
 				break;
 			}
 			case "bar": {
+				if (exist) {
+					help.setX(data.getXPosition()*50);
+					help.setY(data.getYPosition()*50);
+					pictureCont.set(position, help);
+				} else {
+					help.setImage(bar[rand.nextInt(2)]);
+					help.setX(data.getXPosition()*50);
+					help.setY(data.getYPosition()*50);
+					help.setId(data.getID().toString());
+					pictureCont.add(help);
+				}
 				break;
 			}
 			
 			}
+			this.updateElements();
 		}
 		
 	
