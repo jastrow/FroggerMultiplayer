@@ -1,6 +1,6 @@
 package model;
 
-public class Balken {
+public class Bar {
 	
 	private int laenge = 0;
 	private int oldPositionX = 0;
@@ -8,7 +8,7 @@ public class Balken {
 	private int positionX = 0;
 	private int positionY = 0; 
 	
-	public Balken (int positionY, int positionX, int laenge) {
+	public Bar (int positionY, int positionX, int laenge) {
 		this.laenge = laenge;
 		this.positionX = positionX;
 		this.positionY = positionY;
