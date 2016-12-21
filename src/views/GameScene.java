@@ -15,13 +15,13 @@ import model.Data;
 	 *
 	 */
 	public class GameScene {
-
-		
+	
 		private Scene scene;
 		
 		// Hauptpanel
 		private GridPane root = new GridPane();
-		private  Group content = new Group();
+		private Group content = new Group();
+		
 		//Bilder
 		private Image[] bar = new Image[3]; //= new Image(getClass().getResource("../img/Brett_01.png").toExternalForm());
 		private Image[] frog = new Image[2]; //= new Image(getClass().getResource("../img/Frosch_GameOver.png").toExternalForm());
@@ -42,6 +42,9 @@ import model.Data;
 			scene = new Scene(root,Configuration.xFields * 50,Configuration.yFields * 50);
 			//Szene Formatierungs CSS  zuweisen
 			scene.getStylesheets().add(getClass().getResource("../gameScene.css").toExternalForm());
+			this.root.setVgap(Configuration.xFields * 50);
+			this.root.setHgap(Configuration.yFields * 50);
+			this.root.getChildren().add(content);
 			
 		}
 		
@@ -68,20 +71,29 @@ import model.Data;
 		
 		}
 		
-		private void deleteObject(Integer index) {		
+		private void deleteObject(Integer index) {	
+			
 				pictureCont.remove(index);
+				System.out.println(index);
+		
 		}
 		
 		private boolean checkImageExist(Data data) {
+		
 			for(ImageView help: pictureCont) {
-				if (help.getId() == data.getID().toString()) return true;
+				if (pictureCont.indexOf(help) == data.getID()) return true;
 			}
+			
 			return false;
 		}
 		
 		private void updateElements() {
+			
+			System.out.println(content.getChildren().size());
 			content.getChildren().clear();
+			System.out.println(content.getChildren().size());
 			for(ImageView help: pictureCont){
+				System.out.println(help.getX() + " - " + help.getY() + " - " + help.getId());
 				content.getChildren().add(help);
 			}
 		}
@@ -95,66 +107,80 @@ import model.Data;
 			if(this.checkImageExist(data)) {
 			
 				for(ImageView view: pictureCont) {
-				if (view.getId() == data.getID().toString()) {
-					help = view;
-					position = pictureCont.indexOf(view);
+					if (this.checkImageExist(data)) {
+						help = view;
+						position = pictureCont.indexOf(view);
 					}	
 				}
+				
 			exist = true;
+			
 			}
 			
+			System.out.println(exist);
+			
 			if (data.getXPosition() == 0 || data.getYPosition() == 0) {
+			
 				deleteObject(position);
+				
 				return;
 			}
 			
 			switch (data.getName()) {
 			
 			case "car": {
+				
 				if (exist) {
-					help.setX(data.getXPosition()*50);
-					help.setY(data.getYPosition()*50);
+					help.setX((data.getXPosition()*50)-49);
+					help.setY((data.getYPosition()*50)+30);
 					pictureCont.set(position, help);
 				} else {
 					help.setImage(car[rand.nextInt(3)]);
-					help.setX(data.getXPosition()*50);
-					help.setY(data.getYPosition()*50);
-					help.setId(data.getID().toString());
+					help.setFitHeight(50);
+					help.setX((data.getXPosition()*50)-49);
+					help.setY((data.getYPosition()*50)+30);
+					help.setId(data.getName());
 					pictureCont.add(help);
 				}
 				break;
 			}
 			case "frog": {
+				
 				if (exist) {
-					help.setX(data.getXPosition()*50);
-					help.setY(data.getYPosition()*50);
+					help.setX((data.getXPosition()*50)-49);
+					help.setY((data.getYPosition()*50)+30);
 					pictureCont.set(position, help);
 				} else {
 					help.setImage(frog[rand.nextInt(1)]);
-					help.setX(data.getXPosition()*50);
-					help.setY(data.getYPosition()*50);
-					help.setId(data.getID().toString());
+					help.setFitHeight(50);
+					help.setFitWidth(50);
+					help.setX((data.getXPosition()*50)-49);
+					help.setY((data.getYPosition()*50)+30);
+					help.setId(data.getName());
 					pictureCont.add(help);
-					System.out.println(help);
 				}
 				break;
 			}
 			case "bar": {
+				
 				if (exist) {
-					help.setX(data.getXPosition()*50);
-					help.setY(data.getYPosition()*50);
+					help.setX((data.getXPosition()*50)-49);
+					help.setY((data.getYPosition()*50)+30);
 					pictureCont.set(position, help);
 				} else {
 					help.setImage(bar[rand.nextInt(2)]);
-					help.setX(data.getXPosition()*50);
-					help.setY(data.getYPosition()*50);
-					help.setId(data.getID().toString());
+					help.setX((data.getXPosition()*50)-49);
+					help.setY((data.getYPosition()*50)+30);
+					help.setId(data.getName());
 					pictureCont.add(help);
 				}
+				
 				break;
+			
 			}
 			
 			}
+			exist = false;
 			this.updateElements();
 		}
 		

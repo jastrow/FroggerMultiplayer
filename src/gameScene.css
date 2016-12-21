@@ -6,7 +6,14 @@
     -fx-base: rgb(234, 231, 219);
     -fx-background-image: url("img/Hintergrund_Game.jpg");
     -fx-background-repeat: no-repeat;   
-    -fx-background-size: 950 600;
+    -fx-background-size: 950 630;
     -fx-background-position: center center;
-    -fx-alignment: center;
+    -fx-padding: 10;
 }
+
+.image-view {
+	-fx-pref-width: 50;
+	-fx-pref-height: 50;
+
+}
+
