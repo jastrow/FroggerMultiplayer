@@ -1,6 +1,7 @@
 package views;
 
 import application.Configuration;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -9,14 +10,18 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
-public class StartScene extends Scene{
+public class StartScene {
 
+	Scene scene; 
+	
 	// Hauptpanel
-	private static GridPane wurzel = new GridPane();
+	private GridPane root = new GridPane();
 	private Label spielerName = new Label("Spielername");
 	
 	public StartScene() {
-		super(wurzel,Configuration.xFields * 50,Configuration.yFields * 50);
+		scene = new Scene(root,Configuration.xFields * 50,Configuration.yFields * 50);
+		//Szene Formatierungs CSS  zuweisen
+		scene.getStylesheets().add(getClass().getResource("../startScene.css").toExternalForm());
 		this.buildScene();
 	}
 
@@ -30,21 +35,21 @@ public class StartScene extends Scene{
 		spielerName.getStyleClass().add("spielerName");
 		
 		Button sucheSpieler = new Button();
-		sucheSpieler.setGraphic(new ImageView(new Image(getClass().getResource("img/btn_SpielerSuchen.png").toExternalForm())));
+		sucheSpieler.setGraphic(new ImageView(new Image(getClass().getResource("../img/btn_SpielerSuchen.png").toExternalForm())));
 
 		Button starteSpiel = new Button();
-		starteSpiel.setGraphic(new ImageView(new Image(getClass().getResource("img/btn_Start.png").toExternalForm())));
+		starteSpiel.setGraphic(new ImageView(new Image(getClass().getResource("../img/btn_Start.png").toExternalForm())));
 
 		verboAeussereBox.getChildren().add(spielerName);
 		verboAeussereBox.getChildren().add(sucheSpieler);
 		verboAeussereBox.getChildren().add(starteSpiel);
 
 		
-		this.wurzel.getChildren().add(verboAeussereBox);	
+		this.root.getChildren().add(verboAeussereBox);	
 	}
 	
 	public Scene getScene() {
-		return this;
+		return this.scene;
 	}
 	
 	

@@ -10,18 +10,19 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class ScoreScene extends Scene {
+public class ScoreScene {
 	
 	// Hauptpanel
-	private static GridPane root = new GridPane();
+	private Scene scene;
+	private GridPane root = new GridPane();
 	private Label[][] highScoreListe = new Label[3][3];
 	private HBox horBox[] = new HBox[3];
 	
 	public ScoreScene() {
 		
-		super(root,Configuration.xFields * 50,Configuration.yFields * 50);
+		scene = new Scene(root,Configuration.xFields * 50,Configuration.yFields * 50);
 		//Szene Formatierungs CSS  zuweisen
-		this.getStylesheets().add(getClass().getResource("scoreScene.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("../scoreScene.css").toExternalForm());
 		this.buildScene();
 	}
 
@@ -47,7 +48,7 @@ public class ScoreScene extends Scene {
 		};
 
 		Button neuesSpiel = new Button();
-		neuesSpiel.setGraphic(new ImageView(new Image(getClass().getResource("btn_NeuesSpiel.png").toExternalForm())));
+		neuesSpiel.setGraphic(new ImageView(new Image(getClass().getResource("../img/btn_NeuesSpiel.png").toExternalForm())));
 	
 		verboAeussereBox.getChildren().add(neuesSpiel);
 		
@@ -56,7 +57,7 @@ public class ScoreScene extends Scene {
 
 		
 	public Scene getScene() {
-		return this;
+		return this.scene;
 	}
 	
 }
