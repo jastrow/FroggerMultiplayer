@@ -40,7 +40,7 @@ import model.Data;
 			fillImageBar();
 			fillImageCar();
 			fillImageFrog();
-			scene = new Scene(root,Configuration.xFields * 50,Configuration.yFields * 50);
+			scene = new Scene(root,Configuration.xFields * 50,Configuration.yFields * 50 + 30);
 			//Szene Formatierungs CSS  zuweisen
 			scene.getStylesheets().add(getClass().getResource("../gameScene.css").toExternalForm());
 			this.root.getChildren().add(background);
@@ -132,13 +132,13 @@ import model.Data;
 				
 				if (exist) {
 					help.setX((data.getXPosition()*50)-49);
-					help.setY((data.getYPosition()*50)+30);
+					help.setY((data.getYPosition()*50)-24);
 					pictureCont.set(position, help);
 				} else {
 					help.setImage(car[rand.nextInt(3)]);
 					help.setFitHeight(50);
 					help.setX((data.getXPosition()*50)-49);
-					help.setY((data.getYPosition()*50)+30);
+					help.setY((data.getYPosition()*50)-24);
 					help.setId(data.getName());
 					pictureCont.add(help);
 				}
@@ -148,14 +148,14 @@ import model.Data;
 				
 				if (exist) {
 					help.setX((data.getXPosition()*50)-49);
-					help.setY((data.getYPosition()*50)+30);
+					help.setY((data.getYPosition()*50)-24);
 					pictureCont.set(position, help);
 				} else {
 					help.setImage(frog[rand.nextInt(1)]);
 					help.setFitHeight(50);
 					help.setFitWidth(50);
 					help.setX((data.getXPosition()*50)-49);
-					help.setY((data.getYPosition()*50)+30);
+					help.setY((data.getYPosition()*50)-24);
 					help.setId(data.getName());
 					pictureCont.add(help);
 				}
@@ -165,12 +165,12 @@ import model.Data;
 				
 				if (exist) {
 					help.setX((data.getXPosition()*50)-49);
-					help.setY((data.getYPosition()*50)+30);
+					help.setY((data.getYPosition()*50)-24);
 					pictureCont.set(position, help);
 				} else {
 					help.setImage(bar[rand.nextInt(2)]);
 					help.setX((data.getXPosition()*50)-49);
-					help.setY((data.getYPosition()*50)+30);
+					help.setY((data.getYPosition()*50)-24);
 					help.setId(data.getName());
 					pictureCont.add(help);
 				}
