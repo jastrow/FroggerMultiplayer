@@ -7,8 +7,7 @@
     -fx-background-image: url("img/Hintergrund_Game.jpg");
     -fx-background-repeat: no-repeat;   
     -fx-background-size: 950 630;
-    -fx-background-position: center center;
-    -fx-padding: 10;
+    -fx-padding: 0 0 0 0;
 }
 
 .image-view {
@@ -17,3 +16,7 @@
 
 }
 
+.content {
+	-fx-pref-width: 950;
+	-fx-pref-height: 600;
+}

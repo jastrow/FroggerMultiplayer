@@ -19,13 +19,14 @@ import model.Data;
 		private Scene scene;
 		
 		// Hauptpanel
-		private GridPane root = new GridPane();
-		private Group content = new Group();
+		private Group root = new Group();
+		//private Group content = new Group();
 		
 		//Bilder
 		private Image[] bar = new Image[3]; //= new Image(getClass().getResource("../img/Brett_01.png").toExternalForm());
 		private Image[] frog = new Image[2]; //= new Image(getClass().getResource("../img/Frosch_GameOver.png").toExternalForm());
 		private Image[] car  = new Image[4];
+		private ImageView background = new ImageView(new Image(getClass().getResource("../img/Hintergrund_Game.jpg").toExternalForm()));
 		
 		private ArrayList<ImageView> pictureCont = new ArrayList<ImageView>(); 
 		
@@ -42,9 +43,7 @@ import model.Data;
 			scene = new Scene(root,Configuration.xFields * 50,Configuration.yFields * 50);
 			//Szene Formatierungs CSS  zuweisen
 			scene.getStylesheets().add(getClass().getResource("../gameScene.css").toExternalForm());
-			this.root.setVgap(Configuration.xFields * 50);
-			this.root.setHgap(Configuration.yFields * 50);
-			this.root.getChildren().add(content);
+			this.root.getChildren().add(background);
 			
 		}
 		
@@ -89,12 +88,13 @@ import model.Data;
 		
 		private void updateElements() {
 			
-			System.out.println(content.getChildren().size());
-			content.getChildren().clear();
-			System.out.println(content.getChildren().size());
+			System.out.println(root.getChildren().size());
+			this.root.getChildren().clear();
+			System.out.println(root.getChildren().size());
+			this.root.getChildren().add(background);
 			for(ImageView help: pictureCont){
 				System.out.println(help.getX() + " - " + help.getY() + " - " + help.getId());
-				content.getChildren().add(help);
+				this.root.getChildren().add(help);
 			}
 		}
 		
