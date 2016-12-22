@@ -30,12 +30,13 @@ public class Main extends Application {
         root.getChildren().add(label);
         root.getChildren().add(image);
         
-        Scene scene = new Scene(root, 200, 200);
+        Scene scene = new Scene(root, 500, 500);
         
         primaryStage.setScene(scene);
         primaryStage.show();
 
         root.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        	
         	
         	/**
         	 * Method changes displayed image
