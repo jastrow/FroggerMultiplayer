@@ -22,12 +22,10 @@
 }
 
 .label {
-	-fx-padding: 10;
-	-fx-border-style: solid inside;
-	-fx-border-width: 2;
-	-fx-border-insets: 5;
-	-fx-border-radius: 5;
-	-fx-border-color: green;
-	-fx-pref-width: 100;
+	-fx-background-image: url("img/Highscore_01.png");
+	-fx-background-repeat: no-repeat;   
+    -fx-background-position: center center;
+	-fx-pref-width: 520;
+	-fx-padding: 0 0 0 60;
 }
 

@@ -15,8 +15,7 @@ public class ScoreScene {
 	// Hauptpanel
 	private Scene scene;
 	private GridPane root = new GridPane();
-	private Label[][] highScoreListe = new Label[3][3];
-	private HBox horBox[] = new HBox[3];
+	private Label[] highScoreListe = new Label[3];
 	
 	public ScoreScene() {
 		
@@ -36,16 +35,12 @@ public class ScoreScene {
 		VBox verboAeussereBox = new VBox();
 		
 		verboAeussereBox.getStyleClass().add("verboAeussereBox");
-		
-		for(int i = 0; i < 3 ;i++ ) {
-			horBox[i] = new HBox(); 
-			verboAeussereBox.getChildren().add(horBox[i]);
 			
-			for(int j = 0 ; j < 3; j++) {
-				highScoreListe[i][j] = new Label("Test");
-				horBox[i].getChildren().add(highScoreListe[i][j]); 
+			for(int i = 0 ; i < 3; i++) {
+				highScoreListe[i] = new Label("Test");
+				verboAeussereBox.getChildren().add(highScoreListe[i]); 
 			};
-		};
+		
 
 		Button neuesSpiel = new Button();
 		neuesSpiel.setGraphic(new ImageView(new Image(getClass().getResource("../img/btn_NeuesSpiel.png").toExternalForm())));
