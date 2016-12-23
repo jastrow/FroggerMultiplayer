@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import application.Configuration;
+import controller.SceneController;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import model.Data;
 
 	/**
@@ -16,17 +19,17 @@ import model.Data;
 	public class GameScene {
 	
 		private Scene scene;
+		private SceneController sceneController;
 		
 		// Hauptpanel
-		private Group root = new Group();
+		private BorderPane root = new BorderPane();
+		private Group content = new Group();
 		
 		//Bilder
 		private Image[] bar = new Image[3]; 
 		private Image[] frog = new Image[2];
 		private Image[] car  = new Image[4];
 		private Image deadFrog  = new Image(getClass().getResource("../img/Frosch_GameOver.png").toExternalForm());
-		//Hintergrundbild festlegen
-		private ImageView background = new ImageView(new Image(getClass().getResource("../img/Hintergrund_Game.jpg").toExternalForm()));
 		//Sammelliste für GUI Elemente
 		private ArrayList<ImageView> pictureCont = new ArrayList<ImageView>(); 
 		//Zufallsobjekt
@@ -35,7 +38,9 @@ import model.Data;
 		/**
 		 * Konstruktor
 		 */
-		public GameScene() {
+		public GameScene(SceneController sceneController) {
+			
+			this.sceneController = sceneController;
 			//Bilderarrays füllen
 			fillImageBar();
 			fillImageCar();
@@ -45,7 +50,11 @@ import model.Data;
 			//Szene Formatierungs CSS  zuweisen
 			scene.getStylesheets().add(getClass().getResource("../gameScene.css").toExternalForm());
 			//Szenenhintergrund hinzufügen
-			this.root.getChildren().add(background);
+			this.root.setTop(this.sceneController.getMenuBar());
+			VBox contentBox = new VBox();
+			contentBox.getChildren().add(content);
+			contentBox.getStyleClass().add("content");
+			this.root.setBottom(contentBox);
 			
 		}
 		
@@ -84,7 +93,6 @@ import model.Data;
 		private boolean checkImageExist(Data data) {
 		
 			for(ImageView help: pictureCont) {
-				System.out.println(pictureCont.indexOf(help) + " == " + data.getID());
 				if (pictureCont.indexOf(help) == data.getID()) return true;
 			}
 			
@@ -97,12 +105,10 @@ import model.Data;
 		 */
 		private void updateElements() {
 			//Szene leeren 
-			this.root.getChildren().clear();
-			//Hintergrund hinzufügen
-			this.root.getChildren().add(background);
+			this.content.getChildren().clear();
 			//Elemente in GUI setzen
 			for(ImageView help: pictureCont){
-				this.root.getChildren().add(help);
+				this.content.getChildren().add(help);
 			}
 		}
 		
@@ -137,7 +143,7 @@ import model.Data;
 				deadSign.setFitWidth(500);
 				deadSign.setX(225);
 				deadSign.setY(150);
-				this.root.getChildren().add(deadSign);
+				this.content.getChildren().add(deadSign);
 				return;
 			
 			}
@@ -159,13 +165,13 @@ import model.Data;
 				
 				if (exist) {
 					help.setX((data.getXPosition()*50)-49);
-					help.setY((data.getYPosition()*50)-24);
+					help.setY((data.getYPosition()*50)-49);
 					this.pictureCont.set(position, help);
 				} else {
 					help.setImage(this.car[rand.nextInt(3)]);
 					help.setFitHeight(50);
 					help.setX((data.getXPosition()*50)-49);
-					help.setY((data.getYPosition()*50)-24);
+					help.setY((data.getYPosition()*50)-49);
 					help.setId(data.getName());
 					this.pictureCont.add(help);
 				}
@@ -175,14 +181,14 @@ import model.Data;
 				
 				if (exist) {
 					help.setX((data.getXPosition()*50)-49);
-					help.setY((data.getYPosition()*50)-24);
+					help.setY((data.getYPosition()*50)-49);
 					this.pictureCont.set(position, help);
 				} else {
 					help.setImage(this.frog[rand.nextInt(1)]);
 					help.setFitHeight(50);
 					help.setFitWidth(50);
 					help.setX((data.getXPosition()*50)-49);
-					help.setY((data.getYPosition()*50)-24);
+					help.setY((data.getYPosition()*50)-49);
 					help.setId(data.getName());
 					this.pictureCont.add(help);
 				}
@@ -192,12 +198,12 @@ import model.Data;
 				
 				if (exist) {
 					help.setX((data.getXPosition()*50)-49);
-					help.setY((data.getYPosition()*50)-24);
+					help.setY((data.getYPosition()*50)-49);
 					this.pictureCont.set(position, help);
 				} else {
 					help.setImage(this.bar[rand.nextInt(2)]);
 					help.setX((data.getXPosition()*50)-49);
-					help.setY((data.getYPosition()*50)-24);
+					help.setY((data.getYPosition()*50)-49);
 					help.setId(data.getName());
 					this.pictureCont.add(help);
 				}

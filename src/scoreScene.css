@@ -1,19 +1,23 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
 
-.root{
-    -fx-font-size: 20pt;
-    -fx-font-family: "";
-    -fx-base: rgb(234, 231, 219);
-    -fx-background-image: url("img/Hintergrund_Highscore.jpg");
+.root {
+	-fx-background-image: url("img/Hintergrund_Highscore.jpg");
     -fx-background-repeat: no-repeat;   
     -fx-background-size: 950 600;
     -fx-background-position: center center;
+}
+
+.content{
+    -fx-font-size: 20pt;
+    -fx-font-family: "";
+    -fx-base: rgb(234, 231, 219);
     -fx-alignment: center;
 }
 
 .verboAeussereBox {
-	-fx-alignment: center;
-	-fx-padding: 270 0 0 0;
+	-fx-alignment: center;	
+	-fx-pref-height: 600;
+	-fx-padding: 280 0 0 0;
 }
 
 .button {
@@ -21,11 +25,34 @@
     -fx-padding: 15 0 0 0;
 }
 
-.label {
-	-fx-background-image: url("img/Highscore_01.png");
+.highlabel1 {
 	-fx-background-repeat: no-repeat;   
     -fx-background-position: center center;
 	-fx-pref-width: 520;
+	-fx-pref-height: 50;
 	-fx-padding: 0 0 0 60;
+	-fx-text-fill: green;
+	-fx-background-image: url("img/Highscore_01.png");
+
 }
 
+
+.highlabel2 {
+	-fx-background-repeat: no-repeat;   
+    -fx-background-position: center center;
+	-fx-pref-width: 520;
+	-fx-pref-height: 50;
+	-fx-padding: 0 0 0 60;
+	-fx-text-fill: green;
+	-fx-background-image: url("img/Highscore_02.png");
+}
+
+.highlabel3 {
+	-fx-background-repeat: no-repeat;   
+    -fx-background-position: center center;
+	-fx-pref-width: 520;
+	-fx-pref-height: 50;
+	-fx-padding: 0 0 0 60;
+	-fx-text-fill: green;
+	-fx-background-image: url("img/Highscore_03.png");
+}

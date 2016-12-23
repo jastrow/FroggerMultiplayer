@@ -6,9 +6,6 @@ import java.util.Observer;
 import controller.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import model.Data;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 
 
 public class Main extends Application implements Observer {
@@ -33,7 +30,7 @@ public class Main extends Application implements Observer {
 			//BorderPane root = new BorderPane();
 			//Scene scene = new Scene(root,400,400);
 			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(this.sceneController.getScoreScene());
+			primaryStage.setScene(this.sceneController.getGameScene());
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();

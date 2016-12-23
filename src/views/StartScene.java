@@ -1,24 +1,29 @@
 package views;
 
 import application.Configuration;
-import javafx.scene.Group;
+import controller.SceneController;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 public class StartScene {
 
-	Scene scene; 
+	private Scene scene;
+	private SceneController sceneController;
 	
 	// Hauptpanel
-	private GridPane root = new GridPane();
+	private BorderPane root = new  BorderPane();
+	private GridPane content = new GridPane();
 	private Label spielerName = new Label("Spielername");
 	
-	public StartScene() {
+	public StartScene(SceneController sceneController) {
+		this.sceneController = sceneController;
+		this.content.getStyleClass().add("content");
 		scene = new Scene(root,Configuration.xFields * 50,Configuration.yFields * 50);
 		//Szene Formatierungs CSS  zuweisen
 		scene.getStylesheets().add(getClass().getResource("../startScene.css").toExternalForm());
@@ -43,9 +48,11 @@ public class StartScene {
 		verboAeussereBox.getChildren().add(spielerName);
 		verboAeussereBox.getChildren().add(sucheSpieler);
 		verboAeussereBox.getChildren().add(starteSpiel);
-
+	
+		this.content.getChildren().add(verboAeussereBox);
 		
-		this.root.getChildren().add(verboAeussereBox);	
+		this.root.setTop(this.sceneController.getMenuBar());
+		this.root.setBottom(this.content);
 	}
 	
 	public Scene getScene() {
