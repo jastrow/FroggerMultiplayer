@@ -4,6 +4,7 @@ public class Data {
 	
 	private String name;  //Frog / Car / Balken
 	private Integer id;	 // ArrayID zur identifikation bitte bei 0 beginnen macht es einfacher 	
+	//wenn beide positionen 0 dann frosch tot
 	private Integer xPosition; //neue XPosition im Raster des Objektes auf der Scene bei 0 wird Objekt entfernt  
 	private Integer yPosition; //neue XPosition im Raster des Objektes auf der Scene bei 0 wird Objekt entfernt
 	
