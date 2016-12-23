@@ -56,3 +56,24 @@
 	-fx-text-fill: green;
 	-fx-background-image: url("img/Highscore_03.png");
 }
+
+
+.menu-bar{
+  -fx-background-color: #000;
+}
+
+.menu-bar .label {
+    -fx-font-size: 15 pt;
+    -fx-text-fill: #dedede;
+
+}
+
+
+.menu:hover {
+    -fx-background-color: #86bf58;
+}
+
+.menu-item .label{
+     -fx-font-size: 15 pt;
+    -fx-text-fill: #86bf58;
+}

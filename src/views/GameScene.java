@@ -5,8 +5,13 @@ import java.util.Random;
 
 import application.Configuration;
 import controller.SceneController;
+import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.image.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -22,8 +27,8 @@ import model.Data;
 		private SceneController sceneController;
 		
 		// Hauptpanel
-		private BorderPane root = new BorderPane();
-		private Group content = new Group();
+		private BorderPane rootGame = new BorderPane();
+		private Group contentGame = new Group();
 		
 		//Bilder
 		private Image[] bar = new Image[3]; 
@@ -46,17 +51,46 @@ import model.Data;
 			fillImageCar();
 			fillImageFrog();
 			//neue Szene erstellen
-			scene = new Scene(root,Configuration.xFields * 50,Configuration.yFields * 50 + 30);
+			scene = new Scene(rootGame,Configuration.xFields * 50,Configuration.yFields * 50 + 30);
 			//Szene Formatierungs CSS  zuweisen
 			scene.getStylesheets().add(getClass().getResource("../gameScene.css").toExternalForm());
 			//Szenenhintergrund hinzufügen
-			this.root.setTop(this.sceneController.getMenuBar());
+			this.rootGame.setTop(this.buildMenu());
 			VBox contentBox = new VBox();
-			contentBox.getChildren().add(content);
 			contentBox.getStyleClass().add("content");
-			this.root.setBottom(contentBox);
-			
+			contentBox.getChildren().add(this.contentGame);
+			this.rootGame.setBottom(contentBox);
 		}
+		
+		private VBox buildMenu() {
+			
+			MenuBar menuBar = new MenuBar();
+			VBox menuBox = new VBox();
+			
+			menuBox.setPrefHeight(20);
+			
+			Menu froggerMenu = new Menu("Frogger");
+			MenuItem neuMenuItem = new MenuItem("Neues Spiel");
+			MenuItem exitMenuItem = new MenuItem("Exit");
+	    
+			exitMenuItem.setOnAction(actionEvent -> Platform.exit());
+			neuMenuItem.setOnAction(actionEvent -> this.sceneController.newGame());
+	    
+			froggerMenu.getItems().addAll(neuMenuItem,new SeparatorMenuItem(), exitMenuItem);
+	    
+			Menu infoMenu = new Menu("Info");
+			MenuItem highMenuItem = new MenuItem("Highscore");
+	    
+			highMenuItem.setOnAction(actionEvent -> this.sceneController.showHighscore());
+	    
+			infoMenu.getItems().addAll(highMenuItem);
+	    
+			menuBar.getMenus().addAll(froggerMenu, infoMenu);
+			
+			menuBox.getChildren().add(menuBar);
+			return menuBox;
+		}
+
 		
 		/**
 		 * Hilfsfunktionen zum füllen der Bilderarrays
@@ -105,10 +139,10 @@ import model.Data;
 		 */
 		private void updateElements() {
 			//Szene leeren 
-			this.content.getChildren().clear();
+			this.contentGame.getChildren().clear();
 			//Elemente in GUI setzen
 			for(ImageView help: pictureCont){
-				this.content.getChildren().add(help);
+				this.contentGame.getChildren().add(help);
 			}
 		}
 		
@@ -143,7 +177,7 @@ import model.Data;
 				deadSign.setFitWidth(500);
 				deadSign.setX(225);
 				deadSign.setY(150);
-				this.content.getChildren().add(deadSign);
+				this.contentGame.getChildren().add(deadSign);
 				return;
 			
 			}

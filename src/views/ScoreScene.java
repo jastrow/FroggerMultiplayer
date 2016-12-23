@@ -2,9 +2,14 @@ package views;
 
 import application.Configuration;
 import controller.SceneController;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -16,14 +21,14 @@ public class ScoreScene {
 	// Hauptpanel
 	private Scene scene;
 	private SceneController sceneController;
-	private BorderPane root = new BorderPane();
-	private GridPane content = new GridPane();
+	private BorderPane rootScore = new BorderPane();
+	private GridPane contentScore = new GridPane();
 	private Label[] highScoreList = new Label[3];
 	
 	public ScoreScene(SceneController sceneController) {
 		this.sceneController = sceneController;
-		this.content.getStyleClass().add("content");
-		scene = new Scene(root,Configuration.xFields * 50,Configuration.yFields * 50);
+		this.contentScore.getStyleClass().add("content");
+		scene = new Scene(rootScore,Configuration.xFields * 50,Configuration.yFields * 50);
 		//Szene Formatierungs CSS  zuweisen
 		scene.getStylesheets().add(getClass().getResource("../scoreScene.css").toExternalForm());
 		this.buildScene();
@@ -52,11 +57,41 @@ public class ScoreScene {
 		neuesSpiel.setOnAction(actionEvent -> this.sceneController.newGame());
 	
 		verboAeussereBox.getChildren().add(neuesSpiel);
-		this.content.getChildren().add(verboAeussereBox);
+		this.contentScore.getChildren().add(verboAeussereBox);
 		
-		this.root.setTop(this.sceneController.getMenuBar());
-		this.root.setBottom(this.content);
+		this.rootScore.setTop(this.buildMenu());
+		this.rootScore.setBottom(this.contentScore);
 	}
+	
+	private VBox buildMenu() {
+		
+		MenuBar menuBar = new MenuBar();
+		VBox menuBox = new VBox();
+		
+		menuBox.setPrefHeight(20);
+		
+		Menu froggerMenu = new Menu("Frogger");
+		MenuItem neuMenuItem = new MenuItem("Neues Spiel");
+		MenuItem exitMenuItem = new MenuItem("Exit");
+    
+		exitMenuItem.setOnAction(actionEvent -> Platform.exit());
+		neuMenuItem.setOnAction(actionEvent -> this.sceneController.newGame());
+    
+		froggerMenu.getItems().addAll(neuMenuItem,new SeparatorMenuItem(), exitMenuItem);
+    
+		Menu infoMenu = new Menu("Info");
+		MenuItem highMenuItem = new MenuItem("Highscore");
+    
+		highMenuItem.setOnAction(actionEvent -> this.sceneController.showHighscore());
+    
+		infoMenu.getItems().addAll(highMenuItem);
+    
+		menuBar.getMenus().addAll(froggerMenu, infoMenu);
+		
+		menuBox.getChildren().add(menuBar);
+		return menuBox;
+	}
+
 
 		
 	public Scene getScene() {

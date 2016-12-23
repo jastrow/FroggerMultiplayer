@@ -3,7 +3,7 @@
 .root {
     -fx-background-image: url("img/Hintergrund_Start.jpg");
     -fx-background-repeat: no-repeat;   
-    -fx-background-size: 950 600;
+    -fx-background-size: 950 630;
     -fx-background-position: center center;
 
 }
@@ -23,7 +23,7 @@
 .verboAeussereBox {
 	-fx-alignment: center;	
 	-fx-pref-height: 600;
-	-fx-padding: 280 0 0 0;
+	-fx-padding: 260 0 0 0;
 }
 
 .spielerName {
@@ -35,4 +35,25 @@
 	-fx-border-color: green;
 	-fx-pref-width: 300;
 	-fx-text-fill: green;
+}
+
+
+.menu-bar{
+  -fx-background-color: #000;
+}
+
+.menu-bar .label {
+    -fx-font-size: 15 pt;
+    -fx-text-fill: #dedede;
+
+}
+
+
+.menu:hover {
+    -fx-background-color: #86bf58;
+}
+
+.menu-item .label{
+     -fx-font-size: 15 pt;
+    -fx-text-fill: #86bf58;
 }

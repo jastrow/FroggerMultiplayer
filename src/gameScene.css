@@ -8,7 +8,7 @@
   }
   
 .content{
-    -fx-pref-height: 600;
+    -fx-pref-height: 610;
     -fx-pref-width: 950;
 }
 
@@ -16,4 +16,25 @@
 	-fx-pref-width: 50;
 	-fx-pref-height: 50;
 
+}
+
+
+.menu-bar{
+  -fx-background-color: #000;
+}
+
+.menu-bar .label {
+    -fx-font-size: 15 pt;
+    -fx-text-fill: #dedede;
+
+}
+
+
+.menu:hover {
+    -fx-background-color: #86bf58;
+}
+
+.menu-item .label{
+     -fx-font-size: 15 pt;
+    -fx-text-fill: #86bf58;
 }

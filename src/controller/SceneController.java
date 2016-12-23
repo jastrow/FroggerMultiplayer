@@ -13,23 +13,13 @@ public class SceneController {
 	public StartScene startScene;
 	public GameScene gameScene;
 	public ScoreScene scoreScene;
-	public HeadMenu headMenu;
-	
-	private int i = 1;
 	
 	
 	public SceneController() {
-		this.headMenu = new HeadMenu(this);
 		this.startScene = new StartScene(this);
 		this.gameScene = new GameScene(this);
 		this.scoreScene = new ScoreScene(this);
 
-	}
-	
-	public VBox getMenuBar() {
-		System.out.println("Aufruf: " + i);
-		i++;
-		return this.headMenu.getResultBox();
 	}
 	
 	public Scene getGameScene() {
@@ -54,6 +44,14 @@ public class SceneController {
 	
 	public void showHighscore(){
 		System.out.println("Da isser Highscore !");
+	}
+	
+	public void searchPlayer(){
+		System.out.println("na dann suche mal!");
+	}
+	
+	public void startGame(){
+		System.out.println("na dann starte mal!");
 	}
 	
 	public void setGame(GameLogic game) {
