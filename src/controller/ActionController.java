@@ -8,7 +8,7 @@ public class ActionController {
 	
 	public ActionController(SceneController sceneController) {
 		this.sceneController = sceneController;
-		this.sceneController.updateScene(new Data("car",0,1,2));
+		this.sceneController.updateScene(new Data("car",0,18,2));
 		this.sceneController.updateScene(new Data("car",1,1,3));
 		this.sceneController.updateScene(new Data("bar",2,3,6));
 		this.sceneController.updateScene(new Data("car",3,4,10));

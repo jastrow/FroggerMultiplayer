@@ -10,8 +10,6 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -45,12 +43,18 @@ public class StartScene {
 		spielerName.getStyleClass().add("spielerName");
 		
 		Button sucheSpieler = new Button();
-		sucheSpieler.setGraphic(new ImageView(new Image(getClass().getResource("../img/btn_SpielerSuchen.png").toExternalForm())));
+		//sucheSpieler.setGraphic(new ImageView(new Image(getClass().getResource("../img/btn_SpielerSuchen.png").toExternalForm())));
+		sucheSpieler.getStyleClass().add("sucheSpieler");
+		sucheSpieler.setPrefHeight(65);
+		sucheSpieler.setPrefWidth(330);
 		sucheSpieler.setOnAction(actionEvent -> this.sceneController.searchPlayer());
 
 		Button starteSpiel = new Button();
-		starteSpiel.setGraphic(new ImageView(new Image(getClass().getResource("../img/btn_Start.png").toExternalForm())));
-		sucheSpieler.setOnAction(actionEvent -> this.sceneController.startGame());
+		//starteSpiel.setGraphic(new ImageView(new Image(getClass().getResource("../img/btn_Start.png").toExternalForm())));
+		starteSpiel.getStyleClass().add("starteSpiel");
+		starteSpiel.setPrefHeight(78);
+		starteSpiel.setPrefWidth(260);
+		starteSpiel.setOnAction(actionEvent -> this.sceneController.startGame());
 
 		verboAeussereBox.getChildren().add(spielerName);
 		verboAeussereBox.getChildren().add(sucheSpieler);

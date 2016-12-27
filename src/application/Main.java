@@ -30,7 +30,7 @@ public class Main extends Application implements Observer {
 			//BorderPane root = new BorderPane();
 			//Scene scene = new Scene(root,400,400);
 			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(this.sceneController.getScoreScene());
+			primaryStage.setScene(this.sceneController.getStartScene());
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();

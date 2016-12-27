@@ -132,6 +132,12 @@ import model.Data;
 			
 			return false;
 		}
+		
+		private ImageView setPosition(ImageView imgObject, Integer xPosition, Integer yPosition) {
+			imgObject.setX(xPosition);
+			imgObject.setY(yPosition);
+			return imgObject;
+		}
 
 		/**
 		 * Hilfsfunktion zum leeren und neu befüllen der Szene
@@ -198,48 +204,57 @@ import model.Data;
 			case "car": {
 				
 				if (exist) {
-					help.setX((data.getXPosition()*50)-49);
-					help.setY((data.getYPosition()*50)-49);
-					this.pictureCont.set(position, help);
+					//help.setX((data.getXPosition()*50)-49);
+					//help.setY((data.getYPosition()*50)-49);
+					//this.pictureCont.set(position, help);
+					this.pictureCont.set(position, this.setPosition(help, ((data.getXPosition()*50)-49), ((data.getYPosition()*50)-49)));
 				} else {
 					help.setImage(this.car[rand.nextInt(3)]);
 					help.setFitHeight(50);
-					help.setX((data.getXPosition()*50)-49);
-					help.setY((data.getYPosition()*50)-49);
+					//help.setX((data.getXPosition()*50)-49);
+					//help.setY((data.getYPosition()*50)-49);
 					help.setId(data.getName());
-					this.pictureCont.add(help);
+					//this.pictureCont.add(help);
+					this.pictureCont.add(this.setPosition(help, ((data.getXPosition()*50)-49), ((data.getYPosition()*50)-49)));
 				}
 				break;
 			}
 			case "frog": {
 				
 				if (exist) {
-					help.setX((data.getXPosition()*50)-49);
-					help.setY((data.getYPosition()*50)-49);
-					this.pictureCont.set(position, help);
+					//help.setX((data.getXPosition()*50)-49);
+					//help.setY((data.getYPosition()*50)-49);
+					//this.pictureCont.set(position, help);
+					this.pictureCont.set(position, this.setPosition(help, ((data.getXPosition()*50)-49), ((data.getYPosition()*50)-49)));
 				} else {
 					help.setImage(this.frog[rand.nextInt(1)]);
 					help.setFitHeight(50);
 					help.setFitWidth(50);
-					help.setX((data.getXPosition()*50)-49);
-					help.setY((data.getYPosition()*50)-49);
+					//help.setX((data.getXPosition()*50)-49);
+					//help.setY((data.getYPosition()*50)-49);
 					help.setId(data.getName());
-					this.pictureCont.add(help);
+					//this.pictureCont.add(help);
+					this.pictureCont.add(this.setPosition(help, ((data.getXPosition()*50)-49), ((data.getYPosition()*50)-49)));
+
 				}
 				break;
 			}
 			case "bar": {
 				
 				if (exist) {
-					help.setX((data.getXPosition()*50)-49);
-					help.setY((data.getYPosition()*50)-49);
-					this.pictureCont.set(position, help);
+					//help.setX((data.getXPosition()*50)-49);
+					//help.setY((data.getYPosition()*50)-49);
+					//this.pictureCont.set(position, help);
+					this.pictureCont.set(position, this.setPosition(help, ((data.getXPosition()*50)-49), ((data.getYPosition()*50)-49)));
 				} else {
-					help.setImage(this.bar[rand.nextInt(2)]);
-					help.setX((data.getXPosition()*50)-49);
-					help.setY((data.getYPosition()*50)-49);
+					Integer barLength = rand.nextInt(2);
+					help.setImage(this.bar[barLength]);
+					//help.setX((data.getXPosition()*50)-49);
+					//help.setY((data.getYPosition()*50)-49);
 					help.setId(data.getName());
-					this.pictureCont.add(help);
+					//this.pictureCont.add(help);
+					//this.sceneController.setBar(barLength);
+					this.pictureCont.add(this.setPosition(help, ((data.getXPosition()*50)-49), ((data.getYPosition()*50)-49)));
 				}
 				
 				break;

@@ -10,8 +10,6 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -53,7 +51,10 @@ public class ScoreScene {
 		
 
 		Button neuesSpiel = new Button();
-		neuesSpiel.setGraphic(new ImageView(new Image(getClass().getResource("../img/btn_NeuesSpiel.png").toExternalForm())));
+		//neuesSpiel.setGraphic(new ImageView(new Image(getClass().getResource("../img/btn_NeuesSpiel.png").toExternalForm())));
+		neuesSpiel.getStyleClass().add("neuesSpiel");
+		neuesSpiel.setPrefWidth(300);
+		neuesSpiel.setPrefHeight(65);
 		neuesSpiel.setOnAction(actionEvent -> this.sceneController.newGame());
 	
 		verboAeussereBox.getChildren().add(neuesSpiel);

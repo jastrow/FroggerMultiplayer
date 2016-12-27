@@ -22,6 +22,10 @@ public class SceneController {
 
 	}
 	
+	public void setBar(Integer length) {
+		
+	}
+	
 	public Scene getGameScene() {
 		return this.gameScene.getScene();
 	}

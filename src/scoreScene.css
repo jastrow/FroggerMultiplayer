@@ -17,12 +17,23 @@
 .verboAeussereBox {
 	-fx-alignment: center;	
 	-fx-pref-height: 600;
-	-fx-padding: 280 0 0 0;
+	-fx-padding: 260 0 0 0;
 }
 
-.button {
-    -fx-background-color: rgb(0255,255,255);
-    -fx-padding: 15 0 0 0;
+.neuesSpiel {
+	-fx-background-repeat: no-repeat;   
+    -fx-background-position: center center;
+    -fx-background-image: url("img/btn_NeuesSpiel.png");
+    -fx-background-color: rgb(255,255,255);
+   	-fx-padding: 0 0 60 0;
+}
+
+.neuesSpiel:hover {
+	-fx-background-repeat: no-repeat;   
+    -fx-background-position: center center;
+    -fx-background-image: url("img/btn_NeuesSpiel_hover.png");
+    -fx-background-color: rgb(255,255,255);
+    -fx-padding: 0 0 60 0;
 }
 
 .highlabel1 {

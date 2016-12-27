@@ -2,49 +2,38 @@ package model;
 
 public class Bar {
 	
-	private int laenge = 0;
-	private int oldPositionX = 0;
-	private int oldPositionY = 0; 
-	private int positionX = 0;
-	private int positionY = 0; 
+	private Integer length = 0;
+	private Integer ID;
+	private Integer xPosition;
+	private Integer yPosition;
 	
-	public Bar (int positionY, int positionX, int laenge) {
-		this.laenge = laenge;
-		this.positionX = positionX;
-		this.positionY = positionY;
+	public Bar (Integer xPosition, Integer yPosition, Integer ID, Integer length) {
+		this.xPosition = xPosition;
+		this.yPosition = yPosition;
 	}
 	
-	
-	public int getLaenge() {
-		return this.laenge;
+	public Integer getLength() {
+		return this.length;
 	}
 	
-	public int getPositionX() {
-		return this.positionX;
+	public void setLength(Integer length) {
+		this.length = length;
 	}
 	
-	public int getPositionY() {
-		return this.positionY;
+	public Integer getXPosition() {
+		return this.xPosition;
 	}
 	
-
-	public int getOldPositionX() {
-		return this.oldPositionX;
+	public int getYPosition() {
+		return this.yPosition;
 	}
 	
-	public int getOldPositionY() {
-		return this.oldPositionY;
+	public void setXPosition(int xPosition) {
+		this.xPosition = xPosition;
 	}
 	
-	
-	public void setPositionX(int positionX) {
-		this.oldPositionX = this.positionX;
-		this.positionX = positionX;
-	}
-	
-	public void setPositionY(int positionY) {
-		this.oldPositionY = this.positionY;
-		this.positionY = positionY;
+	public void setYPosition(int yPosition) {
+		this.yPosition = yPosition;
 	}
 	
 	
