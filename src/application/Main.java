@@ -1,19 +1,15 @@
 package application;
 	
-import java.util.Observable;
-import java.util.Observer;
-
 import controller.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
 
-public class Main extends Application implements Observer {
+public class Main extends Application implements SubscriberInterface {
 	
 	public SceneController sceneController;
-	public GameLogic gameData;
+	public GameLogic gameData;	// Ganze Spiellogik
 	public ActionController actionController; // klicks, keybords Prüfung ob geht, GameLogic, usw.
 	public ServerController server; // API zum Server
 	
@@ -51,9 +47,9 @@ public class Main extends Application implements Observer {
 		
 	}
 
-	@Override
-	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		System.out.println("test");
+	public void calling(String trigger, SubscriberDaten data) {
+		
 	}
+	
+	
 }

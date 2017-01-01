@@ -21,7 +21,7 @@ public class ScoreScene extends Scene {
 		
 		super(root,Configuration.xFields * 50,Configuration.yFields * 50);
 		//Szene Formatierungs CSS  zuweisen
-		this.getStylesheets().add(getClass().getResource("scoreScene.css").toExternalForm());
+		this.getStylesheets().add(getClass().getResource("../scoreScene.css").toExternalForm());
 		this.buildScene();
 	}
 
@@ -47,7 +47,7 @@ public class ScoreScene extends Scene {
 		};
 
 		Button neuesSpiel = new Button();
-		neuesSpiel.setGraphic(new ImageView(new Image(getClass().getResource("btn_NeuesSpiel.png").toExternalForm())));
+		neuesSpiel.setGraphic(new ImageView(new Image(getClass().getResource("../img/btn_NeuesSpiel.png").toExternalForm())));
 	
 		verboAeussereBox.getChildren().add(neuesSpiel);
 		

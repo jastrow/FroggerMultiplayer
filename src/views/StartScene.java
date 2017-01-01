@@ -30,10 +30,10 @@ public class StartScene extends Scene{
 		spielerName.getStyleClass().add("spielerName");
 		
 		Button sucheSpieler = new Button();
-		sucheSpieler.setGraphic(new ImageView(new Image(getClass().getResource("img/btn_SpielerSuchen.png").toExternalForm())));
+		sucheSpieler.setGraphic(new ImageView(new Image(getClass().getResource("../img/btn_SpielerSuchen.png").toExternalForm())));
 
 		Button starteSpiel = new Button();
-		starteSpiel.setGraphic(new ImageView(new Image(getClass().getResource("img/btn_Start.png").toExternalForm())));
+		starteSpiel.setGraphic(new ImageView(new Image(getClass().getResource("../img/btn_Start.png").toExternalForm())));
 
 		verboAeussereBox.getChildren().add(spielerName);
 		verboAeussereBox.getChildren().add(sucheSpieler);

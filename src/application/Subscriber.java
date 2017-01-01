@@ -2,15 +2,15 @@ package application;
 
 public class Subscriber {
 	
-	public String keyword;
+	public String trigger;
 	public Object listener;
 	
 	public Subscriber(Object subscriber, String keyword) {
-		this.keyword = keyword;
+		this.trigger = keyword;
 		this.listener = subscriber;
 	}
 	public Subscriber(String keyword, Object subscriber) {
-		this.keyword = keyword;
+		this.trigger = keyword;
 		this.listener = subscriber;
 	}
 	
@@ -21,7 +21,7 @@ public class Subscriber {
 		return "wurde ausgeführt";
 	}
 	
-	public String getKeyword() {
-		return keyword;
+	public String getTrigger() {
+		return trigger;
 	}
 }

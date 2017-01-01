@@ -22,8 +22,8 @@ import javafx.scene.layout.*;
 		// Array an Horizontalboxen
 		private HBox[] horBox = new HBox[Configuration.yFields];
 		//Bilder
-		private Image Brett = new Image(getClass().getResource("img/Brett01.png").toExternalForm());
-		private Image totFrosch = new Image(getClass().getResource("img/Frosch_GameOver.png").toExternalForm());
+		private Image Brett = new Image(getClass().getResource("../img/Brett_01.png").toExternalForm());
+		private Image totFrosch = new Image(getClass().getResource("../img/Frosch_GameOver.png").toExternalForm());
 
 
 		/**
@@ -34,7 +34,7 @@ import javafx.scene.layout.*;
 			super(root,Configuration.xFields * 50,Configuration.yFields * 50);
 			this.buildScene();
 			//Szene Formatierungs CSS  zuweisen
-			this.getStylesheets().add(getClass().getResource("gameScene.css").toExternalForm());
+			this.getStylesheets().add(getClass().getResource("../gameScene.css").toExternalForm());
 		}
 
 		/**
@@ -81,8 +81,8 @@ import javafx.scene.layout.*;
 		}
 		
 		public void setCar(Car autoObjekt) {
-			imgSpielfelder[autoObjekt.getOldPositionX()][autoObjekt.getOldPositionY()].setImage(null);
-			imgSpielfelder[autoObjekt.getPositionX()][autoObjekt.getPositionY()].setImage(autoObjekt.getImage());
+			//imgSpielfelder[autoObjekt.getOldPositionX()][autoObjekt.getOldPositionY()].setImage(null);
+			//imgSpielfelder[autoObjekt.getPositionX()][autoObjekt.getPositionY()].setImage(autoObjekt.getImage());
 			
 			
 		}

@@ -1,22 +1,32 @@
 package model;
 
-import javafx.scene.image.Image;
+import application.Configuration;
+import application.SubscriberDaten;
+import application.SubscriberInterface;
 
-public class Car {
+public class Car implements SubscriberInterface {
 
-	private int oldPositionX = 0;
-	private int oldPositionY = 0;
-	private int positionX = 0;
-	private int positionY = 0; 
-	private Image carPic;
+	private int id;
+	private Boolean leftToRight = false;	// Auto fährt von links nach rechts (ansonsten andersrum)
+	private int positionX = 1;
+	private int positionY; 
 	
-	public Car (int positionY, int positionX, Image carPic) {
-		this.positionX = positionX;
+	public Car (Boolean leftToRight, Integer positionY) {
+		this.id = IdCounter.getId();
 		this.positionY = positionY;
-		this.carPic = carPic;
+		this.leftToRight = leftToRight;
+		if(!leftToRight) {
+			this.positionX = Configuration.xFields;
+		}
 	}
 
-
+	public int getId() {
+		return this.id;
+	}
+	public Boolean getLeftToRight() {
+		return this.leftToRight;
+	}
+	
 	public int getPositionX() {
 		return this.positionX;
 	}
@@ -24,37 +34,17 @@ public class Car {
 	public int getPositionY() {
 		return this.positionY;
 	}
-	
-	public int getOldPositionX() {
-		return this.oldPositionX;
-	}
-	
-	public int getOldPositionY() {
-		return this.oldPositionY;
-	}
-
 
 	public void setPositionX(int positionX) {
-		this.oldPositionX = this.positionX;
 		this.positionX = positionX;
 	}
 	
 	public void setPositionY(int positionY) {
-		this.oldPositionY = this.positionY;
 		this.positionY = positionY;
 	}
-	
-	/* public void setOldPositionX(int oldPositionX) {
-		this.oldPositionX = oldPositionX;
+
+	public void calling(String trigger, SubscriberDaten daten) {
+		
 	}
-	
-	public void setOldPositionY(int oldPositionY) {
-		this.oldPositionY = oldPositionY;
-	}*/
-	
-	public Image getImage() {
-		return this.carPic;
-	}  
-  
   
 }

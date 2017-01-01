@@ -48,8 +48,7 @@ public class Observer {
 	 */
 	public void triggerObserver(String trigger, SubscriberDaten data) {
 		for(Subscriber subscriber: this.subscriber) {
-			if(subscriber.getKeyword() == trigger) {
-				System.out.println("triggered subscriber found ");
+			if(subscriber.getTrigger() == trigger) {
 				subscriber.listenTo(trigger, data);
 			}
 		}
@@ -69,25 +68,28 @@ public class Observer {
 	 * @param obj Der Subscriber selbst (this).
 	 * @param trigger Das Auslöser-Codewort.
 	 */
-	public void addSubscriber(Object obj, String trigger) {
-		this.subscriber.add( new Subscriber(obj, trigger) );
+	public void addSubscriber(String trigger, Object obj) {
+		this.subscriber.add( new Subscriber(trigger, obj) );
 	}
 	/**
 	 * Statischer Aufruf von addSubscriber.
 	 * @param obj
 	 * @param trigger
 	 */
-	public static void add(Object obj, String trigger) {
+	public static void add(String trigger, Object obj) {
 		Observer obs = Observer.getInstance();
-		obs.addSubscriber(obj, trigger);
+		obs.addSubscriber(trigger, obj);
 	}
+	
+	
+	
 	
 	/**
 	 * Entfernt einen Subscriber, benötigt die betroffene Instanz und den Trigger.
 	 * @param obj
 	 * @param trigger
 	 */
-	public void removeSubscriber(Object obj, String trigger) {
+	public void removeSubscriber(String trigger, Object obj) {
 		
 	}
 	

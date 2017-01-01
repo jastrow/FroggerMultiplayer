@@ -14,7 +14,7 @@ public class SceneController {
 	public ScoreScene scoreScene;
 	
 	
-	public void SceneControler() {
+	public SceneController() {
 		this.startScene = new StartScene();
 		this.gameScene = new GameScene();
 		this.scoreScene = new ScoreScene();
@@ -22,7 +22,7 @@ public class SceneController {
 	
 	public Scene getScene(int sceneID) {
 	switch(sceneID) {
-		case 1: return startScene.getScene();
+		case 1: return this.startScene;
 		case 2: return scoreScene.getScene();
 		default: return gameScene.getScene();
 		}
