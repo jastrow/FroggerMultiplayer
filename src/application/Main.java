@@ -17,7 +17,7 @@ public class Main extends Application implements SubscriberInterface {
 		
 		this.sceneController = new SceneController();
 		this.gameData = new GameLogic();
-		this.actionController = new ActionController();
+		this.actionController = new ActionController(this.sceneController);
 		
 		
 		this.sceneController.setGame(this.gameData);
@@ -25,10 +25,10 @@ public class Main extends Application implements SubscriberInterface {
 		
 		
 		try {
-			BorderPane root = new BorderPane();
+			//BorderPane root = new BorderPane();
 			//Scene scene = new Scene(root,400,400);
 			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(this.sceneController.getScene(1));
+			primaryStage.setScene(this.sceneController.getStartScene());
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();

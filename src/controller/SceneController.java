@@ -2,6 +2,7 @@ package controller;
 
 import application.*;
 import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
 import views.*;
 import model.*;
 
@@ -21,28 +22,50 @@ public class SceneController {
 	}
 	
 	public Scene getScene(int sceneID) {
-	switch(sceneID) {
-		case 1: return this.startScene;
-		case 2: return scoreScene.getScene();
-		default: return gameScene.getScene();
+		switch(sceneID) {
+			case 1: return startScene.getScene();
+			case 2: return scoreScene.getScene();
+			default: return gameScene.getScene();
 		}
+
+
 	}
 	
-	public void updateGameScene(Frog[] frosch, Balken[] balken, Car[] auto) {
+	public void setBar(Integer length) {
 		
-		for (int i = 0 ; i < frosch.length; i++ ) {
-			gameScene.setFrog(frosch[i]);
-		}
-		
-		for (int i = 0 ; i < balken.length; i++ ) {
-			gameScene.setBalken(balken[i]);
-		}
-		
-		for (int i = 0 ; i < auto.length; i++ ) {
-			gameScene.setCar(auto[i]);
-		}
+	}
 	
-	} 
+	public Scene getGameScene() {
+		return this.gameScene.getScene();
+	}
+	
+	public Scene getScoreScene() {
+		return this.scoreScene.getScene();
+	}
+	
+	public Scene getStartScene() {
+		return this.startScene.getScene();
+	}
+	
+	public void updateScene(Data data) {
+		this.gameScene.updateScene(data);
+	}
+	
+	public void newGame(){
+		System.out.println("Da isser klick !");
+	}
+	
+	public void showHighscore(){
+		System.out.println("Da isser Highscore !");
+	}
+	
+	public void searchPlayer(){
+		System.out.println("na dann suche mal!");
+	}
+	
+	public void startGame(){
+		System.out.println("na dann starte mal!");
+	}
 	
 	public void setGame(GameLogic game) {
 		this.game = game;

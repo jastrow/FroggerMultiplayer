@@ -1,12 +1,40 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
 
-.root{
-    -fx-font-size: 20pt;
-    -fx-font-family: "";
-    -fx-base: rgb(234, 231, 219);
-    -fx-background-image: url("img/Hintergrund_Game.jpg");
+.root {
+	-fx-background-image: url("img/Hintergrund_Game.jpg");
     -fx-background-repeat: no-repeat;   
-    -fx-background-size: 950 600;
-    -fx-background-position: center center;
-    -fx-alignment: center;
+    -fx-background-size: 950 630;
+    -fx-background-position: center center;  
+  }
+  
+.content{
+    -fx-pref-height: 610;
+    -fx-pref-width: 950;
+}
+
+.image-view {
+	-fx-pref-width: 50;
+	-fx-pref-height: 50;
+
+}
+
+
+.menu-bar{
+  -fx-background-color: #000;
+}
+
+.menu-bar .label {
+    -fx-font-size: 15 pt;
+    -fx-text-fill: #dedede;
+
+}
+
+
+.menu:hover {
+    -fx-background-color: #86bf58;
+}
+
+.menu-item .label{
+     -fx-font-size: 15 pt;
+    -fx-text-fill: #86bf58;
 }
