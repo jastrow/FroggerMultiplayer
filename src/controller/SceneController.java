@@ -8,7 +8,7 @@ import views.*;
 import model.*;
 
 
-public class SceneController {
+public class SceneController implements SubscriberInterface {
 	public GameLogic game;
 	
 	public StartScene startScene;
@@ -23,6 +23,8 @@ public class SceneController {
 		this.gameScene = new GameScene(this);
 		this.scoreScene = new ScoreScene(this);
 		this.secondaryStage = new Stage();
+		
+		Observer.add("time", this);
 	}
 	
 	public Scene getScene(int sceneID) {
@@ -77,9 +79,21 @@ public class SceneController {
 	
 	public void startGame(){
 		System.out.println("na dann starte mal!");
+
+		SubscriberDaten daten = new SubscriberDaten();
+		daten.time = 0;
+		Observer.trigger("start", daten);
+
 	}
 	
 	public void setGame(GameLogic game) {
 		this.game = game;
 	} 
+	
+	public void calling(String trigger, SubscriberDaten data) {
+		if(trigger == "time") {
+			// zeige zeit in gamescene
+			// data.time
+		}
+	}
 }

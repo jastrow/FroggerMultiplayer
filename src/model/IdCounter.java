@@ -12,3 +12,5 @@ public class IdCounter {
 		return ++num;
 	}
 }
+
+// IdCounter.getId() = Int

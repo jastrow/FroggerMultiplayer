@@ -81,12 +81,15 @@ public class Car implements SubscriberInterface {
 	}
 	
 	public void sendObserver(String typ) {
+		
 		SubscriberDaten data = new SubscriberDaten();
 		data.id 		= this.id;
 		data.name 		= "Car";
 		data.xPosition 	= this.positionX;
 		data.yPosition 	= this.positionY;
 		data.typ 		= typ;
+		Observer.trigger("car", data);
+		
 	}
   
 }

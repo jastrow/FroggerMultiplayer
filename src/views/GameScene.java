@@ -3,7 +3,7 @@ package views;
 import java.util.ArrayList;
 import java.util.Random;
 
-import application.Configuration;
+import application.*;
 import controller.SceneController;
 import javafx.application.Platform;
 import javafx.scene.Group;
@@ -21,7 +21,7 @@ import model.Data;
 	 * @author JackRyan
 	 *
 	 */
-	public class GameScene {
+	public class GameScene implements SubscriberInterface {
 	
 		private Scene scene;
 		private SceneController sceneController;
@@ -66,6 +66,9 @@ import model.Data;
 			contentBox.getStyleClass().add("content");
 			contentBox.getChildren().add(this.contentGame);
 			this.rootGame.setBottom(contentBox);
+			
+			
+//			Observer.add("auto", this);
 		}
 		
 		private VBox buildMenu() {
@@ -284,6 +287,29 @@ import model.Data;
 		 */
 		public Scene getScene() {
 			return this.scene;
+		}
+		
+		public void calling(String trigger, SubscriberDaten data) {
+//			if(trigger == "car") {
+//				if(data.typ == "new") {
+//					List.add()
+//					list.remove(this);
+//				} else if(data.typ == "delete") {
+//					for(ImageView bla: pictureCont) {
+//						if( bla.id == daten.id) {
+//							List.remove(bla);
+//							break;
+//						}
+//					}					
+//				} else if(data.typ == "move") {
+//					for(ImageView bla: pictureCont) {
+//						if( bla.id == daten.id) {
+//							
+//						}
+//					}
+//				}
+//				Integer autoId = daten.id;
+//			}
 		}
 
 }
