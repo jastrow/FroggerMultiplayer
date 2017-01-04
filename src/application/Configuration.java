@@ -12,5 +12,5 @@ public class Configuration {
 	public final static Integer timeSteps = 100; // Milliseconds
 	
 	public final static Integer carMaxPerStreet = 3; // Maximale Anzahl von Autos auf einer StraßeMääggggerererererer
-	public final static Integer carSpeed = 300; 	// Bewegungsgeschwindigkeit Millisekunden pro Feld
+	public final static Integer carSpeed = 300; 	// Bewegungsgeschwindigkeit Millisekunden pro Feld ()
 }
