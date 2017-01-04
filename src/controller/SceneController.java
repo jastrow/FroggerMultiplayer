@@ -32,6 +32,7 @@ public class SceneController {
 	}
 	
 	public void setBar(Integer length) {
+		System.out.println("PUPS");
 		
 	}
 	
