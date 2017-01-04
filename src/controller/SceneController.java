@@ -3,6 +3,7 @@ package controller;
 import application.*;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import views.*;
 import model.*;
 
@@ -13,12 +14,15 @@ public class SceneController {
 	public StartScene startScene;
 	public GameScene gameScene;
 	public ScoreScene scoreScene;
+	private Stage primaryStage;
+	private Stage secondaryStage;
 	
 	
 	public SceneController() {
 		this.startScene = new StartScene(this);
 		this.gameScene = new GameScene(this);
 		this.scoreScene = new ScoreScene(this);
+		this.secondaryStage = new Stage();
 	}
 	
 	public Scene getScene(int sceneID) {
@@ -31,8 +35,14 @@ public class SceneController {
 
 	}
 	
+	public void setStage(Stage primaryStage){
+		this.primaryStage = primaryStage;
+		this.primaryStage.setScene(getStartScene());
+		
+	}
+	
+	
 	public void setBar(Integer length) {
-		System.out.println("Mäggermike");
 		
 	}
 	
@@ -53,11 +63,12 @@ public class SceneController {
 	}
 	
 	public void newGame(){
-		System.out.println("Da isser klick !");
+		this.primaryStage.setScene(this.getGameScene());
 	}
 	
 	public void showHighscore(){
-		System.out.println("Da isser Highscore !");
+		this.secondaryStage.setScene(this.getScoreScene());
+		this.secondaryStage.show();
 	}
 	
 	public void searchPlayer(){
