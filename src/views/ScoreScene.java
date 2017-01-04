@@ -56,7 +56,7 @@ public class ScoreScene {
 
 		Button neuesSpiel = new Button();
 
-		neuesSpiel.setGraphic(new ImageView(new Image(getClass().getResource("../img/btn_NeuesSpiel.png").toExternalForm())));
+		//neuesSpiel.setGraphic(new ImageView(new Image(getClass().getResource("../img/btn_NeuesSpiel.png").toExternalForm())));
 
 		//neuesSpiel.setGraphic(new ImageView(new Image(getClass().getResource("../img/btn_NeuesSpiel.png").toExternalForm())));
 		neuesSpiel.getStyleClass().add("neuesSpiel");

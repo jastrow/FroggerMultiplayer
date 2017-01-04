@@ -44,7 +44,7 @@ public class StartScene {
 		
 		Button sucheSpieler = new Button();
 
-		sucheSpieler.setGraphic(new ImageView(new Image(getClass().getResource("../img/btn_SpielerSuchen.png").toExternalForm())));
+//		sucheSpieler.setGraphic(new ImageView(new Image(getClass().getResource("../img/btn_SpielerSuchen.png").toExternalForm())));
 		//starteSpiel.setGraphic(new ImageView(new Image(getClass().getResource("../img/btn_Start.png").toExternalForm())));
 
 		Button starteSpiel = new Button();
@@ -55,13 +55,12 @@ public class StartScene {
 		sucheSpieler.setPrefWidth(330);
 		sucheSpieler.setOnAction(actionEvent -> this.sceneController.searchPlayer());
 
-		Button starteSpiel = new Button();
 		//starteSpiel.setGraphic(new ImageView(new Image(getClass().getResource("../img/btn_Start.png").toExternalForm())));
 		starteSpiel.getStyleClass().add("starteSpiel");
 		starteSpiel.setPrefHeight(78);
 		starteSpiel.setPrefWidth(260);
 		starteSpiel.setOnAction(actionEvent -> this.sceneController.startGame());
->>>>>>> 68ef75bc647dee1cc6e2a5f275b5f4cf03e2bade
+
 
 		verboAeussereBox.getChildren().add(spielerName);
 		verboAeussereBox.getChildren().add(sucheSpieler);

@@ -16,9 +16,9 @@ public class SceneController {
 	
 	
 	public SceneController() {
-		this.startScene = new StartScene();
-		this.gameScene = new GameScene();
-		this.scoreScene = new ScoreScene();
+		this.startScene = new StartScene(this);
+		this.gameScene = new GameScene(this);
+		this.scoreScene = new ScoreScene(this);
 	}
 	
 	public Scene getScene(int sceneID) {
