@@ -1,0 +1,41 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+.root {
+	-fx-background-image: url("Hintergrund_Game.jpg");
+    -fx-background-repeat: no-repeat;   
+    -fx-background-size: 950 630;
+    -fx-background-position: center center;  
+    -fx-background-color: orange;
+  }
+  
+.content{
+    -fx-pref-height: 610;
+    -fx-pref-width: 950;
+}
+
+.image-view {
+	-fx-pref-width: 50;
+	-fx-pref-height: 50;
+
+}
+
+
+.menu-bar{
+  -fx-background-color: #000;
+}
+
+.menu-bar .label {
+    -fx-font-size: 15 pt;
+    -fx-text-fill: #dedede;
+
+}
+
+
+.menu:hover {
+    -fx-background-color: #86bf58;
+}
+
+.menu-item .label{
+     -fx-font-size: 15 pt;
+    -fx-text-fill: #86bf58;
+}
