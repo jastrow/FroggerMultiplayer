@@ -24,6 +24,7 @@ public class Street implements SubscriberInterface{
 	/////////////////
 
 	public Street(Integer position) {
+		System.out.println("Street "+position+" initialized");
 		this.positionY = position;
 		Integer direction = (int)(Math.random() * 2);
 		if(direction >= 1) {
@@ -56,7 +57,7 @@ public class Street implements SubscriberInterface{
 	 * @param newTime
 	 */
 	public void randomCar() {
-		System.out.println("randomCar");
+		System.out.println(this.positionY+" randomCar()");
 		// Nur wenn nicht die max Anzahl Autos auf der Straße sind
 		if(this.cars.size() < Configuration.carMaxPerStreet) {
 			// Wenn das letzte Auto mindestens 3 Felder weiter ist
@@ -70,7 +71,7 @@ public class Street implements SubscriberInterface{
 				if(this.random(lastDistance)) {
 					Car neu = new Car(this.leftToRight, this.positionY);
 					this.cars.add(neu);
-					System.out.println("neues Auto "+neu.getId());
+					System.out.println(this.positionY+" neues Auto "+neu.getId());
 				}
 			}
 		}

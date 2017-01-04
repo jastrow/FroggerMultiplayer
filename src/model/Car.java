@@ -1,6 +1,7 @@
 package model;
 
 import application.Configuration;
+import application.Observer;
 import application.SubscriberDaten;
 import application.SubscriberInterface;
 
@@ -10,6 +11,7 @@ public class Car implements SubscriberInterface {
 	private Boolean leftToRight = false;	// Auto fährt von links nach rechts (ansonsten andersrum)
 	private int positionX = 1;
 	private int positionY; 
+	private int lastMovement;
 	
 	public Car (Boolean leftToRight, Integer positionY) {
 		this.id = IdCounter.getId();
@@ -18,6 +20,9 @@ public class Car implements SubscriberInterface {
 		if(!leftToRight) {
 			this.positionX = Configuration.xFields;
 		}
+		this.lastMovement = 0;
+		Observer.add("time", this);
+		this.sendObserver("new");
 	}
 
 	public int getId() {
@@ -44,7 +49,44 @@ public class Car implements SubscriberInterface {
 	}
 
 	public void calling(String trigger, SubscriberDaten daten) {
+		this.movement(daten.time);
+	}
+	
+	private void movement(Integer timeNow) {
+		Integer timeDif = timeNow - this.lastMovement;
+		if(timeDif >= Configuration.carSpeed) {
+			if(this.leftToRight) {
+				this.positionX++;
+			} else {
+				this.positionX--;
+			}
+			this.lastMovement += Configuration.carSpeed;
+			this.checkLeftStreet();
+		}
 		
+	}
+	
+	public void checkLeftStreet() {
+		String typ = "move";
+		if(this.leftToRight) {
+			if(this.positionX > Configuration.xFields) {
+				typ = "delete";
+			}
+		} else {
+			if(this.positionX < 1) {
+				typ = "delete";
+			}
+		}
+		//this.sendObserver(typ);
+	}
+	
+	public void sendObserver(String typ) {
+		SubscriberDaten data = new SubscriberDaten();
+		data.id 		= this.id;
+		data.name 		= "Car";
+		data.xPosition 	= this.positionX;
+		data.yPosition 	= this.positionY;
+		data.typ 		= typ;
 	}
   
 }

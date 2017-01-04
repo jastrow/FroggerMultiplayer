@@ -47,7 +47,8 @@ public class Observer {
 	 * @param data Daten in Form von SubscriberDaten
 	 */
 	public void triggerObserver(String trigger, SubscriberDaten data) {
-		for(Subscriber subscriber: this.subscriber) {
+		List<Subscriber> subscriberCopy = new ArrayList<Subscriber>(this.subscriber); 
+		for(Subscriber subscriber: subscriberCopy) {
 			if(subscriber.getTrigger() == trigger) {
 				subscriber.listenTo(trigger, data);
 			}
