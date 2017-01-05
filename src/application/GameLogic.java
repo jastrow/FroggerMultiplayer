@@ -42,7 +42,7 @@ public class GameLogic implements SubscriberInterface {
 		this.frogPlayer1 = new Frog(1,1,"Spieler1",null);
 		this.frogPlayer2 = new Frog(2,2,"Spieler2",null);
 		this.streets = new Streets();
-		this.rivers = new River(Configuration.riverLines);
+		//this.rivers = new River(Configuration.riverLines);
 		this.timer = new TimeMachine(Configuration.timeEnd);
 
 		// Observer anmeldung
