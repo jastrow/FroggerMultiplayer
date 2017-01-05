@@ -13,4 +13,7 @@ public class Configuration {
 	
 	public final static Integer carMaxPerStreet = 3; // Maximale Anzahl von Autos auf einer StraßeMääggggerererererer
 	public final static Integer carSpeed = 300; 	// Bewegungsgeschwindigkeit Millisekunden pro Feld ()
+	
+	public final static Integer treeMaxPerLane = 3; // Maximale Anzahl von Baeumen auf einer Flussbahn
+	public final static Integer treeSpeed = 300; 	// Bewegungsgeschwindigkeit Millisekunden pro Feld ()
 }
