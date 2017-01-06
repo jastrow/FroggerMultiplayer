@@ -18,12 +18,8 @@ import javafx.scene.image.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import model.Data;
 
-	/**
-	 * @author JackRyan
-	 *
-	 */
+
 	/**
 	 * @author JackRyan
 	 *
@@ -39,18 +35,16 @@ import model.Data;
 		
 		//Bilder
 
-		private Image Brett = new Image(getClass().getResource("../img/Brett_01.png").toExternalForm());
-		private Image totFrosch = new Image(getClass().getResource("../img/Frosch_GameOver.png").toExternalForm());
-
-
-		private Image[] bar = new Image[3]; 
+		private Image[] wood = new Image[3]; 
 		private Image[] frog = new Image[2];
 		private Image[] car  = new Image[4];
 		private Image deadFrog  = new Image(getClass().getResource("../img/Frosch_GameOver.png").toExternalForm());
 		
 		private Label timeLabel = new Label();
+		
 		//Sammelliste für GUI Elemente
 		private ArrayList<ImageView> pictureCont = new ArrayList<ImageView>(); 
+		
 		//Zufallsobjekt
 		Random rand = new Random();
 		
@@ -61,14 +55,16 @@ import model.Data;
 			
 			this.sceneController = sceneController;
 			//Bilderarrays füllen
-			fillImageBar();
-			fillImageCar();
-			fillImageFrog();
+			this.fillImageWood();
+			this.fillImageCar();
+			this.fillImageFrog();
+			
 			//neue Szene erstellen
 			scene = new Scene(rootGame,Configuration.xFields * 50,Configuration.yFields * 50 + 30);
+			
 			//Szene Formatierungs CSS  zuweisen
-
 			scene.getStylesheets().add(getClass().getResource("../gameScene.css").toExternalForm());
+			
 			//Szenenhintergrund hinzufügen
 			this.rootGame.setTop(this.buildMenu());
 			VBox contentBox = new VBox();
@@ -76,8 +72,13 @@ import model.Data;
 			contentBox.getChildren().add(this.contentGame);
 			this.rootGame.setBottom(contentBox);
 			
+			//Anmeldung Observer
+			Observer.add("car", this);
+			Observer.add("wood", this);
+			Observer.add("frog", this);
+			Observer.add("time", this);
 			
-//			Observer.add("auto", this);
+			scene.setUserData("GameScene");
 		}
 		
 		private HBox buildMenu() {
@@ -117,10 +118,10 @@ import model.Data;
 		/**
 		 * Hilfsfunktionen zum füllen der Bilderarrays
 		 */
-		private void fillImageBar() {
+		private void fillImageWood() {
 			
 			for (int i = 0 ; i <= 2 ; i++) {
-				this.bar[i] = new Image(getClass().getResource("../img/Brett_0"+i+".png").toExternalForm());
+				this.wood[i] = new Image(getClass().getResource("../img/Brett_0"+i+".png").toExternalForm());
 			}
 	
 		}
@@ -216,9 +217,9 @@ import model.Data;
 			
 			//Hilfsvaraiblen deklarienen
 			ImageView help = this.getGUIObject(data);
-			
-			Integer barLength = data.length+1;
-			help.setImage(this.bar[barLength]);
+			// Integer woodLength = 1;
+			// woodLength = data.length - 1;
+			help.setImage(this.wood[0]);
 			help.setId(data.id.toString());
 			this.pictureCont.add(this.setPosition(help, ((data.xPosition*50)-49), ((data.yPosition*50)-49)));
 			
@@ -286,15 +287,17 @@ import model.Data;
 			
 		}
 		
-		private String formatTime(Integer time) {
+		private String formatTime(Integer timeToFormat) {
 			
-			String formatedTime = "";
-			DecimalFormat format = new DecimalFormat("00");
-			time = time / 10 ;
-			
-			formatedTime = format.format(( time / 60 )) + ":" + format.format((time - ((time/60) * 60))); 
-			
-			return formatedTime;
+			if (timeToFormat != null) {
+				String formatedTime = "";
+				DecimalFormat format = new DecimalFormat("00");
+				timeToFormat = timeToFormat / 10 ;
+				formatedTime = format.format(( timeToFormat / 60 )) + ":" + format.format((timeToFormat - ((timeToFormat/60) * 60))); 
+				return formatedTime; 
+			} else {
+				return "";
+			}
 		}
 	
 		public void calling(String trigger, SubscriberDaten data) {
@@ -315,7 +318,7 @@ import model.Data;
 					}
 				}
 			}
-			case "bar": {
+			case "wood": {
 				switch (data.typ) {
 				case "new": {
 								this.createNewBarObject(data);

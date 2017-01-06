@@ -2,8 +2,9 @@ package application;
 	
 import controller.*;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.stage.Stage;
-import javafx.scene.layout.BorderPane;
+import javafx.stage.WindowEvent;
 
 
 public class Main extends Application implements SubscriberInterface {
@@ -25,10 +26,17 @@ public class Main extends Application implements SubscriberInterface {
 		
 		
 		try {
-			//BorderPane root = new BorderPane();
-			//Scene scene = new Scene(root,400,400);
-			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			this.sceneController.setStage(primaryStage);
+			primaryStage.setUserData(this.sceneController);
+	        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+	            @Override
+	            public void handle(WindowEvent e) {
+	            	e.consume();
+	            	Stage obj = (Stage) e.getSource();
+	            	SceneController controller = (SceneController) obj.getUserData();
+	            	controller.submitClose(obj.getScene().getUserData().toString());	                
+	            }
+	        });
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();

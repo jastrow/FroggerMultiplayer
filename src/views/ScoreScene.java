@@ -32,6 +32,7 @@ public class ScoreScene {
 		//this.getStylesheets().add(getClass().getResource("../scoreScene.css").toExternalForm());
 
 		scene.getStylesheets().add(getClass().getResource("../scoreScene.css").toExternalForm());
+		scene.setUserData("ScoreScene");
 
 		this.buildScene();
 	}
