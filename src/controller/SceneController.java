@@ -24,6 +24,7 @@ public class SceneController implements SubscriberInterface {
 		this.primaryStage = new Stage();
 		Observer.add("time", this);
 		Observer.add("close", this);
+		Observer.add("end", this);
 	}
 	
 	public void setStage(Stage primaryStage){
@@ -45,6 +46,7 @@ public class SceneController implements SubscriberInterface {
 	
 	public void newGame(){
 		this.primaryStage.setScene(this.getStartScene());
+		this.submitEnd();
 	}
 	
 	public void showHighscore(){
@@ -107,6 +109,10 @@ public class SceneController implements SubscriberInterface {
 				} else {
 					Platform.exit();
 				}
+				break;
+			}
+			case "end": {
+				System.out.println("End Game");
 				break;
 			}
 		
