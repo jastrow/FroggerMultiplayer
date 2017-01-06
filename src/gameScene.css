@@ -18,9 +18,17 @@
 
 }
 
+.timeLabel {
+	-fx-pref-height: 20;
+	-fx-padding: 5px;
+	-fx-font-size: 15 pt;
+    -fx-text-fill: #dedede;
+}
+
 
 .menu-bar{
-  -fx-background-color: #000;
+	-fx-pref-width: 750;
+  	-fx-background-color: #000;
 }
 
 .menu-bar .label {

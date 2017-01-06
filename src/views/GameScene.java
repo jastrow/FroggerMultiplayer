@@ -1,5 +1,6 @@
 package views;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -8,12 +9,14 @@ import controller.SceneController;
 import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.image.*;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.Data;
 
@@ -44,6 +47,8 @@ import model.Data;
 		private Image[] frog = new Image[2];
 		private Image[] car  = new Image[4];
 		private Image deadFrog  = new Image(getClass().getResource("../img/Frosch_GameOver.png").toExternalForm());
+		
+		private Label timeLabel = new Label();
 		//Sammelliste für GUI Elemente
 		private ArrayList<ImageView> pictureCont = new ArrayList<ImageView>(); 
 		//Zufallsobjekt
@@ -75,10 +80,10 @@ import model.Data;
 //			Observer.add("auto", this);
 		}
 		
-		private VBox buildMenu() {
+		private HBox buildMenu() {
 			
 			MenuBar menuBar = new MenuBar();
-			VBox menuBox = new VBox();
+			HBox menuBox = new HBox();
 			
 			menuBox.setPrefHeight(20);
 			
@@ -100,7 +105,10 @@ import model.Data;
 	    
 			menuBar.getMenus().addAll(froggerMenu, infoMenu);
 			
+			this.timeLabel.setText("restliche Spielzeit: " + this.formatTime(Configuration.timeEnd));
+			this.timeLabel.getStyleClass().add("timeLabel");
 			menuBox.getChildren().add(menuBar);
+			menuBox.getChildren().add(this.timeLabel);
 			return menuBox;
 
 		}
@@ -274,6 +282,19 @@ import model.Data;
 		
 		private void updateTimer(SubscriberDaten data) {
 			
+			this.timeLabel.setText("restliche Spielzeit: " + this.formatTime(data.time));
+			
+		}
+		
+		private String formatTime(Integer time) {
+			
+			String formatedTime = "";
+			DecimalFormat format = new DecimalFormat("00");
+			time = time / 10 ;
+			
+			formatedTime = format.format(( time / 60 )) + ":" + format.format((time - ((time/60) * 60))); 
+			
+			return formatedTime;
 		}
 	
 		public void calling(String trigger, SubscriberDaten data) {
