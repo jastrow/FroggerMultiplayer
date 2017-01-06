@@ -28,7 +28,7 @@ public class GameLogic implements SubscriberInterface {
 	private List<Log> frogLog;
 
 	private Streets streets;
-	private River rivers;
+	private Rivers rivers;
 
 	private SceneController scene;
 
@@ -42,7 +42,7 @@ public class GameLogic implements SubscriberInterface {
 		this.frogPlayer1 = new Frog(1,1,"Spieler1",null);
 		this.frogPlayer2 = new Frog(2,2,"Spieler2",null);
 		this.streets = new Streets();
-		//this.rivers = new River(Configuration.riverLines);
+		this.rivers = new Rivers();
 		this.timer = new TimeMachine(Configuration.timeEnd);
 
 		// Observer anmeldung
