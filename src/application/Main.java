@@ -17,7 +17,7 @@ public class Main extends Application implements SubscriberInterface {
 		
 		this.sceneController = new SceneController();
 		this.gameData = new GameLogic();
-		this.actionController = new ActionController(this.sceneController);
+		this.actionController = new ActionController();
 		
 		
 		this.sceneController.setGame(this.gameData);

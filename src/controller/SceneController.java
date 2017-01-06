@@ -27,24 +27,9 @@ public class SceneController implements SubscriberInterface {
 		Observer.add("time", this);
 	}
 	
-	public Scene getScene(int sceneID) {
-		switch(sceneID) {
-			case 1: return startScene.getScene();
-			case 2: return scoreScene.getScene();
-			default: return gameScene.getScene();
-		}
-
-
-	}
-	
 	public void setStage(Stage primaryStage){
 		this.primaryStage = primaryStage;
 		this.primaryStage.setScene(getStartScene());
-		
-	}
-	
-	
-	public void setBar(Integer length) {
 		
 	}
 	
@@ -60,17 +45,12 @@ public class SceneController implements SubscriberInterface {
 		return this.startScene.getScene();
 	}
 	
-	public void updateScene(Data data) {
-		this.gameScene.updateScene(data);
-	}
-	
 	public void newGame(){
-		this.primaryStage.setScene(this.getGameScene());
+		this.primaryStage.setScene(this.getStartScene());
 	}
 	
 	public void showHighscore(){
-		this.secondaryStage.setScene(this.getScoreScene());
-		this.secondaryStage.show();
+		this.primaryStage.setScene(this.getScoreScene());
 	}
 	
 	public void searchPlayer(){
@@ -78,17 +58,23 @@ public class SceneController implements SubscriberInterface {
 	}
 	
 	public void startGame(){
-		System.out.println("na dann starte mal!");
-
-		SubscriberDaten daten = new SubscriberDaten();
-		daten.time = 0;
-		Observer.trigger("start", daten);
-
+		this.primaryStage.setScene(this.getGameScene());
+		this.submitStart();
 	}
 	
 	public void setGame(GameLogic game) {
 		this.game = game;
 	} 
+	
+	private void submitStart() {
+		SubscriberDaten daten = new SubscriberDaten();
+		daten.time = 0;
+		Observer.trigger("start", daten);
+	}
+	
+	private void submitEnd() {
+		
+	}
 	
 	public void calling(String trigger, SubscriberDaten data) {
 		if(trigger == "time") {

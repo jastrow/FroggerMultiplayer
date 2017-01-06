@@ -21,6 +21,10 @@ import model.Data;
 	 * @author JackRyan
 	 *
 	 */
+	/**
+	 * @author JackRyan
+	 *
+	 */
 	public class GameScene implements SubscriberInterface {
 	
 		private Scene scene;
@@ -134,10 +138,10 @@ import model.Data;
 		 *@param:	data DatenObjekt
 		 *@return:	boolean	
 		 */
-		private boolean checkImageExist(Data data) {
+		private boolean checkImageExist(SubscriberDaten data) {
 		
 			for(ImageView help: pictureCont) {
-				if (pictureCont.indexOf(help) == data.getID()) return true;
+				if (data.id == Integer.parseInt(help.getId())) return true;
 			}
 			
 			return false;
@@ -147,6 +151,32 @@ import model.Data;
 			imgObject.setX(xPosition);
 			imgObject.setY(yPosition);
 			return imgObject;
+		}
+		
+		
+		private int getPosition(SubscriberDaten data) {
+			
+		int position = 0;
+		
+			for(ImageView help: this.pictureCont) {
+				if (data.id == Integer.parseInt(help.getId())) {
+					position = this.pictureCont.indexOf(help);
+				}
+			}
+		return position;
+		
+		}
+		
+		private ImageView getGUIObject(SubscriberDaten data) {
+			ImageView getObject = new ImageView();
+			
+			for(ImageView help: this.pictureCont) {
+				if (data.id == Integer.parseInt(help.getId())) {
+					getObject = help;
+				}
+			}
+			return getObject;
+			
 		}
 
 		/**
@@ -162,157 +192,154 @@ import model.Data;
 			}
 		}
 		
-
-		//public void setCar(Car autoObjekt) {
-			//imgSpielfelder[autoObjekt.getOldPositionX()][autoObjekt.getOldPositionY()].setImage(null);
-			//imgSpielfelder[autoObjekt.getPositionX()][autoObjekt.getPositionY()].setImage(autoObjekt.getImage());
-
-		/**
-		 * Funktion zur aktualisierung der Szene
-		 *
-		 *@param:	data DatenObjekt
-		 */
-		public void updateScene(Data data){
-			 
+		private void createNewCarObject(SubscriberDaten data) {
+	
 			//Hilfsvaraiblen deklarienen
-			ImageView help = new ImageView();
-			Integer position = 0;
-			Boolean exist = false;
-
+			ImageView help = this.getGUIObject(data);
 			
-			//ImageView zur Bearbeitung aus Liste laden 
-			if(this.checkImageExist(data)) {
-						help = this.pictureCont.get(data.getID());
-						position = data.getID();
-						exist = true;
-				}
-							
-			//prüfen auf GameOver und Anpassung der Szene
-			if (data.getXPosition() == 0 && data.getYPosition() == 0) {
+			help.setImage(this.car[rand.nextInt(3)]);
+			help.setFitHeight(50);
+			help.setId(data.id.toString());
+			this.pictureCont.add(this.setPosition(help, ((data.xPosition*50)-49), ((data.yPosition*50)-49)));
+			
+		}
+		
+		private void createNewBarObject(SubscriberDaten data) {
+			
+			//Hilfsvaraiblen deklarienen
+			ImageView help = this.getGUIObject(data);
+			
+			Integer barLength = data.length+1;
+			help.setImage(this.bar[barLength]);
+			help.setId(data.id.toString());
+			this.pictureCont.add(this.setPosition(help, ((data.xPosition*50)-49), ((data.yPosition*50)-49)));
+			
+		}
+		
+		private void createNewFrogObject(SubscriberDaten data) {
+			
+			//Hilfsvaraiblen deklarienen
+			ImageView help = this.getGUIObject(data);
+			
+			help.setImage(this.frog[rand.nextInt(1)]);
+			help.setFitHeight(50);
+			help.setFitWidth(50);
+			help.setId(data.id.toString());
+			this.pictureCont.add(this.setPosition(help, ((data.xPosition*50)-49), ((data.yPosition*50)-49)));
+			
+		}
+		
+		private void updateGUIObject(SubscriberDaten data) {
+			
+				//Hilfsvaraiblen deklarienen
+				ImageView help = this.getGUIObject(data);
+				int position = this.getPosition(data);
+				Boolean exist = this.checkImageExist(data);
+			
+			if (exist) {
+				
+				//prüfen auf GameOver und Anpassung der Szene
+				if (data.xPosition == 0 && data.yPosition == 0) {
 
-				help.setImage(this.deadFrog);
-				this.pictureCont.set(position, help);
+					help.setImage(this.deadFrog);
+					this.pictureCont.set(position, help);
+					this.updateElements();
+					ImageView deadSign = new ImageView(this.deadFrog);
+					deadSign.setFitHeight(300);
+					deadSign.setFitWidth(500);
+					deadSign.setX(225);
+					deadSign.setY(150);
+					this.contentGame.getChildren().add(deadSign);
+					return;
+
+				}
+				
+				this.pictureCont.set(position, this.setPosition(help, ((data.xPosition*50)-49), ((data.yPosition*50)-49)));
+				//Aktualisierung der GUI Elemente	
 				this.updateElements();
-				ImageView deadSign = new ImageView(this.deadFrog);
-				deadSign.setFitHeight(300);
-				deadSign.setFitWidth(500);
-				deadSign.setX(225);
-				deadSign.setY(150);
-				this.contentGame.getChildren().add(deadSign);
-				return;
-			
 			}
+		}
+		
+		private void deleteGUIObject(SubscriberDaten data) {
 			
-			//prüfen auf Bild löschen und Bild aus Liste entfernen
-			if (data.getXPosition() == 0 || data.getYPosition() == 0) {
-				
-				help.setImage(null);
-				this.pictureCont.set(position, help);
-				
-				return;
-			}
-			
-			
-			//prüfen auf Elementtyp und manipulieren oder hinzufügen des Elementes
-			switch (data.getName()) {
-			
-			case "car": {
-				
-				if (exist) {
-					//help.setX((data.getXPosition()*50)-49);
-					//help.setY((data.getYPosition()*50)-49);
-					//this.pictureCont.set(position, help);
-					this.pictureCont.set(position, this.setPosition(help, ((data.getXPosition()*50)-49), ((data.getYPosition()*50)-49)));
-				} else {
-					help.setImage(this.car[rand.nextInt(3)]);
-					help.setFitHeight(50);
-					//help.setX((data.getXPosition()*50)-49);
-					//help.setY((data.getYPosition()*50)-49);
-					help.setId(data.getName());
-					//this.pictureCont.add(help);
-					this.pictureCont.add(this.setPosition(help, ((data.getXPosition()*50)-49), ((data.getYPosition()*50)-49)));
+			for(ImageView help: this.pictureCont) {
+				if (data.id == Integer.parseInt(help.getId())) {
+					this.pictureCont.remove(help);
 				}
-				break;
-			}
-			case "frog": {
-				
-				if (exist) {
-					//help.setX((data.getXPosition()*50)-49);
-					//help.setY((data.getYPosition()*50)-49);
-					//this.pictureCont.set(position, help);
-					this.pictureCont.set(position, this.setPosition(help, ((data.getXPosition()*50)-49), ((data.getYPosition()*50)-49)));
-				} else {
-					help.setImage(this.frog[rand.nextInt(1)]);
-					help.setFitHeight(50);
-					help.setFitWidth(50);
-					//help.setX((data.getXPosition()*50)-49);
-					//help.setY((data.getYPosition()*50)-49);
-					help.setId(data.getName());
-					//this.pictureCont.add(help);
-					this.pictureCont.add(this.setPosition(help, ((data.getXPosition()*50)-49), ((data.getYPosition()*50)-49)));
-
-				}
-				break;
-			}
-			case "bar": {
-				
-				if (exist) {
-					//help.setX((data.getXPosition()*50)-49);
-					//help.setY((data.getYPosition()*50)-49);
-					//this.pictureCont.set(position, help);
-					this.pictureCont.set(position, this.setPosition(help, ((data.getXPosition()*50)-49), ((data.getYPosition()*50)-49)));
-				} else {
-					Integer barLength = rand.nextInt(2);
-					help.setImage(this.bar[barLength]);
-					//help.setX((data.getXPosition()*50)-49);
-					//help.setY((data.getYPosition()*50)-49);
-					help.setId(data.getName());
-					//this.pictureCont.add(help);
-					//this.sceneController.setBar(barLength);
-					this.pictureCont.add(this.setPosition(help, ((data.getXPosition()*50)-49), ((data.getYPosition()*50)-49)));
-				}
-				
-				break;
-			
 			}
 			
-			}
 			//Aktualisierung der GUI Elemente	
 			this.updateElements();
 		}
 		
-		/**
-		 * Hilfsfunktion zur Rückgabe der Szene
-		 * @return komplette Szene mit allen Elementen
-		 */
-		public Scene getScene() {
-			return this.scene;
+		private void updateTimer(SubscriberDaten data) {
+			
 		}
-		
+	
 		public void calling(String trigger, SubscriberDaten data) {
-//			if(trigger == "car") {
-//				if(data.typ == "new") {
-//					List.add()
-//					list.remove(this);
-//				} else if(data.typ == "delete") {
-//					for(ImageView bla: pictureCont) {
-//						if( bla.id == daten.id) {
-//							List.remove(bla);
-//							break;
-//						}
-//					}					
-//				} else if(data.typ == "move") {
-//					for(ImageView bla: pictureCont) {
-//						if( bla.id == daten.id) {
-//							
-//						}
-//					}
-//				}
-//				Integer autoId = daten.id;
-//			}
+			switch (trigger) {
+			case "car": {
+				switch (data.typ) {
+					case "new": {
+									this.createNewCarObject(data);
+									break;
+					}
+					case "move": {
+									this.updateGUIObject(data);
+									break;
+					}
+					case "delete": {
+									this.deleteGUIObject(data);
+									break;
+					}
+				}
+			}
+			case "bar": {
+				switch (data.typ) {
+				case "new": {
+								this.createNewBarObject(data);
+								break;
+				}
+				case "move": {
+								this.updateGUIObject(data);
+								break;
+				}
+				case "delete": {
+								this.deleteGUIObject(data);
+								break;
+				}
+			}
+			}
+			case "frog": {
+				switch (data.typ) {
+				case "new": {
+								this.createNewFrogObject(data);
+								break;
+				}
+				case "move": {
+								this.updateGUIObject(data);
+								break;
+				}
+				case "delete": {
+								this.deleteGUIObject(data);
+								break;
+				}
+				}
+			}
+			case "timer": {
+				this.updateTimer(data);
+				break;
+			}
+			}
 		}
+	
+	/**
+	 * Hilfsfunktion zur Rückgabe der Szene
+	 * @return komplette Szene mit allen Elementen
+	 */
+	public Scene getScene() {
+		return this.scene;
+	}
 
 }
-
-
 
