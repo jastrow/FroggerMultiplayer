@@ -47,6 +47,8 @@ public class Observer {
 	 * @param data Daten in Form von SubscriberDaten
 	 */
 	public void triggerObserver(String trigger, SubscriberDaten data) {
+		System.out.println("triggered: "+trigger);
+
 		List<Subscriber> subscriberCopy = new ArrayList<Subscriber>(this.subscriber); 
 		for(Subscriber subscriber: subscriberCopy) {
 			if(subscriber.getTrigger() == trigger) {
@@ -62,7 +64,6 @@ public class Observer {
 	public static void trigger(String trigger, SubscriberDaten data) {
 		Observer obs = Observer.getInstance();
 		obs.triggerObserver(trigger, data);
-		System.out.println("triggered: "+trigger);
 	}
 	
 	/**

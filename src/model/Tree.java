@@ -74,6 +74,7 @@ public class Tree implements SubscriberInterface {
 		data.xPosition 	= this.positionX;
 		data.yPosition 	= this.positionY;
 		data.typ 		= typ;
+		data.length		= this.length;
 		Observer.trigger("tree", data);		
 	}
 	

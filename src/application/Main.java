@@ -3,8 +3,13 @@ package application;
 import controller.*;
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 
 public class Main extends Application implements SubscriberInterface {
@@ -26,7 +31,7 @@ public class Main extends Application implements SubscriberInterface {
 		
 		
 		try {
-			this.sceneController.setStage(primaryStage);
+//			this.sceneController.setStage(primaryStage);
 			primaryStage.setUserData(this.sceneController);
 	        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 	            @Override
@@ -37,6 +42,9 @@ public class Main extends Application implements SubscriberInterface {
 	            	controller.submitClose(obj.getScene().getUserData().toString());	                
 	            }
 	        });
+	        primaryStage.setScene(this.sceneController.getGameScene());
+//	        primaryStage.setOnShown(windowEvent -> Observer.trigger("start", new SubscriberDaten()));
+//			neuMenuItem.setOnAction(actionEvent -> Observer.trigger);
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -59,5 +67,5 @@ public class Main extends Application implements SubscriberInterface {
 		
 	}
 	
-	
+
 }

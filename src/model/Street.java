@@ -46,11 +46,14 @@ public class Street implements SubscriberInterface{
 	public void calling(String trigger, SubscriberDaten daten) {
 		if(trigger == "car") {
 			switch(daten.typ) {
-				case "delete": this.carLeftStreet(daten.id); System.out.println(daten.toString()); break;
+				case "delete": 
+					this.carLeftStreet(daten.id); 
+					System.out.println(daten.toString()); 
+					break;
 				default: break;
 			}
 		} else if(trigger == "time") {
-			this.carLeftStreet(daten.id);
+			this.randomCar();
 		}
 	}
 	
