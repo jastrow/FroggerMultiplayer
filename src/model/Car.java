@@ -33,13 +33,18 @@ public class Car implements SubscriberInterface {
 	
 	private void movement(Integer timeNow) {
 		Integer fieldsMoved = (int) (timeNow - this.startTime) / Configuration.carSpeed;
+		Integer lastPositionX = this.positionX;
 
 		if(this.leftToRight) {
 			this.positionX = 1 + fieldsMoved;
 		} else {
 			this.positionX = Configuration.xFields - fieldsMoved;
 		}
-		this.checkLeftStreet();
+		
+		// Prüfung und Meldung nur, wenn sich die Position verändert hat.
+		if(lastPositionX != this.positionX) {
+			this.checkLeftStreet();
+		}
 		
 	}
 	
@@ -60,12 +65,17 @@ public class Car implements SubscriberInterface {
 	public void sendObserver(String typ) {
 		
 		SubscriberDaten data = new SubscriberDaten();
-		data.id 		= this.id;
-		data.name 		= "Car";
-		data.xPosition 	= this.positionX;
-		data.yPosition 	= this.positionY;
-		data.typ 		= typ;
+		data.id 			= this.id;
+		data.name 			= "Car";
+		data.xPosition 		= this.positionX;
+		data.yPosition 		= this.positionY;
+		data.typ 			= typ;
+		data.leftToRight 	= this.leftToRight;
 		Observer.trigger("car", data);
+		
+		if(typ == "delete") {
+			System.out.println(data.toString());
+		}
 	}
   
 
