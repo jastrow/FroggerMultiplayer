@@ -12,6 +12,7 @@ public class Tree implements SubscriberInterface {
 	private Integer positionX;
 	private Integer positionY;
 	private int lastMovement;
+	private int length;
 	
 	
 	/**
@@ -20,7 +21,7 @@ public class Tree implements SubscriberInterface {
 	 * @param positionX
 	 * @param positionY
 	 */
-	public Tree(int id, Integer positionX, Integer positionY) {
+	public Tree(int id, Integer positionX, Integer positionY, Integer length, Boolean leftToRight) {
 		super();
 		this.id = IdCounter.getId();
 		this.positionX = positionX;
@@ -30,37 +31,21 @@ public class Tree implements SubscriberInterface {
 			this.positionX = Configuration.xFields;
 		}
 		this.lastMovement = 0;
+		this.length = length;
+		
 		Observer.add("time", this);
 		this.sendObserver("new");
 	}
 	
-	//
-	public int getId() {
+	public Integer getId() {
 		return this.id;
-	}
-	
-	//
-	public Boolean getLeftToRight() {
-		return this.leftToRight;
-	}
-	
-	//
-	public int getPositionX() {
-		return this.positionX;
-	}
-	
-	//
-	public int getPositionY() {
-		return this.positionY;
-	}
-	
-	public void setPositionY(int positionY) {
-		this.positionY = positionY;
 	}
 
 	@Override
 	public void calling(String trigger, SubscriberDaten daten) {
-		// TODO Auto-generated method stub		
+		if(trigger == "time") {
+			this.movement(daten.time);
+		}
 	}
 	
 	//Check position
@@ -73,34 +58,27 @@ public class Tree implements SubscriberInterface {
 				this.positionX--;
 			}
 			this.lastMovement += Configuration.treeSpeed;
-			this.checkLeftRiver();
+			if(this.checkInGame()) {
+				this.sendObserver("move");
+			} else {
+				this.sendObserver("delete");
+			}
 		}
 		
 	}
 	
-	public void checkLeftRiver() {
-		String typ = "move";
-		if(this.leftToRight) {
-			if(this.positionX > Configuration.xFields) {
-				typ = "delete";
-			}
-		} else {
-			if(this.positionX < 1) {
-				typ = "delete";
-			}
-		}
-		//this.sendObserver(typ);
-	}
-	
-	
 	public void sendObserver(String typ) {
 		SubscriberDaten data = new SubscriberDaten();
 		data.id 		= this.id;
-		data.name 		= "Wood";
+		data.name 		= "Tree";
 		data.xPosition 	= this.positionX;
 		data.yPosition 	= this.positionY;
 		data.typ 		= typ;
-		Observer.trigger("wood", data);		
+		Observer.trigger("tree", data);		
+	}
+	
+	public Boolean checkInGame() {
+		return true;
 	}
 
 }

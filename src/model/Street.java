@@ -24,7 +24,7 @@ public class Street implements SubscriberInterface{
 	/////////////////
 
 	public Street(Integer position) {
-		System.out.println("Street "+position+" initialized");
+		// System.out.println("Street "+position+" initialized");
 		this.positionY = position;
 		Integer direction = (int)(Math.random() * 2);
 		if(direction >= 1) {
@@ -33,7 +33,7 @@ public class Street implements SubscriberInterface{
 		
 		// Anmeldung Observer
 		Observer.add("time", this);
-		Observer.add("carLeft", this);
+		Observer.add("car", this);
 	}
 
 	//////////////
@@ -44,10 +44,13 @@ public class Street implements SubscriberInterface{
 	 * Subscriber Schnittstelle.
 	 */
 	public void calling(String trigger, SubscriberDaten daten) {
-		switch (trigger) {
-			case "time": 		this.randomCar(); break;
-			case "carLeft": 	this.carLeftStreet(daten.id); break;
-			default: break;
+		if(trigger == "car") {
+			switch(daten.typ) {
+				case "delete": this.carLeftStreet(daten.id); System.out.println(daten.toString()); break;
+				default: break;
+			}
+		} else if(trigger == "time") {
+			this.carLeftStreet(daten.id);
 		}
 	}
 	
@@ -57,7 +60,7 @@ public class Street implements SubscriberInterface{
 	 * @param newTime
 	 */
 	public void randomCar() {
-		System.out.println(this.positionY+" randomCar()");
+		//System.out.println(this.positionY+" randomCar()");
 		// Nur wenn nicht die max Anzahl Autos auf der Straße sind
 		if(this.cars.size() < Configuration.carMaxPerStreet) {
 			// Wenn das letzte Auto mindestens 3 Felder weiter ist
@@ -130,11 +133,25 @@ public class Street implements SubscriberInterface{
 		return last;
 	}
 	
+	public Car getCarById(Integer id) {
+		for(Car car: this.cars) {
+			if(car.getId() == id) {
+				return car;
+			}
+		}
+		return null;	
+	}
+	
 	/**
 	 * Ein Auto hat die Straße verlassen.
 	 * @param id
 	 */
 	public void carLeftStreet(Integer id) {
-		
+		System.out.println("car deleted");
+		Observer.trigger("stopGame", new SubscriberDaten());
+		Car car = this.getCarById(id);
+		if(car != null) {
+			this.cars.remove(car);
+		}
 	}
 }
