@@ -31,9 +31,9 @@ import javafx.scene.layout.VBox;
 	 * @author JackRyan
 	 *
 	 */
-	public class GameScene implements SubscriberInterface {
+	public class GameScene extends Scene implements SubscriberInterface {
 	
-		private Scene scene;
+		// private Scene scene;
 		private SceneController sceneController;
 		
 		// Hauptpanel
@@ -62,26 +62,31 @@ import javafx.scene.layout.VBox;
 		 */
 		public GameScene(SceneController sceneController) {
 			
+			//neue Szene erstellen
+			super(new StackPane(),Configuration.xFields * 50,Configuration.yFields * 50 + 30);
+			this.setRoot(rootGame);
 			this.sceneController = sceneController;
+			
+	        this.graphicsContext.save();
+	        // this.graphicsContext.drawImage(image, posX, posY, 50, 50);
+	        this.graphicsContext.restore();
 			
 			//Bilderarrays füllen
 			this.fillImageWood();
 			this.fillImageCar();
 			this.fillImageFrog();
 			
-			//neue Szene erstellen
-			scene = new Scene(rootGame,Configuration.xFields * 50,Configuration.yFields * 50 + 30);
-			
+
 			//Szene Formatierungs CSS  zuweisen
-			scene.getStylesheets().add(getClass().getResource("../gameScene.css").toExternalForm());
+			this.getStylesheets().add(getClass().getResource("../gameScene.css").toExternalForm());
 			
 			//Szenenhintergrund hinzufügen
 			this.rootGame.setTop(this.buildMenu());
 			VBox contentBox = new VBox();
 			contentBox.getStyleClass().add("content");
-			Button pups = new Button("blääää");
-			pups.setOnAction(actionEvent -> Observer.trigger("start", new SubscriberDaten()));
-			contentBox.getChildren().add(pups);
+			Button start = new Button("zeiges mir");
+			start.setOnAction(actionEvent -> Observer.trigger("start",new SubscriberDaten()));
+			contentBox.getChildren().add(start);
 			contentBox.getChildren().add(canvas);
 			this.rootGame.setBottom(contentBox);
 			
@@ -91,7 +96,7 @@ import javafx.scene.layout.VBox;
 			Observer.add("frog", this);
 			Observer.add("time", this);
 			
-			scene.setUserData("GameScene");
+			this.setUserData("GameScene");
 		}
 		
 		private HBox buildMenu() {
@@ -400,7 +405,7 @@ import javafx.scene.layout.VBox;
 	 * @return komplette Szene mit allen Elementen
 	 */
 	public Scene getScene() {
-		return this.scene;
+		return this;
 	}
 	
 	

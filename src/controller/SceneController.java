@@ -15,7 +15,7 @@ public class SceneController implements SubscriberInterface {
 	public ScoreScene scoreScene;
 	private Stage primaryStage;
 	private Integer time;
-	private boolean gameRunning;
+	private boolean gameRunning = false;
 	
 	
 	public SceneController() {
@@ -30,12 +30,8 @@ public class SceneController implements SubscriberInterface {
 	
 	public void setStage(Stage primaryStage){
 		this.primaryStage = primaryStage;
-//		this.primaryStage.setScene(getStartScene());
-
-		this.gameScene = new GameScene(this);
-		this.primaryStage.setScene(this.getGameScene());
+		this.primaryStage.setScene(this.getStartScene());
 		this.primaryStage.show();
-//		Observer.trigger("start", new SubscriberDaten());
 
 	}
 	
@@ -51,10 +47,6 @@ public class SceneController implements SubscriberInterface {
 		return this.startScene.getScene();
 	}
 	
-	public void updateStage() {
-		this.primaryStage.setScene(this.getGameScene());
-		this.primaryStage.show();
-	}
 	
 	public void newGame(){
 		this.primaryStage.setScene(this.getStartScene());
@@ -70,9 +62,10 @@ public class SceneController implements SubscriberInterface {
 	}
 	
 	public void startGame(){
-//		this.gameScene = new GameScene(this);
-//		this.primaryStage.setScene(this.getGameScene());
-//		Observer.trigger("start", new SubscriberDaten());
+		this.gameScene = new GameScene(this);
+		this.primaryStage.setScene(this.getGameScene());
+		//Observer.trigger("start", new SubscriberDaten());
+		System.out.println(this.primaryStage.getOnShown());
 	}
 	
 	public void showGameScene() {
@@ -85,6 +78,10 @@ public class SceneController implements SubscriberInterface {
 			this.primaryStage.show();
 
 		}
+	}
+	
+	public void launchGame() {
+		if (this.gameRunning) Observer.trigger("start", new SubscriberDaten());
 	}
 	
 	public void setGame(GameLogic game) {
