@@ -167,10 +167,18 @@ import javafx.scene.layout.VBox;
 			return false;
 		}
 		
-		private ImageView setPosition(ImageView imgObject, Integer xPosition, Integer yPosition) {
+		private ImageView setPosition(ImageView imgObject, Integer xPosition, Integer yPosition, Boolean leftToRight) {
+			
 			ImageView help = imgObject;
-			imgObject.setX(xPosition);
-			imgObject.setY(yPosition);
+			
+			if (leftToRight){ 			
+				imgObject.setX((xPosition*50)-49);
+				imgObject.setY((yPosition*50)-49);
+			} else {
+				imgObject.setX((help.getX()) - ((xPosition*50)-49));
+				imgObject.setY((help.getY()) - ((yPosition*50)-49));
+			}
+			
 			return help;
 		}
 		
@@ -222,7 +230,7 @@ import javafx.scene.layout.VBox;
 			help.setImage(this.car[rand.nextInt(3)]);
 			help.setFitHeight(50);
 			help.setId(data.id.toString());
-			this.pictureCont.add(this.setPosition(help, ((data.xPosition*50)-49), ((data.yPosition*50)-49)));
+			this.pictureCont.add(this.setPosition(help, (data.xPosition), (data.yPosition),true));
 			this.updateElements();
 			
 		}
@@ -232,15 +240,12 @@ import javafx.scene.layout.VBox;
 			//Hilfsvaraiblen deklarienen
 			ImageView help = this.getGUIObject(data);
 			
-			Integer woodLength = data.length;
-			if (data.length == null) { 
-				woodLength = 1;
-			}
-			woodLength = woodLength - 1;
+			Integer woodLength = 1;
+			
+			if (data.length != null) woodLength = data.length - 1;
 			help.setImage(this.wood[woodLength]);
-			//help.setImage(this.wood[woodLength]);
 			help.setId(data.id.toString());
-			this.pictureCont.add(this.setPosition(help, ((data.xPosition*50)-49), ((data.yPosition*50)-49)));
+			this.pictureCont.add(this.setPosition(help, (data.xPosition), (data.yPosition),true));
 			this.updateElements();
 			
 		}
@@ -250,13 +255,13 @@ import javafx.scene.layout.VBox;
 			//Hilfsvaraiblen deklarienen
 			ImageView help = this.getGUIObject(data);
 			
-			Integer frogTyp = data.length - 1;
-			if (frogTyp == null) frogTyp = 0;
-			help.setImage(this.frog[rand.nextInt(1)]);
+			Integer frogTyp = 1;	
+			if (data.length != null) frogTyp = data.length - 1;
+			help.setImage(this.frog[frogTyp]);
 			help.setFitHeight(50);
 			help.setFitWidth(50);
 			help.setId(data.id.toString());
-			this.pictureCont.add(this.setPosition(help, ((data.xPosition*50)-49), ((data.yPosition*50)-49)));
+			this.pictureCont.add(this.setPosition(help, (data.xPosition), (data.yPosition),true));
 			this.updateElements();
 			
 		}
@@ -286,7 +291,7 @@ import javafx.scene.layout.VBox;
 
 				}
 				
-				this.pictureCont.set(position, this.setPosition(help, ((data.xPosition*50)-49), ((data.yPosition*50)-49)));
+				this.pictureCont.set(position, this.setPosition(help, data.xPosition, data.yPosition, data.leftToRight));
 			}
 			//Aktualisierung der GUI Elemente	
 			this.updateElements();
@@ -391,10 +396,6 @@ import javafx.scene.layout.VBox;
 	public Scene getScene() {
 		return this;
 	}
-	
-	
-
-	
 
 }
 
