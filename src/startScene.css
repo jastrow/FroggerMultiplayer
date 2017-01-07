@@ -54,15 +54,30 @@
 }
 
 .spielerName {
-	-fx-padding: 10;
-	-fx-border-style: solid inside;
-	-fx-border-width: 2;
-	-fx-border-insets: 5;
-	-fx-border-radius: 5;
+	-fx-padding: 10px;
+    -fx-font-size: 15 pt;
+    -fx-text-fill: #86bf58;
+    -fx-highlight-fill: white;
 	-fx-border-color: green;
+	-fx-border-width: 5;
+	-fx-border-radius: 2;
+    -fx-background-insets: 0;
+    -fx-background-color: transparent, white, transparent, white;
+}
+
+.spielerName:focused {
+	-fx-padding: 10px;
+    -fx-font-size: 15 pt;
+    -fx-text-fill: #86bf58;
+    -fx-highlight-fill: green;
+}
+
+/* .spielerName {
+    -fx-text-box-border:green;
+    -fx-border-width: 2px;
 	-fx-pref-width: 300;
 	-fx-text-fill: green;
-}
+} */
 
 
 .menu-bar{
