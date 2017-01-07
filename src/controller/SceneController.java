@@ -64,6 +64,7 @@ public class SceneController implements SubscriberInterface {
 	public void startGame(){
 		this.gameScene = new GameScene(this);
 		this.primaryStage.setScene(this.getGameScene());
+		Observer.trigger("start", new SubscriberDaten());
 		//Observer.trigger("start", new SubscriberDaten());
 //		System.out.println(this.primaryStage.getOnShown());
 	}
