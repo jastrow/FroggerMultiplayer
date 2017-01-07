@@ -43,7 +43,6 @@ public class FrogViaKey extends Scene
 
     public void initStartscene()
     {
-    	System.out.println("Scene created");
         canvas = new Canvas(canvasWith,canvasHigth);
         graphicsContext = canvas.getGraphicsContext2D();
         image = new Image(getClass().getResourceAsStream("Frosch_Animation_runterHoch_Bewegung_01.png"));
@@ -55,13 +54,11 @@ public class FrogViaKey extends Scene
 
     private void initEvents()
     {
-    	System.out.println("Events ready");
         setOnKeyPressed(new EventHandler <KeyEvent>()
         {
             @Override
             public void handle(KeyEvent e)
             {
-            	System.out.println("Handler works");
 
                 if(e.getCode() == KeyCode.LEFT)
                 {
@@ -88,7 +85,6 @@ public class FrogViaKey extends Scene
             @Override
             public void handle(KeyEvent e)
             {
-            	System.out.println("moving stopped");
             	horizontalDirection = 0;
                 verticalDirection = 0;
             }
@@ -116,9 +112,7 @@ public class FrogViaKey extends Scene
                         graphicsContext.drawImage(image, posX, posY, 50, 50);
 
                         //print pressed key and check position
-                        System.out.println("click Right");
-                        System.out.println("position x: " + posX + " position y: " + posY);
-                        if(posX>=950){System.out.println("!!!! Frog is out of right border");}
+                        if(posX>=950){}
                     }
 
                     //frog moves to left
@@ -130,9 +124,7 @@ public class FrogViaKey extends Scene
                         graphicsContext.drawImage(image, posX, posY, 50, 50);
 
                         //print pressed key and check position
-                        System.out.println("click Left");
-                        System.out.println("position x: " + posX + " position y: " + posY);
-                        if(posX<50){System.out.println("!!!! Frog is out of left border");}
+                        if(posX<50){}
                     }
                 }
 
@@ -148,12 +140,9 @@ public class FrogViaKey extends Scene
                         graphicsContext.drawImage(image, posX, posY, 50, 50);
 
                         //print pressed key and check position
-                        System.out.println("click Down");
-                        System.out.println("position x: " + posX + " position y: " + posY);
 
                         //game is over
                         if(posY>550){
-                        	System.out.println("!!!! Frog is out of bottom border");
                         	graphicsContext.clearRect(0, 0, canvasWith,canvasHigth);
                         	image = new Image(getClass().getResourceAsStream("Frosch_GameOver.png"));
                             graphicsContext.drawImage(image, posX, posY-100, 150, 100);
@@ -169,10 +158,8 @@ public class FrogViaKey extends Scene
                         graphicsContext.drawImage(image, posX, posY, 50, 50);
 
                         //print pressed key and check position
-                        System.out.println("click Up");
-                        System.out.println("position x: " + posX + " position y: " + posY);
-                        if(posY<=10){System.out.println("****** YOU WON ********");}
-                        else if(posY<0){System.out.println("!!!! Frog is out of top border");}
+                        if(posY<=10){}
+                        else if(posY<0){}
                     }
                 }
             }

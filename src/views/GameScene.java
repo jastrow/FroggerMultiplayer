@@ -219,10 +219,8 @@ import javafx.scene.layout.VBox;
 			//Elemente in GUI setzen
 			for(ImageView help: pictureCont){
 				this.graphicsContext.drawImage(help.getImage(), help.getX(), help.getY());
-				System.out.println(help.getId() + " " + help.getX() + " " + help.getY());
 				//this.contentGame.getChildren().add(help);
 			}
-			System.out.println("Update Szene!");
 			//this.sceneController.updateStage();
 		}
 		
@@ -243,8 +241,6 @@ import javafx.scene.layout.VBox;
 			
 			//Hilfsvaraiblen deklarienen
 			ImageView help = this.getGUIObject(data);
-
-			System.out.println(data.toString());
 			
 			Integer woodLength = data.length;
 			if (data.length == null) { 
@@ -322,7 +318,6 @@ import javafx.scene.layout.VBox;
 		private void updateTimer(SubscriberDaten data) {
 			
 			this.timeLabel.setText("restliche Spielzeit: " + this.formatTime(data.time));
-			System.out.println("restliche Spielzeit: " + this.formatTime(data.time));
 			
 		}
 		
@@ -340,7 +335,6 @@ import javafx.scene.layout.VBox;
 		}
 	
 		public void calling(String trigger, SubscriberDaten data) {
-			System.out.println("Manu calling: " + trigger + " " + data.typ + " " + data.name + " " + data.xPosition + " " + data.yPosition);
 			switch (trigger) {
 				case "car": {
 					switch (data.typ) {

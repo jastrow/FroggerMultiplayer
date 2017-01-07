@@ -41,14 +41,12 @@ public class River implements SubscriberInterface {
 			
 			Integer length = random.nextInt(3)+2;
 			Integer positionX = Configuration.xFields;
-//			System.out.println("tree with length: " + length + " created on lane: " + this.positionY);
 			if(this.leftToRight) {
 				positionX = ((length-1)*-1);
 			}
 			Tree baum = new Tree(IdCounter.getId(), positionX, this.positionY, length, this.leftToRight);
 			this.trees.add(baum);
 		} else {
-//			System.out.println("additional trees created on lane: " + this.positionY);
 		}
 	}
 

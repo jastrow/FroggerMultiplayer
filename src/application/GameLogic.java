@@ -53,7 +53,6 @@ public class GameLogic implements SubscriberInterface {
 	public void calling(String trigger, SubscriberDaten daten) {
 		switch(trigger) {
 			case "start": 
-//				System.out.println("Game started"); 
 				this.timer.start(); 
 				break;
 			default: break;
