@@ -29,7 +29,6 @@ public class Main extends Application implements SubscriberInterface {
 		try {
 //			this.sceneController.setStage(primaryStage);
 			primaryStage.setUserData(this.sceneController);
-			primaryStage.setOnShown(windowEvent -> this.sceneController.launchGame());
 	        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 	            @Override
 	            public void handle(WindowEvent e) {
