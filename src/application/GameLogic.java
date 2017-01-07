@@ -48,14 +48,14 @@ public class GameLogic implements SubscriberInterface {
 		// Observer anmeldung
 		Observer.add("start", this);
 
-		// Spielstarten
-		this.timer.start();
-
 	}
 
 	public void calling(String trigger, SubscriberDaten daten) {
 		switch(trigger) {
-			case "start": System.out.println("Game started"); break;
+			case "start": 
+				System.out.println("Game started"); 
+				this.timer.start(); 
+				break;
 			default: break;
 		}
 	}
@@ -68,33 +68,6 @@ public class GameLogic implements SubscriberInterface {
 	 */
 	public void resetGame() {
 
-	}
-
-	/**
-	 * Frog Collision Check with Gamezone.
-	 */
-	public Boolean collisionCheck() {
-		// Frage FrogPlayer1
-		return false;
-	}
-
-	/**
-	 * Frog Dead Question.
-	 */
-	public Boolean deathCheck() {
-		// Frosch eh schon tot?
-		// Frosch position abgleichen mit gefahren (auto, nichtBaum)
-		return false;
-	}
-
-	public void Action(String actionType) {
-		if(actionType == "moveUp") {
-
-		} else if(actionType == "moveDown") {
-		} else if(actionType == "moveLeft") {
-		} else if(actionType == "moveRight") {
-
-		}
 	}
 
 

@@ -26,11 +26,17 @@ public class SceneController implements SubscriberInterface {
 		Observer.add("close", this);
 		Observer.add("end", this);
 		Observer.add("start", this);
+		this.gameScene = new GameScene(this);
 	}
 	
 	public void setStage(Stage primaryStage){
 		this.primaryStage = primaryStage;
-		this.primaryStage.setScene(getStartScene());
+//		this.primaryStage.setScene(getStartScene());
+
+//		this.gameScene = new GameScene(this);
+		this.primaryStage.setScene(this.getGameScene());
+//		Observer.trigger("start", new SubscriberDaten());
+
 	}
 	
 	public Scene getGameScene() {
@@ -59,8 +65,9 @@ public class SceneController implements SubscriberInterface {
 	}
 	
 	public void startGame(){
-		this.gameScene = new GameScene(this);
-		this.primaryStage.setScene(this.getGameScene());
+//		this.gameScene = new GameScene(this);
+//		this.primaryStage.setScene(this.getGameScene());
+//		Observer.trigger("start", new SubscriberDaten());
 	}
 	
 	public void showGameScene() {

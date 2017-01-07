@@ -9,7 +9,7 @@ public class Configuration {
 //	public final static Integer[] streetLines = {2,3,10,11}; // Y-Positions (num of = length)
 	public final static Integer[] riverLines = {5,6,7,8}; // Y-Positions (num = length)
 	public final static Integer[] polePosition = {12,10};
-	public final static Integer timeEnd = 3000; // Milliseconds
+	public final static Integer timeEnd = 9000; // Milliseconds
 	public final static Integer timeSteps = 100; // Milliseconds
 	
 	public final static Integer carMaxPerStreet = 3; // Maximale Anzahl von Autos auf einer StraßeMääggggerererererer

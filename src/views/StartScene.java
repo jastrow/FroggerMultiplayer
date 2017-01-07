@@ -113,7 +113,7 @@ public class StartScene implements SubscriberInterface {
 		SubscriberDaten data = new SubscriberDaten();
 		data.name = this.spielerName.getText();
 		data.time = Configuration.timeEnd;
-		Observer.trigger("start", data);
+		//Observer.trigger("start", data);
 	}
 
 	

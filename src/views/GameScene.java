@@ -7,6 +7,7 @@ import java.util.Random;
 import application.*;
 import controller.SceneController;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -15,6 +16,8 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.image.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -94,6 +97,7 @@ import javafx.scene.layout.VBox;
 	    
 			exitMenuItem.setOnAction(actionEvent -> Platform.exit());
 			neuMenuItem.setOnAction(actionEvent -> this.sceneController.newGame());
+
 	    
 			froggerMenu.getItems().addAll(neuMenuItem,new SeparatorMenuItem(), exitMenuItem);
 	    
@@ -218,9 +222,15 @@ import javafx.scene.layout.VBox;
 			//Hilfsvaraiblen deklarienen
 			ImageView help = this.getGUIObject(data);
 
-			Integer woodLength = data.length - 1;
-			if (woodLength == null) woodLength = 0;
+			System.out.println(data.toString());
+			
+			Integer woodLength = data.length;
+			if (data.length == null) { 
+				woodLength = 1;
+			}
+			woodLength = woodLength - 1;
 			help.setImage(this.wood[woodLength]);
+			//help.setImage(this.wood[woodLength]);
 			help.setId(data.id.toString());
 			this.pictureCont.add(this.setPosition(help, ((data.xPosition*50)-49), ((data.yPosition*50)-49)));
 			
@@ -304,59 +314,63 @@ import javafx.scene.layout.VBox;
 		}
 	
 		public void calling(String trigger, SubscriberDaten data) {
+			System.out.println("Manu calling: "+trigger);
 			switch (trigger) {
-			case "car": {
-				switch (data.typ) {
-					case "new": {
-									this.createNewCarObject(data);
-									break;
+				case "car": {
+					switch (data.typ) {
+						case "new": {
+										this.createNewCarObject(data);
+										break;
+						}
+						case "move": {
+										this.updateGUIObject(data);
+										break;
+						}
+						case "delete": {
+										this.deleteGUIObject(data);
+										break;
+						}
 					}
-					case "move": {
-									this.updateGUIObject(data);
-									break;
+					break;
+				}
+				case "wood": {
+					switch (data.typ) {
+						case "new": {
+										this.createNewBarObject(data);
+										break;
+						}
+						case "move": {
+										this.updateGUIObject(data);
+										break;
+						}
+						case "delete": {
+										this.deleteGUIObject(data);
+										break;
+						}
 					}
-					case "delete": {
-									this.deleteGUIObject(data);
-									break;
+					break;
+				}
+				case "frog": {
+					switch (data.typ) {
+						case "new": {
+										this.createNewFrogObject(data);
+										break;
+						}
+						case "move": {
+										this.updateGUIObject(data);
+										break;
+						}
+						case "delete": {
+										this.deleteGUIObject(data);
+										break;
+						}
 					}
+					break;
 				}
-			}
-			case "wood": {
-				switch (data.typ) {
-				case "new": {
-								this.createNewBarObject(data);
-								break;
+				case "timer": {
+						this.updateTimer(data);
+						break;
 				}
-				case "move": {
-								this.updateGUIObject(data);
-								break;
-				}
-				case "delete": {
-								this.deleteGUIObject(data);
-								break;
-				}
-			}
-			}
-			case "frog": {
-				switch (data.typ) {
-				case "new": {
-								this.createNewFrogObject(data);
-								break;
-				}
-				case "move": {
-								this.updateGUIObject(data);
-								break;
-				}
-				case "delete": {
-								this.deleteGUIObject(data);
-								break;
-				}
-				}
-			}
-			case "timer": {
-				this.updateTimer(data);
-				break;
-			}
 			}
 		}
 	
@@ -367,6 +381,10 @@ import javafx.scene.layout.VBox;
 	public Scene getScene() {
 		return this.scene;
 	}
+	
+	
+
+	
 
 }
 

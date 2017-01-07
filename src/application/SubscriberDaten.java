@@ -8,4 +8,14 @@ public class SubscriberDaten {
 	public Integer length;		// Länge des Balken 1/ 2 /3 // bei Frosch Spieler: 1 / 2 
 	public String typ;			// Was ist passiert (move, new, delete)
 	public Integer time;		// aktueller Spielzeitpunkt in Millisekunden
+	
+	@Override
+	public String toString() {
+		String ausgabe = "";
+		ausgabe += "name: "+this.name;
+		ausgabe += "id: "+this.id;
+		ausgabe += "typ: "+this.typ;
+		ausgabe += "length: "+this.length;
+		return ausgabe;
+	}
 }

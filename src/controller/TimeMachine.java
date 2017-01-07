@@ -3,6 +3,7 @@ package controller;
 import application.*;
 
 public class TimeMachine implements Runnable, SubscriberInterface {
+//public class TimeMachine implements SubscriberInterface {
 
 	private Boolean running;
 	private Integer timeLog;
