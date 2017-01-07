@@ -1,14 +1,12 @@
 package views;
 
 import application.Configuration;
-import application.Observer;
 import application.SubscriberDaten;
 import application.SubscriberInterface;
 import controller.SceneController;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -65,7 +63,7 @@ public class StartScene implements SubscriberInterface {
 		starteSpiel.setPrefHeight(78);
 		starteSpiel.setPrefWidth(260);
 		starteSpiel.setOnAction(actionEvent -> {
-			this.submitStart();
+			//this.submitStart();
 			this.sceneController.startGame();
 			});
 

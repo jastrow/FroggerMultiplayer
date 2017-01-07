@@ -3,13 +3,9 @@ package application;
 import controller.*;
 import javafx.application.Application;
 import javafx.event.EventHandler;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 
 
 public class Main extends Application implements SubscriberInterface {
@@ -33,7 +29,6 @@ public class Main extends Application implements SubscriberInterface {
 		try {
 //			this.sceneController.setStage(primaryStage);
 			primaryStage.setUserData(this.sceneController);
-			primaryStage.setOnShown(windowEvent -> this.sceneController.launchGame());
 	        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 	            @Override
 	            public void handle(WindowEvent e) {
