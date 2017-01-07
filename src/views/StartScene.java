@@ -1,6 +1,9 @@
 package views;
 
 import application.Configuration;
+import application.Observer;
+import application.SubscriberDaten;
+import application.SubscriberInterface;
 import controller.SceneController;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -10,11 +13,12 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
-public class StartScene {
+public class StartScene implements SubscriberInterface {
 
 	private Scene scene;
 	private SceneController sceneController;
@@ -22,7 +26,7 @@ public class StartScene {
 	// Hauptpanel
 	private BorderPane rootStart = new  BorderPane();
 	private GridPane contentStart = new GridPane();
-	private Label spielerName = new Label("Spielername");
+	private TextField spielerName = new TextField("Spielername");
 	
 	public StartScene(SceneController sceneController) {
 		this.sceneController = sceneController;
@@ -60,7 +64,10 @@ public class StartScene {
 		starteSpiel.getStyleClass().add("starteSpiel");
 		starteSpiel.setPrefHeight(78);
 		starteSpiel.setPrefWidth(260);
-		starteSpiel.setOnAction(actionEvent -> this.sceneController.startGame());
+		starteSpiel.setOnAction(actionEvent -> {
+			this.submitStart();
+			this.sceneController.startGame();
+			});
 
 
 		verboAeussereBox.getChildren().add(spielerName);
@@ -101,10 +108,23 @@ public class StartScene {
 		
 		return menuBox;
 	}
+	
+	private void submitStart() {
+		SubscriberDaten data = new SubscriberDaten();
+		data.name = this.spielerName.getText();
+		data.time = Configuration.timeEnd;
+		Observer.trigger("start", data);
+	}
 
 	
 	public Scene getScene() {
 		return this.scene;
+	}
+
+	@Override
+	public void calling(String trigger, SubscriberDaten daten) {
+		// TODO Automatisch generierter Methodenstub
+		
 	}
 	
 	

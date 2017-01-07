@@ -15,16 +15,17 @@ public class SceneController implements SubscriberInterface {
 	public ScoreScene scoreScene;
 	private Stage primaryStage;
 	private Integer time;
+	private boolean gameRunning;
 	
 	
 	public SceneController() {
 		this.startScene = new StartScene(this);
-		this.gameScene = new GameScene(this);
 		this.scoreScene = new ScoreScene(this);
 		this.primaryStage = new Stage();
 		Observer.add("time", this);
 		Observer.add("close", this);
 		Observer.add("end", this);
+		Observer.add("start", this);
 	}
 	
 	public void setStage(Stage primaryStage){
@@ -58,13 +59,13 @@ public class SceneController implements SubscriberInterface {
 	}
 	
 	public void startGame(){
+		this.gameScene = new GameScene(this);
 		this.primaryStage.setScene(this.getGameScene());
-		this.submitStart();
 	}
 	
 	public void showGameScene() {
 		
-		if (this.time > 0) {
+		if (gameRunning) {
 			this.primaryStage.setScene(this.getGameScene());
 			this.primaryStage.show();
 		} else {
@@ -78,12 +79,6 @@ public class SceneController implements SubscriberInterface {
 		this.game = game;
 	} 
 	
-	private void submitStart() {
-		SubscriberDaten data = new SubscriberDaten();
-		data.time = Configuration.timeEnd;
-		Observer.trigger("start", data);
-	}
-	
 	private void submitEnd() {
 		SubscriberDaten data = new SubscriberDaten();
 		data.time = 0;
@@ -94,7 +89,6 @@ public class SceneController implements SubscriberInterface {
 		SubscriberDaten data = new SubscriberDaten();
 		data.name = actScene;
 		Observer.trigger("close", data);
-		System.out.println("is wech");
 	}
 	
 	public void calling(String trigger, SubscriberDaten data) {
@@ -112,10 +106,15 @@ public class SceneController implements SubscriberInterface {
 				break;
 			}
 			case "end": {
+				this.gameRunning = false;
 				System.out.println("End Game");
 				break;
 			}
-		
+			case "start": {
+				this.gameRunning = true;
+				System.out.println("Start Game");
+				break;
+			}
 		}
 	}
 }

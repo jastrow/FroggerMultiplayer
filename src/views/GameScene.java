@@ -217,9 +217,10 @@ import javafx.scene.layout.VBox;
 			
 			//Hilfsvaraiblen deklarienen
 			ImageView help = this.getGUIObject(data);
-			// Integer woodLength = 1;
-			// woodLength = data.length - 1;
-			help.setImage(this.wood[0]);
+
+			Integer woodLength = data.length - 1;
+			if (woodLength == null) woodLength = 0;
+			help.setImage(this.wood[woodLength]);
 			help.setId(data.id.toString());
 			this.pictureCont.add(this.setPosition(help, ((data.xPosition*50)-49), ((data.yPosition*50)-49)));
 			
@@ -230,6 +231,8 @@ import javafx.scene.layout.VBox;
 			//Hilfsvaraiblen deklarienen
 			ImageView help = this.getGUIObject(data);
 			
+			Integer frogTyp = data.length - 1;
+			if (frogTyp == null) frogTyp = 0;
 			help.setImage(this.frog[rand.nextInt(1)]);
 			help.setFitHeight(50);
 			help.setFitWidth(50);
@@ -296,7 +299,7 @@ import javafx.scene.layout.VBox;
 				formatedTime = format.format(( timeToFormat / 60 )) + ":" + format.format((timeToFormat - ((timeToFormat/60) * 60))); 
 				return formatedTime; 
 			} else {
-				return "";
+				return "00:00";
 			}
 		}
 	
