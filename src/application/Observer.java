@@ -47,7 +47,7 @@ public class Observer {
 	 * @param data Daten in Form von SubscriberDaten
 	 */
 	public void triggerObserver(String trigger, SubscriberDaten data) {
-		System.out.println("triggered: "+trigger);
+//		System.out.println("triggered: "+trigger);
 
 		List<Subscriber> subscriberCopy = new ArrayList<Subscriber>(this.subscriber); 
 		for(Subscriber subscriber: subscriberCopy) {

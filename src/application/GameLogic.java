@@ -43,7 +43,7 @@ public class GameLogic implements SubscriberInterface {
 		this.frogPlayer2 = new Frog(2,2,"Spieler2",null);
 		this.streets = new Streets();
 		this.rivers = new Rivers();
-		this.timer = new TimeMachine(Configuration.timeEnd);
+		this.timer = new TimeMachine();
 
 		// Observer anmeldung
 		Observer.add("start", this);
@@ -53,7 +53,7 @@ public class GameLogic implements SubscriberInterface {
 	public void calling(String trigger, SubscriberDaten daten) {
 		switch(trigger) {
 			case "start": 
-				System.out.println("Game started"); 
+//				System.out.println("Game started"); 
 				this.timer.start(); 
 				break;
 			default: break;

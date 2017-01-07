@@ -58,14 +58,14 @@ public class SceneController implements SubscriberInterface {
 	}
 	
 	public void searchPlayer(){
-		System.out.println("na dann suche mal!");
+//		System.out.println("na dann suche mal!");
 	}
 	
 	public void startGame(){
 		this.gameScene = new GameScene(this);
 		this.primaryStage.setScene(this.getGameScene());
 		//Observer.trigger("start", new SubscriberDaten());
-		System.out.println(this.primaryStage.getOnShown());
+//		System.out.println(this.primaryStage.getOnShown());
 	}
 	
 	public void showGameScene() {
@@ -116,12 +116,12 @@ public class SceneController implements SubscriberInterface {
 			}
 			case "end": {
 				this.gameRunning = false;
-				System.out.println("End Game");
+//				System.out.println("End Game");
 				break;
 			}
 			case "start": {
 				this.gameRunning = true;
-				System.out.println("Start Game");
+//				System.out.println("Start Game");
 				break;
 			}
 		}

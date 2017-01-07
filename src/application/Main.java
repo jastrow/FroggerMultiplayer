@@ -44,9 +44,6 @@ public class Main extends Application implements SubscriberInterface {
 	            }
 	        });
 	        this.sceneController.setStage(primaryStage);
-//	        primaryStage.setScene(this.sceneController.getGameScene());
-//	        primaryStage.setOnShown(windowEvent -> Observer.trigger("start", new SubscriberDaten()));
-//			neuMenuItem.setOnAction(actionEvent -> Observer.trigger);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

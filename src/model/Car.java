@@ -23,7 +23,7 @@ public class Car implements SubscriberInterface {
 		this.lastMovement = 0;
 		Observer.add("time", this);
 		this.sendObserver("new");
-		System.out.println("new car");
+//		System.out.println("new car");
 	}
 
 	public int getId() {
@@ -90,7 +90,7 @@ public class Car implements SubscriberInterface {
 		data.yPosition 	= this.positionY;
 		data.typ 		= typ;
 		Observer.trigger("car", data);
-		System.out.println(data.toString());
+//		System.out.println(data.toString());
 	}
   
 
