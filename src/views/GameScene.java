@@ -219,7 +219,7 @@ import javafx.scene.layout.VBox;
 			//Elemente in GUI setzen
 			for(ImageView help: pictureCont){
 				this.graphicsContext.drawImage(help.getImage(), help.getX(), help.getY());
-				System.out.println(help.getId() + " " + help.getX() + " " + help.getY());
+				System.out.println(help.getId() + " " + help.getImage() + " " + help.getX() + " " + help.getY());
 				//this.contentGame.getChildren().add(help);
 			}
 			System.out.println("Update Szene!");
@@ -340,7 +340,7 @@ import javafx.scene.layout.VBox;
 		}
 	
 		public void calling(String trigger, SubscriberDaten data) {
-			System.out.println("Manu calling: " + trigger + " " + data.typ + " " + data.name + " " + data.xPosition + " " + data.yPosition);
+			System.out.println("Manu calling: " + trigger + " " + data.typ + " " + data.name + " " + data.id + " " + data.xPosition + " " + data.yPosition);
 			switch (trigger) {
 				case "car": {
 					switch (data.typ) {
