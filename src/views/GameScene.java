@@ -176,9 +176,10 @@ import javafx.scene.layout.VBox;
 		}
 		
 		private ImageView setPosition(ImageView imgObject, Integer xPosition, Integer yPosition) {
+			ImageView help = imgObject;
 			imgObject.setX(xPosition);
 			imgObject.setY(yPosition);
-			return imgObject;
+			return help;
 		}
 		
 		
@@ -218,6 +219,7 @@ import javafx.scene.layout.VBox;
 			//Elemente in GUI setzen
 			for(ImageView help: pictureCont){
 				this.graphicsContext.drawImage(help.getImage(), help.getX(), help.getY());
+				System.out.println(help.getId() + " " + help.getX() + " " + help.getY());
 				//this.contentGame.getChildren().add(help);
 			}
 			System.out.println("Update Szene!");
@@ -232,7 +234,6 @@ import javafx.scene.layout.VBox;
 			help.setImage(this.car[rand.nextInt(3)]);
 			help.setFitHeight(50);
 			help.setId(data.id.toString());
-			this.contentGame.getChildren().add(help);
 			this.pictureCont.add(this.setPosition(help, ((data.xPosition*50)-49), ((data.yPosition*50)-49)));
 			this.updateElements();
 			
@@ -253,7 +254,6 @@ import javafx.scene.layout.VBox;
 			help.setImage(this.wood[woodLength]);
 			//help.setImage(this.wood[woodLength]);
 			help.setId(data.id.toString());
-			this.contentGame.getChildren().add(help);
 			this.pictureCont.add(this.setPosition(help, ((data.xPosition*50)-49), ((data.yPosition*50)-49)));
 			this.updateElements();
 			
@@ -270,7 +270,6 @@ import javafx.scene.layout.VBox;
 			help.setFitHeight(50);
 			help.setFitWidth(50);
 			help.setId(data.id.toString());
-			this.contentGame.getChildren().add(help);
 			this.pictureCont.add(this.setPosition(help, ((data.xPosition*50)-49), ((data.yPosition*50)-49)));
 			this.updateElements();
 			
@@ -323,6 +322,7 @@ import javafx.scene.layout.VBox;
 		private void updateTimer(SubscriberDaten data) {
 			
 			this.timeLabel.setText("restliche Spielzeit: " + this.formatTime(data.time));
+			System.out.println("restliche Spielzeit: " + this.formatTime(data.time));
 			
 		}
 		
@@ -340,7 +340,7 @@ import javafx.scene.layout.VBox;
 		}
 	
 		public void calling(String trigger, SubscriberDaten data) {
-			System.out.println("Manu calling: "+trigger);
+			System.out.println("Manu calling: " + trigger + " " + data.typ + " " + data.name + " " + data.xPosition + " " + data.yPosition);
 			switch (trigger) {
 				case "car": {
 					switch (data.typ) {
@@ -393,7 +393,7 @@ import javafx.scene.layout.VBox;
 					}
 					break;
 				}
-				case "timer": {
+				case "time": {
 						this.updateTimer(data);
 						break;
 				}
