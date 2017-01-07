@@ -106,7 +106,7 @@ public class Street implements SubscriberInterface{
 		if(car == null) {
 			return null;
 		}
-		if(car.getLeftToRight()) {
+		if(this.leftToRight) {
 			distance = car.getPositionX() - 1;
 		} else {
 			distance = Configuration.xFields - (car.getPositionX() + 1); 

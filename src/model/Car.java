@@ -11,7 +11,7 @@ public class Car implements SubscriberInterface {
 	private Boolean leftToRight = false;	// Auto fährt von links nach rechts (ansonsten andersrum)
 	private int positionX = 1;
 	private int positionY; 
-	private int lastMovement;
+	private int startTime = 0;
 	
 	public Car (Boolean leftToRight, Integer positionY) {
 		this.id = IdCounter.getId();
@@ -20,49 +20,26 @@ public class Car implements SubscriberInterface {
 		if(!leftToRight) {
 			this.positionX = Configuration.xFields;
 		}
-		this.lastMovement = 0;
 		Observer.add("time", this);
 		this.sendObserver("new");
 	}
-
-	public int getId() {
-		return this.id;
-	}
-	public Boolean getLeftToRight() {
-		return this.leftToRight;
-	}
 	
-	public int getPositionX() {
-		return this.positionX;
-	}
-	
-	public int getPositionY() {
-		return this.positionY;
-	}
-
-	public void setPositionX(int positionX) {
-		this.positionX = positionX;
-	}
-	
-	public void setPositionY(int positionY) {
-		this.positionY = positionY;
-	}
-
 	public void calling(String trigger, SubscriberDaten daten) {
+		if(this.startTime == 0) {
+			this.startTime = daten.time;
+		}
 		this.movement(daten.time);
 	}
 	
 	private void movement(Integer timeNow) {
-		Integer timeDif = timeNow - this.lastMovement;
-		if(timeDif >= Configuration.carSpeed) {
-			if(this.leftToRight) {
-				this.positionX++;
-			} else {
-				this.positionX--;
-			}
-			this.lastMovement += Configuration.carSpeed;
-			this.checkLeftStreet();
+		Integer fieldsMoved = (int) (timeNow - this.startTime) / Configuration.carSpeed;
+
+		if(this.leftToRight) {
+			this.positionX = 1 + fieldsMoved;
+		} else {
+			this.positionX = Configuration.xFields - fieldsMoved;
 		}
+		this.checkLeftStreet();
 		
 	}
 	
@@ -92,5 +69,10 @@ public class Car implements SubscriberInterface {
 	}
   
 
-	
+	public Integer getId() {
+		return this.id;
+	}
+	public Integer getPositionX() {
+		return this.positionX;
+	}
 }
