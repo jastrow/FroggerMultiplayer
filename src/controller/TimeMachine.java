@@ -5,12 +5,13 @@ import application.*;
 public class TimeMachine implements Runnable, SubscriberInterface {
 //public class TimeMachine implements SubscriberInterface {
 
+	private Thread t;
 	private Boolean running;
 	private Integer timeLog;
 	private Integer timeEnd;
 	
-	public TimeMachine(Integer timeEnd) {
-		this.timeEnd = timeEnd;
+	public TimeMachine() {
+		this.timeEnd = Configuration.timeEnd;
 		this.reset();
 		Observer.add("stopGame", this);
 	}
@@ -22,8 +23,10 @@ public class TimeMachine implements Runnable, SubscriberInterface {
 	
 	public void start() {
 		this.running = true;
-		this.run();
+		this.t = new Thread(this);
+		this.t.start();
 	}
+
 	
 	public void stop() {
 		this.running = false;
@@ -52,7 +55,7 @@ public class TimeMachine implements Runnable, SubscriberInterface {
 			daten.time = this.timeLog;
 			
 			Observer.trigger("time", daten);
-			System.out.println(this.timeLog);
+//			System.out.println(this.timeLog);
 		}
 	}
 	
@@ -61,5 +64,6 @@ public class TimeMachine implements Runnable, SubscriberInterface {
 			this.stop();
 		}
 	}
+	
 
 }

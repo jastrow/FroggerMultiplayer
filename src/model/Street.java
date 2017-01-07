@@ -48,7 +48,7 @@ public class Street implements SubscriberInterface{
 			switch(daten.typ) {
 				case "delete": 
 					this.carLeftStreet(daten.id); 
-					System.out.println(daten.toString()); 
+//					System.out.println(daten.toString()); 
 					break;
 				default: break;
 			}
@@ -77,7 +77,7 @@ public class Street implements SubscriberInterface{
 				if(this.random(lastDistance)) {
 					Car neu = new Car(this.leftToRight, this.positionY);
 					this.cars.add(neu);
-					System.out.println(this.positionY+" neues Auto "+neu.getId());
+//					System.out.println(this.positionY+" neues Auto "+neu.getId());
 				}
 			}
 		}
@@ -93,7 +93,7 @@ public class Street implements SubscriberInterface{
 	public Boolean random(Integer lastDistance) {
 		Boolean doit = false;
 		Integer zufallszahl = (int) (Math.random() * Configuration.xFields);
-		System.out.println(zufallszahl+" < "+lastDistance);
+//		System.out.println(zufallszahl+" < "+lastDistance);
 		if(zufallszahl < lastDistance) {
 			doit = true;
 		}
@@ -150,7 +150,7 @@ public class Street implements SubscriberInterface{
 	 * @param id
 	 */
 	public void carLeftStreet(Integer id) {
-		System.out.println("car deleted");
+//		System.out.println("car deleted");
 		Observer.trigger("stopGame", new SubscriberDaten());
 		Car car = this.getCarById(id);
 		if(car != null) {
