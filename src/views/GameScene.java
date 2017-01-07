@@ -10,6 +10,9 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -20,6 +23,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 
@@ -34,7 +38,7 @@ import javafx.scene.layout.VBox;
 		
 		// Hauptpanel
 		private BorderPane rootGame = new BorderPane();
-		private Group contentGame = new Group();
+		private StackPane contentGame = new StackPane();
 		
 		//Bilder
 
@@ -50,6 +54,8 @@ import javafx.scene.layout.VBox;
 		
 		//Zufallsobjekt
 		Random rand = new Random();
+        Canvas canvas = new Canvas(950,650);
+        GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
 		
 		/**
 		 * Konstruktor
@@ -57,6 +63,7 @@ import javafx.scene.layout.VBox;
 		public GameScene(SceneController sceneController) {
 			
 			this.sceneController = sceneController;
+			
 			//Bilderarrays füllen
 			this.fillImageWood();
 			this.fillImageCar();
@@ -72,7 +79,10 @@ import javafx.scene.layout.VBox;
 			this.rootGame.setTop(this.buildMenu());
 			VBox contentBox = new VBox();
 			contentBox.getStyleClass().add("content");
-			contentBox.getChildren().add(this.contentGame);
+			Button pups = new Button("blääää");
+			pups.setOnAction(actionEvent -> Observer.trigger("start", new SubscriberDaten()));
+			contentBox.getChildren().add(pups);
+			contentBox.getChildren().add(canvas);
 			this.rootGame.setBottom(contentBox);
 			
 			//Anmeldung Observer
@@ -198,11 +208,15 @@ import javafx.scene.layout.VBox;
 		 */
 		private void updateElements() {
 			//Szene leeren 
-			this.contentGame.getChildren().clear();
+			//this.contentGame.getChildren().clear();
+			this.graphicsContext.clearRect(0, 0, 950,600);
 			//Elemente in GUI setzen
 			for(ImageView help: pictureCont){
-				this.contentGame.getChildren().add(help);
+				this.graphicsContext.drawImage(help.getImage(), help.getX(), help.getY());
+				//this.contentGame.getChildren().add(help);
 			}
+			System.out.println("Update Szene!");
+			//this.sceneController.updateStage();
 		}
 		
 		private void createNewCarObject(SubscriberDaten data) {
@@ -213,7 +227,9 @@ import javafx.scene.layout.VBox;
 			help.setImage(this.car[rand.nextInt(3)]);
 			help.setFitHeight(50);
 			help.setId(data.id.toString());
+			this.contentGame.getChildren().add(help);
 			this.pictureCont.add(this.setPosition(help, ((data.xPosition*50)-49), ((data.yPosition*50)-49)));
+			this.updateElements();
 			
 		}
 		
@@ -232,7 +248,9 @@ import javafx.scene.layout.VBox;
 			help.setImage(this.wood[woodLength]);
 			//help.setImage(this.wood[woodLength]);
 			help.setId(data.id.toString());
+			this.contentGame.getChildren().add(help);
 			this.pictureCont.add(this.setPosition(help, ((data.xPosition*50)-49), ((data.yPosition*50)-49)));
+			this.updateElements();
 			
 		}
 		
@@ -247,7 +265,9 @@ import javafx.scene.layout.VBox;
 			help.setFitHeight(50);
 			help.setFitWidth(50);
 			help.setId(data.id.toString());
+			this.contentGame.getChildren().add(help);
 			this.pictureCont.add(this.setPosition(help, ((data.xPosition*50)-49), ((data.yPosition*50)-49)));
+			this.updateElements();
 			
 		}
 		
@@ -277,16 +297,17 @@ import javafx.scene.layout.VBox;
 				}
 				
 				this.pictureCont.set(position, this.setPosition(help, ((data.xPosition*50)-49), ((data.yPosition*50)-49)));
-				//Aktualisierung der GUI Elemente	
-				this.updateElements();
 			}
+			//Aktualisierung der GUI Elemente	
+			this.updateElements();
 		}
 		
 		private void deleteGUIObject(SubscriberDaten data) {
 			
 			for(ImageView help: this.pictureCont) {
 				if (data.id == Integer.parseInt(help.getId())) {
-					this.pictureCont.remove(help);
+					help.setImage(null); //um multiple Zugriff beim löschen zu umgehene
+					//this.pictureCont.remove(help);
 				}
 			}
 			
