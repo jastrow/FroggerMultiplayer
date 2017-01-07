@@ -1,10 +1,8 @@
 package controller;
 
-import application.Configuration;
-import application.Observer;
-import application.SubscriberDaten;
+import application.*;
 
-public class TimeMachine implements Runnable {
+public class TimeMachine implements Runnable, SubscriberInterface {
 
 	private Boolean running;
 	private Integer timeLog;
@@ -13,6 +11,7 @@ public class TimeMachine implements Runnable {
 	public TimeMachine(Integer timeEnd) {
 		this.timeEnd = timeEnd;
 		this.reset();
+		Observer.add("stopGame", this);
 	}
 	
 	public void reset() {
@@ -53,6 +52,12 @@ public class TimeMachine implements Runnable {
 			
 			Observer.trigger("time", daten);
 			System.out.println(this.timeLog);
+		}
+	}
+	
+	public void calling(String trigger, SubscriberDaten data) {
+		if(trigger == "stopGame") {
+			this.stop();
 		}
 	}
 

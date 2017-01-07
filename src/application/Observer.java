@@ -62,6 +62,7 @@ public class Observer {
 	public static void trigger(String trigger, SubscriberDaten data) {
 		Observer obs = Observer.getInstance();
 		obs.triggerObserver(trigger, data);
+		System.out.println("triggered: "+trigger);
 	}
 	
 	/**
