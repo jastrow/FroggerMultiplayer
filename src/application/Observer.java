@@ -1,7 +1,7 @@
 package application;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 
 /**
@@ -26,7 +26,7 @@ public class Observer {
 	public static Observer instance;
 	
 	/* Liste der Subscriber Instanzen */
-	public List<Subscriber> subscriber = new ArrayList<Subscriber>(); 
+	public Queue<Subscriber> subscriber = new ConcurrentLinkedQueue<Subscriber>();
 	
 	/**
 	 * (Erstellt und) Gibt die Observer-Instanz zurück.
@@ -47,9 +47,7 @@ public class Observer {
 	 * @param data Daten in Form von SubscriberDaten
 	 */
 	public void triggerObserver(String trigger, SubscriberDaten data) {
-
-		List<Subscriber> subscriberCopy = new ArrayList<Subscriber>(this.subscriber); 
-		for(Subscriber subscriber: subscriberCopy) {
+		for(Subscriber subscriber: this.subscriber) {
 			if(subscriber.getTrigger() == trigger) {
 				subscriber.listenTo(trigger, data);
 			}
@@ -84,29 +82,20 @@ public class Observer {
 	}
 	
 	
-	
-	
-	/**
-	 * Entfernt einen Subscriber, benötigt die betroffene Instanz und den Trigger.
-	 * @param obj
-	 * @param trigger
-	 */
-	public void removeSubscriber(String trigger, Object obj) {
-		
-	}
-	
 	/**
 	 * Entfernt einen Subscriber mit all seinen Triggern.
 	 */
-	public void removeSubscriberByInstance(Object obj) {
-		
+	public static void removeMe(Object obj) {
+		Observer obs = Observer.getInstance();
+		obs.removeMeByInstance(obj);
+	}
+	public void removeMeByInstance(Object obj) {
+		for(Subscriber sub: this.subscriber) {
+			if(sub.getListener() == obj) {
+				this.subscriber.remove(sub);
+			}
+		}
 	}
 	
-	/**
-	 * Entfernt alle Subscriber mit einem bestimmten Trigger.
-	 */
-	public void removeSubscriberByTrigger(String trigger) {
-		
-	}
 	
 }
