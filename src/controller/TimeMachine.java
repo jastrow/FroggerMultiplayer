@@ -1,6 +1,11 @@
 package controller;
 
 import application.*;
+//import java.util.concurrent.TimeUnit;
+//import java.util.logging.Level;
+//import java.util.logging.Logger;
+import javafx.application.Platform;
+//import javafx.scene.control.ListView;
 
 public class TimeMachine implements Runnable, SubscriberInterface {
 //public class TimeMachine implements SubscriberInterface {
@@ -54,7 +59,11 @@ public class TimeMachine implements Runnable, SubscriberInterface {
 			daten.name = "time";
 			daten.time = this.timeLog;
 			
-			Observer.trigger("time", daten);
+			Platform.runLater(new Runnable() {
+				public void run() {
+					Observer.trigger("time", daten);
+				}
+			});
 //			System.out.println(this.timeLog);
 		}
 	}
