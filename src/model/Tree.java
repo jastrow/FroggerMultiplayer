@@ -6,17 +6,17 @@ import application.SubscriberDaten;
 import application.SubscriberInterface;
 
 public class Tree implements SubscriberInterface {
-	
+
 	private int id;
 	private Boolean leftToRight = false;	// Baumstamm fliesst von links nach rechts (ansonsten andersrum)
 	private Integer positionX;
 	private Integer positionY;
 	private int lastMovement;
 	private int length;
-	
-	
+
+
 	/**
-	 * 
+	 *
 	 * @param id
 	 * @param positionX
 	 * @param positionY
@@ -32,11 +32,12 @@ public class Tree implements SubscriberInterface {
 		}
 		this.lastMovement = 0;
 		this.length = length;
-		
+		System.out.println("xxxx" + length);
+		Observer.trigger("stopGame", new SubscriberDaten());
 		Observer.add("time", this);
 		this.sendObserver("new");
 	}
-	
+
 	public Integer getId() {
 		return this.id;
 	}
@@ -47,7 +48,7 @@ public class Tree implements SubscriberInterface {
 			this.movement(daten.time);
 		}
 	}
-	
+
 	//Check position
 	private void movement(Integer timeNow) {
 		Integer timeDif = timeNow - this.lastMovement;
@@ -62,11 +63,12 @@ public class Tree implements SubscriberInterface {
 				this.sendObserver("move");
 			} else {
 				this.sendObserver("delete");
+				Observer.removeMe(this);
 			}
 		}
-		
+
 	}
-	
+
 	public void sendObserver(String typ) {
 		SubscriberDaten data = new SubscriberDaten();
 		data.id 		= this.id;
@@ -75,9 +77,9 @@ public class Tree implements SubscriberInterface {
 		data.yPosition 	= this.positionY;
 		data.typ 		= typ;
 		data.length		= this.length;
-		Observer.trigger("tree", data);		
+		Observer.trigger("tree", data);
 	}
-	
+
 	public Boolean checkInGame() {
 		return true;
 	}
