@@ -52,6 +52,8 @@ import javafx.scene.layout.VBox;
         Canvas canvas = new Canvas(950,650);
         GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
 		
+       /********************************************* Szeneninitialisierung *********************************************/ 
+        
 		/**
 		 * Konstruktor
 		 */
@@ -61,11 +63,7 @@ import javafx.scene.layout.VBox;
 			super(new StackPane(),Configuration.xFields * 50,Configuration.yFields * 50 + 30);
 			this.setRoot(rootGame);
 			this.sceneController = sceneController;
-			
-	        this.graphicsContext.save();
-	        // this.graphicsContext.drawImage(image, posX, posY, 50, 50);
-	        this.graphicsContext.restore();
-			
+					
 			//Bilderarrays füllen
 			this.fillImageWood();
 			this.fillImageCar();
@@ -151,6 +149,9 @@ import javafx.scene.layout.VBox;
 			this.frog[1] = new Image(getClass().getResource("../img/Frosch_Animation_runterHoch_Stand.png").toExternalForm());
 		
 		}
+	
+   /********************************************** Hilfsfunktionen ***********************************************/		
+		
 		
 		/**
 		 * Hilfsfunktion zum prüfen ob Objekt bereits in Liste vorhanden
@@ -167,21 +168,47 @@ import javafx.scene.layout.VBox;
 			return false;
 		}
 		
-		private ImageView setPosition(ImageView imgObject, Integer xPosition, Integer yPosition, Boolean leftToRight) {
+		/**
+		 * Hilfsfunktion zur Positionierung des GUI Objektes 
+		 *
+		 */
+		
+		private ImageView setPosition(ImageView imgObject, SubscriberDaten data) {
 			
 			ImageView help = imgObject;
 			
-			if (leftToRight){ 			
-				imgObject.setX((xPosition*50)-49);
-				imgObject.setY((yPosition*50)-49);
+			if ((data.name == "Tree") && ((data.xPosition < data.length) || (data.xPosition > (Configuration.xFields - data.length)))) {
+				switch(data.xPosition) {
+					case 1:	{ help.setImage(this.wood[0]);
+							  break;
+					}
+					case 2: { help.setImage(this.wood[1]);
+					  			break;
+					  		}
+					case 19: { help.setImage(this.wood[0]);
+					  		   break;
+					  		}
+					case 18: { help.setImage(this.wood[1]);
+		  					   break;
+		  					 }
+				}
+			}
+			
+			if (data.leftToRight){ 			
+				imgObject.setX((data.xPosition*50)-49);
+				imgObject.setY((data.yPosition*50)-49);
 			} else {
-				imgObject.setX((help.getX()) - ((xPosition*50)-49));
-				imgObject.setY((help.getY()) - ((yPosition*50)-49));
+				imgObject.setX((help.getX()) - ((data.xPosition*50)-49));
+				imgObject.setY((help.getY()) - ((data.yPosition*50)-49));
 			}
 			
 			return help;
 		}
 		
+		/**
+		 * Hilfsfunktion zum auslesen der Position des angetriggerten Objektes in der Liste
+		 *
+		 */
 		
 		private int getPosition(SubscriberDaten data) {
 			
@@ -196,6 +223,11 @@ import javafx.scene.layout.VBox;
 		
 		}
 		
+		/**
+		 * Hilfsfunktion zum auslesen des angetriggerten Objektes
+		 *
+		 */
+		
 		private ImageView getGUIObject(SubscriberDaten data) {
 			ImageView getObject = new ImageView();
 			
@@ -207,20 +239,31 @@ import javafx.scene.layout.VBox;
 			return getObject;
 			
 		}
-
+		
 		/**
-		 * Hilfsfunktion zum leeren und neu befüllen der Szene
+		 * Hilfsfunktion zum formatieren der Zeitausgabe
 		 *
 		 */
-		private void updateElements() {
-			//Szene leeren 
-			//this.contentGame.getChildren().clear();
-			this.graphicsContext.clearRect(0, 0, 950,600);
-			//Elemente in GUI setzen
-			for(ImageView help: pictureCont){
-				this.graphicsContext.drawImage(help.getImage(), help.getX(), help.getY());
+		
+		private String formatTime(Integer timeToFormat) {
+			
+			if (timeToFormat != null) {
+				String formatedTime = "";
+				DecimalFormat format = new DecimalFormat("00");
+				timeToFormat = timeToFormat / 10 ;
+				formatedTime = format.format(( timeToFormat / 60 )) + ":" + format.format((timeToFormat - ((timeToFormat/60) * 60))); 
+				return formatedTime; 
+			} else {
+				return "00:00";
 			}
 		}
+
+		  /********************************************** Arbeitsfuntionen  ***********************************************/		
+
+		/**
+		 * Funktion zum erstellen eines neuen Car Objektes
+		 *
+		 */
 		
 		private void createNewCarObject(SubscriberDaten data) {
 	
@@ -230,12 +273,16 @@ import javafx.scene.layout.VBox;
 			help.setImage(this.car[rand.nextInt(3)]);
 			help.setFitHeight(50);
 			help.setId(data.id.toString());
-			this.pictureCont.add(this.setPosition(help, (data.xPosition), (data.yPosition),true));
+			this.pictureCont.add(this.setPosition(help, data));
 			this.updateElements();
 			
 		}
 		
-		private void createNewBarObject(SubscriberDaten data) {
+		/**
+		 * Funktion zum erstellen eines neuen Tree Objektes
+		 *
+		 */
+		private void createNewTreeObject(SubscriberDaten data) {
 			
 			//Hilfsvaraiblen deklarienen
 			ImageView help = this.getGUIObject(data);
@@ -245,11 +292,15 @@ import javafx.scene.layout.VBox;
 			if (data.length != null) woodLength = data.length - 1;
 			help.setImage(this.wood[woodLength]);
 			help.setId(data.id.toString());
-			this.pictureCont.add(this.setPosition(help, (data.xPosition), (data.yPosition),true));
+			this.pictureCont.add(this.setPosition(help, data));
 			this.updateElements();
 			
 		}
 		
+		/**
+		 * Funktion zum erstellen eines neuen Frosch Objektes
+		 *
+		 */
 		private void createNewFrogObject(SubscriberDaten data) {
 			
 			//Hilfsvaraiblen deklarienen
@@ -261,19 +312,43 @@ import javafx.scene.layout.VBox;
 			help.setFitHeight(50);
 			help.setFitWidth(50);
 			help.setId(data.id.toString());
-			this.pictureCont.add(this.setPosition(help, (data.xPosition), (data.yPosition),true));
+			this.pictureCont.add(this.setPosition(help, data));
 			this.updateElements();
 			
 		}
 		
+		/**
+		 * Funktion zum löschen eines GUI Objektes
+		 *
+		 */
+		
+		private void deleteGUIObject(SubscriberDaten data) {
+			
+			for(ImageView help: this.pictureCont) {
+				if (data.id == Integer.parseInt(help.getId())) {
+					help.setImage(null); 
+					//um multiple Listenzugriffe Zugriff beim löschen zu umgehen wird das entsprechende Element unsichtbar gemacht 
+					//this.pictureCont.remove(help);
+				}
+			}
+			
+			//Aktualisierung der GUI Elemente	
+			this.updateElements();
+		}
+		
+		/**
+		 * Funktion zum Update des angetriggerten GUI Objektes
+		 *
+		 */
 		private void updateGUIObject(SubscriberDaten data) {
 			
 				//Hilfsvaraiblen deklarienen
 				ImageView help = this.getGUIObject(data);
-				int position = this.getPosition(data);
 				Boolean exist = this.checkImageExist(data);
 			
 			if (exist) {
+				
+				int position = this.getPosition(data);
 				
 				//prüfen auf GameOver und Anpassung der Szene
 				if (data.xPosition == 0 && data.yPosition == 0) {
@@ -291,44 +366,45 @@ import javafx.scene.layout.VBox;
 
 				}
 				
-				this.pictureCont.set(position, this.setPosition(help, data.xPosition, data.yPosition, data.leftToRight));
+				this.pictureCont.set(position, this.setPosition(help, data));
 			}
 			//Aktualisierung der GUI Elemente	
 			this.updateElements();
 		}
 		
-		private void deleteGUIObject(SubscriberDaten data) {
-			
-			for(ImageView help: this.pictureCont) {
-				if (data.id == Integer.parseInt(help.getId())) {
-					help.setImage(null); //um multiple Zugriff beim löschen zu umgehene
-					//this.pictureCont.remove(help);
-				}
+		/**
+		 * Hilfsfunktion zum leeren und neu befüllen der Szene
+		 *
+		 */
+		private void updateElements() {
+			//Szene leeren 
+			//this.contentGame.getChildren().clear();
+			this.graphicsContext.clearRect(0, 0, 950,600);
+			//Elemente in GUI setzen
+			for(ImageView help: pictureCont){
+		        this.graphicsContext.restore();
+				this.graphicsContext.drawImage(help.getImage(), help.getX(), help.getY());
+		        this.graphicsContext.save();
 			}
-			
-			//Aktualisierung der GUI Elemente	
-			this.updateElements();
 		}
 		
+		/**
+		 * Hilfsfunktion zum Update des Timerfeldes
+		 *
+		 */
 		private void updateTimer(SubscriberDaten data) {
 			
 			this.timeLabel.setText("restliche Spielzeit: " + this.formatTime(data.time));
 			
 		}
-		
-		private String formatTime(Integer timeToFormat) {
 			
-			if (timeToFormat != null) {
-				String formatedTime = "";
-				DecimalFormat format = new DecimalFormat("00");
-				timeToFormat = timeToFormat / 10 ;
-				formatedTime = format.format(( timeToFormat / 60 )) + ":" + format.format((timeToFormat - ((timeToFormat/60) * 60))); 
-				return formatedTime; 
-			} else {
-				return "00:00";
-			}
-		}
-	
+		/************************************** Observerhandling ***************************************/
+		
+		
+		/**
+		 * Funktion zum verarbeiten der Observertrigger
+		 *
+		 */
 		public void calling(String trigger, SubscriberDaten data) {
 			switch (trigger) {
 				case "car": {
@@ -348,10 +424,10 @@ import javafx.scene.layout.VBox;
 					}
 					break;
 				}
-				case "wood": {
+				case "tree": {
 					switch (data.typ) {
 						case "new": {
-										this.createNewBarObject(data);
+										this.createNewTreeObject(data);
 										break;
 						}
 						case "move": {
