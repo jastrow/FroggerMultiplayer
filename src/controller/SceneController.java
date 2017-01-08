@@ -65,7 +65,6 @@ public class SceneController implements SubscriberInterface {
 		this.gameScene = new GameScene(this);
 		this.primaryStage.setScene(this.getGameScene());
 		Observer.trigger("start", new SubscriberDaten());
-		//Observer.trigger("start", new SubscriberDaten());
 	}
 	
 	public void showGameScene() {
@@ -80,17 +79,12 @@ public class SceneController implements SubscriberInterface {
 		}
 	}
 	
-	public void launchGame() {
-		if (this.gameRunning) Observer.trigger("start", new SubscriberDaten());
-	}
-	
 	public void setGame(GameLogic game) {
 		this.game = game;
 	} 
 	
 	private void submitEnd() {
 		SubscriberDaten data = new SubscriberDaten();
-		data.time = 0;
 		Observer.trigger("end", data);
 	}
 	
