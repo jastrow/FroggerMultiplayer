@@ -65,11 +65,11 @@ public class River implements SubscriberInterface {
 				 * in ersten Durchlauf wird nicht "length+distanceToNewTree" durchlaufen
 				 * d.h. das zweite Brett geht nahtlos in das erste ueber
 				 * daher wird positionX dekremntiert um 1
-				 */
+				*/
 				if(positionX+length==firstLeftPositionX){positionX--;};
 				//System.out.println(positionX);
 			}else{
-				positionX= positionX+prevLength;
+				positionX = positionX+prevLength+distanceToNewTree;
 			}
 			prevLength+= length+distanceToNewTree;
 			//System.out.println("prevLength " + prevLength);

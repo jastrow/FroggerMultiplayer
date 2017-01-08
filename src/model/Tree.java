@@ -33,7 +33,7 @@ public class Tree implements SubscriberInterface {
 		this.lastMovement = 0;
 		this.length = length;
 		System.out.println("xxxx" + length);
-		Observer.trigger("stopGame", new SubscriberDaten());
+		//Observer.trigger("stopGame", new SubscriberDaten());
 		Observer.add("time", this);
 		this.sendObserver("new");
 	}
