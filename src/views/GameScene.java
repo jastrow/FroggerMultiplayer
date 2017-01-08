@@ -1,7 +1,6 @@
 package views;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.Queue;
 import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -35,7 +34,7 @@ import javafx.scene.layout.VBox;
 		
 		// Hauptpanel
 		private BorderPane rootGame = new BorderPane();
-		private StackPane contentGame = new StackPane();
+		//private StackPane contentGame = new StackPane();
 		
 		//Bilder
 
@@ -93,6 +92,7 @@ import javafx.scene.layout.VBox;
 			Observer.add("time", this);
 			
 			this.setUserData("GameScene");
+			
 		}
 		
 		private HBox buildMenu() {
@@ -191,7 +191,7 @@ import javafx.scene.layout.VBox;
 			
 			ImageView help = imgObject;
 			
-			if ((data.name == "Tree") && ((data.xPosition < data.length) || (data.xPosition > (Configuration.xFields - data.length)))) {
+			/*if ((data.name == "Tree") && ((data.xPosition < data.length) || (data.xPosition > (Configuration.xFields - data.length)))) {
 				switch(data.xPosition) {
 					case 1:	{ help.setImage(this.wood[0]);
 							  break;
@@ -206,7 +206,7 @@ import javafx.scene.layout.VBox;
 		  					   break;
 		  					 }
 				}
-			}
+			}*/
 			
 			//if (data.leftToRight){ 			
 				imgObject.setX((data.xPosition*50)-49);
@@ -215,7 +215,6 @@ import javafx.scene.layout.VBox;
 			//	imgObject.setX((help.getX()) - ((data.xPosition*50)-49));
 			//	imgObject.setY((help.getY()) - ((data.yPosition*50)-49));
 			//}
-			System.out.println("Objektname: " + data.name + " ID: " + data.id + " XPosition: " + data.xPosition + " YPosition: " + data.yPosition+ " Typ: " + data.typ + " LeftToRight: " + data.leftToRight);
 			return help;
 		}
 		
@@ -264,7 +263,7 @@ import javafx.scene.layout.VBox;
 			if (timeToFormat != null) {
 				String formatedTime = "";
 				DecimalFormat format = new DecimalFormat("00");
-				timeToFormat = timeToFormat / 10 ;
+				timeToFormat = timeToFormat / 1000 ;
 				formatedTime = format.format(( timeToFormat / 60 )) + ":" + format.format((timeToFormat - ((timeToFormat/60) * 60))); 
 				return formatedTime; 
 			} else {
@@ -398,7 +397,11 @@ import javafx.scene.layout.VBox;
 		 */
 		private void updateTimer(SubscriberDaten data) {
 			
-			this.timeLabel.setText("restliche Spielzeit: " + this.formatTime(data.time));
+			Integer actTime = 0;
+			
+			if (data.time != null) actTime = data.time;
+			
+			this.timeLabel.setText("restliche Spielzeit: " + this.formatTime(Configuration.timeEnd - actTime));
 			
 		}
 			
@@ -410,7 +413,6 @@ import javafx.scene.layout.VBox;
 		 *
 		 */
 		public void calling(String trigger, SubscriberDaten data) {
-			System.out.println("######Objektname: " + data.name + " ID: " + data.id + " XPosition: " + data.xPosition + " YPosition: " + data.yPosition+ " Typ: " + data.typ + " LeftToRight: " + data.leftToRight);
 			switch (trigger) {
 				case "car": {
 					switch (data.typ) {

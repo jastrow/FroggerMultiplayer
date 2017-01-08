@@ -2,7 +2,10 @@ package controller;
 
 import application.*;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import views.*;
 
@@ -63,6 +66,36 @@ public class SceneController implements SubscriberInterface {
 	
 	public void startGame(){
 		this.gameScene = new GameScene(this);
+		this.gameScene.setOnKeyPressed(new EventHandler <KeyEvent>()
+        {
+            @Override
+            public void handle(KeyEvent e)
+            {
+            	SubscriberDaten data = new SubscriberDaten();
+            		
+                if(e.getCode() == KeyCode.LEFT)
+                {
+                	data.typ = "left";
+                    Observer.trigger("key", data);
+                    System.out.println("left");
+                }
+                else if(e.getCode() == KeyCode.RIGHT)
+                {
+                	data.typ = "right";
+                    Observer.trigger("key", data);
+                }
+                else if(e.getCode() == KeyCode.UP)
+                {
+                	data.typ = "up";
+                    Observer.trigger("key", data);
+                }
+                else if(e.getCode() == KeyCode.DOWN)
+                {
+                	data.typ = "down";
+                    Observer.trigger("key", data);
+                }
+            }
+        });
 		this.primaryStage.setScene(this.getGameScene());
 		Observer.trigger("start", new SubscriberDaten());
 	}
