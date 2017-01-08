@@ -86,7 +86,7 @@ import javafx.scene.layout.VBox;
 			
 			//Anmeldung Observer
 			Observer.add("car", this);
-			Observer.add("wood", this);
+			Observer.add("tree", this);
 			Observer.add("frog", this);
 			Observer.add("time", this);
 			
