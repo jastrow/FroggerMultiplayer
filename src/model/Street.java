@@ -25,8 +25,14 @@ public class Street implements SubscriberInterface{
 
 	public Street(Integer position) {
 		this.positionY = position;
-		Integer direction = (int)(Math.random() * 2);
-		if(direction >= 1) {
+		
+		// Fahrrichtung zufall
+//		Integer direction = (int)(Math.random() * 2);
+//		if(direction >= 1) {
+//			this.leftToRight = true;
+//		}
+		// Fahrrichtung abwechselnd
+		if((this.positionY % 2) == 0) {
 			this.leftToRight = true;
 		}
 		
@@ -52,6 +58,7 @@ public class Street implements SubscriberInterface{
 			}
 		} else if(trigger == "time") {
 			this.randomCar();
+//			this.showInConsole();
 		}
 	}
 	
@@ -65,7 +72,7 @@ public class Street implements SubscriberInterface{
 		if(this.cars.size() < Configuration.carMaxPerStreet) {
 			// Wenn das letzte Auto mindestens 3 Felder weiter ist
 			Integer lastDistance = this.lastCarDistance();
-			// Null wenn kein Auto auf der Strecke (50/50 Chance)
+			// Null noch kein Auto auf der Strecke war (50/50 Chance)
 			if(lastDistance == null) {
 				lastDistance = (int) Configuration.xFields / 2;
 			}
@@ -145,10 +152,41 @@ public class Street implements SubscriberInterface{
 	 * @param id
 	 */
 	public void carLeftStreet(Integer id) {
-		Observer.trigger("stopGame", new SubscriberDaten());
 		Car car = this.getCarById(id);
 		if(car != null) {
-			this.cars.remove(car);
+//			System.out.println("anzahl Autos auf "+this.positionY+": "+this.cars.size());
+			if(this.cars.remove(car)) {
+//				System.out.println("remove car"+id);
+//				System.out.println("anzahl Autos auf "+this.positionY+": "+this.cars.size());
+			}
 		}
+	}
+	
+	/**
+	 * Nur für Ausgabetests
+	 */
+	public void  showInConsole() {
+		System.out.println(
+			this.showStreet()
+		);
+	}
+	public String showStreet() {
+		String ASCIIstreet = String.format("%02d", this.positionY) + " ";
+		for(int i = 1; i <= Configuration.yFields; i++) {
+			if(this.checkPosition(i)) {
+				ASCIIstreet += "*";
+			} else {
+				ASCIIstreet += "_";
+			}
+		}
+		return ASCIIstreet;
+	}
+	public Boolean checkPosition(int p) {
+		for(Car car: this.cars) {
+			if(car.getPositionX() == p) {
+				return true;
+			}
+		}	
+		return false;
 	}
 }

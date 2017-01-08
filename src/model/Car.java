@@ -13,12 +13,14 @@ public class Car implements SubscriberInterface {
 	private int positionY; 
 	private int startTime = 0;
 	
+	private String log = "";
+	
 	public Car (Boolean leftToRight, Integer positionY) {
 		this.id = IdCounter.getId();
 		this.positionY = positionY;
 		this.leftToRight = leftToRight;
 		if(!leftToRight) {
-			this.positionX = Configuration.xFields;
+			this.positionX = Configuration.xFields + 1;
 		}
 		Observer.add("time", this);
 		this.sendObserver("new");
@@ -36,13 +38,15 @@ public class Car implements SubscriberInterface {
 		Integer lastPositionX = this.positionX;
 
 		if(this.leftToRight) {
-			this.positionX = 1 + fieldsMoved;
+			this.positionX = 1 + fieldsMoved; // TODO sollte 0 sein
 		} else {
-			this.positionX = Configuration.xFields - fieldsMoved;
+			this.positionX = Configuration.xFields - fieldsMoved - 1; // TODO -1 sollte raus
+			// System.out.println(this.id+" "+this.positionX);
 		}
 		
 		// Prüfung und Meldung nur, wenn sich die Position verändert hat.
 		if(lastPositionX != this.positionX) {
+			this.log = this.log + " " + this.positionX;
 			this.checkLeftStreet();
 		}
 		
@@ -59,6 +63,9 @@ public class Car implements SubscriberInterface {
 				typ = "delete";
 			}
 		}
+		if(typ == "delete") {
+			//System.out.println("Car"+this.id+" "+this.log);
+		}
 		this.sendObserver(typ);
 	}
 	
@@ -73,8 +80,9 @@ public class Car implements SubscriberInterface {
 		data.leftToRight 	= this.leftToRight;
 		Observer.trigger("car", data);
 		
+		//System.out.println(data.toString());
 		if(typ == "delete") {
-			System.out.println(data.toString());
+			Observer.removeMe(this);
 		}
 	}
   

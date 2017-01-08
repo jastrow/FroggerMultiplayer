@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import application.Configuration;
+import application.Observer;
+import application.SubscriberDaten;
+import application.SubscriberInterface;
 
-public class Streets {
+public class Streets implements SubscriberInterface {
 
 	public List<Street> streetlines = new ArrayList<Street>(); 
 	
@@ -15,7 +18,18 @@ public class Streets {
 				new Street(position)
 			);
 		}
-		
+		Observer.add("time", this);
+	}
+	
+	public void calling(String trigger, SubscriberDaten data) {
+		this.showStreetsInConsole();
+	}
+	
+	public void showStreetsInConsole() {
+		for(Street street: this.streetlines) {
+			street.showInConsole();
+		}
+		System.out.println("\r\n");
 	}
 
 }

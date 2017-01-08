@@ -24,4 +24,7 @@ public class Subscriber {
 	public String getTrigger() {
 		return trigger;
 	}
+	public Object getListener() {
+		return this.listener;
+	}
 }
