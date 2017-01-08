@@ -306,7 +306,7 @@ import javafx.scene.layout.VBox;
 			
 			Integer woodLength = 1;
 			
-			if (data.length != null) woodLength = data.length - 1;
+			if (data.length != null) woodLength = data.length - 2;
 			help.setImage(this.wood[woodLength]);
 			help.setId(data.id.toString());
 			this.pictureCont.add(this.setPosition(help, data));
