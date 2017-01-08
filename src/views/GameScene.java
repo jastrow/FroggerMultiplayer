@@ -350,22 +350,6 @@ import javafx.scene.layout.VBox;
 				
 				int position = this.getPosition(data);
 				
-				//prüfen auf GameOver und Anpassung der Szene
-				if (data.xPosition == 0 && data.yPosition == 0) {
-
-					help.setImage(this.deadFrog);
-					this.pictureCont.set(position, help);
-					this.updateElements();
-					ImageView deadSign = new ImageView(this.deadFrog);
-					deadSign.setFitHeight(300);
-					deadSign.setFitWidth(500);
-					deadSign.setX(225);
-					deadSign.setY(150);
-					this.contentGame.getChildren().add(deadSign);
-					return;
-
-				}
-				
 				this.pictureCont.set(position, this.setPosition(help, data));
 			}
 			//Aktualisierung der GUI Elemente	
