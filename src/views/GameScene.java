@@ -41,7 +41,8 @@ import javafx.scene.layout.VBox;
 
 		private Image[] wood = new Image[3]; 
 		private Image[] frog = new Image[2];
-		private Image[] car  = new Image[4];
+		private Image[] carLeftToRight  = new Image[2];
+		private Image[] carRightToLeft  = new Image[2];
 		private Image deadFrog  = new Image(getClass().getResource("../img/Frosch_GameOver.png").toExternalForm());
 		
 		private Label timeLabel = new Label();
@@ -70,7 +71,8 @@ import javafx.scene.layout.VBox;
 					
 			//Bilderarrays füllen
 			this.fillImageWood();
-			this.fillImageCar();
+			this.fillImageCarToLeft();
+			this.fillImageCarToRight();
 			this.fillImageFrog();
 			
 
@@ -139,10 +141,18 @@ import javafx.scene.layout.VBox;
 	
 		}
 		
-		private void fillImageCar() {
+		private void fillImageCarToLeft() {
 			
-			for (int i = 0 ; i <= 3 ; i++) {
-				this.car[i] = new Image(getClass().getResource("../img/Auto_0"+i+".png").toExternalForm());
+			for (int i = 0 ; i <= 1 ; i++) {
+				this.carRightToLeft[i] = new Image(getClass().getResource("../img/Auto_0"+(i+2)+".png").toExternalForm());
+			}
+	
+		}
+		
+		private void fillImageCarToRight() {
+			
+			for (int i = 0 ; i <= 1 ; i++) {
+				this.carLeftToRight[i] = new Image(getClass().getResource("../img/Auto_0"+i+".png").toExternalForm());
 			}
 	
 		}
@@ -273,8 +283,11 @@ import javafx.scene.layout.VBox;
 	
 			//Hilfsvaraiblen deklarienen
 			ImageView help = this.getGUIObject(data);
-			
-			help.setImage(this.car[rand.nextInt(3)]);
+			if (data.leftToRight) {
+				help.setImage(this.carLeftToRight[rand.nextInt(2)]); 
+			} else {
+				help.setImage(this.carRightToLeft[rand.nextInt(2)]); 
+			}
 			help.setFitHeight(50);
 			help.setId(data.id.toString());
 			this.pictureCont.add(this.setPosition(help, data));
