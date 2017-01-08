@@ -2,7 +2,9 @@ package views;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Queue;
 import java.util.Random;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import application.*;
 import controller.SceneController;
@@ -44,8 +46,10 @@ import javafx.scene.layout.VBox;
 		
 		private Label timeLabel = new Label();
 		
+		/* Liste der Subscriber Instanzen */
+		private Queue<ImageView> pictureCont = new ConcurrentLinkedQueue<ImageView>();
 		//Sammelliste für GUI Elemente
-		private ArrayList<ImageView> pictureCont = new ArrayList<ImageView>(); 
+		//private ArrayList<ImageView> pictureCont = new ArrayList<ImageView>(); 
 		
 		//Zufallsobjekt
 		Random rand = new Random();
@@ -194,14 +198,14 @@ import javafx.scene.layout.VBox;
 				}
 			}
 			
-			if (data.leftToRight){ 			
+			//if (data.leftToRight){ 			
 				imgObject.setX((data.xPosition*50)-49);
 				imgObject.setY((data.yPosition*50)-49);
-			} else {
-				imgObject.setX((help.getX()) - ((data.xPosition*50)-49));
-				imgObject.setY((help.getY()) - ((data.yPosition*50)-49));
-			}
-			
+			//} else {
+			//	imgObject.setX((help.getX()) - ((data.xPosition*50)-49));
+			//	imgObject.setY((help.getY()) - ((data.yPosition*50)-49));
+			//}
+			System.out.println("Objektname: " + data.name + " ID: " + data.id + " XPosition: " + data.xPosition + " YPosition: " + data.yPosition+ " Typ: " + data.typ + " LeftToRight: " + data.leftToRight);
 			return help;
 		}
 		
@@ -210,18 +214,18 @@ import javafx.scene.layout.VBox;
 		 *
 		 */
 		
-		private int getPosition(SubscriberDaten data) {
+		/* private int getPosition(SubscriberDaten data) {
 			
 		int position = 0;
 		
 			for(ImageView help: this.pictureCont) {
 				if (data.id == Integer.parseInt(help.getId())) {
-					position = this.pictureCont.indexOf(help);
+					//position = this.pictureCont.indexOf(help);
 				}
 			}
 		return position;
 		
-		}
+		} */
 		
 		/**
 		 * Hilfsfunktion zum auslesen des angetriggerten Objektes
@@ -326,9 +330,9 @@ import javafx.scene.layout.VBox;
 			
 			for(ImageView help: this.pictureCont) {
 				if (data.id == Integer.parseInt(help.getId())) {
-					help.setImage(null); 
+					//help.setImage(null); 
 					//um multiple Listenzugriffe Zugriff beim löschen zu umgehen wird das entsprechende Element unsichtbar gemacht 
-					//this.pictureCont.remove(help);
+					this.pictureCont.remove(help);
 				}
 			}
 			
@@ -348,9 +352,12 @@ import javafx.scene.layout.VBox;
 			
 			if (exist) {
 				
-				int position = this.getPosition(data);
+				//int position = this.getPosition(data);
 				
-				this.pictureCont.set(position, this.setPosition(help, data));
+				this.pictureCont.remove(help);
+				help = this.setPosition(help, data);
+				this.pictureCont.add(help);
+				//this.pictureCont.set(position, this.setPosition(help, data));
 			}
 			//Aktualisierung der GUI Elemente	
 			this.updateElements();
@@ -390,6 +397,7 @@ import javafx.scene.layout.VBox;
 		 *
 		 */
 		public void calling(String trigger, SubscriberDaten data) {
+			System.out.println("######Objektname: " + data.name + " ID: " + data.id + " XPosition: " + data.xPosition + " YPosition: " + data.yPosition+ " Typ: " + data.typ + " LeftToRight: " + data.leftToRight);
 			switch (trigger) {
 				case "car": {
 					switch (data.typ) {
