@@ -97,5 +97,8 @@ public class Observer {
 		}
 	}
 	
+	public Integer size() {
+		return this.subscriber.size();
+	}
 	
 }

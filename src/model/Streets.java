@@ -18,11 +18,13 @@ public class Streets implements SubscriberInterface {
 				new Street(position)
 			);
 		}
-		Observer.add("time", this);
+		// Observer.add("time", this);
 	}
 	
 	public void calling(String trigger, SubscriberDaten data) {
-		this.showStreetsInConsole();
+		if(trigger == "time") {
+			this.showStreetsInConsole();
+		}
 	}
 	
 	public void showStreetsInConsole() {

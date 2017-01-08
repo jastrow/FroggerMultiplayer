@@ -1,5 +1,10 @@
 package controller;
 
-public class ServerController {
+import java.net.HttpURLConnection;
 
+public class ServerController {
+	private static HttpURLConnection connection = null;
+	
+	private String sessionid;
+	
 }

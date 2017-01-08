@@ -42,6 +42,11 @@ public class Main extends Application implements SubscriberInterface {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		
+		
+		
+		
+
 	}
 	
 	public static void main(String[] args) {
