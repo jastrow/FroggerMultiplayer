@@ -18,6 +18,13 @@
 
 }
 
+.deadFrog{
+
+	-fx-pref-width: 400;
+	-fx-pref-height: 200;
+
+}
+
 .timeLabel {
 	-fx-pref-height: 20;
 	-fx-padding: 5px;
