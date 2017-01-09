@@ -66,7 +66,7 @@ public class SceneController implements SubscriberInterface {
 	
 	public void startGame(){
 		this.gameScene = new GameScene(this);
-		this.gameScene.setOnKeyTyped(new EventHandler <KeyEvent>()
+		this.gameScene.setOnKeyPressed(new EventHandler <KeyEvent>()
         {
             @Override
             public void handle(KeyEvent e)
