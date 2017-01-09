@@ -320,7 +320,7 @@ import javafx.scene.layout.VBox;
 			//Hilfsvaraiblen deklarienen
 			ImageView help = this.getGUIObject(data);
 
-			help.setImage(new Image(getClass().getResource("../img/frog"+data.facing+".png").toExternalForm()));
+			help.setImage(new Image(getClass().getResource("../img/frog_"+data.facing+".png").toExternalForm()));
 			help.setFitHeight(50);
 			help.setFitWidth(50);
 			help.setId(data.id.toString());
@@ -362,7 +362,7 @@ import javafx.scene.layout.VBox;
 			if (exist) {
 				
 				//int position = this.getPosition(data);
-				if (data.name == "Frog") help.setImage(new Image(getClass().getResource("../img/frog"+data.facing+".png").toExternalForm()));
+				if (data.name == "Frog") help.setImage(new Image(getClass().getResource("../img/frog_"+data.facing+".png").toExternalForm()));
 				this.pictureCont.remove(help);
 				help = this.setPosition(help, data);
 				this.pictureCont.add(help);
