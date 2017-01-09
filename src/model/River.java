@@ -10,10 +10,10 @@ import sandbox.FrogMain;
 public class River implements SubscriberInterface {
 	Integer prevLength;//globale Laenge vom letzten Baum speicheren
 	Integer firstLeftPositionX;//globale Hilfsvariable fuer Abstand Brett 1 zu Brett 2
-	Integer lastRigthPositionX;//
+	//Integer lastRigthPositionX;//
 	Random random = new Random();
-	
-	
+
+
 	Integer positionX = Configuration.xFields; //Startposition des Baums
 	Integer positionY;
 	Boolean leftToRight = false;
@@ -41,54 +41,50 @@ public class River implements SubscriberInterface {
 		}
 	}
 
-	
+
 
 	public void checkForTrees() {
 		Integer distanceToNewTree = random.nextInt(5)+2; //Abstand zum naechsten Baum
 		if(trees.isEmpty()) {
 			this.makeTree();
-		}	else{
-				
+		}	else if(this.trees.size() < Configuration.treeMaxPerLane) {
+
+			Tree lastBaum = (trees.get(trees.size()-1));//.getPositionX();
+
 				if(this.leftToRight){
-					Integer positionTreeFromLeft = (trees.get(trees.size()-1)).getPositionX();
-					Integer freeFieldsLeft = (positionTreeFromLeft-1);
-					
+					Integer freeFieldsLeft = (lastBaum.getPositionX()-1);
+
 					if(freeFieldsLeft==distanceToNewTree){
-						System.out.println("Abstand links: " + distanceToNewTree);
+						//System.out.println("Abstand links: " + distanceToNewTree);
 						this.makeTree();
 					}
 				}
 				else{
-					Integer positionTreeFromRight = (trees.get(trees.size()-1)).getPositionX();
-					Integer freeFieldsRight = (positionTreeFromRight+prevLength+distanceToNewTree);
-						
+					Integer freeFieldsRight = (Configuration.xFields-(lastBaum.getPositionX()+lastBaum.getLength()-1));
+
 					if(freeFieldsRight==distanceToNewTree){
-						System.out.println("Abstand rechts: " + distanceToNewTree);
+						//System.out.println("Abstand rechts: " + distanceToNewTree);
 						this.makeTree();
 					}
-				}				
+				}
+
 			}
 	}
 
 	public void makeTree(){
 
 		Integer length = random.nextInt(3)+2;//Brett der Laenge 2 - 4
-		
-		if(this.trees.size() < Configuration.treeMaxPerLane) {
-			
+
+			positionX = Configuration.xFields;
+
 			if(this.leftToRight) {
-				positionX = ((length-1)*-1);
-			}else{
-				positionX = Configuration.xFields-1;
+				positionX = 1-length;
 			}
 
 			Tree baum = new Tree(IdCounter.getId(), positionX, this.positionY, length, this.leftToRight);
 			this.trees.add(baum);
-			System.out.println("leftToRight: " + leftToRight + ", tree with length: " + length + 
-					" created on lane: " + this.positionY + " an Position " + positionX);
-			prevLength = length;
-			
-		}
+			System.out.println("leftToRight: " + leftToRight + ", tree with length: " + length + " created on lane: " + this.positionY + " an Position " + positionX);
+
 	}
 
 	public void deleteTree(Integer id) {

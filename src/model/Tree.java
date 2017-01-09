@@ -32,8 +32,9 @@ public class Tree implements SubscriberInterface {
 			this.positionX = Configuration.xFields;
 		}
 		this.lastMovement = 0;
-		this.length = length;
+		this.setLength(length);
 		//Observer.trigger("stopGame", new SubscriberDaten());
+		System.out.println("ID " + this.id);
 		Observer.add("time", this);
 		this.sendObserver("new");
 	}
@@ -54,19 +55,24 @@ public class Tree implements SubscriberInterface {
 
 	//Check position
 	private void movement(Integer timeNow) {
+		if(this.startTime!=0){
+			this.startTime = timeNow;
+			}
 		Integer fieldsMoved = (int) (timeNow - this.startTime) / Configuration.treeSpeed;
+
 		Integer lastPositionX = this.positionX;
 			if(this.leftToRight) {
-				this.positionX = 1 + fieldsMoved; // TODO sollte 0 sein
+				this.positionX = 1-length + fieldsMoved; // TODO sollte 0 sein
 			} else {
-				this.positionX = Configuration.xFields - fieldsMoved - 1; // TODO -1 sollte raus
+				this.positionX = Configuration.xFields - fieldsMoved; // TODO -1 sollte raus
 			}
 			// Prüfung und Meldung nur, wenn sich die Position verändert hat.
 			if(lastPositionX != this.positionX) {
 				this.checkLeftTree();
 			}
 	}
-	
+
+
 	public void checkLeftTree() {
 		String typ = "move";
 		if(this.leftToRight) {
@@ -88,9 +94,9 @@ public class Tree implements SubscriberInterface {
 		data.xPosition 	= this.positionX;
 		data.yPosition 	= this.positionY;
 		data.typ 		= typ;
-		data.length		= this.length;
+		data.length		= this.getLength();
 		Observer.trigger("tree", data);
-		
+
 		if(typ == "delete") {
 			Observer.removeMe(this);
 			//System.out.println("Deleted");
@@ -99,6 +105,14 @@ public class Tree implements SubscriberInterface {
 
 	public Boolean checkInGame() {
 		return true;
+	}
+
+	public int getLength() {
+		return length;
+	}
+
+	public void setLength(int length) {
+		this.length = length;
 	}
 
 }
