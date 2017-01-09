@@ -39,11 +39,9 @@ import javafx.scene.layout.VBox;
 		//Bilder
 
 		private Image[] wood = new Image[3]; 
-		private Image[] frog = new Image[2];
+		//private Image[] frog = new Image[2];
 		private Image[] carLeftToRight  = new Image[2];
 		private Image[] carRightToLeft  = new Image[2];
-		private Image deadFrog  = new Image(getClass().getResource("../img/Frosch_GameOver.png").toExternalForm());
-		
 		private Label timeLabel = new Label();
 		
 		/* Liste der Subscriber Instanzen */
@@ -72,7 +70,7 @@ import javafx.scene.layout.VBox;
 			this.fillImageWood();
 			this.fillImageCarToLeft();
 			this.fillImageCarToRight();
-			this.fillImageFrog();
+			//this.fillImageFrog();
 			
 
 			//Szene Formatierungs CSS  zuweisen
@@ -157,12 +155,12 @@ import javafx.scene.layout.VBox;
 	
 		}
 		
-		private void fillImageFrog() {
+	/*	private void fillImageFrog() {
 			
 			this.frog[0] = new Image(getClass().getResource("../img/Frosch_Animation_hochRunter_Stand.png").toExternalForm());
 			this.frog[1] = new Image(getClass().getResource("../img/Frosch_Animation_runterHoch_Stand.png").toExternalForm());
 		
-		}
+		}*/
 	
    /********************************************** Hilfsfunktionen ***********************************************/		
 		
@@ -321,15 +319,14 @@ import javafx.scene.layout.VBox;
 			
 			//Hilfsvaraiblen deklarienen
 			ImageView help = this.getGUIObject(data);
-			
-			Integer frogTyp = 1;	
-			if (data.length != null) frogTyp = data.length - 1;
-			help.setImage(this.frog[frogTyp]);
+
+			help.setImage(new Image(getClass().getResource("../img/frog"+data.facing+".png").toExternalForm()));
 			help.setFitHeight(50);
 			help.setFitWidth(50);
 			help.setId(data.id.toString());
 			this.pictureCont.add(this.setPosition(help, data));
 			this.updateElements();
+			System.out.println(data.facing+data.name);
 			
 		}
 		
@@ -365,7 +362,7 @@ import javafx.scene.layout.VBox;
 			if (exist) {
 				
 				//int position = this.getPosition(data);
-				
+				if (data.name == "Frog") help.setImage(new Image(getClass().getResource("../img/frog"+data.facing+".png").toExternalForm()));
 				this.pictureCont.remove(help);
 				help = this.setPosition(help, data);
 				this.pictureCont.add(help);
@@ -413,6 +410,7 @@ import javafx.scene.layout.VBox;
 		 *
 		 */
 		public void calling(String trigger, SubscriberDaten data) {
+			if (trigger == "frog") System.out.println(trigger + data.typ);
 			switch (trigger) {
 				case "car": {
 					switch (data.typ) {
