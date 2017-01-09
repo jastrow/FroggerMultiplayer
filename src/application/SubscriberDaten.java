@@ -3,7 +3,7 @@ package application;
 public class SubscriberDaten {
 	public String name;			// Identifizierung Classname (zB Frog)
 	public Integer id;			// Eineindeutige ID der ObjektInstanz
-	public String typ;			// Was ist passiert (move, new, delete)
+	public String typ;			// Was ist passiert (move, new, delete) Frog-Special (killed)
 	public String facing;		// Ausrichtung des Frosches [n,s,w,o]
 	public Integer xPosition; 	// Rasterfeld
 	public Integer yPosition; 	// Rasterfeld 

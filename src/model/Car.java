@@ -93,4 +93,8 @@ public class Car implements SubscriberInterface {
 	public Integer getPositionX() {
 		return this.positionX;
 	}
+
+	public Integer getPositionY() {
+		return this.positionY;
+	}
 }

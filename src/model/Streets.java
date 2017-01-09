@@ -8,7 +8,7 @@ import application.Observer;
 import application.SubscriberDaten;
 import application.SubscriberInterface;
 
-public class Streets implements SubscriberInterface {
+public class Streets {
 
 	public List<Street> streetlines = new ArrayList<Street>(); 
 	
@@ -17,13 +17,6 @@ public class Streets implements SubscriberInterface {
 			this.streetlines.add(
 				new Street(position)
 			);
-		}
-		// Observer.add("time", this);
-	}
-	
-	public void calling(String trigger, SubscriberDaten data) {
-		if(trigger == "time") {
-			this.showStreetsInConsole();
 		}
 	}
 	
@@ -34,4 +27,16 @@ public class Streets implements SubscriberInterface {
 		System.out.println("\r\n");
 	}
 
+	public boolean collisionCheck(Integer positionX, Integer positionY) {
+		for(Street street: this.streetlines) {
+			if(street.getPositionY() == positionY) {
+				if(street.collisionCheck(positionX, positionY)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	
 }

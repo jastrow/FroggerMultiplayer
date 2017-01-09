@@ -12,7 +12,19 @@ public class Frog implements SubscriberInterface {
 	private Integer positionY; 	// GameRaster Y
 	private String 	facing; 	// Facing n,s,w,o
 	
+	private Rivers rivers = null;	// Hat nur Frosch 1
+	private Streets streets = null;	// Hat nur Frosch 1
+	
 	public Frog() {
+		this.initializeFrog();
+	}
+	public Frog(Rivers rivers, Streets streets) {
+		this.initializeFrog();
+		this.rivers = rivers;
+		this.streets = streets;
+	}
+	
+	private void initializeFrog() {
 		this.id = IdCounter.getId();
 		// Startposition
 		this.positionX = (int)(Configuration.xFields / 2);
@@ -20,13 +32,23 @@ public class Frog implements SubscriberInterface {
 		this.facing = "n";
 		
 		Observer.add("key", this);
+		Observer.add("tree", this);
+		Observer.add("car", this);
+		Observer.add("start", this);
 		
-		this.triggerObserver("new");
 	}
 	
 	public void calling(String trigger, SubscriberDaten data) {
-		switch(trigger) {
-			case "key": this.move(data.typ);
+		if(trigger == "key") {
+			this.move(data.typ); 
+		}
+		if(trigger == "start") {
+			this.triggerObserver("new");
+		}
+		
+		// nur in frosch 1
+		if(this.streets != null) {
+			this.collisionCheck();
 		}
 	}
 	
@@ -55,6 +77,22 @@ public class Frog implements SubscriberInterface {
 			this.facing = newFacing;
 			this.triggerObserver("move");
 		}
+	}
+	
+	public void collisionCheck() {
+		// 1. Kollision mit Cars
+		if(this.streets == null) { 
+			System.out.println("keine streets in frog"); 
+		} else {
+			if(this.streets.collisionCheck(
+					this.positionX, 
+					this.positionY)
+					) {
+				this.triggerObserver("killed");
+				Observer.trigger("stopGame", new SubscriberDaten());
+			}
+		}
+		// 2. Kollision mit Trees
 	}
 	
 	public void triggerObserver(String typ) {

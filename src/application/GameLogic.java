@@ -39,11 +39,11 @@ public class GameLogic implements SubscriberInterface {
 	/////////////
 
 	public GameLogic() {
-		this.frogPlayer1 = new Frog();
-		this.frogPlayer2 = new Frog();
 		this.streets = new Streets();
 		this.rivers = new Rivers();
 		this.timer = new TimeMachine();
+		this.frogPlayer1 = new Frog(this.rivers, this.streets);
+		this.frogPlayer2 = new Frog();
 
 		// Observer anmeldung
 		Observer.add("start", this);
@@ -52,9 +52,10 @@ public class GameLogic implements SubscriberInterface {
 
 	public void calling(String trigger, SubscriberDaten daten) {
 		switch(trigger) {
-			case "start": 
+			case "start": {
 				this.timer.start(); 
 				break;
+			}
 			default: break;
 		}
 	}
