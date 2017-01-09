@@ -39,8 +39,8 @@ public class GameLogic implements SubscriberInterface {
 	/////////////
 
 	public GameLogic() {
-		this.frogPlayer1 = new Frog(1,1,"Spieler1",null);
-		this.frogPlayer2 = new Frog(2,2,"Spieler2",null);
+		this.frogPlayer1 = new Frog();
+		this.frogPlayer2 = new Frog();
 		this.streets = new Streets();
 		this.rivers = new Rivers();
 		this.timer = new TimeMachine();

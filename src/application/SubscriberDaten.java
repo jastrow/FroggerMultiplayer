@@ -4,6 +4,7 @@ public class SubscriberDaten {
 	public String name;			// Identifizierung Classname (zB Frog)
 	public Integer id;			// Eineindeutige ID der ObjektInstanz
 	public String typ;			// Was ist passiert (move, new, delete)
+	public String facing;		// Ausrichtung des Frosches [n,s,w,o]
 	public Integer xPosition; 	// Rasterfeld
 	public Integer yPosition; 	// Rasterfeld 
 	public Integer time;		// aktueller Spielzeitpunkt in Millisekunden
@@ -16,6 +17,7 @@ public class SubscriberDaten {
 		ausgabe += "name: "+this.name+"\r\n";
 		ausgabe += "id: "+this.id+"\r\n";
 		ausgabe += "typ: "+this.typ+"\r\n";
+		ausgabe += "facing: "+this.facing+"\r\n";
 		ausgabe += "xPosition: "+this.xPosition+"\r\n";
 		ausgabe += "yPosition: "+this.yPosition+"\r\n";
 		ausgabe += "time: "+this.time+"\r\n";
