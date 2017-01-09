@@ -13,6 +13,7 @@ public class Tree implements SubscriberInterface {
 	private Integer positionY;
 	private int lastMovement;
 	private int length;
+	private int startTime = 0;
 
 
 	/**
@@ -32,7 +33,6 @@ public class Tree implements SubscriberInterface {
 		}
 		this.lastMovement = 0;
 		this.length = length;
-		System.out.println("xxxx" + length);
 		//Observer.trigger("stopGame", new SubscriberDaten());
 		Observer.add("time", this);
 		this.sendObserver("new");
@@ -40,6 +40,9 @@ public class Tree implements SubscriberInterface {
 
 	public Integer getId() {
 		return this.id;
+	}
+	public Integer getPositionX() {
+		return this.positionX;
 	}
 
 	@Override
@@ -51,22 +54,31 @@ public class Tree implements SubscriberInterface {
 
 	//Check position
 	private void movement(Integer timeNow) {
-		Integer timeDif = timeNow - this.lastMovement;
-		if(timeDif >= Configuration.treeSpeed) {
+		Integer fieldsMoved = (int) (timeNow - this.startTime) / Configuration.treeSpeed;
+		Integer lastPositionX = this.positionX;
 			if(this.leftToRight) {
-				this.positionX++;
+				this.positionX = 1 + fieldsMoved; // TODO sollte 0 sein
 			} else {
-				this.positionX--;
+				this.positionX = Configuration.xFields - fieldsMoved - 1; // TODO -1 sollte raus
 			}
-			this.lastMovement += Configuration.treeSpeed;
-			if(this.checkInGame()) {
-				this.sendObserver("move");
-			} else {
-				this.sendObserver("delete");
-				Observer.removeMe(this);
+			// Prüfung und Meldung nur, wenn sich die Position verändert hat.
+			if(lastPositionX != this.positionX) {
+				this.checkLeftTree();
+			}
+	}
+	
+	public void checkLeftTree() {
+		String typ = "move";
+		if(this.leftToRight) {
+			if(this.positionX > Configuration.xFields) {
+				typ = "delete";
+			}
+		} else {
+			if(this.positionX < 1) {
+				typ = "delete";
 			}
 		}
-
+		this.sendObserver(typ);
 	}
 
 	public void sendObserver(String typ) {
@@ -78,6 +90,11 @@ public class Tree implements SubscriberInterface {
 		data.typ 		= typ;
 		data.length		= this.length;
 		Observer.trigger("tree", data);
+		
+		if(typ == "delete") {
+			Observer.removeMe(this);
+			//System.out.println("Deleted");
+		}
 	}
 
 	public Boolean checkInGame() {
