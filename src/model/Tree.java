@@ -11,7 +11,6 @@ public class Tree implements SubscriberInterface {
 	private Boolean leftToRight = false;	// Baumstamm fliesst von links nach rechts (ansonsten andersrum)
 	private Integer positionX;
 	private Integer positionY;
-	private int lastMovement;
 	private int length;
 	private int startTime = 0;
 
@@ -22,8 +21,7 @@ public class Tree implements SubscriberInterface {
 	 * @param positionX
 	 * @param positionY
 	 */
-	public Tree(int id, Integer positionX, Integer positionY, Integer length, Boolean leftToRight) {
-		super();
+	public Tree(Integer positionX, Integer positionY, Integer length, Boolean leftToRight) {
 		this.id = IdCounter.getId();
 		this.positionX = positionX;
 		this.positionY = positionY;
@@ -31,10 +29,8 @@ public class Tree implements SubscriberInterface {
 		if(!leftToRight) {
 			this.positionX = Configuration.xFields;
 		}
-		this.lastMovement = 0;
-		this.setLength(length);
-		//Observer.trigger("stopGame", new SubscriberDaten());
-		System.out.println("ID " + this.id);
+		this.length = length;
+//		System.out.println("ID " + this.id);
 		Observer.add("time", this);
 		this.sendObserver("new");
 	}
@@ -55,9 +51,9 @@ public class Tree implements SubscriberInterface {
 
 	//Check position
 	private void movement(Integer timeNow) {
-		if(this.startTime!=0){
+		if(this.startTime == 0){
 			this.startTime = timeNow;
-			}
+		}
 		Integer fieldsMoved = (int) (timeNow - this.startTime) / Configuration.treeSpeed;
 
 		Integer lastPositionX = this.positionX;

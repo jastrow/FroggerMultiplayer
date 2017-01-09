@@ -162,6 +162,24 @@ public class Street implements SubscriberInterface{
 		}
 	}
 	
+	public boolean collisionCheck(Integer positionX, Integer positionY2) {
+		for(Car car: this.cars) {
+			if(
+				car.getPositionX()     == positionX || 
+				(car.getPositionX()+1 ) == positionX 
+			) {
+				return true;
+			}
+		}	
+		return false;
+	}
+	
+	public Integer getPositionY() {
+		return this.positionY;
+	}
+	
+	
+	
 	/**
 	 * Nur für Ausgabetests
 	 */
@@ -190,19 +208,4 @@ public class Street implements SubscriberInterface{
 		return false;
 	}
 
-	public boolean collisionCheck(Integer positionX, Integer positionY2) {
-		for(Car car: this.cars) {
-			if(
-				car.getPositionX()     == positionX || 
-				(car.getPositionX()+1 ) == positionX 
-			) {
-				return true;
-			}
-		}	
-		return false;
-	}
-	
-	public Integer getPositionY() {
-		return this.positionY;
-	}
 }

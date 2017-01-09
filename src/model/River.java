@@ -8,20 +8,12 @@ import application.*;
 import sandbox.FrogMain;
 
 public class River implements SubscriberInterface {
-	Integer prevLength;//globale Laenge vom letzten Baum speicheren
-	Integer firstLeftPositionX;//globale Hilfsvariable fuer Abstand Brett 1 zu Brett 2
-	//Integer lastRigthPositionX;//
-	Random random = new Random();
 
-
-	Integer positionX = Configuration.xFields; //Startposition des Baums
 	Integer positionY;
 	Boolean leftToRight = false;
 	public List<Tree> trees = new ArrayList<Tree>();
 
-	//public River(Integer[] riverlines) {
 	public River(Integer position) {
-		// TODO Auto-generated constructor stub
 		this.positionY = position;
 		if((position % 2) == 0) {
 			this.leftToRight = true; //Bahn 1 von links nach rechts
@@ -44,7 +36,9 @@ public class River implements SubscriberInterface {
 
 
 	public void checkForTrees() {
-		Integer distanceToNewTree = random.nextInt(5)+2; //Abstand zum naechsten Baum
+
+		Integer distanceToNewTree = (new Random()).nextInt(5) + 2; //Abstand zum naechsten Baum
+
 		if(trees.isEmpty()) {
 			this.makeTree();
 		}	else if(this.trees.size() < Configuration.treeMaxPerLane) {
@@ -73,17 +67,16 @@ public class River implements SubscriberInterface {
 
 	public void makeTree(){
 
-		Integer length = random.nextInt(3)+2;//Brett der Laenge 2 - 4
+		Integer length = (new Random()).nextInt(3)+2;//Brett der Laenge 2 - 4
 
-			positionX = Configuration.xFields;
+		Integer positionX = Configuration.xFields;
+		if(this.leftToRight) {
+			positionX = 1 - length;
+		}
 
-			if(this.leftToRight) {
-				positionX = 1-length;
-			}
-
-			Tree baum = new Tree(IdCounter.getId(), positionX, this.positionY, length, this.leftToRight);
-			this.trees.add(baum);
-			System.out.println("leftToRight: " + leftToRight + ", tree with length: " + length + " created on lane: " + this.positionY + " an Position " + positionX);
+		Tree baum = new Tree(positionX, this.positionY, length, this.leftToRight);
+		this.trees.add(baum);
+		System.out.println("leftToRight: " + leftToRight + ", tree with length: " + length + " created on lane: " + this.positionY + " an Position " + positionX);
 
 	}
 
@@ -97,5 +90,31 @@ public class River implements SubscriberInterface {
 		}
 	}
 
-
+	/**
+	 * Nur für Ausgabetests
+	 */
+	public void  showInConsole() {
+		System.out.println(
+			this.showRiver()
+		);
+	}
+	public String showRiver() {
+		String ASCIIstreet = String.format("%02d", this.positionY) + " ";
+		for(int i = 1; i <= Configuration.yFields; i++) {
+			if(this.checkPosition(i)) {
+				ASCIIstreet += "*";
+			} else {
+				ASCIIstreet += "_";
+			}
+		}
+		return ASCIIstreet;
+	}
+	public Boolean checkPosition(int p) {
+		for(Tree tree: this.trees) {
+			if(tree.getPositionX() == p) {
+				return true;
+			}
+		}	
+		return false;
+	}
 }
