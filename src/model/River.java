@@ -19,7 +19,7 @@ public class River implements SubscriberInterface {
 	public River(Integer position) {
 		// TODO Auto-generated constructor stub
 		this.positionY = position;
-		if((position % 2) == 1) {
+		if((position % 2) == 0) {
 			this.leftToRight = true; //Bahn 1 von links nach rechts
 		}
 		Observer.add("time", this);
@@ -36,43 +36,30 @@ public class River implements SubscriberInterface {
 			}
 		}
 	}
+
+	Random random = new Random();
+	Integer distanceToNewTree = random.nextInt(3)+2; //Abstand zum naechsten Baum
+
 	public void checkForTrees() {
 
-		Random random = new Random();
-		Integer positionX = Configuration.xFields; //Startposition des Baums
-		Integer length = random.nextInt(3)+2;//Brett der Laenge 2 - 4
-		Integer distanceToNewTree = random.nextInt(3)+2; //Abstand zum naechsten Baum
-
 		if(trees.isEmpty()) {
-			if(this.leftToRight) {
-				positionX = ((length-1)*-1);
-				firstLeftPositionX = positionX;
-			}else{
-				positionX = Configuration.xFields;
+			this.makeTree();
+		}	else{
+
+
+
 			}
-			prevLength = length;//Laenge wird zwischengespeichert
+	}
 
-			Tree baum = new Tree(IdCounter.getId(), positionX, this.positionY, length, this.leftToRight);
-			this.trees.add(baum);
-			//System.out.println("tree with length: " + length + " created on lane: " + this.positionY + " an Position " + positionX);
+	public void makeTree(){
 
-		} else {
-			//System.out.println("prevLength " + prevLength);
-
+		Integer length = random.nextInt(3)+2;//Brett der Laenge 2 - 4
+		Integer positionX = Configuration.xFields; //Startposition des Baums
+		if(this.trees.size() < Configuration.treeMaxPerLane) {
 			if(this.leftToRight) {
-				positionX = (((length-1)+prevLength)*-1);
-				/**
-				 * in ersten Durchlauf wird nicht "length+distanceToNewTree" durchlaufen
-				 * d.h. das zweite Brett geht nahtlos in das erste ueber
-				 * daher wird positionX dekremntiert um 1
-				*/
-				if(positionX+length==firstLeftPositionX){positionX--;};
-				//System.out.println(positionX);
-			}else{
-				positionX = positionX+prevLength+distanceToNewTree;
+					positionX = ((length-1)*-1);
 			}
-			prevLength+= length+distanceToNewTree;
-			//System.out.println("prevLength " + prevLength);
+
 			Tree baum = new Tree(IdCounter.getId(), positionX, this.positionY, length, this.leftToRight);
 			this.trees.add(baum);
 			//System.out.println("tree with length: " + length + " created on lane: " + this.positionY + " an Position " + positionX);
@@ -85,6 +72,7 @@ public class River implements SubscriberInterface {
 				trees.remove(tree);
 				break;
 			}
+
 		}
 	}
 
