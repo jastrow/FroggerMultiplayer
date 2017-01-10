@@ -19,6 +19,7 @@ public class River implements SubscriberInterface {
 		}
 		Observer.add("time", this);
 		Observer.add("tree", this);
+		Observer.add("start", this);
 	}
 
 	@Override
@@ -29,6 +30,12 @@ public class River implements SubscriberInterface {
 			if(daten.typ == "delete") {
 				this.deleteTree(daten.id);
 			}
+		}
+		if(trigger == "start") {
+			for(Tree tree: this.trees) {
+				Observer.removeMe(tree);
+			}
+			this.trees.clear();
 		}
 	}
 
@@ -114,17 +121,6 @@ public class River implements SubscriberInterface {
 		return false;
 	}
 	
-	/*
-	public Tree getTreeById(Integer id) {
-		for(Tree tree: this.trees) {
-			if(tree.getId() == id) {
-				return tree;
-			}
-		}
-		return null;	
-	}
-	*/
-	
 	public Integer collisionCheck(Integer positionX) {
 		for(Tree tree: this.trees) {
 			Integer treeStart = tree.getPositionX();
@@ -135,11 +131,7 @@ public class River implements SubscriberInterface {
 		}	
 		return 0;
 	}
-	/*
-	private Integer getPositionX() {
-		return this.positionX;
-	}
-*/
+
 	public Integer getPositionY() {
 		return this.positionY;
 	}

@@ -23,7 +23,6 @@ public class Car implements SubscriberInterface {
 			this.positionX = Configuration.xFields + 1;
 		}
 		Observer.add("time", this);
-		Observer.add("start", this);
 		this.sendObserver("new");
 	}
 	
@@ -33,9 +32,6 @@ public class Car implements SubscriberInterface {
 				this.startTime = daten.time;
 			}
 			this.movement(daten.time);
-		}
-		if(trigger == "start") {
-			this.sendObserver("delete");
 		}
 	}
 	

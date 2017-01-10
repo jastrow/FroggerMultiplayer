@@ -39,6 +39,7 @@ public class Street implements SubscriberInterface{
 		// Anmeldung Observer
 		Observer.add("time", this);
 		Observer.add("car", this);
+		Observer.add("start", this);
 	}
 
 	//////////////
@@ -59,6 +60,12 @@ public class Street implements SubscriberInterface{
 		} else if(trigger == "time") {
 			this.randomCar();
 //			this.showInConsole();
+		}
+		if(trigger == "start") {
+			for(Car car: this.cars) {
+				Observer.removeMe(car);
+			}
+			this.cars.clear();
 		}
 	}
 	

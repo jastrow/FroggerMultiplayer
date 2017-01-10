@@ -31,7 +31,6 @@ public class Tree implements SubscriberInterface {
 		}
 		this.length = length;
 		Observer.add("time", this);
-		Observer.add("start", this);
 		this.sendObserver("new");
 	}
 
@@ -46,9 +45,6 @@ public class Tree implements SubscriberInterface {
 	public void calling(String trigger, SubscriberDaten daten) {
 		if(trigger == "time") {
 			this.movement(daten.time);
-		}
-		if(trigger == "start") {
-			this.sendObserver("delete");
 		}
 	}
 
