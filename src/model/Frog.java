@@ -12,6 +12,7 @@ public class Frog implements SubscriberInterface {
 	private Integer positionY; 	// GameRaster Y
 	private String 	facing; 	// Facing n,s,w,o
 	private Boolean killed;		// Frosch schon tot
+	private Boolean frogOnTree;
 	
 	private Rivers rivers = null;	// Hat nur Frosch 1
 	private Streets streets = null;	// Hat nur Frosch 1
@@ -19,10 +20,11 @@ public class Frog implements SubscriberInterface {
 	public Frog() {
 		this.initializeFrog();
 	}
-	public Frog(Rivers rivers, Streets streets) {
+	public Frog(Rivers rivers, Streets streets/*, River trees*/) {
 		this.initializeFrog();
 		this.rivers = rivers;
 		this.streets = streets;
+		//this.trees = trees;
 	}
 	
 	private void initializeFrog() {
@@ -56,6 +58,7 @@ public class Frog implements SubscriberInterface {
 		if(this.rivers != null) {
 			this.collisionCheck();
 		}
+	
 	}
 	
 	private void move(String direction) {
@@ -97,7 +100,29 @@ public class Frog implements SubscriberInterface {
 				Observer.trigger("stopGame", new SubscriberDaten());
 			}
 		}
-		// 2. Kollision mit Trees
+		
+		// 2. Frosch reitet Baum
+		if((this.rivers != null)) { 			
+			if(this.rivers.collisionCheck(this.positionX, this.positionY)) {			
+				frogOnTree = true;
+				if(frogOnTree==true){
+					System.out.println("frogg on tree is "  + frogOnTree);
+				}								
+			}else{
+				frogOnTree = false;
+				if((this.positionY>=5 && this.positionY<=8)){
+					if(frogOnTree==false){
+						System.out.println("frogg on tree is " + frogOnTree);
+				
+					this.killed = true;
+					this.triggerObserver("killed");
+					Observer.trigger("stopGame", new SubscriberDaten());
+					}
+				}
+			}
+		}
+		/*
+		 * Baum toetet Frosch
 		if(this.rivers != null) { 
 			if(this.rivers.collisionCheck(
 					this.positionX, 
@@ -108,7 +133,9 @@ public class Frog implements SubscriberInterface {
 				Observer.trigger("stopGame", new SubscriberDaten());
 			}
 		}
+		 */
 	}
+	
 	
 	public void triggerObserver(String typ) {
 		SubscriberDaten data = new SubscriberDaten();
