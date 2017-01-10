@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import model.DBConnection;
+import model.HighScore;
 import views.*;
 
 
@@ -19,9 +21,30 @@ public class SceneController implements SubscriberInterface {
 	private Stage primaryStage;
 	private Integer time;
 	private boolean gameRunning = false;
+	//#################################################
+	private HighScoreController highScoreController;
+	private HighScore highScore;
+	//#################################################
+	
 	
 	
 	public SceneController() {
+		//####################################################
+		this.highScoreController = new HighScoreController(this);
+		this.highScoreController.getHighScore();
+		
+		/*
+		String[] playerName = this.highScore.getPlayerName();
+		Integer[] playerPlace = this.highScore.getPlayerPlace();
+		Integer[] playerTime = this.highScore.getPlayerTime();
+		for(int i = 0 ; i < 3; i++) {
+			System.out.println(playerName[i]);
+			System.out.println(playerPlace[i]);
+			System.out.println(playerTime[i]);
+		}*/
+		
+		
+		//###############################################
 		this.startScene = new StartScene(this);
 		this.scoreScene = new ScoreScene(this);
 		this.primaryStage = new Stage();
@@ -29,6 +52,11 @@ public class SceneController implements SubscriberInterface {
 		Observer.add("close", this);
 		Observer.add("end", this);
 		Observer.add("start", this);
+	}
+	
+	public void setHighScoreController(HighScoreController highScoreController, HighScore highScore) {
+		this.highScoreController = highScoreController;
+		this.highScore = highScore;
 	}
 	
 	public void setStage(Stage primaryStage){
