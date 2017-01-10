@@ -154,11 +154,7 @@ public class Street implements SubscriberInterface{
 	public void carLeftStreet(Integer id) {
 		Car car = this.getCarById(id);
 		if(car != null) {
-//			System.out.println("anzahl Autos auf "+this.positionY+": "+this.cars.size());
-			if(this.cars.remove(car)) {
-//				System.out.println("remove car"+id);
-//				System.out.println("anzahl Autos auf "+this.positionY+": "+this.cars.size());
-			}
+			this.cars.remove(car);
 		}
 	}
 	

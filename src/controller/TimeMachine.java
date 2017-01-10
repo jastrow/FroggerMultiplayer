@@ -48,7 +48,6 @@ public class TimeMachine implements Runnable, SubscriberInterface {
 			try {
 				Thread.sleep( Configuration.timeSteps );
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			this.timeLog += Configuration.timeSteps;
@@ -64,7 +63,6 @@ public class TimeMachine implements Runnable, SubscriberInterface {
 					Observer.trigger("time", daten);
 				}
 			});
-//			System.out.println(this.timeLog);
 		}
 	}
 	

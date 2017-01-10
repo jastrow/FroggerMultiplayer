@@ -77,7 +77,6 @@ public class SceneController implements SubscriberInterface {
                 {
                 	data.typ = "left";
                     Observer.trigger("key", data);
-                    System.out.println("left");
                 }
                 else if(e.getCode() == KeyCode.RIGHT)
                 {

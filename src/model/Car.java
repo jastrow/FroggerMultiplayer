@@ -41,7 +41,6 @@ public class Car implements SubscriberInterface {
 			this.positionX = 1 + fieldsMoved; // TODO sollte 0 sein
 		} else {
 			this.positionX = Configuration.xFields - fieldsMoved - 1; // TODO -1 sollte raus
-			// System.out.println(this.id+" "+this.positionX);
 		}
 		
 		// Prüfung und Meldung nur, wenn sich die Position verändert hat.
@@ -63,9 +62,6 @@ public class Car implements SubscriberInterface {
 				typ = "delete";
 			}
 		}
-		if(typ == "delete") {
-			//System.out.println("Car"+this.id+" "+this.log);
-		}
 		this.sendObserver(typ);
 	}
 	
@@ -80,7 +76,6 @@ public class Car implements SubscriberInterface {
 		data.leftToRight 	= this.leftToRight;
 		Observer.trigger("car", data);
 		
-		//System.out.println(data.toString());
 		if(typ == "delete") {
 			Observer.removeMe(this);
 		}

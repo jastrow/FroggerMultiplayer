@@ -81,9 +81,7 @@ public class Frog implements SubscriberInterface {
 	
 	public void collisionCheck() {
 		// 1. Kollision mit Cars
-		if(this.streets == null) { 
-			System.out.println("keine streets in frog"); 
-		} else {
+		if(this.streets != null) { 
 			if(this.streets.collisionCheck(
 					this.positionX, 
 					this.positionY)

@@ -18,7 +18,7 @@ public class Rivers implements SubscriberInterface {
 				new River(position)
 			);
 		}
-		Observer.add("tree", this);
+		//Observer.add("tree", this);
 	}
 	
 	public void calling(String trigger, SubscriberDaten data) {

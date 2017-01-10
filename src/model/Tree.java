@@ -30,7 +30,6 @@ public class Tree implements SubscriberInterface {
 			this.positionX = Configuration.xFields;
 		}
 		this.length = length;
-//		System.out.println("ID " + this.id);
 		Observer.add("time", this);
 		this.sendObserver("new");
 	}
@@ -95,7 +94,6 @@ public class Tree implements SubscriberInterface {
 
 		if(typ == "delete") {
 			Observer.removeMe(this);
-			//System.out.println("Deleted");
 		}
 	}
 

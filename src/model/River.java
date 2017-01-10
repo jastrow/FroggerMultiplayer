@@ -49,7 +49,6 @@ public class River implements SubscriberInterface {
 					Integer freeFieldsLeft = (lastBaum.getPositionX()-1);
 
 					if(freeFieldsLeft==distanceToNewTree){
-						//System.out.println("Abstand links: " + distanceToNewTree);
 						this.makeTree();
 					}
 				}
@@ -57,7 +56,6 @@ public class River implements SubscriberInterface {
 					Integer freeFieldsRight = (Configuration.xFields-(lastBaum.getPositionX()+lastBaum.getLength()-1));
 
 					if(freeFieldsRight==distanceToNewTree){
-						//System.out.println("Abstand rechts: " + distanceToNewTree);
 						this.makeTree();
 					}
 				}
@@ -76,7 +74,6 @@ public class River implements SubscriberInterface {
 
 		Tree baum = new Tree(positionX, this.positionY, length, this.leftToRight);
 		this.trees.add(baum);
-		System.out.println("leftToRight: " + leftToRight + ", tree with length: " + length + " created on lane: " + this.positionY + " an Position " + positionX);
 
 	}
 
