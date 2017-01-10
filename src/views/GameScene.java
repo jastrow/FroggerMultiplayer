@@ -34,23 +34,25 @@ import javafx.scene.layout.VBox;
 		
 		// Hauptpanel
 		private BorderPane rootGame = new BorderPane();
-		//private StackPane contentGame = new StackPane();
+		private StackPane contentGame = new StackPane();
 		
 		//Bilder
 
 		private Image[] wood = new Image[3]; 
-		//private Image[] frog = new Image[2];
+		private ImageView frog = new ImageView();
 		private Image[] carLeftToRight  = new Image[2];
 		private Image[] carRightToLeft  = new Image[2];
 		private Label timeLabel = new Label();
 		
 		/* Liste der Subscriber Instanzen */
+		private Queue<ImageView> frogs = new ConcurrentLinkedQueue<ImageView>();
 		private Queue<ImageView> pictureCont = new ConcurrentLinkedQueue<ImageView>();
 		//Sammelliste für GUI Elemente
 		//private ArrayList<ImageView> pictureCont = new ArrayList<ImageView>(); 
 		
 		//Zufallsobjekt
 		Random rand = new Random();
+		Boolean running = false;
         Canvas canvas = new Canvas(950,650);
         GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
 		
@@ -65,23 +67,32 @@ import javafx.scene.layout.VBox;
 			super(new StackPane(),Configuration.xFields * 50,Configuration.yFields * 50 + 30);
 			this.setRoot(rootGame);
 			this.sceneController = sceneController;
+			VBox contentBox = new VBox();
 					
 			//Bilderarrays füllen
 			this.fillImageWood();
 			this.fillImageCarToLeft();
 			this.fillImageCarToRight();
-			//this.fillImageFrog();
 			
 
 			//Szene Formatierungs CSS  zuweisen
 			this.getStylesheets().add(getClass().getResource("../gameScene.css").toExternalForm());
 			
+			//Szene leeren
+			contentBox.getChildren().clear();
+			this.pictureCont.clear();
+			this.rootGame.getChildren().clear();
+			this.contentGame.getChildren().clear();
+			this.graphicsContext.clearRect(0, 0, 950,600);
+			this.running = true;
+			
 			//Szenenhintergrund hinzufügen
 			this.rootGame.setTop(this.buildMenu());
-			VBox contentBox = new VBox();
+
 			contentBox.getStyleClass().add("content");
 			contentBox.getChildren().add(canvas);
-			this.rootGame.setBottom(contentBox);
+			this.contentGame.getChildren().add(contentBox);
+			this.rootGame.setBottom(this.contentGame);
 			
 			//Anmeldung Observer
 			Observer.add("car", this);
@@ -154,13 +165,6 @@ import javafx.scene.layout.VBox;
 			}
 	
 		}
-		
-	/*	private void fillImageFrog() {
-			
-			this.frog[0] = new Image(getClass().getResource("../img/Frosch_Animation_hochRunter_Stand.png").toExternalForm());
-			this.frog[1] = new Image(getClass().getResource("../img/Frosch_Animation_runterHoch_Stand.png").toExternalForm());
-		
-		}*/
 	
    /********************************************** Hilfsfunktionen ***********************************************/		
 		
@@ -181,6 +185,21 @@ import javafx.scene.layout.VBox;
 		}
 		
 		/**
+		 * Hilfsfunktion zum prüfen ob Objekt bereits in Liste vorhanden
+		 *
+		 *@param:	data DatenObjekt
+		 *@return:	boolean	
+		 */
+		private boolean checkFrogExist(SubscriberDaten data) {
+		
+			for(ImageView help: frogs) {
+				if (data.id == Integer.parseInt(help.getId())) return true;
+			}
+			
+			return false;
+		}
+		
+		/**
 		 * Hilfsfunktion zur Positionierung des GUI Objektes 
 		 *
 		 */
@@ -188,31 +207,10 @@ import javafx.scene.layout.VBox;
 		private ImageView setPosition(ImageView imgObject, SubscriberDaten data) {
 			
 			ImageView help = imgObject;
-			
-			/*if ((data.name == "Tree") && ((data.xPosition < data.length) || (data.xPosition > (Configuration.xFields - data.length)))) {
-				switch(data.xPosition) {
-					case 1:	{ help.setImage(this.wood[0]);
-							  break;
-					}
-					case 2: { help.setImage(this.wood[1]);
-					  			break;
-					  		}
-					case 19: { help.setImage(this.wood[0]);
-					  		   break;
-					  		}
-					case 18: { help.setImage(this.wood[1]);
-		  					   break;
-		  					 }
-				}
-			}*/
-			
-			//if (data.leftToRight){ 			
+						
 				imgObject.setX((data.xPosition*50)-49);
 				imgObject.setY((data.yPosition*50)-49);
-			//} else {
-			//	imgObject.setX((help.getX()) - ((data.xPosition*50)-49));
-			//	imgObject.setY((help.getY()) - ((data.yPosition*50)-49));
-			//}
+
 			return help;
 		}
 		
@@ -225,6 +223,23 @@ import javafx.scene.layout.VBox;
 			ImageView getObject = new ImageView();
 					
 			for(ImageView help: this.pictureCont) {
+				if (data.id == Integer.parseInt(help.getId())) {
+					getObject = help;
+				}
+			}
+			return getObject;
+			
+		}
+		
+		/**
+		 * Hilfsfunktion zum auslesen des angetriggerten Objektes
+		 *
+		 */
+		
+		private ImageView getFrogObject(SubscriberDaten data) {
+			ImageView getObject = new ImageView();
+					
+			for(ImageView help: this.frogs) {
 				if (data.id == Integer.parseInt(help.getId())) {
 					getObject = help;
 				}
@@ -300,15 +315,30 @@ import javafx.scene.layout.VBox;
 		private void createNewFrogObject(SubscriberDaten data) {
 			
 			//Hilfsvaraiblen deklarienen
-			ImageView help = this.getGUIObject(data);
-
+			ImageView help = this.getFrogObject(data);
+			
 			help.setImage(new Image(getClass().getResource("../img/frog_"+data.facing+".png").toExternalForm()));
-			help.setFitHeight(50);
-			help.setFitWidth(50);
 			help.setId(data.id.toString());
-			this.pictureCont.add(this.setPosition(help, data));
+			this.frogs.add(this.setPosition(help, data));
 			this.updateElements();
-			System.out.println(data.facing+data.name);
+
+			
+		}
+		
+		/**
+		 * Funktion zum Update eines Frosch Objektes
+		 *
+		 */
+		private void updateFrogObject(SubscriberDaten data) {
+			
+			//Hilfsvaraiblen deklarienen
+			ImageView help = this.getFrogObject(data);
+			
+			help.setImage(new Image(getClass().getResource("../img/frog_"+data.facing+".png").toExternalForm()));
+			this.frogs.remove(help);
+			help = this.setPosition(help, data);
+			this.frogs.add(help);
+			this.updateElements();
 			
 		}
 		
@@ -321,9 +351,24 @@ import javafx.scene.layout.VBox;
 			
 			for(ImageView help: this.pictureCont) {
 				if (data.id == Integer.parseInt(help.getId())) {
-					//help.setImage(null); 
-					//um multiple Listenzugriffe Zugriff beim löschen zu umgehen wird das entsprechende Element unsichtbar gemacht 
 					this.pictureCont.remove(help);
+				}
+			}
+			
+			//Aktualisierung der GUI Elemente	
+			this.updateElements();
+		}
+		
+		/**
+		 * Funktion zum löschen eines GUI Objektes
+		 *
+		 */
+		
+		private void deleteFrogObject(SubscriberDaten data) {
+			
+			for(ImageView help: this.frogs) {
+				if (data.id == Integer.parseInt(help.getId())) {
+					this.frogs.remove(help);
 				}
 			}
 			
@@ -339,33 +384,18 @@ import javafx.scene.layout.VBox;
 		 private void killFrog(SubscriberDaten data) {
 			
 			//Hilfsvaraiblen deklarienen
-			ImageView help = this.getGUIObject(data);
-			Image dead = new Image(getClass().getResource("../img/Frosch_GameOver.png").toExternalForm());
-			ImageView helpTwo = new ImageView();
-			Boolean exist = this.checkImageExist(data);
-			Boolean noend = true;
-			
-			if (exist && noend) {
-				noend = false;
-				help.setImage(new Image(getClass().getResource("../img/Frosch_GameOver.png").toExternalForm()));
-				System.out.println(this.pictureCont.size()+ "##############");
-				this.pictureCont.remove(help);
-				data.yPosition = data.yPosition -1;
-				help = this.setPosition(help, data);
-				System.out.println(this.pictureCont.size()+ "##############");
-				this.pictureCont.add(help);
-				System.out.println(this.pictureCont.size()+ "##############");
-				data.xPosition = Configuration.xFields/2;
-				data.yPosition = Configuration.yFields/2;
-				helpTwo.setImage(dead);
-				helpTwo.getStyleClass().add("deadFrog");
-				helpTwo = this.setPosition(helpTwo, data);
-				this.pictureCont.add(helpTwo);
-				System.out.println(this.pictureCont.size()+ "##############");
-			}
-			
-			//Aktualisierung der GUI Elemente	
-			this.updateElements();	
+			ImageView help = this.getFrogObject(data);
+			Image dead = new Image(getClass().getResource("../img/gameOver_big.png").toExternalForm());
+
+			this.running = false;
+			this.frogs.remove(help);
+			this.updateElements();
+			help.setImage(new Image(getClass().getResource("../img/gameOver_small.png").toExternalForm()));
+			this.frogs.add(help);
+			this.updateElements();
+				
+			//Großes GameOverBild setzen
+			this.graphicsContext.drawImage(dead, (Configuration.xFields/2*50)-200, (Configuration.yFields/2*50)-100);
 	        			
 		} 
 		
@@ -386,7 +416,6 @@ import javafx.scene.layout.VBox;
 				this.pictureCont.remove(help);
 				help = this.setPosition(help, data);
 				this.pictureCont.add(help);
-				//this.pictureCont.set(position, this.setPosition(help, data));
 			}
 			//Aktualisierung der GUI Elemente	
 			this.updateElements();
@@ -398,10 +427,15 @@ import javafx.scene.layout.VBox;
 		 */
 		private void updateElements() {
 			//Szene leeren 
-			//this.contentGame.getChildren().clear();
 			this.graphicsContext.clearRect(0, 0, 950,600);
 			//Elemente in GUI setzen
-			for(ImageView help: pictureCont){
+			for(ImageView help: this.pictureCont){
+		        this.graphicsContext.restore();
+				this.graphicsContext.drawImage(help.getImage(), help.getX(), help.getY());
+		        this.graphicsContext.save();
+			}
+			//Frogs in GUI setzen
+			for(ImageView help: this.frogs){
 		        this.graphicsContext.restore();
 				this.graphicsContext.drawImage(help.getImage(), help.getX(), help.getY());
 		        this.graphicsContext.save();
@@ -430,11 +464,11 @@ import javafx.scene.layout.VBox;
 		 *
 		 */
 		public void calling(String trigger, SubscriberDaten data) {
-			if (trigger == "frog") System.out.println(trigger + data.typ);
+			if (this.running) { 
 			switch (trigger) {
 				case "car": {
 					switch (data.typ) {
-						case "new": {
+						case "new": {	
 										this.createNewCarObject(data);
 										break;
 						}
@@ -473,15 +507,15 @@ import javafx.scene.layout.VBox;
 										break;
 						}
 						case "move": {
-										this.updateGUIObject(data);
+										this.updateFrogObject(data);;
 										break;
 						}
 						case "delete": {
-										this.deleteGUIObject(data);
+										this.deleteFrogObject(data);
 										break;
 						}
 						case "killed": {
-							this.killFrog(data);
+							this.killFrog(data);;
 							break;
 						}
 					}
@@ -493,6 +527,7 @@ import javafx.scene.layout.VBox;
 				}
 			}
 		}
+	}
 	
 	/**
 	 * Hilfsfunktion zur Rückgabe der Szene
