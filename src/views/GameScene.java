@@ -217,31 +217,13 @@ import javafx.scene.layout.VBox;
 		}
 		
 		/**
-		 * Hilfsfunktion zum auslesen der Position des angetriggerten Objektes in der Liste
-		 *
-		 */
-		
-		/* private int getPosition(SubscriberDaten data) {
-			
-		int position = 0;
-		
-			for(ImageView help: this.pictureCont) {
-				if (data.id == Integer.parseInt(help.getId())) {
-					//position = this.pictureCont.indexOf(help);
-				}
-			}
-		return position;
-		
-		} */
-		
-		/**
 		 * Hilfsfunktion zum auslesen des angetriggerten Objektes
 		 *
 		 */
 		
 		private ImageView getGUIObject(SubscriberDaten data) {
 			ImageView getObject = new ImageView();
-			
+					
 			for(ImageView help: this.pictureCont) {
 				if (data.id == Integer.parseInt(help.getId())) {
 					getObject = help;
@@ -348,6 +330,44 @@ import javafx.scene.layout.VBox;
 			//Aktualisierung der GUI Elemente	
 			this.updateElements();
 		}
+		
+		/**
+		 * Hilfsfunktion zum auslesen der Position des angetriggerten Objektes in der Liste
+		 *
+		 */
+		
+		 private void killFrog(SubscriberDaten data) {
+			
+			//Hilfsvaraiblen deklarienen
+			ImageView help = this.getGUIObject(data);
+			Image dead = new Image(getClass().getResource("../img/Frosch_GameOver.png").toExternalForm());
+			ImageView helpTwo = new ImageView();
+			Boolean exist = this.checkImageExist(data);
+			Boolean noend = true;
+			
+			if (exist && noend) {
+				noend = false;
+				help.setImage(new Image(getClass().getResource("../img/Frosch_GameOver.png").toExternalForm()));
+				System.out.println(this.pictureCont.size()+ "##############");
+				this.pictureCont.remove(help);
+				data.yPosition = data.yPosition -1;
+				help = this.setPosition(help, data);
+				System.out.println(this.pictureCont.size()+ "##############");
+				this.pictureCont.add(help);
+				System.out.println(this.pictureCont.size()+ "##############");
+				data.xPosition = Configuration.xFields/2;
+				data.yPosition = Configuration.yFields/2;
+				helpTwo.setImage(dead);
+				helpTwo.getStyleClass().add("deadFrog");
+				helpTwo = this.setPosition(helpTwo, data);
+				this.pictureCont.add(helpTwo);
+				System.out.println(this.pictureCont.size()+ "##############");
+			}
+			
+			//Aktualisierung der GUI Elemente	
+			this.updateElements();	
+	        			
+		} 
 		
 		/**
 		 * Funktion zum Update des angetriggerten GUI Objektes
@@ -459,6 +479,10 @@ import javafx.scene.layout.VBox;
 						case "delete": {
 										this.deleteGUIObject(data);
 										break;
+						}
+						case "killed": {
+							this.killFrog(data);
+							break;
 						}
 					}
 					break;
