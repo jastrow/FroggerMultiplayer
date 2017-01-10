@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * Eine Klasse kann sich mehrmals beim Observer anmelden:
  * addSubscriber( trigger, SELF )
  * trigger ist ein String. Wenn der Observer Daten mit diesen String erhält,
- * werden alle, die sich dafür angemeldet benachrichtigt.
+ * werden alle, die sich dafür angemeldet haben benachrichtigt.
  * SELF ist die Instanz des Subscribers (this).
  * Der Observer arbeitet intern zum Verwalten der Subscriber mit 
  * einer Subscriber-Klasse, in welcher der trigger und die Instanz 
@@ -102,3 +102,18 @@ public class Observer {
 	}
 	
 }
+
+/*
+Einigung von triggern im Spiel:
+start		Startet das Spiel
+stop		Stoppt das Spiel (Pause?)
+reset		Alle Spieleinstellung wieder auf Anfang setzen
+
+time		Timer meldet Spielzeit
+
+frog		Frosch meldet Änderung
+tree		Baumstamm meldet Änderung
+car			Auto meldet Änderung
+
+Für die übertragenen Daten siehe Klasse: SubscriberDaten
+*/
