@@ -11,12 +11,14 @@ import javafx.stage.WindowEvent;
 public class Main extends Application implements SubscriberInterface {
 
 	public SceneController sceneController;
+	public HighScoreController highScoreController;
 	public GameLogic gameData;	// Ganze Spiellogik
 	public ActionController actionController; // klicks, keybords Prüfung ob geht, GameLogic, usw.
 	public ServerController server; // API zum Server
 
 	public void start(Stage primaryStage) {
 
+		this.highScoreController = new HighScoreController();
 		this.sceneController = new SceneController();
 		this.gameData = new GameLogic();
 		this.actionController = new ActionController();

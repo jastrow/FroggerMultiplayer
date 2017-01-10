@@ -1,6 +1,11 @@
 package views;
 
+import java.text.DecimalFormat;
+
 import application.Configuration;
+import application.Observer;
+import application.SubscriberDaten;
+import application.SubscriberInterface;
 import controller.SceneController;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -14,7 +19,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
-public class ScoreScene {
+public class ScoreScene implements SubscriberInterface {
 	
 	// Hauptpanel
 	private Scene scene;
@@ -22,6 +27,9 @@ public class ScoreScene {
 	private BorderPane rootScore = new BorderPane();
 	private GridPane contentScore = new GridPane();
 	private Label[] highScoreList = new Label[3];
+	private String[] playerName = new String[3];
+	private String[] playerDate = new String[3];
+	private Integer[] playerTime = new Integer[3];
 	
 	public ScoreScene(SceneController sceneController) {
 		this.sceneController = sceneController;
@@ -33,6 +41,9 @@ public class ScoreScene {
 
 		scene.getStylesheets().add(getClass().getResource("../scoreScene.css").toExternalForm());
 		scene.setUserData("ScoreScene");
+		Observer.add("getHigh",this);
+		Observer.trigger("readHigh", new SubscriberDaten());
+
 
 		this.buildScene();
 	}
@@ -49,7 +60,7 @@ public class ScoreScene {
 		verboAeussereBox.getStyleClass().add("verboAeussereBox");
 			
 			for(int i = 0 ; i < 3; i++) {
-				highScoreList[i] = new Label("Test");
+				highScoreList[i] = new Label(this.playerName[i] + " - " + this.formatDate(this.playerDate[i]) + " - " + this.formatTime(this.playerTime[i]));
 				highScoreList[i].getStyleClass().add("highlabel"+(i+1));
 				verboAeussereBox.getChildren().add(highScoreList[i]); 
 			};
@@ -101,11 +112,56 @@ public class ScoreScene {
 		menuBox.getChildren().add(menuBar);
 		return menuBox;
 	}
+	
+	private String formatDate(String dateToFormat) {
+		String formatedDate = "";
+		
+		if (dateToFormat != null) {
+		
+		String year = dateToFormat.substring(0,4);
+		String month = dateToFormat.substring(5,7);
+		String day = dateToFormat.substring(8,10);
+		
+		formatedDate = day + "." + month + "." + year;
+		
+		}
+		
 
+		
+		return formatedDate;
+	}
 
+	/**
+	 * Hilfsfunktion zum formatieren der Zeitausgabe
+	 *
+	 */
+	
+	private String formatTime(Integer timeToFormat) {
+		
+		if (timeToFormat != null) {
+			String formatedTime = "";
+			DecimalFormat format = new DecimalFormat("00");
+			timeToFormat = timeToFormat / 1000 ;
+			formatedTime = format.format(( timeToFormat / 60 )) + ":" + format.format((timeToFormat - ((timeToFormat/60) * 60))); 
+			return formatedTime; 
+		} else {
+			return "00:00";
+		}
+	}
 		
 	public Scene getScene() {
 		return this.scene;
+	}
+
+	@Override
+	public void calling(String trigger, SubscriberDaten data) {
+		if (trigger == "getHigh") {
+			System.out.println("####################");
+			this.playerName = data.playerName;
+			this.playerDate = data.playerDate;
+			this.playerTime = data.playerTime;
+		}
+		
 	}
 	
 }

@@ -1,4 +1,4 @@
-package model;
+package controller;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DBConnection {
+public class DBConnectionController {
 	
 	private String dbURL;
 	private String dbName;
@@ -15,7 +15,7 @@ public class DBConnection {
 	private Connection connection;
 	private Statement sqlStaement;
 	
-	public DBConnection () {
+	public DBConnectionController () {
 		
 		this.dbURL = "10.0.1.4:3306";
 		this.dbName = "highscore";

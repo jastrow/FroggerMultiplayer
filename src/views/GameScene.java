@@ -43,6 +43,7 @@ import javafx.scene.layout.VBox;
 		private Image[] carLeftToRight  = new Image[2];
 		private Image[] carRightToLeft  = new Image[2];
 		private Label timeLabel = new Label();
+		private Integer time;
 		
 		/* Liste der Subscriber Instanzen */
 		private Queue<ImageView> frogs = new ConcurrentLinkedQueue<ImageView>();
@@ -99,6 +100,7 @@ import javafx.scene.layout.VBox;
 			Observer.add("tree", this);
 			Observer.add("frog", this);
 			Observer.add("time", this);
+			Observer.add("win", this);
 			
 			this.setUserData("GameScene");
 			
@@ -526,7 +528,15 @@ import javafx.scene.layout.VBox;
 				}
 				case "time": {
 						this.updateTimer(data);
+						this.time = data.time;
 						break;
+				}
+				case "win": {
+					System.out.println("###################################");
+					SubscriberDaten timeData = new SubscriberDaten();
+					timeData.time = this.time;
+					Observer.trigger("entry", timeData);
+					break;
 				}
 			}
 		}

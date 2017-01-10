@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import model.DBConnection;
 import model.HighScore;
 import views.*;
 
@@ -21,30 +20,12 @@ public class SceneController implements SubscriberInterface {
 	private Stage primaryStage;
 	private Integer time;
 	private boolean gameRunning = false;
-	//#################################################
-	private HighScoreController highScoreController;
-	private HighScore highScore;
-	//#################################################
+	private boolean firstStart = true;
+
 	
 	
 	
 	public SceneController() {
-		//####################################################
-		this.highScoreController = new HighScoreController(this);
-		//this.highScoreController.getHighScore();
-		
-		/*
-		String[] playerName = this.highScore.getPlayerName();
-		Integer[] playerPlace = this.highScore.getPlayerPlace();
-		Integer[] playerTime = this.highScore.getPlayerTime();
-		for(int i = 0 ; i < 3; i++) {
-			System.out.println(playerName[i]);
-			System.out.println(playerPlace[i]);
-			System.out.println(playerTime[i]);
-		}*/
-		
-		
-		//###############################################
 		this.startScene = new StartScene(this);
 		this.scoreScene = new ScoreScene(this);
 		this.primaryStage = new Stage();
@@ -53,17 +34,12 @@ public class SceneController implements SubscriberInterface {
 		Observer.add("end", this);
 		Observer.add("start", this);
 	}
-	
-	public void setHighScoreController(HighScoreController highScoreController, HighScore highScore) {
-		this.highScoreController = highScoreController;
-		this.highScore = highScore;
-	}
+
 	
 	public void setStage(Stage primaryStage){
 		this.primaryStage = primaryStage;
 		this.primaryStage.setScene(this.getStartScene());
 		this.primaryStage.show();
-
 	}
 	
 	public Scene getGameScene() {
@@ -85,6 +61,7 @@ public class SceneController implements SubscriberInterface {
 	}
 	
 	public void showHighscore(){
+		Observer.trigger("readHigh", new SubscriberDaten());
 		this.primaryStage.setScene(this.getScoreScene());
 	}
 	
@@ -123,6 +100,7 @@ public class SceneController implements SubscriberInterface {
                 }
             }
         });
+		this.firstStart = false;
 		this.primaryStage.setScene(this.getGameScene());
 		Observer.trigger("start", new SubscriberDaten());
 	}
@@ -161,11 +139,15 @@ public class SceneController implements SubscriberInterface {
 				break;
 			}
 			case "close": {
-				if (data.name == "ScoreScene") {
+				if (data.name == "ScoreScene" && !this.firstStart) {
 					this.showGameScene();
-				} else {
-					Platform.exit();
-				}
+					} else { 
+						if (data.name == "ScoreScene" && this.firstStart) {
+							this.newGame();
+						} else { 
+							Platform.exit();
+						}
+					}
 				break;
 			}
 			case "end": {

@@ -1,6 +1,7 @@
 package views;
 
 import application.Configuration;
+import application.Observer;
 import application.SubscriberDaten;
 import application.SubscriberInterface;
 import controller.SceneController;
@@ -63,7 +64,7 @@ public class StartScene implements SubscriberInterface {
 		starteSpiel.setPrefHeight(78);
 		starteSpiel.setPrefWidth(260);
 		starteSpiel.setOnAction(actionEvent -> {
-			//this.submitStart();
+			this.submitStart();
 			this.sceneController.startGame();
 			});
 
@@ -110,8 +111,7 @@ public class StartScene implements SubscriberInterface {
 	private void submitStart() {
 		SubscriberDaten data = new SubscriberDaten();
 		data.name = this.spielerName.getText();
-		data.time = Configuration.timeEnd;
-		//Observer.trigger("start", data);
+		Observer.trigger("player", data);
 	}
 
 	

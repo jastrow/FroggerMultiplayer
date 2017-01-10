@@ -3,13 +3,13 @@ package model;
 public class HighScore {
 	
 	private String[] playerName;
-	private Integer[] playerPlace;
+	private String[] playerDate;
 	private Integer[] playerTime;
 	
 	
 	public HighScore() {
 		this.playerName = new String[3];
-		this.playerPlace = new Integer[3];
+		this.playerDate = new String[3];
 		this.playerTime = new Integer[3];
 	}
 	
@@ -17,8 +17,8 @@ public class HighScore {
 		return this.playerName;
 	}
 	
-	public Integer[] getPlayerPlace() {
-		return this.playerPlace;
+	public String[] getPlayerDate() {
+		return this.playerDate;
 	}
 	
 	public Integer[] getPlayerTime() {
@@ -29,8 +29,8 @@ public class HighScore {
 		this.playerName = playerName;
 	}
 	
-	public void setPlayerPlace(Integer[] playerPlace) {
-		this.playerPlace = playerPlace;
+	public void setPlayerDate(String[] playerDate) {
+		this.playerDate = playerDate;
 	}
 	
 	public void setPlayerTime(Integer[] playerTime) {

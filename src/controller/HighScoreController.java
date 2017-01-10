@@ -3,76 +3,81 @@ package controller;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import model.DBConnection;
+import application.Observer;
+import application.SubscriberDaten;
+import application.SubscriberInterface;
 import model.HighScore;
 
-public class HighScoreController {
+public class HighScoreController implements SubscriberInterface {
 	
 	private HighScore highScore;
-	private DBConnection dbConnection;
-	private SceneController sceneController;
+	private DBConnectionController dbConnection;
+	private String playerName;
 	
-	public HighScoreController(SceneController sceneController) {
-		this.sceneController = sceneController;
-		this.sceneController.setHighScoreController(this, this.highScore);
+	public HighScoreController() {
 		this.highScore = new HighScore();
-		this.dbConnection = new DBConnection();
+		this.dbConnection = new DBConnectionController();
+		Observer.add("player", this);
+		Observer.add("entry", this);
+		Observer.add("readHigh", this);
 		
 	}
 	
 	
-	public void setHighScore() {
-		
-		String[] playerName = new String[3];
-		Integer[] playerPlace = new Integer[3];
-		Integer[] playerTime = new Integer[3];
-		
-		playerName = this.highScore.getPlayerName();
-		playerPlace = this.highScore.getPlayerPlace();
-		playerTime = this.highScore.getPlayerTime();
-		
-		for(int i = 0 ; i < 3; i++) {
-			this.dbConnection.writeData("UPDATE highscore SET spielername='"+ playerName[i] + "' WHERE place = " + i+1 + " ");
-			this.dbConnection.writeData("UPDATE highscore SET spielername='"+ playerTime[i] + "' WHERE place = " + i+1 + " ");
-		}
-		
+	public void setHighScore(String playerName, Integer playerTime) {
+					
+		this.dbConnection.writeData("INSERT INTO highscore VALUES('" + playerName + "',NOW()," + playerTime + ")");
+		System.out.println("#########################################");
 		
 	}
 	
 	public void getHighScore() {
 		ResultSet sqlResult = null;
 		String[] playerName = new String[3];
-		Integer[] playerPlace = new Integer[3];
+		String[] playerDate = new String[3];
 		Integer[] playerTime = new Integer[3];
 		Integer help = 0;
 		
 		try {
 		
-		sqlResult = this.dbConnection.readData("SELECT * FROM highscore");
+		sqlResult = this.dbConnection.readData("SELECT * FROM highscore ORDER BY zeit LIMIT 3");
 		
 		while (sqlResult.next()) {
 			playerName[help] = sqlResult.getString(1);
-			playerPlace[help] = sqlResult.getInt(2);
+			playerDate[help] = sqlResult.getString(2);
 			playerTime[help] = sqlResult.getInt(3);
 		}
-		System.out.println("############## erfolgreiche Abfrage" + playerName[0]);
-		System.out.println("############## erfolgreiche Abfrage" + playerName[1]);
-		System.out.println("############## erfolgreiche Abfrage" + playerName[2]);
-		System.out.println("############## erfolgreiche Abfrage" + playerPlace[0]);
-		System.out.println("############## erfolgreiche Abfrage" + playerPlace[1]);
-		System.out.println("############## erfolgreiche Abfrage" + playerPlace[2]);
-		System.out.println("############## erfolgreiche Abfrage" + playerTime[0]);
-		System.out.println("############## erfolgreiche Abfrage" + playerTime[1]);
-		System.out.println("############## erfolgreiche Abfrage" + playerTime[2]);
 		
 		this.highScore.setPlayerName(playerName);
-		this.highScore.setPlayerPlace(playerPlace);
+		this.highScore.setPlayerDate(playerDate);
 		this.highScore.setPlayerTime(playerTime);
+		
+		for(int i = 0; i < 3 ; i++ ) {
+			System.out.println(playerName[i]);
+			System.out.println(playerDate[i]);
+			System.out.println(playerTime[i]);
+		}
+		
+		SubscriberDaten highData = new SubscriberDaten();
+		highData.playerName = playerName;
+		highData.playerDate = playerDate;
+		highData.playerTime = playerTime;
+		Observer.trigger("getHigh", highData);
 		
 		} catch (SQLException e) {
 			e.printStackTrace();			
 		}
 
+	}
+
+
+
+	@Override
+	public void calling(String trigger, SubscriberDaten data) {
+		if (trigger == "player") this.playerName = data.name;
+		if (trigger == "entry") this.setHighScore(this.playerName, data.time);
+		if (trigger == "readHigh") this.getHighScore();
+		
 	}
 
 }
