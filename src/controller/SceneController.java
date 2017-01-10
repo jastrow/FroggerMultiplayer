@@ -31,7 +31,7 @@ public class SceneController implements SubscriberInterface {
 	public SceneController() {
 		//####################################################
 		this.highScoreController = new HighScoreController(this);
-		this.highScoreController.getHighScore();
+		//this.highScoreController.getHighScore();
 		
 		/*
 		String[] playerName = this.highScore.getPlayerName();
