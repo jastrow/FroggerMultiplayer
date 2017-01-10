@@ -21,6 +21,10 @@ public class TimeMachine implements Runnable, SubscriberInterface {
 		Observer.add("stopGame", this);
 	}
 	
+	public Integer getTime() {
+		return this.timeLog;
+	}
+	
 	public void reset() {
 		this.running = false;
 		this.timeLog = 0;

@@ -37,6 +37,7 @@ public class GameLogic implements SubscriberInterface {
 
 		// Observer anmeldung
 		Observer.add("start", this);
+		Observer.add("win", this);
 
 	}
 
@@ -45,6 +46,12 @@ public class GameLogic implements SubscriberInterface {
 			case "start": {
 				this.timer.start(); 
 				break;
+			}
+			case "win": {
+				Observer.trigger("stopGame", new SubscriberDaten());
+				SubscriberDaten setTime = new SubscriberDaten();
+				setTime.time = this.timer.getTime();
+				Observer.trigger("winTime", setTime);
 			}
 			default: break;
 		}
