@@ -126,16 +126,15 @@ public class River implements SubscriberInterface {
 	}
 	*/
 	
-	public boolean collisionCheck(Integer positionX, Integer positionY2) {
+	public Integer collisionCheck(Integer positionX) {
 		for(Tree tree: this.trees) {
-			if(
-				tree.getPositionX()     == positionX || 
-				(tree.getPositionX()+1 ) == positionX 
-			) {
-				return true;
+			Integer treeStart = tree.getPositionX();
+			Integer treeEnd = tree.getPositionX() + tree.getLength() - 1;
+			if(positionX >= treeStart && positionX <= treeEnd) {
+				return tree.getId();
 			}
 		}	
-		return false;
+		return 0;
 	}
 	/*
 	private Integer getPositionX() {

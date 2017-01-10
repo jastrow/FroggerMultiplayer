@@ -32,15 +32,13 @@ public class Rivers implements SubscriberInterface {
 		System.out.println("\r\n");
 	}
 	
-	public boolean collisionCheck(Integer positionX, Integer positionY) {
+	public Integer collisionCheck(Integer positionX, Integer positionY) {
 		for(River river: this.riverlines) {
 			if(river.getPositionY() == positionY) {
-				if(river.collisionCheck(positionX, positionY)) {
-					return true;
-				}
+				return river.collisionCheck(positionX);
 			}
 		}
-		return false;
+		return -1;
 	}
 
 }

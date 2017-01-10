@@ -12,7 +12,7 @@ public class Frog implements SubscriberInterface {
 	private Integer positionY; 	// GameRaster Y
 	private String 	facing; 	// Facing n,s,w,o
 	private Boolean killed;		// Frosch schon tot
-	private Boolean frogOnTree;
+	private Integer frogOnTreeId; // Tree-ID des Baumes auf dem der Frosch sitzt
 	
 	private Rivers rivers = null;	// Hat nur Frosch 1
 	private Streets streets = null;	// Hat nur Frosch 1
@@ -34,6 +34,7 @@ public class Frog implements SubscriberInterface {
 		this.positionY = Configuration.yFields;
 		this.facing = "n";
 		this.killed = false;
+		this.frogOnTreeId = -1;
 		
 		Observer.add("key", this);
 		Observer.add("tree", this);
@@ -47,17 +48,22 @@ public class Frog implements SubscriberInterface {
 			this.move(data.typ); 
 		}
 		if(trigger == "start") {
+			System.out.println("###############################");
 			this.triggerObserver("new");
 		}
-		
-		// nur in frosch 1
-		if(this.streets != null) {
+		if(trigger == "tree") {
+			if(data.id == this.frogOnTreeId) {
+				if(data.leftToRight) {
+					this.move("right");
+				} else {
+					this.move("left");
+				}
+			}
+		}
+		if(trigger == "car" || trigger == "tree") {
 			this.collisionCheck();
 		}
 		
-		if(this.rivers != null) {
-			this.collisionCheck();
-		}
 	
 	}
 	
@@ -101,39 +107,16 @@ public class Frog implements SubscriberInterface {
 			}
 		}
 		
-		// 2. Frosch reitet Baum
-		if((this.rivers != null)) { 			
-			if(this.rivers.collisionCheck(this.positionX, this.positionY)) {			
-				frogOnTree = true;
-				if(frogOnTree==true){
-					System.out.println("frogg on tree is "  + frogOnTree);
-				}								
-			}else{
-				frogOnTree = false;
-				if((this.positionY>=5 && this.positionY<=8)){
-					if(frogOnTree==false){
-						System.out.println("frogg on tree is " + frogOnTree);
-				
-					this.killed = true;
-					this.triggerObserver("killed");
-					Observer.trigger("stopGame", new SubscriberDaten());
-					}
-				}
-			}
-		}
-		/*
-		 * Baum toetet Frosch
+		// 2. Kollision mit Baum
 		if(this.rivers != null) { 
-			if(this.rivers.collisionCheck(
-					this.positionX, 
-					this.positionY)
-					) {
+			this.frogOnTreeId = this.rivers.collisionCheck(this.positionX, this.positionY);
+			if(this.frogOnTreeId == 0) {
 				this.killed = true;
 				this.triggerObserver("killed");
 				Observer.trigger("stopGame", new SubscriberDaten());
 			}
 		}
-		 */
+
 	}
 	
 	

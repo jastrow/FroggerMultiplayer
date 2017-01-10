@@ -17,22 +17,13 @@ public class GameLogic implements SubscriberInterface {
 
 
 	private TimeMachine timer; // millisecounds
-
-
 	private Frog frogPlayer1;
-	private Frog frogPlayer2;
-
-	private Integer frog1zug = 0;
-	private Integer frog2zug = 0;
-
-	private List<Log> frogLog;
 
 	private Streets streets;
 	private Rivers rivers;
 
 	private SceneController scene;
 
-	private Boolean running;
 
 	/////////////
 	// Methods //
@@ -43,7 +34,6 @@ public class GameLogic implements SubscriberInterface {
 		this.rivers = new Rivers();
 		this.timer = new TimeMachine();
 		this.frogPlayer1 = new Frog(this.rivers, this.streets);
-		this.frogPlayer2 = new Frog();
 
 		// Observer anmeldung
 		Observer.add("start", this);

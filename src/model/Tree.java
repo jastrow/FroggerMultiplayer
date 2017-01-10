@@ -89,7 +89,8 @@ public class Tree implements SubscriberInterface {
 		data.xPosition 	= this.positionX;
 		data.yPosition 	= this.positionY;
 		data.typ 		= typ;
-		data.length		= this.getLength();
+		data.length		= this.length;
+		data.leftToRight= this.leftToRight;
 		Observer.trigger("tree", data);
 
 		if(typ == "delete") {
@@ -102,7 +103,7 @@ public class Tree implements SubscriberInterface {
 	}
 
 	public int getLength() {
-		return length;
+		return this.length;
 	}
 
 	public void setLength(int length) {
