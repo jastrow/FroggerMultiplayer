@@ -23,14 +23,20 @@ public class Car implements SubscriberInterface {
 			this.positionX = Configuration.xFields + 1;
 		}
 		Observer.add("time", this);
+		Observer.add("start", this);
 		this.sendObserver("new");
 	}
 	
 	public void calling(String trigger, SubscriberDaten daten) {
-		if(this.startTime == 0) {
-			this.startTime = daten.time;
+		if(trigger == "time") {
+			if(this.startTime == 0) {
+				this.startTime = daten.time;
+			}
+			this.movement(daten.time);
 		}
-		this.movement(daten.time);
+		if(trigger == "start") {
+			this.sendObserver("delete");
+		}
 	}
 	
 	private void movement(Integer timeNow) {

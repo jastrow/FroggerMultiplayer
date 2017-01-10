@@ -24,7 +24,11 @@ public class Frog implements SubscriberInterface {
 		this.initializeFrog();
 		this.rivers = rivers;
 		this.streets = streets;
-		//this.trees = trees;
+
+		Observer.add("key", this);
+		Observer.add("tree", this);
+		Observer.add("car", this);
+		Observer.add("start", this);
 	}
 	
 	private void initializeFrog() {
@@ -35,12 +39,6 @@ public class Frog implements SubscriberInterface {
 		this.facing = "n";
 		this.killed = false;
 		this.frogOnTreeId = -1;
-		
-		Observer.add("key", this);
-		Observer.add("tree", this);
-		Observer.add("car", this);
-		Observer.add("start", this);
-		
 	}
 	
 	public void calling(String trigger, SubscriberDaten data) {
@@ -48,6 +46,7 @@ public class Frog implements SubscriberInterface {
 			this.move(data.typ); 
 		}
 		if(trigger == "start") {
+			this.initializeFrog();
 			this.triggerObserver("new");
 		}
 		if(trigger == "tree") {

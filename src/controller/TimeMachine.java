@@ -31,6 +31,7 @@ public class TimeMachine implements Runnable, SubscriberInterface {
 	}
 	
 	public void start() {
+		this.timeLog = 0;
 		this.running = true;
 		this.t = new Thread(this);
 		this.t.start();
