@@ -11,6 +11,7 @@ public class Frog implements SubscriberInterface {
 	private Integer positionX; 	// GameRaster X
 	private Integer positionY; 	// GameRaster Y
 	private String 	facing; 	// Facing n,s,w,o
+	private Boolean killed;		// Frosch schon tot
 	
 	private Rivers rivers = null;	// Hat nur Frosch 1
 	private Streets streets = null;	// Hat nur Frosch 1
@@ -30,6 +31,7 @@ public class Frog implements SubscriberInterface {
 		this.positionX = (int)(Configuration.xFields / 2);
 		this.positionY = Configuration.yFields;
 		this.facing = "n";
+		this.killed = false;
 		
 		Observer.add("key", this);
 		Observer.add("tree", this);
@@ -39,7 +41,7 @@ public class Frog implements SubscriberInterface {
 	}
 	
 	public void calling(String trigger, SubscriberDaten data) {
-		if(trigger == "key") {
+		if(trigger == "key" && !this.killed) {
 			this.move(data.typ); 
 		}
 		if(trigger == "start") {
@@ -86,6 +88,7 @@ public class Frog implements SubscriberInterface {
 					this.positionX, 
 					this.positionY)
 					) {
+				this.killed = true;
 				this.triggerObserver("killed");
 				Observer.trigger("stopGame", new SubscriberDaten());
 			}
