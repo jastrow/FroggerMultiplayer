@@ -52,6 +52,10 @@ public class Frog implements SubscriberInterface {
 		if(this.streets != null) {
 			this.collisionCheck();
 		}
+		
+		if(this.rivers != null) {
+			this.collisionCheck();
+		}
 	}
 	
 	private void move(String direction) {
@@ -94,6 +98,16 @@ public class Frog implements SubscriberInterface {
 			}
 		}
 		// 2. Kollision mit Trees
+		if(this.rivers != null) { 
+			if(this.rivers.collisionCheck(
+					this.positionX, 
+					this.positionY)
+					) {
+				this.killed = true;
+				this.triggerObserver("killed");
+				Observer.trigger("stopGame", new SubscriberDaten());
+			}
+		}
 	}
 	
 	public void triggerObserver(String typ) {

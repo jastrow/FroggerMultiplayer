@@ -114,4 +114,35 @@ public class River implements SubscriberInterface {
 		}	
 		return false;
 	}
+	
+	/*
+	public Tree getTreeById(Integer id) {
+		for(Tree tree: this.trees) {
+			if(tree.getId() == id) {
+				return tree;
+			}
+		}
+		return null;	
+	}
+	*/
+	
+	public boolean collisionCheck(Integer positionX, Integer positionY2) {
+		for(Tree tree: this.trees) {
+			if(
+				tree.getPositionX()     == positionX || 
+				(tree.getPositionX()+1 ) == positionX 
+			) {
+				return true;
+			}
+		}	
+		return false;
+	}
+	/*
+	private Integer getPositionX() {
+		return this.positionX;
+	}
+*/
+	public Integer getPositionY() {
+		return this.positionY;
+	}
 }

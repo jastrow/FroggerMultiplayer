@@ -22,14 +22,25 @@ public class Rivers implements SubscriberInterface {
 	}
 	
 	public void calling(String trigger, SubscriberDaten data) {
-		this.showStreetsInConsole();
+		this.showRiversInConsole();
 	}
 
-	public void showStreetsInConsole() {
+	public void showRiversInConsole() {
 		for(River river: this.riverlines) {
 			river.showInConsole();
 		}
 		System.out.println("\r\n");
+	}
+	
+	public boolean collisionCheck(Integer positionX, Integer positionY) {
+		for(River river: this.riverlines) {
+			if(river.getPositionY() == positionY) {
+				if(river.collisionCheck(positionX, positionY)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 }
