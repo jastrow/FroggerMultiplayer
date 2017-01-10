@@ -385,18 +385,21 @@ import javafx.scene.layout.VBox;
 			
 			//Hilfsvaraiblen deklarienen
 			ImageView help = this.getFrogObject(data);
+			Boolean exist = this.checkFrogExist(data);
 			Image dead = new Image(getClass().getResource("../img/gameOver_big.png").toExternalForm());
 
 			this.running = false;
-			this.frogs.remove(help);
-			this.updateElements();
-			help.setImage(new Image(getClass().getResource("../img/gameOver_small.png").toExternalForm()));
-			this.frogs.add(help);
-			this.updateElements();
+			
+			if (exist) {
+				this.frogs.remove(help);
+				this.updateElements();
+				help.setImage(new Image(getClass().getResource("../img/gameOver_small.png").toExternalForm()));
+				this.frogs.add(help);
+				this.updateElements();
 				
-			//Großes GameOverBild setzen
-			this.graphicsContext.drawImage(dead, (Configuration.xFields/2*50)-200, (Configuration.yFields/2*50)-100);
-	        			
+				//Großes GameOverBild setzen
+				this.graphicsContext.drawImage(dead, (Configuration.xFields/2*50)-200, (Configuration.yFields/2*50)-100);
+			}
 		} 
 		
 		/**
