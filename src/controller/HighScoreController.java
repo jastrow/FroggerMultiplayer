@@ -46,6 +46,7 @@ public class HighScoreController implements SubscriberInterface {
 			playerName[help] = sqlResult.getString(1);
 			playerDate[help] = sqlResult.getString(2);
 			playerTime[help] = sqlResult.getInt(3);
+			help++;
 		}
 		
 		this.highScore.setPlayerName(playerName);
