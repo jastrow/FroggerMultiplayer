@@ -73,22 +73,22 @@ public class SceneController implements SubscriberInterface {
             {
             	SubscriberDaten data = new SubscriberDaten();
             		
-                if(e.getCode() == KeyCode.LEFT)
+                if((e.getCode() == KeyCode.LEFT)  || (e.getCode() == KeyCode.A))
                 {
                 	data.typ = "left";
                     Observer.trigger("key", data);
                 }
-                else if(e.getCode() == KeyCode.RIGHT)
+                else if((e.getCode() == KeyCode.RIGHT)  || (e.getCode() == KeyCode.D))
                 {
                 	data.typ = "right";
                     Observer.trigger("key", data);
                 }
-                else if(e.getCode() == KeyCode.UP)
+                else if((e.getCode() == KeyCode.UP) || (e.getCode() == KeyCode.W))
                 {
                 	data.typ = "up";
                     Observer.trigger("key", data);
                 }
-                else if(e.getCode() == KeyCode.DOWN)
+                else if((e.getCode() == KeyCode.DOWN)  || (e.getCode() == KeyCode.S))
                 {
                 	data.typ = "down";
                     Observer.trigger("key", data);
