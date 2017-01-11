@@ -7,14 +7,12 @@ import application.SubscriberInterface;
 
 public class Car implements SubscriberInterface {
 
-	private int id;
-	private Boolean leftToRight = false;	// Auto fährt von links nach rechts (ansonsten andersrum)
-	private int positionX = 1;
-	private int positionY; 
-	private int startTime = 0;
-	
-	private String log = "";
-	
+	private Integer id;
+	private Boolean leftToRight = false;
+	private Integer positionX = 1;
+	private Integer positionY; 
+	private Integer startTime = 0;
+		
 	public Car (Boolean leftToRight, Integer positionY) {
 		this.id = IdCounter.getId();
 		this.positionY = positionY;
@@ -47,7 +45,6 @@ public class Car implements SubscriberInterface {
 		
 		// Prüfung und Meldung nur, wenn sich die Position verändert hat.
 		if(lastPositionX != this.positionX) {
-			this.log = this.log + " " + this.positionX;
 			this.checkLeftStreet();
 		}
 		

@@ -50,7 +50,7 @@ public class Frog implements SubscriberInterface {
 			this.triggerObserver("new");
 		}
 		if(trigger == "tree") {
-			if(data.id == this.frogOnTreeId) {
+			if(data.id.equals(this.frogOnTreeId)) {
 				if(data.leftToRight) {
 					this.move("right");
 				} else {

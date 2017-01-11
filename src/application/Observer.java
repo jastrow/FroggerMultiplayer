@@ -3,6 +3,8 @@ package application;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import model.IdCounter;
+
 
 /**
  * Observer ermöglicht es, dass verschiedene Klassen sich hier anmelden können,
@@ -52,10 +54,6 @@ public class Observer {
 				subscriber.listenTo(trigger, data);
 			}
 		}
-		
-		if(trigger == "start" || trigger == "stopGame") {
-			this.showSubscriber();
-		}
 	}
 	/**
 	 * Statischer Aufruf von triggerObserver.
@@ -95,7 +93,7 @@ public class Observer {
 	}
 	public void removeMeByInstance(Object obj) {
 		for(Subscriber sub: this.subscriber) {
-			if(sub.getListener() == obj) {
+			if(sub.getListener().equals(obj)) {
 				this.subscriber.remove(sub);
 			}
 		}

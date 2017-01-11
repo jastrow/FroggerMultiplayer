@@ -63,6 +63,8 @@ public class TimeMachine implements Runnable, SubscriberInterface {
 			daten.name = "time";
 			daten.time = this.timeLog;
 			
+//			System.out.println(timeLog);
+			
 			Platform.runLater(new Runnable() {
 				public void run() {
 					Observer.trigger("time", daten);

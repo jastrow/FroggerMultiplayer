@@ -1,4 +1,5 @@
 package model;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Gibt eine eineindeutige Id zur Laufzeit wieder.
@@ -6,11 +7,13 @@ package model;
  *
  */
 public class IdCounter {
-	private static Integer num = 0;
+	
+	private static final AtomicInteger counter = new AtomicInteger();
 	
 	public static Integer getId() {
-		return ++num;
+		return counter.getAndIncrement();			  
 	}
+	
 }
 
-// IdCounter.getId() = Int
+

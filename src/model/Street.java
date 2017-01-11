@@ -1,7 +1,7 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import application.Configuration;
 import application.Observer;
@@ -10,27 +10,14 @@ import application.SubscriberInterface;
 
 public class Street implements SubscriberInterface{
 
-	///////////////
-	// Attribute //
-	///////////////
-
 	private Integer positionY; // Position der Straße auf y-Feldern
-	private List<Car> cars = new ArrayList<Car>(); // Alle fahrenden Autos
-	private Integer lastTime = 0;	// Gamezeit in Millisekunden seit das letzte Auto auftauchte
+	public Queue<Car> cars = new ConcurrentLinkedQueue<Car>();
 	private Boolean leftToRight = false;	// Autos fahren von links nach rechts (ansonsten andersrum)
-	
-	/////////////////
-	// Konstruktor //
-	/////////////////
+	private Car lastCar;
 
 	public Street(Integer position) {
 		this.positionY = position;
 		
-		// Fahrrichtung zufall
-//		Integer direction = (int)(Math.random() * 2);
-//		if(direction >= 1) {
-//			this.leftToRight = true;
-//		}
 		// Fahrrichtung abwechselnd
 		if((this.positionY % 2) == 0) {
 			this.leftToRight = true;
@@ -41,10 +28,6 @@ public class Street implements SubscriberInterface{
 		Observer.add("car", this);
 		Observer.add("start", this);
 	}
-
-	//////////////
-	// Methoden //
-	//////////////
 
 	/**
 	 * Subscriber Schnittstelle.
@@ -59,7 +42,6 @@ public class Street implements SubscriberInterface{
 			}
 		} else if(trigger == "time") {
 			this.randomCar();
-//			this.showInConsole();
 		}
 		if(trigger == "start") {
 			for(Car car: this.cars) {
@@ -75,23 +57,22 @@ public class Street implements SubscriberInterface{
 	 * @param newTime
 	 */
 	public void randomCar() {
-		// Nur wenn nicht die max Anzahl Autos auf der Straße sind
-		if(this.cars.size() < Configuration.carMaxPerStreet) {
-			// Wenn das letzte Auto mindestens 3 Felder weiter ist
+		if(this.cars.isEmpty()) {
+			Car neu = new Car(this.leftToRight, this.positionY);
+			this.cars.add(neu);
+			this.lastCar = neu;
+		} else if(this.cars.size() < Configuration.carMaxPerStreet) {
 			Integer lastDistance = this.lastCarDistance();
-			// Null noch kein Auto auf der Strecke war (50/50 Chance)
-			if(lastDistance == null) {
-				lastDistance = (int) Configuration.xFields / 2;
-			}
 			if(lastDistance >= 3) {
-				// Zufallsgenerator ob neues Auto
 				if(this.random(lastDistance)) {
 					Car neu = new Car(this.leftToRight, this.positionY);
 					this.cars.add(neu);
+					this.lastCar = neu;
 				}
 			}
 		}
 	}
+
 	
 	/**
 	 * Ermittelt ob ein Auto erstellt werden soll.
@@ -116,52 +97,27 @@ public class Street implements SubscriberInterface{
 	 */
 	public Integer lastCarDistance() {
 		Integer distance = null;
-		Car car = getLastCar();
-		if(car == null) {
+		if(this.lastCar == null) {
 			return null;
 		}
 		if(this.leftToRight) {
-			distance = car.getPositionX() - 1;
+			distance = this.lastCar.getPositionX() - 1;
 		} else {
-			distance = Configuration.xFields - (car.getPositionX() + 1); 
+			distance = Configuration.xFields - (this.lastCar.getPositionX() + 1); 
 		}
 		return distance;
-	}
-	
-	/**
-	 * Das zuletzt gestartete Auto geben lassen.
-	 * @return Car
-	 */
-	public Car getLastCar() {
-		Integer lastId = 0;
-		Car last = null;
-		// Letztes Auto ermitteln
-		for(Car car: this.cars) {
-			if(car.getId() > lastId) {
-				lastId = car.getId();
-				last = car;
-			}
-		}
-		return last;
-	}
-	
-	public Car getCarById(Integer id) {
-		for(Car car: this.cars) {
-			if(car.getId() == id) {
-				return car;
-			}
-		}
-		return null;	
 	}
 	
 	/**
 	 * Ein Auto hat die Straße verlassen.
 	 * @param id
 	 */
-	public void carLeftStreet(Integer id) {
-		Car car = this.getCarById(id);
-		if(car != null) {
-			this.cars.remove(car);
+	public void carLeftStreet(Integer carid) {
+		for(Car car: this.cars) {
+			if(car.getId().equals(carid)) {
+				this.cars.remove(car);
+				break;
+			}
 		}
 	}
 	

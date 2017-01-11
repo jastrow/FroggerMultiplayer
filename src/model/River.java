@@ -1,7 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Queue;
 import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -12,14 +10,14 @@ public class River implements SubscriberInterface {
 
 	Integer positionY;
 	Boolean leftToRight = false;
-	//public List<Tree> trees = new ArrayList<Tree>();
 	public Queue<Tree> trees = new ConcurrentLinkedQueue<Tree>();
 	Tree lastTree;
 
 	public River(Integer position) {
 		this.positionY = position;
-		if((position % 2) == 0) {
-			this.leftToRight = true; //Bahn 1 von links nach rechts
+		Integer modulo = position % 2;
+		if(modulo.equals(0)) {
+			this.leftToRight = true;
 		}
 		Observer.add("time", this);
 		Observer.add("tree", this);
@@ -28,15 +26,14 @@ public class River implements SubscriberInterface {
 
 	@Override
 	public void calling(String trigger, SubscriberDaten daten) {
-		if(trigger == "time") {
-			System.out.print(daten.time+" - ");
+		if(trigger.equals("time")) {
 			this.checkForTrees();
-		} else if(trigger == "tree") {
-			if(daten.typ == "delete" && daten.yPosition == this.positionY) {
+		} else if(trigger.equals("tree")) {
+			if(daten.typ.equals("delete") && daten.yPosition.equals(this.positionY)) {
 				this.deleteTree(daten.id);
 			}
 		}
-		if(trigger == "start") {
+		if(trigger.equals("start")) {
 			for(Tree tree: this.trees) {
 				Observer.removeMe(tree);
 			}
@@ -44,29 +41,24 @@ public class River implements SubscriberInterface {
 		}
 	}
 
-
-
 	public void checkForTrees() {
 
-		Integer distanceToNewTree = (new Random()).nextInt(5) + 2; //Abstand zum naechsten Baum
-
-		System.out.println("River "+this.positionY+"- "+this.trees.size());
+		Integer distanceToNewTree = (new Random()).nextInt(5) + 2; 
 
 		if(trees.isEmpty()) {
 			this.makeTree();
 		}	else if(this.trees.size() < Configuration.treeMaxPerLane) {
 
 				if(this.leftToRight){
-					Integer freeFieldsLeft = (this.lastTree.getPositionX()-1);
+					Integer freeFieldsLeft = this.lastTree.getPositionX() - 1;
 
-					if(freeFieldsLeft==distanceToNewTree){
+					if(freeFieldsLeft.equals(distanceToNewTree)) {
 						this.makeTree();
 					}
 				}
 				else{
-					Integer freeFieldsRight = (Configuration.xFields-(this.lastTree.getPositionX()+this.lastTree.getLength()-1));
-
-					if(freeFieldsRight==distanceToNewTree){
+					Integer freeFieldsRight = Configuration.xFields - (this.lastTree.getPositionX() + this.lastTree.getLength() - 1);
+					if(freeFieldsRight.equals(distanceToNewTree)){
 						this.makeTree();
 					}
 				}
@@ -76,7 +68,7 @@ public class River implements SubscriberInterface {
 
 	public void makeTree(){
 
-		Integer length = (new Random()).nextInt(3) + 2;//Brett der Laenge 2 - 4
+		Integer length = (new Random()).nextInt(3) + 2;
 
 		Integer positionX = Configuration.xFields;
 		if(this.leftToRight) {
@@ -90,20 +82,36 @@ public class River implements SubscriberInterface {
 	}
 
 	public void deleteTree(Integer id) {
-		System.out.println("Delete Tree from Observer "+id);
 		for(Tree tree: trees) {
-			if(id == tree.getId()) {
+			Integer tid = tree.getId();
+			if(id.equals(tid)) {
 				this.trees.remove(tree);
 				break;
 			}
-
 		}
 	}
 
+	public Integer collisionCheck(Integer positionX) {
+		for(Tree tree: this.trees) {
+			Integer treeStart = tree.getPositionX();
+			Integer treeEnd = tree.getPositionX() + tree.getLength() - 1;
+			if(positionX >= treeStart && positionX <= treeEnd) {
+				return tree.getId();
+			}
+		}	
+		return 0;
+	}
+
+	public Integer getPositionY() {
+		return this.positionY;
+	}
+
+	
+	
 	/**
 	 * Nur für Ausgabetests
 	 */
-	public void  showInConsole() {
+	public void showInConsole() {
 		System.out.println(
 			this.showRiver()
 		);
@@ -128,18 +136,4 @@ public class River implements SubscriberInterface {
 		return false;
 	}
 	
-	public Integer collisionCheck(Integer positionX) {
-		for(Tree tree: this.trees) {
-			Integer treeStart = tree.getPositionX();
-			Integer treeEnd = tree.getPositionX() + tree.getLength() - 1;
-			if(positionX >= treeStart && positionX <= treeEnd) {
-				return tree.getId();
-			}
-		}	
-		return 0;
-	}
-
-	public Integer getPositionY() {
-		return this.positionY;
-	}
 }
