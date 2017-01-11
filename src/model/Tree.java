@@ -61,7 +61,6 @@ public class Tree implements SubscriberInterface {
 			} else {
 				this.positionX = Configuration.xFields - fieldsMoved; // TODO -1 sollte raus
 			}
-			// Prüfung und Meldung nur, wenn sich die Position verändert hat.
 			if(lastPositionX != this.positionX) {
 				this.checkLeftTree();
 			}
@@ -75,7 +74,7 @@ public class Tree implements SubscriberInterface {
 				typ = "delete";
 			}
 		} else {
-			if(this.positionX < 1) {
+			if((this.positionX + this.length - 1) < 1) {
 				typ = "delete";
 			}
 		}
@@ -91,11 +90,13 @@ public class Tree implements SubscriberInterface {
 		data.typ 		= typ;
 		data.length		= this.length;
 		data.leftToRight= this.leftToRight;
+
 		Observer.trigger("tree", data);
 
 		if(typ == "delete") {
 			Observer.removeMe(this);
 		}
+
 	}
 
 	public Boolean checkInGame() {

@@ -3,6 +3,8 @@ package application;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import model.IdCounter;
+
 
 /**
  * Observer ermöglicht es, dass verschiedene Klassen sich hier anmelden können,
@@ -91,7 +93,7 @@ public class Observer {
 	}
 	public void removeMeByInstance(Object obj) {
 		for(Subscriber sub: this.subscriber) {
-			if(sub.getListener() == obj) {
+			if(sub.getListener().equals(obj)) {
 				this.subscriber.remove(sub);
 			}
 		}
@@ -99,6 +101,14 @@ public class Observer {
 	
 	public Integer size() {
 		return this.subscriber.size();
+	}
+	
+	public void showSubscriber() {
+		System.out.println("OBSERVER Subscriber: "+this.subscriber.size());
+		for(Subscriber sub: this.subscriber) {
+			String name = sub.getListener().getClass().getName();
+			System.out.println(name);
+		}
 	}
 	
 }
