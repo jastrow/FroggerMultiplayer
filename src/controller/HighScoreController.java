@@ -42,11 +42,15 @@ public class HighScoreController implements SubscriberInterface {
 		
 		sqlResult = this.dbConnection.readData("SELECT * FROM highscore ORDER BY zeit LIMIT 3");
 		
+		if (sqlResult != null) {
+		
 		while (sqlResult.next()) {
 			playerName[help] = sqlResult.getString(1);
 			playerDate[help] = sqlResult.getString(2);
 			playerTime[help] = sqlResult.getInt(3);
 			help++;
+		}
+		
 		}
 		
 		this.highScore.setPlayerName(playerName);
@@ -66,7 +70,17 @@ public class HighScoreController implements SubscriberInterface {
 		Observer.trigger("getHigh", highData);
 		
 		} catch (SQLException e) {
-			e.printStackTrace();			
+			
+			for(int i = 0; i < 3 ; i++ ) {
+				playerName[i] = "";
+				playerDate[i] = "";
+				playerTime[i] = 0;
+			}
+			
+			this.highScore.setPlayerName(playerName);
+			this.highScore.setPlayerDate(playerDate);
+			this.highScore.setPlayerTime(playerTime);
+			
 		}
 
 	}
