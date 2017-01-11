@@ -48,9 +48,6 @@ public class StartScene implements SubscriberInterface {
 		
 		Button sucheSpieler = new Button();
 
-//		sucheSpieler.setGraphic(new ImageView(new Image(getClass().getResource("../img/btn_SpielerSuchen.png").toExternalForm())));
-		//starteSpiel.setGraphic(new ImageView(new Image(getClass().getResource("../img/btn_Start.png").toExternalForm())));
-
 		Button starteSpiel = new Button();
 
 		//sucheSpieler.setGraphic(new ImageView(new Image(getClass().getResource("../img/btn_SpielerSuchen.png").toExternalForm())));
@@ -98,8 +95,12 @@ public class StartScene implements SubscriberInterface {
 		MenuItem highMenuItem = new MenuItem("Highscore");
     
 		highMenuItem.setOnAction(actionEvent -> this.sceneController.showHighscore());
-    
-		infoMenu.getItems().addAll(highMenuItem);
+		
+		MenuItem overMenuItem = new MenuItem("Über..");
+		
+		overMenuItem.setOnAction(actionEvent -> this.sceneController.showOver());
+	    
+		infoMenu.getItems().addAll(highMenuItem, overMenuItem);
     
 		menuBar.getMenus().addAll(froggerMenu, infoMenu);
 		

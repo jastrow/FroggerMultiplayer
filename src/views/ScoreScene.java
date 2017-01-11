@@ -100,14 +100,7 @@ public class ScoreScene implements SubscriberInterface {
     
 		froggerMenu.getItems().addAll(neuMenuItem,new SeparatorMenuItem(), exitMenuItem);
     
-		Menu infoMenu = new Menu("Info");
-		MenuItem highMenuItem = new MenuItem("Highscore");
-    
-		highMenuItem.setOnAction(actionEvent -> this.sceneController.showHighscore());
-    
-		infoMenu.getItems().addAll(highMenuItem);
-    
-		menuBar.getMenus().addAll(froggerMenu, infoMenu);
+   		menuBar.getMenus().addAll(froggerMenu);
 		
 		menuBox.getChildren().add(menuBar);
 		return menuBox;

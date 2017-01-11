@@ -58,7 +58,7 @@
     -fx-font-size: 15 pt;
     -fx-text-fill: #86bf58;
     -fx-highlight-fill: white;
-	-fx-border-color: green;
+	-fx-border-color: rgb(86,130,36);
 	-fx-border-width: 5;
 	-fx-border-radius: 2;
     -fx-background-insets: 0;

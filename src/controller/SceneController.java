@@ -15,6 +15,7 @@ public class SceneController implements SubscriberInterface {
 	public GameLogic game;
 	
 	public StartScene startScene;
+	public OverScene overScene;
 	public GameScene gameScene;
 	public ScoreScene scoreScene;
 	private Stage primaryStage;
@@ -28,6 +29,7 @@ public class SceneController implements SubscriberInterface {
 	public SceneController() {
 		this.startScene = new StartScene(this);
 		this.scoreScene = new ScoreScene(this);
+		this.overScene = new OverScene(this);
 		this.primaryStage = new Stage();
 		Observer.add("time", this);
 		Observer.add("close", this);
@@ -54,6 +56,10 @@ public class SceneController implements SubscriberInterface {
 		return this.startScene.getScene();
 	}
 	
+	public Scene getOverScene() {
+		return this.overScene.getScene();
+	}
+	
 	
 	public void newGame(){
 		this.primaryStage.setScene(this.getStartScene());
@@ -63,6 +69,10 @@ public class SceneController implements SubscriberInterface {
 	public void showHighscore(){
 		Observer.trigger("readHigh", new SubscriberDaten());
 		this.primaryStage.setScene(this.getScoreScene());
+	}
+	
+	public void showOver(){
+		this.primaryStage.setScene(this.getOverScene());
 	}
 	
 	public void searchPlayer(){
@@ -144,8 +154,16 @@ public class SceneController implements SubscriberInterface {
 					} else { 
 						if (data.name == "ScoreScene" && this.firstStart) {
 							this.newGame();
-						} else { 
-							Platform.exit();
+						} else {
+							if (data.name == "OverScene" && !this.firstStart) {
+								this.showGameScene();
+							} else { 
+								if (data.name == "OverScene" && this.firstStart) {
+									this.newGame();
+								} else { 
+									Platform.exit();
+								}
+							}
 						}
 					}
 				break;

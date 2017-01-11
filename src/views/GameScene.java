@@ -127,8 +127,11 @@ import javafx.scene.layout.VBox;
 			MenuItem highMenuItem = new MenuItem("Highscore");
 	    
 			highMenuItem.setOnAction(actionEvent -> this.sceneController.showHighscore());
+			MenuItem overMenuItem = new MenuItem("Über..");
+		    
+			overMenuItem.setOnAction(actionEvent -> this.sceneController.showOver());
 	    
-			infoMenu.getItems().addAll(highMenuItem);
+			infoMenu.getItems().addAll(highMenuItem, overMenuItem);
 	    
 			menuBar.getMenus().addAll(froggerMenu, infoMenu);
 			
@@ -403,6 +406,35 @@ import javafx.scene.layout.VBox;
 				this.graphicsContext.drawImage(dead, (Configuration.xFields/2*50)-200, (Configuration.yFields/2*50)-100);
 			}
 		} 
+		 
+			/**
+			 * Hilfsfunktion zum auslesen der Position des angetriggerten Objektes in der Liste
+			 *
+			 */
+			
+			 private void winningFrog(SubscriberDaten data) {
+				
+				//Hilfsvaraiblen deklarienen
+				
+				//Boolean exist = this.checkFrogExist(data);
+				//ImageView help = this.getFrogObject(data);
+				Image winning = new Image(getClass().getResource("../img/winning_big.png").toExternalForm());
+
+				this.running = false;
+				
+				/* if (exist) {
+					this.frogs.remove(help);
+					this.updateElements();
+					help.setImage(new Image(getClass().getResource("../img/winning_small.png").toExternalForm()));
+					this.frogs.add(help);
+					this.updateElements();
+					
+					//Großes GameOverBild setzen
+					this.graphicsContext.drawImage(winning, (Configuration.xFields/2*50)-200, (Configuration.yFields/2*50)-100);
+				} */
+				//Großes GameOverBild setzen
+				this.graphicsContext.drawImage(winning, (Configuration.xFields/2*50)-200, (Configuration.yFields/2*50)-100);
+			 } 
 		
 		/**
 		 * Funktion zum Update des angetriggerten GUI Objektes
@@ -532,7 +564,8 @@ import javafx.scene.layout.VBox;
 						break;
 				}
 				case "win": {
-					System.out.println("###################################");
+					System.out.println("###################################" + data.id);
+					this.winningFrog(data);
 					SubscriberDaten timeData = new SubscriberDaten();
 					timeData.time = this.time;
 					Observer.trigger("entry", timeData);
