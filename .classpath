@@ -3,6 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
-	<classpathentry kind="lib" path="/Users/mikejastrow/FroggerMultiplayer/src/exchange/mariadb-java-client-1.5.6.jar"/>
+	<classpathentry kind="lib" path="/Users/max/froggerMultiplayer/src/exchange/mariadb-java-client-1.5.6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
