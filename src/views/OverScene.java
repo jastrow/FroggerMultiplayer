@@ -1,16 +1,9 @@
 package views;
 
-import java.text.DecimalFormat;
-
 import application.Configuration;
-import application.Observer;
-import application.SubscriberDaten;
-import application.SubscriberInterface;
 import controller.SceneController;
 import javafx.application.Platform;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -27,15 +20,17 @@ public class OverScene {
 	private SceneController sceneController;
 	private BorderPane rootOver = new BorderPane();
 	private GridPane contentOver = new GridPane();
-	private Label[] overList = new Label[3];
-	private String[] labelText = new String[3];
+	private Label[] overList = new Label[4];
+	private String[] labelText = new String[4];
 
 	
 	public OverScene(SceneController sceneController) {
 		
-		this.labelText[0] = "Salim Andreas Oussayfi - 797754";
-		this.labelText[1] = "Mike Jastrow - xxxxxx";
-		this.labelText[2] = "Manuel Bogus - 791563";
+		this.labelText[0] = "Die UMeLs";
+		this.labelText[1] = "Salim Andreas Oussayfi - 797754";
+		this.labelText[2] = "Mike Jastrow - xxxxxx";
+		this.labelText[3] = "Manuel Bogus - 791563";
+		
 		
 		this.sceneController = sceneController;
 		this.contentOver.getStyleClass().add("content");
@@ -57,10 +52,11 @@ public class OverScene {
 		
 		verboAeussereBox.getStyleClass().add("verboAeussereBox");
 			
-			for(int i = 0 ; i < 3; i++) {
+			for(int i = 0 ; i < 4; i++) {
 				overList[i] = new Label(this.labelText[i]);
 				overList[i].getStyleClass().add("labelOver"+(i+1));
-				verboAeussereBox.getChildren().add(overList[i]); 
+				verboAeussereBox.getChildren().add(overList[i]);
+				System.out.println("######   "+i);
 			};
 			
 		this.contentOver.getChildren().add(verboAeussereBox);
