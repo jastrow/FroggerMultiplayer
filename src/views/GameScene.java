@@ -564,11 +564,10 @@ import javafx.scene.layout.VBox;
 						break;
 				}
 				case "win": {
-					System.out.println("###################################" + data.id);
-					this.winningFrog(data);
 					SubscriberDaten timeData = new SubscriberDaten();
 					timeData.time = this.time;
 					Observer.trigger("entry", timeData);
+					this.winningFrog(data);
 					break;
 				}
 			}

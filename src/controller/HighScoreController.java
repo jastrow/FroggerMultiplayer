@@ -119,6 +119,7 @@ public class HighScoreController implements Runnable, SubscriberInterface {
 		if (trigger == "readHigh") {
 			this.getHighScore();
 		}
+
 		
 	}
 

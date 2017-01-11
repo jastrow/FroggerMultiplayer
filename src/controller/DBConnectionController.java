@@ -17,10 +17,10 @@ public class DBConnectionController {
 	
 	public DBConnectionController () {
 		
-		this.dbURL = "10.0.1.4:3306";
-		this.dbName = "highscore";
-		this.dbUser = "JackRyan";
-		this.dbPass = "jackychan";
+		this.dbURL = "rdbms.strato.de";
+		this.dbName = "DB2825793";
+		this.dbUser = "U2825793";
+		this.dbPass = "Jackychan180";
 		
 		
 	}
@@ -32,9 +32,10 @@ public class DBConnectionController {
 			this.sqlStaement.executeQuery(sqlQuery);
 			this.sqlStaement.close();
 			this.connection.close();	
-			
+			System.out.println("Write DB");
 		        } catch (SQLException e) {
-			e.printStackTrace();			
+		        	System.out.println("Write DB erfolglos");
+		        	e.printStackTrace();			
 		}
 		
 	}
@@ -50,8 +51,10 @@ public class DBConnectionController {
 			sqlResult = this.sqlStaement.executeQuery(sqlQuery);
 			this.sqlStaement.close();
 			this.connection.close();	
+			System.out.println("Read DB");
 
         } catch (SQLException e) {
+        	System.out.println("ReadFehler");
         	e.printStackTrace();
 		}
 		
