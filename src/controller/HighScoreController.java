@@ -90,7 +90,10 @@ public class HighScoreController implements SubscriberInterface {
 	@Override
 	public void calling(String trigger, SubscriberDaten data) {
 		if (trigger == "player") this.playerName = data.name;
-		if (trigger == "entry") this.setHighScore(this.playerName, data.time);
+		if (trigger == "entry") {
+			System.out.println("Trigger an DB");
+			this.setHighScore(this.playerName, data.time);
+			}
 		if (trigger == "readHigh") this.getHighScore();
 		
 	}
