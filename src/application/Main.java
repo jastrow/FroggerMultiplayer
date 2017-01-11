@@ -18,7 +18,7 @@ public class Main extends Application implements SubscriberInterface {
 
 	public void start(Stage primaryStage) {
 
-		this.highScoreController = new HighScoreController();
+		//this.highScoreController = new HighScoreController();
 		this.sceneController = new SceneController();
 		this.gameData = new GameLogic();
 		this.actionController = new ActionController();

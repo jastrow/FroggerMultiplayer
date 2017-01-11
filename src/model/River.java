@@ -2,7 +2,9 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Random;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import application.*;
 
@@ -10,7 +12,9 @@ public class River implements SubscriberInterface {
 
 	Integer positionY;
 	Boolean leftToRight = false;
-	public List<Tree> trees = new ArrayList<Tree>();
+	//public List<Tree> trees = new ArrayList<Tree>();
+	public Queue<Tree> trees = new ConcurrentLinkedQueue<Tree>();
+	Tree lastTree;
 
 	public River(Integer position) {
 		this.positionY = position;
@@ -25,9 +29,10 @@ public class River implements SubscriberInterface {
 	@Override
 	public void calling(String trigger, SubscriberDaten daten) {
 		if(trigger == "time") {
+			System.out.print(daten.time+" - ");
 			this.checkForTrees();
 		} else if(trigger == "tree") {
-			if(daten.typ == "delete") {
+			if(daten.typ == "delete" && daten.yPosition == this.positionY) {
 				this.deleteTree(daten.id);
 			}
 		}
@@ -45,21 +50,21 @@ public class River implements SubscriberInterface {
 
 		Integer distanceToNewTree = (new Random()).nextInt(5) + 2; //Abstand zum naechsten Baum
 
+		System.out.println("River "+this.positionY+"- "+this.trees.size());
+
 		if(trees.isEmpty()) {
 			this.makeTree();
 		}	else if(this.trees.size() < Configuration.treeMaxPerLane) {
 
-			Tree lastBaum = (trees.get(trees.size()-1));//.getPositionX();
-
 				if(this.leftToRight){
-					Integer freeFieldsLeft = (lastBaum.getPositionX()-1);
+					Integer freeFieldsLeft = (this.lastTree.getPositionX()-1);
 
 					if(freeFieldsLeft==distanceToNewTree){
 						this.makeTree();
 					}
 				}
 				else{
-					Integer freeFieldsRight = (Configuration.xFields-(lastBaum.getPositionX()+lastBaum.getLength()-1));
+					Integer freeFieldsRight = (Configuration.xFields-(this.lastTree.getPositionX()+this.lastTree.getLength()-1));
 
 					if(freeFieldsRight==distanceToNewTree){
 						this.makeTree();
@@ -71,7 +76,7 @@ public class River implements SubscriberInterface {
 
 	public void makeTree(){
 
-		Integer length = (new Random()).nextInt(3)+2;//Brett der Laenge 2 - 4
+		Integer length = (new Random()).nextInt(3) + 2;//Brett der Laenge 2 - 4
 
 		Integer positionX = Configuration.xFields;
 		if(this.leftToRight) {
@@ -80,13 +85,15 @@ public class River implements SubscriberInterface {
 
 		Tree baum = new Tree(positionX, this.positionY, length, this.leftToRight);
 		this.trees.add(baum);
+		this.lastTree = baum;
 
 	}
 
 	public void deleteTree(Integer id) {
+		System.out.println("Delete Tree from Observer "+id);
 		for(Tree tree: trees) {
 			if(id == tree.getId()) {
-				trees.remove(tree);
+				this.trees.remove(tree);
 				break;
 			}
 

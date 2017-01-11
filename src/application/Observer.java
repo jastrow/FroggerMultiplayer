@@ -52,6 +52,10 @@ public class Observer {
 				subscriber.listenTo(trigger, data);
 			}
 		}
+		
+		if(trigger == "start" || trigger == "stopGame") {
+			this.showSubscriber();
+		}
 	}
 	/**
 	 * Statischer Aufruf von triggerObserver.
@@ -99,6 +103,14 @@ public class Observer {
 	
 	public Integer size() {
 		return this.subscriber.size();
+	}
+	
+	public void showSubscriber() {
+		System.out.println("OBSERVER Subscriber: "+this.subscriber.size());
+		for(Subscriber sub: this.subscriber) {
+			String name = sub.getListener().getClass().getName();
+			System.out.println(name);
+		}
 	}
 	
 }

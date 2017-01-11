@@ -70,6 +70,10 @@ public class SceneController implements SubscriberInterface {
 	}
 	
 	public void startGame(){
+		// Löschen im Observer!!!!!!!
+		if(this.gameScene != null) {
+			Observer.removeMe(this.gameScene);
+		}
 		this.gameScene = new GameScene(this);
 		this.gameScene.setOnKeyPressed(new EventHandler <KeyEvent>()
         {
