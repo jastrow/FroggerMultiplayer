@@ -17,7 +17,7 @@
 .verboAeussereBox {
 	-fx-alignment: center;	
 	-fx-pref-height: 600;
-	-fx-padding: 300 0 0 0;
+	-fx-padding: 260 0 0 0;
 }
 
 
@@ -27,9 +27,9 @@
     -fx-background-position: center center;
 	-fx-pref-width: 520;
 	-fx-pref-height: 50;
-	-fx-padding: 0 0 0 100;
 	-fx-text-fill: green;
-	-fx-background-image: url("img/over.png");
+	-fx-alignment: center;
+	-fx-background-color: white;
 
 }
 

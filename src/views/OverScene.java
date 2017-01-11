@@ -28,9 +28,8 @@ public class OverScene {
 		
 		this.labelText[0] = "Die UMeLs";
 		this.labelText[1] = "Salim Andreas Oussayfi - 797754";
-		this.labelText[2] = "Mike Jastrow - xxxxxx";
+		this.labelText[2] = "Mike Jastrow - 798141";
 		this.labelText[3] = "Manuel Bogus - 791563";
-		
 		
 		this.sceneController = sceneController;
 		this.contentOver.getStyleClass().add("content");
