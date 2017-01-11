@@ -34,7 +34,7 @@ public class OverScene {
 	public OverScene(SceneController sceneController) {
 		
 		this.labelText[0] = "Salim Andreas Oussayfi - 797754";
-		this.labelText[1] = "Mike Jastrow - xxxxxx";
+		this.labelText[1] = "Mike Jastrow - 798141";
 		this.labelText[2] = "Manuel Bogus - 791563";
 		
 		this.sceneController = sceneController;

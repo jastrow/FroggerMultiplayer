@@ -91,7 +91,7 @@ public class Frog implements SubscriberInterface {
 			this.triggerObserver("move");
 			
 			if(this.positionY == 1) {
-				Observer.trigger("win",new SubscriberDaten());
+				this.triggerObserver("win");
 			}
 		}
 	}
@@ -131,7 +131,6 @@ public class Frog implements SubscriberInterface {
 		data.facing = this.facing;
 		data.typ = typ;
 		Observer.trigger("frog", data);
-		System.out.println(data.toString());
 	}
 	
 }
