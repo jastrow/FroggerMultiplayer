@@ -55,7 +55,6 @@ public class OverScene {
 				overList[i] = new Label(this.labelText[i]);
 				overList[i].getStyleClass().add("labelOver"+(i+1));
 				verboAeussereBox.getChildren().add(overList[i]);
-				System.out.println("######   "+i);
 			};
 			
 		this.contentOver.getChildren().add(verboAeussereBox);

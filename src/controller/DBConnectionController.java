@@ -1,63 +1,74 @@
 package controller;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.net.ssl.HttpsURLConnection;
+
+import sun.net.www.http.HttpClient;
+
+
 public class DBConnectionController {
 	
 	private String dbURL;
-	private String dbName;
-	private String dbUser;
-	private String dbPass;
-	private Connection connection;
-	private Statement sqlStaement;
+	private Object resultQuery; 
+
 	
 	public DBConnectionController () {
 		
-		this.dbURL = "rdbms.strato.de";
-		this.dbName = "DB2825793";
-		this.dbUser = "U2825793";
-		this.dbPass = "Jackychan180";
-		
-		
+		this.dbURL = "http://mdnetz.de/frogger/";		
 	}
 	
-	public void writeData(String sqlQuery) {
-		try {
-			this.connection = DriverManager.getConnection("jdbc:mysql://" + dbURL + "/" + dbName, dbUser, dbPass);
-			this.sqlStaement = this.connection.createStatement();
-			this.sqlStaement.executeQuery(sqlQuery);
-			this.sqlStaement.close();
-			this.connection.close();	
-			System.out.println("Write DB");
-		        } catch (SQLException e) {
-		        	System.out.println("Write DB erfolglos");
-		        	e.printStackTrace();			
-		}
-		
-	}
+public void writeData(String query) throws Exception {
 	
-	public ResultSet readData(String sqlQuery){
-	
-		ResultSet sqlResult = null;
-		
-		try {
-			
-			this.connection = DriverManager.getConnection("jdbc:mysql://" + dbURL + "/" + dbName, dbUser, dbPass);
-			this.sqlStaement = this.connection.createStatement();
-			sqlResult = this.sqlStaement.executeQuery(sqlQuery);
-			this.sqlStaement.close();
-			this.connection.close();	
-			System.out.println("Read DB");
+	String charset = "UTF-8"; 
+	URLConnection connection = new URL(this.dbURL).openConnection();
+	connection.setDoOutput(true); // Triggers POST.
+	connection.setRequestProperty("Accept-Charset", charset);
+	connection.setRequestProperty("Content-Type", "application/json;charset=" + charset);
 
-        } catch (SQLException e) {
-        	System.out.println("ReadFehler");
-        	e.printStackTrace();
-		}
-		
-		return sqlResult;
+	try (OutputStream output = connection.getOutputStream()) {
+		output.write(query.getBytes(charset));
 	}
+
+	InputStream response = connection.getInputStream();
+	System.out.println(response.toString());
+	
+	}	
+
+
+public String readData() throws Exception {
+	
+	try {
+	
+	//Daten empfangen - z.B. Anfrage auf eine API
+	URL url = new URL(this.dbURL);
+	URLConnection connection = url.openConnection();
+	 
+	BufferedReader readBuffer = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+	String dbRequest = "";
+	
+	while (readBuffer.readLine() != null) {
+		dbRequest = dbRequest + readBuffer.readLine();
+	}
+	 
+	return dbRequest;
+	
+	} catch (Exception e) {
+		System.out.println("Fehler beim lesen");
+		return "";
+	}
+	
+}
+
 }

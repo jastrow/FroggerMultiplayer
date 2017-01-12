@@ -3,6 +3,9 @@ package controller;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import application.Observer;
 import application.SubscriberDaten;
 import application.SubscriberInterface;
@@ -17,6 +20,10 @@ public class HighScoreController implements Runnable, SubscriberInterface {
 	private String playerName;
 	private Integer playerTime;
 	private String was;
+	private String resultQuery;
+	private String[] playerArray = new String[3];
+	private Integer[] timeArray = new Integer[3];
+	private Integer[] dateArray = new Integer[3];
 	
 	public HighScoreController() {
 		Observer.add("player", this);
@@ -52,63 +59,32 @@ public class HighScoreController implements Runnable, SubscriberInterface {
 		
 		if(this.was.equals("get")) {
 			
-			ResultSet sqlResult = null;
-			String[] playerName = new String[3];
-			String[] playerDate = new String[3];
-			Integer[] playerTime = new Integer[3];
-			Integer help = 0;
-			
+				try {
+				this.resultQuery = this.dbConnection.readData();
+
+
+				JSONObject json = new JSONObject (this.resultQuery);
+
+				// Nun aber zum Array. Wir lesen die items in ein array ein. 
+				JSONArray jsonArrItems = json.getJSONArray(json.getString("id"));
+				
+				for (int i = 0; i <= jsonArrItems.length(); i++) {
+					 JSONObject jsonObj = jsonArrItems.getJSONObject(i);
+					 // jetzt haben wir solange elemente bis es komplett durchgeloopt ist.
+					this.playerArray[i] = jsonObj.getString("name"); 
+					this.timeArray[i] = Integer.getInteger(jsonObj.getString("zeit")); 
+					this.dateArray[i] = Integer.getInteger(jsonObj.getString("created")); 
+					System.out.println(this.playerArray[i] + "  " + this.timeArray[i] + "   " + this.dateArray[i]);
+				}	
+					} catch (Exception e) {
+					
+				}		
+		} else {	
 			try {
-			
-			sqlResult = this.dbConnection.readData("SELECT * FROM highscore ORDER BY zeit LIMIT 3");
-			
-			if (sqlResult != null) {
-			
-			while (sqlResult.next()) {
-				playerName[help] = sqlResult.getString(1);
-				playerDate[help] = sqlResult.getString(2);
-				playerTime[help] = sqlResult.getInt(3);
-				help++;
-			}
-			
-			}
-			
-			this.highScore.setPlayerName(playerName);
-			this.highScore.setPlayerDate(playerDate);
-			this.highScore.setPlayerTime(playerTime);
-			
-			for(int i = 0; i < 3 ; i++ ) {
-				System.out.println(playerName[i]);
-				System.out.println(playerDate[i]);
-				System.out.println(playerTime[i]);
-			}
-			
-			SubscriberDaten highData = new SubscriberDaten();
-			highData.playerName = playerName;
-			highData.playerDate = playerDate;
-			highData.playerTime = playerTime;
-			Platform.runLater(new Runnable() {
-				public void run() {
-					Observer.trigger("getHigh", highData);
-				}
-			});
-			
-			} catch (SQLException e) {
-				
-				for(int i = 0; i < 3 ; i++ ) {
-					playerName[i] = "";
-					playerDate[i] = "";
-					playerTime[i] = 0;
-				}
-				
-				this.highScore.setPlayerName(playerName);
-				this.highScore.setPlayerDate(playerDate);
-				this.highScore.setPlayerTime(playerTime);
+			this.dbConnection.writeData("{\"name\":\"" + this.playerName + "\"time\":\""+ this.playerTime+ "\"}");
+			} catch (Exception e) {
 				
 			}
-		} else {
-			this.dbConnection.writeData("INSERT INTO highscore VALUES('" + this.playerName + "',NOW()," + this.playerTime + ")");
-			System.out.println("#########################################");
 		}
 	}
 
