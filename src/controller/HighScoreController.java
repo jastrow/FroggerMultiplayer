@@ -20,7 +20,7 @@ public class HighScoreController implements Runnable, SubscriberInterface {
 	private String playerName;
 	private Integer playerTime;
 	private String was;
-	private String resultQuery;
+	private StringBuffer resultQuery;
 	private String[] playerArray = new String[3];
 	private Integer[] timeArray = new Integer[3];
 	private Integer[] dateArray = new Integer[3];
@@ -59,29 +59,29 @@ public class HighScoreController implements Runnable, SubscriberInterface {
 		
 		if(this.was.equals("get")) {
 			
-				try {
+			try {
 				this.resultQuery = this.dbConnection.readData();
 
 
-				JSONObject json = new JSONObject (this.resultQuery);
+				JSONObject json = new JSONObject (this.resultQuery.toString());
 
 				// Nun aber zum Array. Wir lesen die items in ein array ein. 
 				JSONArray jsonArrItems = json.getJSONArray(json.getString("id"));
 				
 				for (int i = 0; i <= jsonArrItems.length(); i++) {
-					 JSONObject jsonObj = jsonArrItems.getJSONObject(i);
+					JSONObject jsonObj = jsonArrItems.getJSONObject(i);
 					 // jetzt haben wir solange elemente bis es komplett durchgeloopt ist.
 					this.playerArray[i] = jsonObj.getString("name"); 
 					this.timeArray[i] = Integer.getInteger(jsonObj.getString("zeit")); 
 					this.dateArray[i] = Integer.getInteger(jsonObj.getString("created")); 
 					System.out.println(this.playerArray[i] + "  " + this.timeArray[i] + "   " + this.dateArray[i]);
 				}	
-					} catch (Exception e) {
-					
-				}		
+			} catch (Exception e) {
+				System.out.println("Parsen erfolglos");
+			}		
 		} else {	
 			try {
-			this.dbConnection.writeData("{\"name\":\"" + this.playerName + "\"time\":\""+ this.playerTime+ "\"}");
+			this.dbConnection.writeData("{\"name\":\"" + this.playerName + "\"time\":\""+ this.playerTime + "\"}");
 			} catch (Exception e) {
 				
 			}

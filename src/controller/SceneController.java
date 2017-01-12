@@ -63,7 +63,7 @@ public class SceneController implements SubscriberInterface {
 	
 	public void newGame(){
 		this.primaryStage.setScene(this.getStartScene());
-		this.submitEnd();
+		Observer.trigger("resetGame", new SubscriberDaten());
 	}
 	
 	public void showHighscore(){
@@ -120,12 +120,11 @@ public class SceneController implements SubscriberInterface {
 	}
 	
 	public void showGameScene() {
-		
 		if (gameRunning) {
 			this.primaryStage.setScene(this.getGameScene());
 			this.primaryStage.show();
 		} else {
-			this.primaryStage.setScene(this.getGameScene());
+			this.primaryStage.setScene(this.getStartScene());
 			this.primaryStage.show();
 
 		}
@@ -134,12 +133,7 @@ public class SceneController implements SubscriberInterface {
 	public void setGame(GameLogic game) {
 		this.game = game;
 	} 
-	
-	private void submitEnd() {
-		SubscriberDaten data = new SubscriberDaten();
-		Observer.trigger("end", data);
-	}
-	
+		
 	public void submitClose(String actScene){
 		SubscriberDaten data = new SubscriberDaten();
 		data.name = actScene;

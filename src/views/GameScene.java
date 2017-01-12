@@ -120,7 +120,6 @@ import javafx.scene.layout.VBox;
 	    
 			exitMenuItem.setOnAction(actionEvent -> Platform.exit());
 			neuMenuItem.setOnAction(actionEvent -> {
-				System.out.println(this.running);
 				if (!this.running) {		
 					this.sceneController.newGame();
 				}

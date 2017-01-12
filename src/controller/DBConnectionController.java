@@ -47,27 +47,21 @@ public void writeData(String query) throws Exception {
 	}	
 
 
-public String readData() throws Exception {
-	
-	try {
+public StringBuffer readData() throws Exception {
 	
 	//Daten empfangen - z.B. Anfrage auf eine API
 	URL url = new URL(this.dbURL);
 	URLConnection connection = url.openConnection();
 	 
 	BufferedReader readBuffer = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-	String dbRequest = "";
-	
-	while (readBuffer.readLine() != null) {
-		dbRequest = dbRequest + readBuffer.readLine();
-	}
+	String line;
+	StringBuffer sb = new StringBuffer ();
 	 
-	return dbRequest;
-	
-	} catch (Exception e) {
-		System.out.println("Fehler beim lesen");
-		return "";
+	while ((line = readBuffer.readLine()) != null) {
+	sb.append(line + "\n");
+	System.out.println(line);
 	}
+	return sb;
 	
 }
 
