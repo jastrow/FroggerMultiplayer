@@ -31,8 +31,15 @@ public class HighScoreController implements Runnable, SubscriberInterface {
 		
 	public void getHighScore() {
 		this.was = "get";
-		this.t = new Thread(this);
-		t.start();
+		if(this.t == null) {
+			this.t = new Thread(this);
+			t.start();
+		} else {
+			if(!this.t.isAlive()) {
+				this.t = new Thread(this);
+				t.start();
+			}
+		}
 	}
 	public void setHighScore(Integer playerTime) {
 		this.playerTime = playerTime;
