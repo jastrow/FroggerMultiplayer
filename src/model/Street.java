@@ -41,9 +41,12 @@ public class Street implements SubscriberInterface{
 					break;
 				default: break;
 			}
-		} else if(trigger == "time") {
+		}
+		
+		if(trigger == "time") {
 			this.randomCar();
 		}
+		
 		if(trigger == "start") {
 			this.reset();
 		}
@@ -54,7 +57,34 @@ public class Street implements SubscriberInterface{
 			Observer.removeMe(car);
 		}
 		this.cars.clear();
+		this.startRandomCars();
 	}	
+	
+	public void startRandomCars() {
+		Integer maxTime = Configuration.xFields * Configuration.carSpeed;
+		Integer minDistance = 2 * Configuration.carSpeed;
+		Integer startTime;
+		Car newLastCar = null;
+		Integer lastCarTime = 0;
+		Integer posX;
+		
+		while(this.cars.size() < Configuration.carMaxPerStreet) {
+			startTime = (new Random()).nextInt(maxTime) * -1;
+			posX = (int) startTime / Configuration.carSpeed * -1;
+			if(!this.leftToRight) {
+				posX = Configuration.xFields - posX;
+			}
+			Car neu = new Car(this.leftToRight, this.positionY, posX, startTime);
+			this.cars.add(neu);
+
+			if(startTime < lastCarTime) {
+				lastCarTime = startTime;
+				newLastCar = neu;
+			}
+		}
+
+		this.lastCar = newLastCar;
+	}
 	
 	/**
 	 * Fortschritt der Gamezeit. 

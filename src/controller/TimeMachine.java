@@ -31,15 +31,10 @@ public class TimeMachine implements Runnable, SubscriberInterface {
 	}
 	
 	public void start() {
-		this.timeLog = 0;
 		this.running = true;
+		this.timeLog = 0;
 		this.t = new Thread(this);
 		this.t.start();
-	}
-
-	
-	public void stop() {
-		this.running = false;
 	}
 	
 	public void restart() {
@@ -63,7 +58,7 @@ public class TimeMachine implements Runnable, SubscriberInterface {
 			daten.name = "time";
 			daten.time = this.timeLog;
 			
-//			System.out.println(timeLog);
+			System.out.println(timeLog);
 			
 			Platform.runLater(new Runnable() {
 				public void run() {
@@ -75,7 +70,7 @@ public class TimeMachine implements Runnable, SubscriberInterface {
 	
 	public void calling(String trigger, SubscriberDaten data) {
 		if(trigger == "stopGame") {
-			this.stop();
+			this.reset();
 		}
 	}
 	

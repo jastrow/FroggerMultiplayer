@@ -14,12 +14,23 @@ public class Car implements SubscriberInterface {
 	private Integer startTime = 0;
 		
 	public Car (Boolean leftToRight, Integer positionY) {
-		this.id = IdCounter.getId();
 		this.positionY = positionY;
 		this.leftToRight = leftToRight;
-		if(!leftToRight) {
+		this.positionX = -1;
+		if(!this.leftToRight) {
 			this.positionX = Configuration.xFields + 1;
 		}
+		this.initialize();
+	}
+	public Car (Boolean leftToRight, Integer positionY, Integer positionX, Integer startTime) {
+		this.positionX = positionX;
+		this.positionY = positionY;
+		this.leftToRight = leftToRight;
+		this.startTime = startTime;
+		this.initialize();
+	}
+	private void initialize() {
+		this.id = IdCounter.getId();
 		Observer.add("time", this);
 		this.sendObserver("new");
 	}
@@ -94,5 +105,9 @@ public class Car implements SubscriberInterface {
 
 	public Integer getPositionY() {
 		return this.positionY;
+	}
+	
+	public void setStartTime(Integer zeit) {
+		this.startTime = zeit;
 	}
 }

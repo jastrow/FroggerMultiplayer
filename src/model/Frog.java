@@ -92,6 +92,7 @@ public class Frog implements SubscriberInterface {
 			
 			if(this.positionY == 1) {
 				this.triggerObserver("win");
+				Observer.trigger("stopGame", new SubscriberDaten());
 			}
 		}
 	}
