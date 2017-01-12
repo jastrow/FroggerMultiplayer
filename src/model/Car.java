@@ -87,6 +87,10 @@ public class Car implements SubscriberInterface {
 	public Integer getPositionX() {
 		return this.positionX;
 	}
+	public void setPositionX(Integer x) {
+		this.startTime = x * Configuration.carSpeed * (-1);
+		this.positionX = x;
+	}
 
 	public Integer getPositionY() {
 		return this.positionY;

@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Queue;
+import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import application.Configuration;
@@ -44,12 +45,16 @@ public class Street implements SubscriberInterface{
 			this.randomCar();
 		}
 		if(trigger == "start") {
-			for(Car car: this.cars) {
-				Observer.removeMe(car);
-			}
-			this.cars.clear();
+			this.reset();
 		}
 	}
+	
+	public void reset() {
+		for(Car car: this.cars) {
+			Observer.removeMe(car);
+		}
+		this.cars.clear();
+	}	
 	
 	/**
 	 * Fortschritt der Gamezeit. 

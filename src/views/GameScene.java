@@ -416,13 +416,13 @@ import javafx.scene.layout.VBox;
 				
 				//Hilfsvaraiblen deklarienen
 				
-				//Boolean exist = this.checkFrogExist(data);
-				//ImageView help = this.getFrogObject(data);
+				Boolean exist = this.checkFrogExist(data);
+				ImageView help = this.getFrogObject(data);
 				Image winning = new Image(getClass().getResource("../img/winning_big.png").toExternalForm());
 
 				this.running = false;
 				
-				/* if (exist) {
+				if (exist) {
 					this.frogs.remove(help);
 					this.updateElements();
 					help.setImage(new Image(getClass().getResource("../img/winning_small.png").toExternalForm()));
@@ -431,9 +431,7 @@ import javafx.scene.layout.VBox;
 					
 					//Großes GameOverBild setzen
 					this.graphicsContext.drawImage(winning, (Configuration.xFields/2*50)-200, (Configuration.yFields/2*50)-100);
-				} */
-				//Großes GameOverBild setzen
-				this.graphicsContext.drawImage(winning, (Configuration.xFields/2*50)-200, (Configuration.yFields/2*50)-100);
+				} 
 			 } 
 		
 		/**
@@ -555,6 +553,13 @@ import javafx.scene.layout.VBox;
 							this.killFrog(data);;
 							break;
 						}
+						case "win": {
+							SubscriberDaten timeData = new SubscriberDaten();
+							timeData.time = this.time;
+							Observer.trigger("entry", timeData);
+							this.winningFrog(data);
+							break;
+						}
 					}
 					break;
 				}
@@ -562,13 +567,6 @@ import javafx.scene.layout.VBox;
 						this.updateTimer(data);
 						this.time = data.time;
 						break;
-				}
-				case "win": {
-					SubscriberDaten timeData = new SubscriberDaten();
-					timeData.time = this.time;
-					Observer.trigger("entry", timeData);
-					this.winningFrog(data);
-					break;
 				}
 			}
 		}

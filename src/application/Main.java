@@ -8,17 +8,17 @@ import javafx.stage.WindowEvent;
 
 
 
-public class Main extends Application implements SubscriberInterface {
+public class Main extends Application {
 
 	public SceneController sceneController;
 	public HighScoreController highScoreController;
-	public GameLogic gameData;	// Ganze Spiellogik
-	public ActionController actionController; // klicks, keybords Prüfung ob geht, GameLogic, usw.
-	public ServerController server; // API zum Server
+	public GameLogic gameData;	
+	public ActionController actionController; 
+	public ServerController server; 
 
 	public void start(Stage primaryStage) {
 
-		//this.highScoreController = new HighScoreController();
+		this.highScoreController = new HighScoreController();
 		this.sceneController = new SceneController();
 		this.gameData = new GameLogic();
 		this.actionController = new ActionController();
@@ -29,7 +29,6 @@ public class Main extends Application implements SubscriberInterface {
 
 
 		try {
-//			this.sceneController.setStage(primaryStage);
 			primaryStage.setUserData(this.sceneController);
 	        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 	            @Override
@@ -48,18 +47,6 @@ public class Main extends Application implements SubscriberInterface {
 
 	public static void main(String[] args) {
 		launch(args);
-	}
-
-	public void changeScene() {
-		// Ändert borderPane zu einer der bestehenden scenen aus this.sceneController
-	}
-
-	public void action(Action action) { // Action beinhaltet nicht nur die bezeichnung, sondern auch alle evt, notwendigen Daten
-
-	}
-
-	public void calling(String trigger, SubscriberDaten data) {
-
 	}
 
 
