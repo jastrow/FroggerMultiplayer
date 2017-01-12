@@ -11,7 +11,7 @@ public class SubscriberDaten {
 	public Integer length;		// Länge des Balken 1/ 2 /3 // bei Frosch Spieler: 1 / 2 
 	public Boolean leftToRight; // Ob das Objekt sich von links nach rechts bewegt oder umgekehrt (Tree, Car)
 	public String[] playerName = new String[3];
-	public String[] playerDate = new String[3];
+	public Integer[] playerDate = new Integer[3];
 	public Integer[] playerTime = new Integer[3];
 	
 	@Override

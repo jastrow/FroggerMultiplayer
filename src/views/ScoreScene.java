@@ -1,7 +1,9 @@
 package views;
 
-import java.text.DecimalFormat;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import application.Configuration;
 import application.Observer;
 import application.SubscriberDaten;
@@ -28,7 +30,7 @@ public class ScoreScene implements SubscriberInterface {
 	private GridPane contentScore = new GridPane();
 	private Label[] highScoreList = new Label[3];
 	private String[] playerName = new String[3];
-	private String[] playerDate = new String[3];
+	private Integer[] playerDate = new Integer[3];
 	private Integer[] playerTime = new Integer[3];
 	
 	public ScoreScene(SceneController sceneController) {
@@ -60,7 +62,7 @@ public class ScoreScene implements SubscriberInterface {
 		verboAeussereBox.getStyleClass().add("verboAeussereBox");
 			
 			for(int i = 0 ; i < 3; i++) {
-				highScoreList[i] = new Label(this.playerName[i] + " - " + this.formatDate(this.playerDate[i]) + " - " + this.formatTime(this.playerTime[i]));
+				highScoreList[i] = new Label();
 				highScoreList[i].getStyleClass().add("highlabel"+(i+1));
 				verboAeussereBox.getChildren().add(highScoreList[i]); 
 			};
@@ -106,20 +108,20 @@ public class ScoreScene implements SubscriberInterface {
 		return menuBox;
 	}
 	
-	private String formatDate(String dateToFormat) {
+	private String formatDate(Integer dateToFormat) {
 		String formatedDate = "";
 		
+		
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
+		Date date = new Date();
+		
 		if (dateToFormat != null) {
-		
-		String year = dateToFormat.substring(0,4);
-		String month = dateToFormat.substring(5,7);
-		String day = dateToFormat.substring(8,10);
-		
-		formatedDate = day + "." + month + "." + year;
+			date.setTime( (long) dateToFormat * 1000);
+			
+			formatedDate = simpleDateFormat.format(date);
 		
 		}
 		
-
 		
 		return formatedDate;
 	}
@@ -149,10 +151,12 @@ public class ScoreScene implements SubscriberInterface {
 	@Override
 	public void calling(String trigger, SubscriberDaten data) {
 		if (trigger == "getHigh") {
-			System.out.println("####################");
 			this.playerName = data.playerName;
 			this.playerDate = data.playerDate;
 			this.playerTime = data.playerTime;
+			for (int i = 0 ; i < 3; i ++) {
+				this.highScoreList[i].setText(this.playerName[i] + " - " + this.formatDate(this.playerDate[i]) + " - " + this.formatTime(this.playerTime[i]));
+			}
 		}
 		
 	}

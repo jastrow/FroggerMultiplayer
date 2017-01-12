@@ -2,11 +2,15 @@ package controller;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -29,25 +33,39 @@ public class DBConnectionController {
 		this.dbURL = "http://mdnetz.de/frogger/";		
 	}
 	
-public void writeData(String query) throws Exception {
 	
-	String charset = "UTF-8"; 
-	URLConnection connection = new URL(this.dbURL).openConnection();
-	connection.setDoOutput(true); // Triggers POST.
-	connection.setRequestProperty("Accept-Charset", charset);
-	connection.setRequestProperty("Content-Type", "application/json;charset=" + charset);
+public void writeData(String playerName, Integer playerTime) throws IOException {	
+	String body = "name=" + URLEncoder.encode( playerName, "UTF-8" ) + "&" +
+                  "zeit=" + URLEncoder.encode( playerTime.toString(), "UTF-8" );
 
-	try (OutputStream output = connection.getOutputStream()) {
-		output.write(query.getBytes(charset));
+	URL url = new URL(this.dbURL);
+	HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+	connection.setRequestMethod( "POST" );
+	connection.setDoInput( true );
+	connection.setDoOutput( true );
+	connection.setUseCaches( false );
+	connection.setRequestProperty( "Content-Type","application/x-www-form-urlencoded" );
+	connection.setRequestProperty( "Content-Length", String.valueOf(body.length()) );
+
+	OutputStreamWriter writer = new OutputStreamWriter( connection.getOutputStream() );
+	writer.write( body );
+	writer.flush();
+
+
+	BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()) );
+
+	for ( String line; (line = reader.readLine()) != null; )
+	{
+		System.out.println( line );
 	}
 
-	InputStream response = connection.getInputStream();
-	System.out.println(response.toString());
-	
-	}	
+	writer.close();
+	reader.close();
+
+}
 
 
-public StringBuffer readData() throws Exception {
+public String[] readData() throws Exception {
 	
 	//Daten empfangen - z.B. Anfrage auf eine API
 	URL url = new URL(this.dbURL);
@@ -55,13 +73,15 @@ public StringBuffer readData() throws Exception {
 	 
 	BufferedReader readBuffer = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 	String line;
-	StringBuffer sb = new StringBuffer ();
-	 
+	String[] result = new String[3];
+	Integer i = 0; 
+	
 	while ((line = readBuffer.readLine()) != null) {
-	sb.append(line + "\n");
+	result[i] = line;
+	i++;
 	System.out.println(line);
 	}
-	return sb;
+	return result;
 	
 }
 
