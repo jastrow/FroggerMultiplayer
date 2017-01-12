@@ -34,7 +34,7 @@ public class OverScene {
 		this.sceneController = sceneController;
 		this.contentOver.getStyleClass().add("content");
 		scene = new Scene(rootOver,Configuration.xFields * 50,Configuration.yFields * 50);
-		scene.getStylesheets().add(getClass().getResource("../overScene.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("/overScene.css").toExternalForm());
 		scene.setUserData("OverScene");
 
 		this.buildScene();
