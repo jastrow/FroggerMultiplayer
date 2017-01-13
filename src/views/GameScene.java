@@ -554,7 +554,7 @@ import javafx.scene.layout.VBox;
 										break;
 						}
 						case "killed": {
-							this.killFrog(data);;
+							this.killFrog(data);
 							break;
 						}
 						case "win": {
@@ -570,7 +570,7 @@ import javafx.scene.layout.VBox;
 				case "time": {
 						this.updateTimer(data);
 						this.time = data.time;
-						if (this.time == (Configuration.timeEnd - Configuration.timeSteps)) {
+						if (this.time.equals(Configuration.timeEnd - Configuration.timeSteps)) {
 							this.running = false;
 						}
 						break;
