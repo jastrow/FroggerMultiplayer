@@ -59,7 +59,6 @@ public class HighScoreController implements Runnable, SubscriberInterface {
 						this.playerArray[i] = actString[1];
 						this.timeArray[i] = Integer.valueOf(actString[2]);
 						this.dateArray[i] = Integer.valueOf(actString[3]);
-						System.out.println(this.playerArray[i] + this.timeArray[i] + this.dateArray[i]);
 					}
 					
 					SubscriberDaten highData = new SubscriberDaten();
