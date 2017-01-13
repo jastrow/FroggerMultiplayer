@@ -11,7 +11,6 @@ import views.*;
 
 
 public class SceneController implements SubscriberInterface {
-	public GameLogic game;
 	
 	public StartScene startScene;
 	public OverScene overScene;
@@ -34,6 +33,7 @@ public class SceneController implements SubscriberInterface {
 		Observer.add("close", this);
 		Observer.add("end", this);
 		Observer.add("start", this);
+		Observer.add("stopGame", this);
 	}
 
 	
@@ -61,8 +61,8 @@ public class SceneController implements SubscriberInterface {
 	
 	
 	public void newGame(){
-		this.primaryStage.setScene(this.getStartScene());
 		Observer.trigger("resetGame", new SubscriberDaten());
+		this.primaryStage.setScene(this.getStartScene());
 	}
 	
 	public void showHighscore(){
@@ -131,11 +131,7 @@ public class SceneController implements SubscriberInterface {
 
 		}
 	}
-	
-	public void setGame(GameLogic game) {
-		this.game = game;
-	} 
-		
+
 	public void submitClose(String actScene){
 		SubscriberDaten data = new SubscriberDaten();
 		data.name = actScene;
@@ -149,26 +145,23 @@ public class SceneController implements SubscriberInterface {
 				break;
 			}
 			case "close": {
-				if (data.name == "ScoreScene" && !this.firstStart) {
-					this.showGameScene();
-				} else { 
-					if (data.name == "ScoreScene" && this.firstStart) {
+				
+				if(data.name == "ScoreScene" || data.name == "OverScene") {
+//					if(this.firstStart) {
 						this.newGame();
-					} else {
-						if (data.name == "OverScene" && !this.firstStart) {
-							this.showGameScene();
-						} else { 
-							if (data.name == "OverScene" && this.firstStart) {
-								this.newGame();
-							} else { 
-								Platform.exit();
-							}
-						}
-					}
+//					} else {
+//						this.showGameScene();
+//					}				
+				} else {
+					Platform.exit();
 				}
-				break;
+				
 			}
 			case "end": {
+				this.gameRunning = false;
+				break;
+			}
+			case "stopGame":{
 				this.gameRunning = false;
 				break;
 			}

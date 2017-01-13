@@ -103,6 +103,11 @@ public class Observer {
 		return this.subscriber.size();
 	}
 	
+	public static void showSubs() {
+		Observer obs = Observer.getInstance();
+		obs.showSubscriber();
+	}
+	
 	public void showSubscriber() {
 		System.out.println("############### START OBSERVERLIST #################");
 		System.out.println("OBSERVER Subscriber: "+this.subscriber.size());

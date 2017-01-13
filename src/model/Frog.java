@@ -18,9 +18,11 @@ public class Frog implements SubscriberInterface {
 	private Streets streets = null;	// Hat nur Frosch 1
 	
 	public Frog() {
+		this.id = IdCounter.getId();
 		this.initializeFrog();
 	}
 	public Frog(Rivers rivers, Streets streets/*, River trees*/) {
+		this.id = IdCounter.getId();
 		this.initializeFrog();
 		this.rivers = rivers;
 		this.streets = streets;
@@ -33,14 +35,13 @@ public class Frog implements SubscriberInterface {
 	}
 	
 	private void initializeFrog() {
-		this.id = IdCounter.getId();
-		// Startposition
 		this.positionX = (int)(Configuration.xFields / 2);
 		this.positionY = Configuration.yFields;
 		this.facing = "n";
 		this.killed = false;
 		this.frogOnTreeId = -1;
 	}
+	
 	
 	public void calling(String trigger, SubscriberDaten data) {
 		if(trigger == "key" && !this.killed) {
@@ -60,10 +61,9 @@ public class Frog implements SubscriberInterface {
 			}
 		}
 		if(trigger == "car" || trigger == "tree") {
+			// Hier nur das triggernde Element checken
 			this.collisionCheck();
 		}
-		
-	
 	}
 	
 	private void move(String direction) {
@@ -133,6 +133,9 @@ public class Frog implements SubscriberInterface {
 		data.facing = this.facing;
 		data.typ = typ;
 		Observer.trigger("frog", data);
+		if(typ == "killed") {
+			this.initializeFrog();
+		}
 	}
 	
 }

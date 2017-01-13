@@ -24,7 +24,6 @@ public class Main extends Application {
 		this.actionController = new ActionController();
 
 
-		this.sceneController.setGame(this.gameData);
 		this.gameData.setScene(this.sceneController);
 
 
