@@ -39,9 +39,7 @@ public class ScoreScene implements SubscriberInterface {
 		scene = new Scene(rootScore,Configuration.xFields * 50,Configuration.yFields * 50);
 		//Szene Formatierungs CSS  zuweisen
 
-		//this.getStylesheets().add(getClass().getResource("/scoreScene.css").toExternalForm());
-
-		scene.getStylesheets().add(getClass().getResource("/scoreScene.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("scoreScene.css").toExternalForm());
 		scene.setUserData("ScoreScene");
 		Observer.add("getHigh",this);
 		Observer.trigger("readHigh", new SubscriberDaten());
@@ -70,9 +68,6 @@ public class ScoreScene implements SubscriberInterface {
 
 		Button neuesSpiel = new Button();
 
-		//neuesSpiel.setGraphic(new ImageView(new Image(getClass().getResource("/img/btn_NeuesSpiel.png").toExternalForm())));
-
-		//neuesSpiel.setGraphic(new ImageView(new Image(getClass().getResource("/img/btn_NeuesSpiel.png").toExternalForm())));
 		neuesSpiel.getStyleClass().add("neuesSpiel");
 		neuesSpiel.setPrefWidth(300);
 		neuesSpiel.setPrefHeight(65);

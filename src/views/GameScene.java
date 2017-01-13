@@ -84,7 +84,7 @@ import javafx.scene.layout.VBox;
 			
 
 			//Szene Formatierungs CSS  zuweisen
-			this.getStylesheets().add(getClass().getResource("../gameScene.css").toExternalForm());
+			this.getStylesheets().add(getClass().getResource("gameScene.css").toExternalForm());
 			
 			//Szene leeren
 			contentBox.getChildren().clear();
@@ -154,7 +154,7 @@ import javafx.scene.layout.VBox;
 		private void fillImageWood() {
 			
 			for (int i = 0 ; i <= 2 ; i++) {
-				this.wood[i] = new Image(getClass().getResource("../img/Brett_0"+i+".png").toExternalForm());
+				this.wood[i] = new Image(getClass().getResource("Brett_0"+i+".png").toExternalForm());
 			}
 	
 		}
@@ -162,7 +162,7 @@ import javafx.scene.layout.VBox;
 		private void fillImageCarToLeft() {
 			
 			for (int i = 0 ; i <= 1 ; i++) {
-				this.carRightToLeft[i] = new Image(getClass().getResource("../img/Auto_0"+(i+2)+".png").toExternalForm());
+				this.carRightToLeft[i] = new Image(getClass().getResource("Auto_0"+(i+2)+".png").toExternalForm());
 			}
 	
 		}
@@ -170,7 +170,7 @@ import javafx.scene.layout.VBox;
 		private void fillImageCarToRight() {
 			
 			for (int i = 0 ; i <= 1 ; i++) {
-				this.carLeftToRight[i] = new Image(getClass().getResource("../img/Auto_0"+i+".png").toExternalForm());
+				this.carLeftToRight[i] = new Image(getClass().getResource("Auto_0"+i+".png").toExternalForm());
 			}
 	
 		}
@@ -326,7 +326,7 @@ import javafx.scene.layout.VBox;
 			//Hilfsvaraiblen deklarienen
 			ImageView help = this.getFrogObject(data);
 			
-			help.setImage(new Image(getClass().getResource("../img/frog_"+data.facing+".png").toExternalForm()));
+			help.setImage(new Image(getClass().getResource("frog_"+data.facing+".png").toExternalForm()));
 			help.setId(data.id.toString());
 			this.frogs.add(this.setPosition(help, data));
 			this.updateElements();
@@ -343,7 +343,7 @@ import javafx.scene.layout.VBox;
 			//Hilfsvaraiblen deklarienen
 			ImageView help = this.getFrogObject(data);
 			
-			help.setImage(new Image(getClass().getResource("../img/frog_"+data.facing+".png").toExternalForm()));
+			help.setImage(new Image(getClass().getResource("frog_"+data.facing+".png").toExternalForm()));
 			this.frogs.remove(help);
 			help = this.setPosition(help, data);
 			this.frogs.add(help);
@@ -395,14 +395,14 @@ import javafx.scene.layout.VBox;
 			//Hilfsvaraiblen deklarienen
 			ImageView help = this.getFrogObject(data);
 			Boolean exist = this.checkFrogExist(data);
-			Image dead = new Image(getClass().getResource("../img/gameOver_big.png").toExternalForm());
+			Image dead = new Image(getClass().getResource("gameOver_big.png").toExternalForm());
 
 			this.running = false;
 			
 			if (exist) {
 				this.frogs.remove(help);
 				this.updateElements();
-				help.setImage(new Image(getClass().getResource("../img/gameOver_small.png").toExternalForm()));
+				help.setImage(new Image(getClass().getResource("gameOver_small.png").toExternalForm()));
 				this.frogs.add(help);
 				this.updateElements();
 				
@@ -422,14 +422,14 @@ import javafx.scene.layout.VBox;
 				
 				Boolean exist = this.checkFrogExist(data);
 				ImageView help = this.getFrogObject(data);
-				Image winning = new Image(getClass().getResource("../img/winning_big.png").toExternalForm());
+				Image winning = new Image(getClass().getResource("winning_big.png").toExternalForm());
 
 				this.running = false;
 				
 				if (exist) {
 					this.frogs.remove(help);
 					this.updateElements();
-					help.setImage(new Image(getClass().getResource("../img/winning_small.png").toExternalForm()));
+					help.setImage(new Image(getClass().getResource("winning_small.png").toExternalForm()));
 					this.frogs.add(help);
 					this.updateElements();
 					
@@ -451,7 +451,7 @@ import javafx.scene.layout.VBox;
 			if (exist) {
 				
 				//int position = this.getPosition(data);
-				if (data.name == "Frog") help.setImage(new Image(getClass().getResource("../img/frog_"+data.facing+".png").toExternalForm()));
+				if (data.name == "Frog") help.setImage(new Image(getClass().getResource("frog_"+data.facing+".png").toExternalForm()));
 				this.pictureCont.remove(help);
 				help = this.setPosition(help, data);
 				this.pictureCont.add(help);

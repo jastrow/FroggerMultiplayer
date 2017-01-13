@@ -32,7 +32,7 @@ public class StartScene implements SubscriberInterface {
 		this.contentStart.getStyleClass().add("content");
 		scene = new Scene(rootStart,Configuration.xFields * 50,Configuration.yFields * 50);
 		//Szene Formatierungs CSS  zuweisen
-		scene.getStylesheets().add(getClass().getResource("/startScene.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("startScene.css").toExternalForm());
 		scene.setUserData("StartScene");
 		this.buildScene();
 	}
@@ -50,13 +50,11 @@ public class StartScene implements SubscriberInterface {
 
 		Button starteSpiel = new Button();
 
-		//sucheSpieler.setGraphic(new ImageView(new Image(getClass().getResource("/img/btn_SpielerSuchen.png").toExternalForm())));
 		sucheSpieler.getStyleClass().add("sucheSpieler");
 		sucheSpieler.setPrefHeight(65);
 		sucheSpieler.setPrefWidth(330);
 		sucheSpieler.setOnAction(actionEvent -> this.sceneController.searchPlayer());
 
-		//starteSpiel.setGraphic(new ImageView(new Image(getClass().getResource("/img/btn_Start.png").toExternalForm())));
 		starteSpiel.getStyleClass().add("starteSpiel");
 		starteSpiel.setPrefHeight(78);
 		starteSpiel.setPrefWidth(260);
@@ -122,9 +120,8 @@ public class StartScene implements SubscriberInterface {
 
 	@Override
 	public void calling(String trigger, SubscriberDaten daten) {
-		// TODO Automatisch generierter Methodenstub
+		// TODO Auto-generated method stub
 		
 	}
-	
 	
 }
