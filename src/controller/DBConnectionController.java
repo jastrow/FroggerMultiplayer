@@ -1,31 +1,18 @@
 package controller;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
-import javax.net.ssl.HttpsURLConnection;
-
-import sun.net.www.http.HttpClient;
 
 
 public class DBConnectionController {
 	
 	private String dbURL;
-	private Object resultQuery; 
 
 	
 	public DBConnectionController () {

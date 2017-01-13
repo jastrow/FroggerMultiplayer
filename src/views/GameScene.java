@@ -39,7 +39,6 @@ import javafx.scene.layout.VBox;
 		//Bilder
 
 		private Image[] wood = new Image[3]; 
-		private ImageView frog = new ImageView();
 		private Image[] carLeftToRight  = new Image[2];
 		private Image[] carRightToLeft  = new Image[2];
 		private Label timeLabel = new Label();

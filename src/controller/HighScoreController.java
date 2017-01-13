@@ -1,17 +1,10 @@
 package controller;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.regex.Pattern;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import application.Observer;
 import application.SubscriberDaten;
 import application.SubscriberInterface;
 import javafx.application.Platform;
-import model.HighScore;
 
 public class HighScoreController implements Runnable, SubscriberInterface {
 	
