@@ -1,7 +1,7 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
 
 .root {
-	-fx-background-image: url("img/Hintergrund_Highscore.jpg");
+	-fx-background-image: url("Hintergrund_Highscore.jpg");
     -fx-background-repeat: no-repeat;   
     -fx-background-size: 950 600;
     -fx-background-position: center center;
@@ -23,7 +23,7 @@
 .neuesSpiel {
 	-fx-background-repeat: no-repeat;   
     -fx-background-position: center center;
-    -fx-background-image: url("img/btn_NeuesSpiel.png");
+    -fx-background-image: url("btn_NeuesSpiel.png");
     -fx-background-color: rgb(255,255,255);
    	-fx-padding: 0 0 60 0;
 }
@@ -31,7 +31,7 @@
 .neuesSpiel:hover {
 	-fx-background-repeat: no-repeat;   
     -fx-background-position: center center;
-    -fx-background-image: url("img/btn_NeuesSpiel_hover.png");
+    -fx-background-image: url("btn_NeuesSpiel_hover.png");
     -fx-background-color: rgb(255,255,255);
     -fx-padding: 0 0 60 0;
 }
@@ -43,7 +43,7 @@
 	-fx-pref-height: 50;
 	-fx-padding: 0 0 0 60;
 	-fx-text-fill: green;
-	-fx-background-image: url("img/Highscore_01.png");
+	-fx-background-image: url("Highscore_01.png");
 
 }
 
@@ -55,7 +55,7 @@
 	-fx-pref-height: 50;
 	-fx-padding: 0 0 0 60;
 	-fx-text-fill: green;
-	-fx-background-image: url("img/Highscore_02.png");
+	-fx-background-image: url("Highscore_02.png");
 }
 
 .highlabel3 {
@@ -65,7 +65,7 @@
 	-fx-pref-height: 50;
 	-fx-padding: 0 0 0 60;
 	-fx-text-fill: green;
-	-fx-background-image: url("img/Highscore_03.png");
+	-fx-background-image: url("Highscore_03.png");
 }
 
 
