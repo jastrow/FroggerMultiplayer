@@ -22,7 +22,6 @@ public class Tree implements SubscriberInterface {
 	 * @param positionY
 	 */
 	public Tree(Integer positionX, Integer positionY, Integer length, Boolean leftToRight) {
-		System.out.println("initialized car");
 		this.id = IdCounter.getId();
 		this.positionX = positionX;
 		this.positionY = positionY;

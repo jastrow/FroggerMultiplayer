@@ -104,11 +104,14 @@ public class Observer {
 	}
 	
 	public void showSubscriber() {
+		System.out.println("############### START OBSERVERLIST #################");
 		System.out.println("OBSERVER Subscriber: "+this.subscriber.size());
 		for(Subscriber sub: this.subscriber) {
 			String name = sub.getListener().getClass().getName();
+			name += " : "+sub.getTrigger();
 			System.out.println(name);
 		}
+		System.out.println("############### END OBSERVERLIST #################");
 	}
 	
 }

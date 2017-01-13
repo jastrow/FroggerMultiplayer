@@ -68,7 +68,15 @@ import javafx.scene.layout.VBox;
 			this.setRoot(rootGame);
 			this.sceneController = sceneController;
 			VBox contentBox = new VBox();
-					
+
+			//Anmeldung Observer
+			Observer.add("car", this);
+			Observer.add("tree", this);
+			Observer.add("frog", this);
+			Observer.add("time", this);
+			Observer.add("win", this);
+			Observer.add("stopGame", this);
+			
 			//Bilderarrays füllen
 			this.fillImageWood();
 			this.fillImageCarToLeft();
@@ -94,17 +102,8 @@ import javafx.scene.layout.VBox;
 			this.contentGame.getChildren().add(contentBox);
 			this.rootGame.setBottom(this.contentGame);
 			
-			//Anmeldung Observer
-			Observer.add("car", this);
-			Observer.add("tree", this);
-			Observer.add("frog", this);
-			Observer.add("time", this);
-			Observer.add("win", this);
-			Observer.add("stopGame", this);
 			
 			this.setUserData("GameScene");
-			
-			System.out.println("GameScene initialized");
 		}
 		
 		private HBox buildMenu() {
