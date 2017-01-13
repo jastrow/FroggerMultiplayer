@@ -41,11 +41,6 @@ public class DBConnectionController {
 	
 		BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()) );
 	
-		for ( String line; (line = reader.readLine()) != null; )
-		{
-			System.out.println( line );
-		}
-	
 		writer.close();
 		reader.close();
 	
@@ -66,7 +61,6 @@ public class DBConnectionController {
 		while ((line = readBuffer.readLine()) != null) {
 		result[i] = line;
 		i++;
-		System.out.println(line);
 		}
 		return result;
 		

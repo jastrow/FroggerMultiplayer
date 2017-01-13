@@ -85,7 +85,6 @@ public class StartScene implements SubscriberInterface {
 		MenuItem exitMenuItem = new MenuItem("Exit");
     
 		exitMenuItem.setOnAction(actionEvent -> Platform.exit());
-		neuMenuItem.setOnAction(actionEvent -> this.sceneController.newGame());
     
 		froggerMenu.getItems().addAll(neuMenuItem,new SeparatorMenuItem(), exitMenuItem);
     
