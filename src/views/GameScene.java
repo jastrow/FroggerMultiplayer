@@ -105,6 +105,7 @@ import javafx.scene.layout.VBox;
 			
 			this.setUserData("GameScene");
 			
+			System.out.println("GameScene initialized");
 		}
 		
 		private HBox buildMenu() {

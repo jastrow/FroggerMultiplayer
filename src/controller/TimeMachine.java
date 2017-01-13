@@ -19,6 +19,7 @@ public class TimeMachine implements Runnable, SubscriberInterface {
 		this.timeEnd = Configuration.timeEnd;
 		this.reset();
 		Observer.add("stopGame", this);
+		Observer.add("resetGame", this);
 	}
 	
 	public Integer getTime() {
@@ -33,8 +34,13 @@ public class TimeMachine implements Runnable, SubscriberInterface {
 	public void start() {
 		this.running = true;
 		this.timeLog = 0;
-		this.t = new Thread(this);
-		this.t.start();
+		if(this.t == null) {
+			this.t = new Thread(this);
+			this.t.start();
+		} else if(!this.t.isAlive()) {
+			this.t = new Thread(this);
+			this.t.start();
+		}
 	}
 	
 	public void restart() {
@@ -70,6 +76,9 @@ public class TimeMachine implements Runnable, SubscriberInterface {
 	
 	public void calling(String trigger, SubscriberDaten data) {
 		if(trigger == "stopGame") {
+			this.reset();
+		}
+		if(trigger == "resetGame") {
 			this.reset();
 		}
 	}

@@ -22,28 +22,31 @@ public class River implements SubscriberInterface {
 		Observer.add("time", this);
 		Observer.add("tree", this);
 		Observer.add("start", this);
+		Observer.add("resetGame", this);		
 	}
 
 	@Override
 	public void calling(String trigger, SubscriberDaten daten) {
 		if(trigger.equals("time")) {
 			this.checkForTrees();
-		} else if(trigger.equals("tree")) {
+		}
+		if(trigger.equals("tree")) {
 			if(daten.typ.equals("delete") && daten.yPosition.equals(this.positionY)) {
 				this.deleteTree(daten.id);
 			}
 		}
-		if(trigger.equals("start")) {
+		if(trigger.equals("resetGame")) {
 			for(Tree tree: this.trees) {
 				Observer.removeMe(tree);
 			}
 			this.trees.clear();
+			this.lastTree = null;
 		}
 	}
 
 	public void checkForTrees() {
 
-		Integer distanceToNewTree = (new Random()).nextInt(5) + 2; 
+		Integer distanceToNewTree = (new Random()).nextInt(5) + 5; 
 
 		if(trees.isEmpty()) {
 			this.makeTree();
@@ -118,13 +121,14 @@ public class River implements SubscriberInterface {
 	}
 	public String showRiver() {
 		String ASCIIstreet = String.format("%02d", this.positionY) + " ";
-		for(int i = 1; i <= Configuration.yFields; i++) {
+		for(int i = 1; i <= Configuration.xFields; i++) {
 			if(this.checkPosition(i)) {
 				ASCIIstreet += "*";
 			} else {
 				ASCIIstreet += "_";
 			}
 		}
+		ASCIIstreet += " "+this.trees.size();
 		return ASCIIstreet;
 	}
 	public Boolean checkPosition(int p) {

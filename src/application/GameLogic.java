@@ -7,15 +7,6 @@ import model.*;
 
 public class GameLogic implements SubscriberInterface {
 
-	////////////////
-	// Attributes //
-	////////////////
-
-	// HINWEIS: Spielfeld - ganz oben links beginnt zählung: Feld1 = 1,1
-	// ALLE bewegten Bildelemente machen ganze-Feld-Sprünge (nicht fließend, außer Frosch?)
-
-
-
 	private TimeMachine timer; // millisecounds
 	private Frog frogPlayer1;
 
@@ -24,10 +15,6 @@ public class GameLogic implements SubscriberInterface {
 
 	private SceneController scene;
 
-
-	/////////////
-	// Methods //
-	/////////////
 
 	public GameLogic() {
 		this.streets = new Streets();

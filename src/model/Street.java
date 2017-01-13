@@ -28,6 +28,7 @@ public class Street implements SubscriberInterface{
 		Observer.add("time", this);
 		Observer.add("car", this);
 		Observer.add("start", this);
+		Observer.add("resetGame", this);
 	}
 
 	/**
@@ -47,9 +48,15 @@ public class Street implements SubscriberInterface{
 			this.randomCar();
 		}
 		
-		if(trigger == "start") {
+		if(trigger.equals("resetGame")) {
 			this.reset();
 		}
+		
+		if(trigger.equals("start")) {
+			this.startRandomCars();
+		}
+		
+
 	}
 	
 	public void reset() {
@@ -57,23 +64,33 @@ public class Street implements SubscriberInterface{
 			Observer.removeMe(car);
 		}
 		this.cars.clear();
-		this.startRandomCars();
+		//this.showInConsole();
 	}	
 	
 	public void startRandomCars() {
 		Integer maxTime = Configuration.xFields * Configuration.carSpeed;
-		Integer minDistance = 2 * Configuration.carSpeed;
 		Integer startTime;
 		Car newLastCar = null;
 		Integer lastCarTime = 0;
 		Integer posX;
+		Boolean collision = false;
 		
-		while(this.cars.size() < Configuration.carMaxPerStreet) {
+		while(this.cars.size() < 3) {
 			startTime = (new Random()).nextInt(maxTime) * -1;
 			posX = (int) startTime / Configuration.carSpeed * -1;
 			if(!this.leftToRight) {
 				posX = Configuration.xFields - posX;
 			}
+			
+			collision = false;
+			for(Integer i = (posX-1); i <= (posX+2); i++) {
+				if(this.collisionCheck(i, this.positionY)) {
+					collision = true;
+					break;
+				}
+			}
+			if(collision) { continue; }
+			
 			Car neu = new Car(this.leftToRight, this.positionY, posX, startTime);
 			this.cars.add(neu);
 
@@ -184,7 +201,7 @@ public class Street implements SubscriberInterface{
 	}
 	public String showStreet() {
 		String ASCIIstreet = String.format("%02d", this.positionY) + " ";
-		for(int i = 1; i <= Configuration.yFields; i++) {
+		for(int i = 1; i <= Configuration.xFields; i++) {
 			if(this.checkPosition(i)) {
 				ASCIIstreet += "*";
 			} else {

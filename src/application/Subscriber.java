@@ -14,11 +14,8 @@ public class Subscriber {
 		this.listener = subscriber;
 	}
 	
-	public String listenTo(String keyword, SubscriberDaten daten) {
-
+	public void listenTo(String keyword, SubscriberDaten daten) {
 		((SubscriberInterface) this.listener).calling(keyword, daten);
-		
-		return "wurde ausgeführt";
 	}
 	
 	public String getTrigger() {

@@ -116,7 +116,10 @@ public class SceneController implements SubscriberInterface {
         });
 		this.firstStart = false;
 		this.primaryStage.setScene(this.getGameScene());
+
+		this.gameRunning = true;
 		Observer.trigger("start", new SubscriberDaten());
+		
 	}
 	
 	public void showGameScene() {
@@ -149,31 +152,28 @@ public class SceneController implements SubscriberInterface {
 			case "close": {
 				if (data.name == "ScoreScene" && !this.firstStart) {
 					this.showGameScene();
-					} else { 
-						if (data.name == "ScoreScene" && this.firstStart) {
-							this.newGame();
-						} else {
-							if (data.name == "OverScene" && !this.firstStart) {
-								this.showGameScene();
+				} else { 
+					if (data.name == "ScoreScene" && this.firstStart) {
+						this.newGame();
+					} else {
+						if (data.name == "OverScene" && !this.firstStart) {
+							this.showGameScene();
+						} else { 
+							if (data.name == "OverScene" && this.firstStart) {
+								this.newGame();
 							} else { 
-								if (data.name == "OverScene" && this.firstStart) {
-									this.newGame();
-								} else { 
-									Platform.exit();
-								}
+								Platform.exit();
 							}
 						}
 					}
+				}
 				break;
 			}
 			case "end": {
 				this.gameRunning = false;
 				break;
 			}
-			case "start": {
-				this.gameRunning = true;
-				break;
-			}
+
 		}
 	}
 }

@@ -29,6 +29,7 @@ public class Frog implements SubscriberInterface {
 		Observer.add("tree", this);
 		Observer.add("car", this);
 		Observer.add("start", this);
+		Observer.add("resetGame", this);
 	}
 	
 	private void initializeFrog() {
