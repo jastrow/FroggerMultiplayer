@@ -66,6 +66,7 @@ public class Frog implements SubscriberInterface {
 			this.collisionCheck();
 		}
 		if(trigger == "timeKilledFrog") {
+			if(this.killed) 
 			this.killed = true;
 			this.triggerObserver("killed");
 			Observer.trigger("stopGame", new SubscriberDaten());
@@ -109,8 +110,7 @@ public class Frog implements SubscriberInterface {
 		if(this.streets != null) { 
 			if(this.streets.collisionCheck(
 					this.positionX, 
-					this.positionY)
-					) {
+					this.positionY)) {
 				this.killed = true;
 				this.triggerObserver("killed");
 				Observer.trigger("stopGame", new SubscriberDaten());
@@ -140,6 +140,7 @@ public class Frog implements SubscriberInterface {
 		data.typ = typ;
 		Observer.trigger("frog", data);
 		if(typ == "killed") {
+			System.out.println("frog says killed");
 			this.initializeFrog();
 		}
 	}
