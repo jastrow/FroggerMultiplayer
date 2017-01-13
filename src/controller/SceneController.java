@@ -20,6 +20,7 @@ public class SceneController implements SubscriberInterface {
 	private Integer time;
 	private boolean gameRunning = false;
 	private boolean firstStart = true;
+	private boolean keyPressed = false;
 
 	
 	
@@ -91,25 +92,49 @@ public class SceneController implements SubscriberInterface {
             {
             	SubscriberDaten data = new SubscriberDaten();
             		
-                if((e.getCode() == KeyCode.LEFT)  || (e.getCode() == KeyCode.A))
-                {
-                	data.typ = "left";
-                    Observer.trigger("key", data);
-                }
-                else if((e.getCode() == KeyCode.RIGHT)  || (e.getCode() == KeyCode.D))
-                {
-                	data.typ = "right";
-                    Observer.trigger("key", data);
-                }
-                else if((e.getCode() == KeyCode.UP) || (e.getCode() == KeyCode.W))
-                {
-                	data.typ = "up";
-                    Observer.trigger("key", data);
-                }
-                else if((e.getCode() == KeyCode.DOWN)  || (e.getCode() == KeyCode.S))
-                {
-                	data.typ = "down";
-                    Observer.trigger("key", data);
+            	if(gameRunning) {
+	                if( (e.getCode() == KeyCode.LEFT  || e.getCode() == KeyCode.A) && !keyPressed)
+	                {
+	                	data.typ = "left";
+	                    Observer.trigger("key", data);
+	                    keyPressed = true;
+	                }
+	                else if( (e.getCode() == KeyCode.RIGHT  || e.getCode() == KeyCode.D) && !keyPressed)
+	                {
+	                	data.typ = "right";
+	                    Observer.trigger("key", data);
+	                    keyPressed = true;
+	                }
+	                else if( (e.getCode() == KeyCode.UP || e.getCode() == KeyCode.W) && !keyPressed)
+	                {
+	                	data.typ = "up";
+	                    Observer.trigger("key", data);
+	                    keyPressed = true;
+	                }
+	                else if( (e.getCode() == KeyCode.DOWN  || e.getCode() == KeyCode.S) && !keyPressed)
+	                {
+	                	data.typ = "down";
+	                    Observer.trigger("key", data);
+	                    keyPressed = true;
+	                }
+            	}
+            }
+        });
+		this.gameScene.setOnKeyReleased(new EventHandler <KeyEvent>()
+        {
+            @Override
+            public void handle(KeyEvent e)
+            {
+            	SubscriberDaten data = new SubscriberDaten();
+            		
+            	if(keyPressed) {
+	                if( (e.getCode() == KeyCode.LEFT  || e.getCode() == KeyCode.A) ||
+	                	(e.getCode() == KeyCode.RIGHT  || e.getCode() == KeyCode.D)  ||
+	                	(e.getCode() == KeyCode.UP || e.getCode() == KeyCode.W) ||
+	                	(e.getCode() == KeyCode.DOWN  || e.getCode() == KeyCode.S)
+	                ) {
+	                    keyPressed = false;
+	                }
                 }
             }
         });

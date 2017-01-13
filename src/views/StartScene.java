@@ -32,7 +32,7 @@ public class StartScene implements SubscriberInterface {
 		this.contentStart.getStyleClass().add("content");
 		scene = new Scene(rootStart,Configuration.xFields * 50,Configuration.yFields * 50);
 		//Szene Formatierungs CSS  zuweisen
-		scene.getStylesheets().add(getClass().getResource("startScene.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("/views/startScene.css").toExternalForm());
 		scene.setUserData("StartScene");
 		this.buildScene();
 	}

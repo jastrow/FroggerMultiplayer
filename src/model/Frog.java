@@ -141,8 +141,6 @@ public class Frog implements SubscriberInterface {
 		data.facing = this.facing;
 		data.typ = typ;
 		if(typ == "killed") {
-			System.out.println("frog says killed");
-			System.out.println(this.toString());
 			this.initializeFrog();
 		}
 		Observer.trigger("frog", data);
@@ -151,12 +149,11 @@ public class Frog implements SubscriberInterface {
 	@Override
 	public String toString() {
 		String out = "";
-		out += this.id+"\r\n";
-		out += this.positionX+"\r\n";
-		out += this.positionY+"\r\n";
-		out += this.facing+"\r\n";
-		out += this.killed+"\r\n";
-		out += this.frogOnTreeId+"\r\n";
+		out += "ID: "+this.id+"\r\n";
+		out += "Position: "+this.positionX+":"+this.positionY+"\r\n";
+		out += "Facing: "+this.facing+"\r\n";
+		out += "Killed: "+this.killed+"\r\n";
+		out += "On Tree: "+this.frogOnTreeId+"\r\n";
 		return out;
 	}
 	
