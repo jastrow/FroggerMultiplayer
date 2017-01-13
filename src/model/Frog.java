@@ -46,7 +46,9 @@ public class Frog implements SubscriberInterface {
 	
 	public void calling(String trigger, SubscriberDaten data) {
 		if(trigger == "key" && !this.killed) {
-			this.move(data.typ); 
+			if(!this.killed) {
+				this.move(data.typ);
+			}
 		}
 		if(trigger == "start") {
 			this.initializeFrog();
@@ -110,7 +112,7 @@ public class Frog implements SubscriberInterface {
 		if(this.streets != null) { 
 			if(this.streets.collisionCheck(
 					this.positionX, 
-					this.positionY)) {
+					this.positionY) && !this.killed) {
 				this.killed = true;
 				this.triggerObserver("killed");
 				Observer.trigger("stopGame", new SubscriberDaten());
@@ -120,7 +122,7 @@ public class Frog implements SubscriberInterface {
 		// 2. Kollision mit Baum
 		if(this.rivers != null) { 
 			this.frogOnTreeId = this.rivers.collisionCheck(this.positionX, this.positionY);
-			if(this.frogOnTreeId == 0) {
+			if(this.frogOnTreeId == 0 && !this.killed) {
 				this.killed = true;
 				this.triggerObserver("killed");
 				Observer.trigger("stopGame", new SubscriberDaten());
@@ -138,11 +140,24 @@ public class Frog implements SubscriberInterface {
 		data.yPosition = this.positionY;
 		data.facing = this.facing;
 		data.typ = typ;
-		Observer.trigger("frog", data);
 		if(typ == "killed") {
 			System.out.println("frog says killed");
+			System.out.println(this.toString());
 			this.initializeFrog();
 		}
+		Observer.trigger("frog", data);
+	}
+	
+	@Override
+	public String toString() {
+		String out = "";
+		out += this.id+"\r\n";
+		out += this.positionX+"\r\n";
+		out += this.positionY+"\r\n";
+		out += this.facing+"\r\n";
+		out += this.killed+"\r\n";
+		out += this.frogOnTreeId+"\r\n";
+		return out;
 	}
 	
 }

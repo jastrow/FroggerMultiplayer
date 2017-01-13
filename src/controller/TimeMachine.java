@@ -69,9 +69,6 @@ public class TimeMachine implements Runnable, SubscriberInterface {
 			
 			Platform.runLater(new Runnable() {
 				public void run() {
-					if(!running) {
-						Observer.trigger("timeKilledFrog", daten);
-					}
 					Observer.trigger("time", daten);
 				}
 			});

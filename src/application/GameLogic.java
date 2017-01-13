@@ -19,8 +19,8 @@ public class GameLogic implements SubscriberInterface {
 	public GameLogic() {
 		this.streets = new Streets();
 		this.rivers = new Rivers();
-		this.timer = new TimeMachine();
 		this.frogPlayer1 = new Frog(this.rivers, this.streets);
+		this.timer = new TimeMachine();
 
 		// Observer anmeldung
 		Observer.add("start", this);
