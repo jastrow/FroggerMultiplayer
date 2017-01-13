@@ -32,6 +32,7 @@ public class Frog implements SubscriberInterface {
 		Observer.add("car", this);
 		Observer.add("start", this);
 		Observer.add("resetGame", this);
+		Observer.add("timeKilledFrog", this);
 	}
 	
 	private void initializeFrog() {
@@ -63,6 +64,11 @@ public class Frog implements SubscriberInterface {
 		if(trigger == "car" || trigger == "tree") {
 			// Hier nur das triggernde Element checken
 			this.collisionCheck();
+		}
+		if(trigger == "timeKilledFrog") {
+			this.killed = true;
+			this.triggerObserver("killed");
+			Observer.trigger("stopGame", new SubscriberDaten());
 		}
 	}
 	

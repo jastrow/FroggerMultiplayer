@@ -57,9 +57,10 @@ public class TimeMachine implements Runnable, SubscriberInterface {
 				e.printStackTrace();
 			}
 			this.timeLog += Configuration.timeSteps;
-			if(this.timeLog >= this.timeEnd) {
+			if(this.timeLog >= (this.timeEnd - 100)) {
 				this.running = false;
 			} 
+			
 			SubscriberDaten daten = new SubscriberDaten();
 			daten.name = "time";
 			daten.time = this.timeLog;
@@ -68,6 +69,9 @@ public class TimeMachine implements Runnable, SubscriberInterface {
 			
 			Platform.runLater(new Runnable() {
 				public void run() {
+					if(!running) {
+						Observer.trigger("timeKilledFrog", daten);
+					}
 					Observer.trigger("time", daten);
 				}
 			});
