@@ -1,7 +1,7 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
 
 .root {
-	-fx-background-image: url("Hintergrund_Start.jpg");
+	-fx-background-image: url("/views/Hintergrund_Start.jpg");
     -fx-background-repeat: no-repeat;   
     -fx-background-size: 950 600;
     -fx-background-position: center center;
@@ -41,7 +41,7 @@
 	-fx-pref-height: 50;
 	-fx-padding: 0 0 0 60;
 	-fx-text-fill: green;
-	-fx-background-image: url("over.png");
+	-fx-background-image: url("/views/over.png");
 }
 
 .labelOver3 {
@@ -51,7 +51,7 @@
 	-fx-pref-height: 50;
 	-fx-padding: 0 0 0 60;
 	-fx-text-fill: green;
-	-fx-background-image: url("over.png");
+	-fx-background-image: url("/views/over.png");
 }
 
 .labelOver4 {
@@ -61,7 +61,7 @@
 	-fx-pref-height: 50;
 	-fx-padding: 0 0 0 60;
 	-fx-text-fill: green;
-	-fx-background-image: url("over.png");
+	-fx-background-image: url("/views/over.png");
 
 }
 
