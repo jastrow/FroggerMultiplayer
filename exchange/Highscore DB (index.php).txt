@@ -1,0 +1,29 @@
+Auf einem externen Server steht die Schnittstelle bereit, 
+Highscore Daten zu verwalten.
+
+http://www.mdnetz.de/frogger/
+
+Ein einfacher aufruf gibt die besten drei Spieler zurück, z.B.:
+
+67|Spielername|4600|1484379201
+70|Max Mustermann|4700|1484383052
+66|Spielername|7300|1484378941
+
+
+Ein neuer Eintrag wird über Post erstellt:
+
+name: Spielername
+zeit: Millisekunden
+
+Das Datum wird automatisch gesetzt.
+
+
+Die DB kann resettet werden mit folgender URL:
+http://www.mdnetz.de/frogger/?reset=1
+
+
+Datenbank Tabelle:
+id INT AUTOINCREMENT NOT NULL,
+name TEXT,
+zeit INT,
+datum DATE
