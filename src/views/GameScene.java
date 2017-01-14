@@ -410,8 +410,8 @@ public class GameScene extends Scene implements SubscriberInterface {
 			//Großes GameOverBild setzen
 			this.graphicsContext.drawImage(dead, (Configuration.xFields/2*50)-200, (Configuration.yFields/2*50)-100);
 
-			this.graphicsContext.setFont(new Font("Arial", 30));
-			this.graphicsContext.fillText("Neustart mit ENTER", 340, 590); 
+			this.graphicsContext.setFont(new Font("Arial", 20));
+			this.graphicsContext.fillText("Nochmal mit ENTER", 365, 583); 
 		}
 	} 
 	 
