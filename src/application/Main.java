@@ -23,9 +23,7 @@ public class Main extends Application {
 		this.gameData = new GameLogic();
 		this.actionController = new ActionController();
 
-
 		this.gameData.setScene(this.sceneController);
-
 
 		try {
 			primaryStage.setUserData(this.sceneController);

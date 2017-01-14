@@ -17,7 +17,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
-public class StartScene implements SubscriberInterface {
+public class StartScene {
 
 	private Scene scene;
 	private SceneController sceneController;
@@ -46,14 +46,7 @@ public class StartScene implements SubscriberInterface {
 		
 		spielerName.getStyleClass().add("spielerName");
 		
-		Button sucheSpieler = new Button();
-
 		Button starteSpiel = new Button();
-
-		sucheSpieler.getStyleClass().add("sucheSpieler");
-		sucheSpieler.setPrefHeight(65);
-		sucheSpieler.setPrefWidth(330);
-		sucheSpieler.setOnAction(actionEvent -> this.sceneController.searchPlayer());
 
 		starteSpiel.getStyleClass().add("starteSpiel");
 		starteSpiel.setPrefHeight(78);
@@ -65,7 +58,6 @@ public class StartScene implements SubscriberInterface {
 
 
 		verboAeussereBox.getChildren().add(spielerName);
-		verboAeussereBox.getChildren().add(sucheSpieler);
 		verboAeussereBox.getChildren().add(starteSpiel);
 	
 		this.contentStart.getChildren().add(verboAeussereBox);
@@ -108,6 +100,9 @@ public class StartScene implements SubscriberInterface {
 	
 	private void submitStart() {
 		SubscriberDaten data = new SubscriberDaten();
+		if(this.spielerName.getText().equals("")) {
+			this.spielerName.setText("Spielername");
+		}
 		data.name = this.spielerName.getText();
 		Observer.trigger("player", data);
 	}
@@ -117,10 +112,5 @@ public class StartScene implements SubscriberInterface {
 		return this.scene;
 	}
 
-	@Override
-	public void calling(String trigger, SubscriberDaten daten) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 }

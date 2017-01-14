@@ -89,7 +89,9 @@ public class SceneController implements SubscriberInterface {
             public void handle(KeyEvent e)
             {
             	SubscriberDaten data = new SubscriberDaten();
-            		
+
+            	
+            	
             	if(gameRunning) {
 	                if( (e.getCode() == KeyCode.LEFT  || e.getCode() == KeyCode.A) && !keyPressed)
 	                {
@@ -115,6 +117,11 @@ public class SceneController implements SubscriberInterface {
 	                    Observer.trigger("key", data);
 	                    keyPressed = true;
 	                }
+            	} else {
+            		if(e.getCode() == KeyCode.ENTER) {
+            			Observer.trigger("resetGame", new SubscriberDaten());
+            			startGame();
+            		}
             	}
             }
         });
