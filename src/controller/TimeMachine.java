@@ -1,14 +1,9 @@
 package controller;
 
 import application.*;
-//import java.util.concurrent.TimeUnit;
-//import java.util.logging.Level;
-//import java.util.logging.Logger;
 import javafx.application.Platform;
-//import javafx.scene.control.ListView;
 
 public class TimeMachine implements Runnable, SubscriberInterface {
-//public class TimeMachine implements SubscriberInterface {
 
 	private Thread t;
 	private Boolean running;
@@ -56,22 +51,27 @@ public class TimeMachine implements Runnable, SubscriberInterface {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			this.timeLog += Configuration.timeSteps;
-			if(this.timeLog >= (this.timeEnd - 100)) {
-				this.running = false;
-			} 
-			
+
 			SubscriberDaten daten = new SubscriberDaten();
 			daten.name = "time";
 			daten.time = this.timeLog;
-			
-			//System.out.println(timeLog);
-			
-			Platform.runLater(new Runnable() {
-				public void run() {
-					Observer.trigger("time", daten);
-				}
-			});
+
+			this.timeLog += Configuration.timeSteps;
+
+			if(this.timeLog.equals(this.timeEnd - 100)) {
+				this.running = false;
+				Platform.runLater(new Runnable() {
+					public void run() {
+						Observer.trigger("timeKilledFrog", daten);
+					}
+				});
+			} else {				
+				Platform.runLater(new Runnable() {
+					public void run() {
+						Observer.trigger("time", daten);
+					}
+				});
+			}
 		}
 	}
 	

@@ -33,7 +33,6 @@ public class SceneController implements SubscriberInterface {
 		Observer.add("time", this);
 		Observer.add("close", this);
 		Observer.add("end", this);
-		Observer.add("start", this);
 		Observer.add("stopGame", this);
 	}
 
@@ -80,7 +79,6 @@ public class SceneController implements SubscriberInterface {
 	}
 	
 	public void startGame(){
-		// Löschen im Observer!!!!!!!
 		if(this.gameScene != null) {
 			Observer.removeMe(this.gameScene);
 		}
@@ -124,9 +122,7 @@ public class SceneController implements SubscriberInterface {
         {
             @Override
             public void handle(KeyEvent e)
-            {
-            	SubscriberDaten data = new SubscriberDaten();
-            		
+            {            		
             	if(keyPressed) {
 	                if( (e.getCode() == KeyCode.LEFT  || e.getCode() == KeyCode.A) ||
 	                	(e.getCode() == KeyCode.RIGHT  || e.getCode() == KeyCode.D)  ||
@@ -153,7 +149,6 @@ public class SceneController implements SubscriberInterface {
 		} else {
 			this.primaryStage.setScene(this.getStartScene());
 			this.primaryStage.show();
-
 		}
 	}
 
@@ -172,11 +167,7 @@ public class SceneController implements SubscriberInterface {
 			case "close": {
 				
 				if(data.name == "ScoreScene" || data.name == "OverScene") {
-//					if(this.firstStart) {
-						this.newGame();
-//					} else {
-//						this.showGameScene();
-//					}				
+					this.newGame();
 				} else {
 					Platform.exit();
 				}

@@ -64,7 +64,6 @@ public class Frog implements SubscriberInterface {
 			}
 		}
 		if(trigger == "car" || trigger == "tree") {
-			// Hier nur das triggernde Element checken
 			this.collisionCheck();
 		}
 		if(trigger == "timeKilledFrog") {
@@ -128,7 +127,6 @@ public class Frog implements SubscriberInterface {
 				Observer.trigger("stopGame", new SubscriberDaten());
 			}
 		}
-
 	}
 	
 	
