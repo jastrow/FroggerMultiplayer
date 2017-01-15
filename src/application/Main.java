@@ -1,9 +1,5 @@
 package application;
 
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import controller.*;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -12,7 +8,6 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
-import views.GameScene;
 
 
 
