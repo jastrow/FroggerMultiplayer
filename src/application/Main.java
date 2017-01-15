@@ -1,10 +1,18 @@
 package application;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import controller.*;
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.util.Duration;
+import views.GameScene;
 
 
 
@@ -40,11 +48,29 @@ public class Main extends Application {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		
+		
+		// Musik abspielen
+		this.playMusic();
+		
 	}
 
 	public static void main(String[] args) {
 		launch(args);
 	}
 
+	
+	public void playMusic() {
+		Media sound = new Media( 
+				ClassLoader.getSystemResource("views/music.mp3").toString()
+			);
+			MediaPlayer mediaPlayer = new MediaPlayer(sound);
+			mediaPlayer.setOnEndOfMedia(new Runnable() {
+				public void run() {
+					mediaPlayer.seek(Duration.ZERO);
+				}
+			});
+			mediaPlayer.play();		
+	}
 
 }
