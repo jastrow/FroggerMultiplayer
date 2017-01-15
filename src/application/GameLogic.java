@@ -17,8 +17,8 @@ public class GameLogic implements SubscriberInterface {
 	private SceneController scene;
 	
 	private Integer score;
-	private Integer timeMali;
-
+	private Integer fliesEaten;
+	private Boolean win;
 
 	public GameLogic() {
 		this.streets = new Streets();
@@ -26,39 +26,36 @@ public class GameLogic implements SubscriberInterface {
 		this.flyfabric = new FlyFabric();
 		this.frogPlayer1 = new Frog(this.rivers, this.streets);
 		this.timer = new TimeMachine();
-
-		// Startpuntke
-		this.score = Configuration.timeEnd / 10;
 		
 		// Observer anmeldung
 		Observer.add("start", this);
-		Observer.add("win", this);
-		Observer.add("flyeaten", this);
 		Observer.add("stopGame", this);
+		Observer.add("flyeaten", this);
+		Observer.add("frog", this);
 
 	}
 
 	public void calling(String trigger, SubscriberDaten daten) {
 		switch(trigger) {
 			case "start": {
-				this.score = Configuration.timeEnd / 10;;
+				this.fliesEaten = 0;
+				this.score = 0;
+				this.win = false;
 				this.timer.start(); 
 				break;
 			}
-			case "win": {
-				Observer.trigger("stopGame", new SubscriberDaten());
-				SubscriberDaten setTime = new SubscriberDaten();
-				setTime.time = this.timer.getTime();
-				Observer.trigger("winTime", setTime);
-				break;
-			}
 			case "flyeaten": {
-				this.score += Configuration.flyEatenPoints;
+				this.fliesEaten++;
 				break;
 			}
 			case "stopGame": {
-				this.score += (Configuration.timeEnd - this.timer.getTime()) / 10; 
-				System.out.println(this.score);
+				this.getScore();
+				break;
+			}
+			case "frog": {
+				if(daten.typ.equals("win")) {
+					this.win = true;
+				}
 			}
 			default: break;
 		}
@@ -67,13 +64,22 @@ public class GameLogic implements SubscriberInterface {
 	public void setScene(SceneController scene) {
 		this.scene = scene;
 	}
-	/**
-	 * Resets all Game Parameters.
-	 */
-	public void resetGame() {
 
+	public void getScore() {
+		Integer timeBonus = 0;
+		Integer fliesBonus = 0;
+		if(this.win) {
+			timeBonus = (Configuration.timeEnd - this.timer.getTime()) / 10;
+			fliesBonus = this.fliesEaten * Configuration.flyEatenPoints;
+			this.score = timeBonus + fliesBonus;
+
+			SubscriberDaten timeData = new SubscriberDaten();
+			timeData.time = this.score;
+			Observer.trigger("entry", timeData);
+		}
+		System.out.println("Zeitbonus: "+timeBonus);
+		System.out.println("Fliegenbonus: "+fliesBonus+" ("+this.fliesEaten+")");
+		System.out.println("HighScore: "+this.score);
 	}
-
-
 
 }

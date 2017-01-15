@@ -103,7 +103,7 @@ public class FlyFabric implements SubscriberInterface {
 	
 	private void checkFrog(SubscriberDaten data) {
 		Integer flyId = this.checkPosition(data.xPosition, data.yPosition);
-		if(flyId > 0) {
+		if(flyId.compareTo(0) > 0) {
 			Fly flyEaten = this.getById(flyId);
 			if(flyEaten != null) {
 				flyEaten.triggerObserver("delete");

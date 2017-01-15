@@ -621,9 +621,9 @@ public class GameScene extends Scene implements SubscriberInterface {
 							break;
 						}
 						case "win": {
-							SubscriberDaten timeData = new SubscriberDaten();
-							timeData.time = this.time;
-							Observer.trigger("entry", timeData);
+							//SubscriberDaten timeData = new SubscriberDaten();
+							//timeData.time = this.time;
+							//Observer.trigger("entry", timeData);
 							this.winningFrog(data);
 							break;
 						}

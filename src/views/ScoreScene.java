@@ -117,7 +117,7 @@ public class ScoreScene implements SubscriberInterface {
 
 		String formatedDate = "";
 	
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.YY");
 		Date date = new Date();
 		if (dateToFormat != null) {
 			date.setTime( (long) dateToFormat * 1000);	
@@ -160,7 +160,14 @@ public class ScoreScene implements SubscriberInterface {
 			this.playerDate = data.playerDate;
 			this.playerTime = data.playerTime;
 			for (int i = 0 ; i < 3; i ++) {
-				this.highScoreList[i].setText(this.playerName[i] + " - " + this.formatDate(this.playerDate[i]) + " - " + this.formatTime(this.playerTime[i]));
+				this.highScoreList[i].setText(
+						this.playerTime[i]
+						+ " | "
+						+ this.playerName[i] 
+						+ " | "
+						+ this.formatDate(this.playerDate[i]) 
+						//+ " - " + this.formatTime(this.playerTime[i])
+				);
 			}
 		}		
 	}

@@ -77,7 +77,7 @@ public class TimeMachine implements Runnable, SubscriberInterface {
 	
 	public void calling(String trigger, SubscriberDaten data) {
 		if(trigger == "stopGame") {
-			this.reset();
+			this.running = false;
 		}
 		if(trigger == "resetGame") {
 			this.reset();

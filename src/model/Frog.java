@@ -129,7 +129,6 @@ public class Frog implements SubscriberInterface {
 		}
 	}
 	
-	
 	public void triggerObserver(String typ) {
 		SubscriberDaten data = new SubscriberDaten();
 		data.name = "Frog";
