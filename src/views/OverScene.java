@@ -13,6 +13,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * @author JackRyan
+ *
+ */
 public class OverScene {
 	
 	// Hauptpanel
@@ -24,6 +28,9 @@ public class OverScene {
 	private String[] labelText = new String[4];
 
 	
+	/**
+	 * @param sceneController
+	 */
 	public OverScene(SceneController sceneController) {
 		
 		this.labelText[0] = "Die UMeLs";
@@ -44,6 +51,9 @@ public class OverScene {
 	 * Funktion zum erstellen der Szene mit ihren Elementen
 	 * @return komplette Szene mit allen Elementen
 	 */
+	/**
+	 * 
+	 */
 	private void buildScene() {
 
 		//Äußere VertikalBox zur Aufnahme aller weiteren Elemente
@@ -63,6 +73,9 @@ public class OverScene {
 		this.rootOver.setBottom(this.contentOver);
 	}
 	
+	/**
+	 * @return
+	 */
 	private VBox buildMenu() {
 		
 		MenuBar menuBar = new MenuBar();
@@ -85,6 +98,9 @@ public class OverScene {
 		return menuBox;
 	}
 		
+	/**
+	 * @return
+	 */
 	public Scene getScene() {
 		return this.scene;
 	}

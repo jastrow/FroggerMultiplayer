@@ -4,9 +4,6 @@ import java.text.DecimalFormat;
 import java.util.Queue;
 import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
-
-import com.sun.prism.paint.Gradient;
-
 import application.*;
 import controller.SceneController;
 import javafx.application.Platform;
@@ -26,50 +23,66 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 
-/**
+
+/** 
+ * SpielSzene / Hauptszene des Programms
+ * 
  * @author JackRyan
  *
  */
 public class GameScene extends Scene implements SubscriberInterface {
 
-	// private Scene scene;
+	//SceneController;
 	private SceneController sceneController;
 	
 	// Hauptpanel
 	private BorderPane rootGame = new BorderPane();
 	private StackPane contentGame = new StackPane();
 	
-	//Bilder
-
+	//BilderArrays für Autos und Baumstämme
 	private Image[] wood = new Image[3]; 
 	private Image[] carLeftToRight  = new Image[2];
 	private Image[] carRightToLeft  = new Image[2];
+	
+	//Label zur Anzeige der Spielzeit
 	private Label timeLabel = new Label();
+	
+	//Spielzeit
 	private Integer time;
 	
-	/* Liste der Subscriber Instanzen */
+	//Sammelliste für GUI Elemente
 	private Queue<ImageView> frogs = new ConcurrentLinkedQueue<ImageView>();
 	private Queue<ImageView> pictureCont = new ConcurrentLinkedQueue<ImageView>();
-	//Sammelliste für GUI Elemente
-	//private ArrayList<ImageView> pictureCont = new ArrayList<ImageView>(); 
 	
 	//Zufallsobjekt
 	Random rand = new Random();
+	
+	//Element zur Identifikation ob Spiel läuft
 	Boolean running = false;
+	
+	//GraphicElemente zum Zeichen der GUI Elemente
     Canvas canvas = new Canvas(950,650);
     GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
+    
 	
    /********************************************* Szeneninitialisierung *********************************************/ 
     
 	/**
 	 * Konstruktor
+	 *
+	 * @param sceneController / für die Szenen zuständiger Controller
 	 */
 	public GameScene(SceneController sceneController) {
 		
 		//neue Szene erstellen
 		super(new StackPane(),Configuration.xFields * 50,Configuration.yFields * 50 + 30);
+		//GrundPanel zuweisen
 		this.setRoot(rootGame);
+		
+		//Controller übergeben
 		this.sceneController = sceneController;
+		
+		//VertikalBox zur Aufnahme der GUI Elemente
 		VBox contentBox = new VBox();
 
 		//Anmeldung Observer
@@ -89,70 +102,70 @@ public class GameScene extends Scene implements SubscriberInterface {
 		//Szene Formatierungs CSS  zuweisen
 		this.getStylesheets().add(getClass().getResource("gameScene.css").toExternalForm());
 		
-		//Szene leeren
+		//Szene und Listen bei Neustart leeren
 		contentBox.getChildren().clear();
 		this.pictureCont.clear();
 		this.rootGame.getChildren().clear();
 		this.contentGame.getChildren().clear();
 		this.graphicsContext.clearRect(0, 0, 950,600);
+		
+		//Spiel als gestartet definieren
 		this.running = true;
 		
-		//Szenenhintergrund hinzufügen
+		//Menü hinzufügen
 		this.rootGame.setTop(this.buildMenu());
 
+		//restliche Szenenelemnte einfügen 
 		contentBox.getStyleClass().add("content");
 		contentBox.getChildren().add(canvas);
 		this.contentGame.getChildren().add(contentBox);
 		this.rootGame.setBottom(this.contentGame);
 		
-		
+		//Szenenidentifikation setzen
 		this.setUserData("GameScene");
 	}
 	
+
+	/** 
+	 * Menüleiste bauen
+	 *
+	 * @return HBox / HorizontalBox mit Menü 
+	 */
 	private HBox buildMenu() {
 		
 		MenuBar menuBar = new MenuBar();
 		HBox menuBox = new HBox();
-		
 		menuBox.setPrefHeight(20);
-		
 		Menu froggerMenu = new Menu("Frogger");
 		MenuItem neuMenuItem = new MenuItem("Neues Spiel");
 		MenuItem exitMenuItem = new MenuItem("Exit");
-    
+		//OnKlickEvents für Menüpunkt Frogger
 		exitMenuItem.setOnAction(actionEvent -> Platform.exit());
 		neuMenuItem.setOnAction(actionEvent -> {
 			if (!this.running) {		
 				this.sceneController.newGame();
 			}
 		});
-
-    
 		froggerMenu.getItems().addAll(neuMenuItem,new SeparatorMenuItem(), exitMenuItem);
-    
 		Menu infoMenu = new Menu("Info");
 		MenuItem highMenuItem = new MenuItem("Highscore");
-    
+		//OnKlickEvents für MenüPunkt Info
 		highMenuItem.setOnAction(actionEvent -> this.sceneController.showHighscore());
 		MenuItem overMenuItem = new MenuItem("Über..");
-	    
 		overMenuItem.setOnAction(actionEvent -> this.sceneController.showOver());
-    
 		infoMenu.getItems().addAll(highMenuItem, overMenuItem);
-    
 		menuBar.getMenus().addAll(froggerMenu, infoMenu);
-		
+		//Menüzeitlabel befüllen
 		this.timeLabel.setText("restliche Spielzeit: " + this.formatTime(Configuration.timeEnd) + " Sek.");
 		this.timeLabel.getStyleClass().add("timeLabel");
 		menuBox.getChildren().add(menuBar);
 		menuBox.getChildren().add(this.timeLabel);
 		return menuBox;
-
 	}
 
 	
 	/**
-	 * Hilfsfunktionen zum füllen der Bilderarrays
+	 * Funktionen zum füllen des Bilderarrays für die Baumstämme
 	 */
 	private void fillImageWood() {
 		
@@ -162,6 +175,9 @@ public class GameScene extends Scene implements SubscriberInterface {
 
 	}
 	
+	/**
+	 * Funktionen zum füllen des Bilderarrays für die nach links fahrenden Autos
+	 */
 	private void fillImageCarToLeft() {
 		
 		for (int i = 0 ; i <= 1 ; i++) {
@@ -170,6 +186,10 @@ public class GameScene extends Scene implements SubscriberInterface {
 
 	}
 	
+
+	/**
+	 * Funktionen zum füllen des Bilderarrays für die nach rechts fahrenden Autos
+	 */
 	private void fillImageCarToRight() {
 		
 		for (int i = 0 ; i <= 1 ; i++) {
@@ -182,25 +202,24 @@ public class GameScene extends Scene implements SubscriberInterface {
 	
 	
 	/**
-	 * Hilfsfunktion zum prüfen ob Objekt bereits in Liste vorhanden
+	 * Hilfsfunktion zum prüfen ob GUIObjekt (Baum / Auto) bereits in Liste vorhanden
 	 *
 	 *@param:	data DatenObjekt
-	 *@return:	boolean	
+	 *@return:	boolean	/ true Objekt vorhanden - false Objekt nicht vorhanden
 	 */
 	private boolean checkImageExist(SubscriberDaten data) {
 	
 		for(ImageView help: pictureCont) {
 			if (data.id == Integer.parseInt(help.getId())) return true;
-		}
-		
+		}	
 		return false;
 	}
 	
 	/**
-	 * Hilfsfunktion zum prüfen ob Objekt bereits in Liste vorhanden
+	 * Hilfsfunktion zum prüfen ob GUIObjekt (Frosch) bereits in Liste vorhanden
 	 *
 	 *@param:	data DatenObjekt
-	 *@return:	boolean	
+	 *@return:	boolean	/ true Objekt vorhanden - false Objekt nicht vorhanden	
 	 */
 	private boolean checkFrogExist(SubscriberDaten data) {
 	
@@ -211,11 +230,14 @@ public class GameScene extends Scene implements SubscriberInterface {
 		return false;
 	}
 	
-	/**
-	 * Hilfsfunktion zur Positionierung des GUI Objektes 
-	 *
-	 */
 	
+	/** 
+	 * Hilfsfunktion zur Positionierung des GUI Objektes
+	 *  
+	 * @param imgObject / zu Positionierendes Objekt
+	 * @param data / Datenobjekt mit Positionsdaten
+	 * @return help / aktualisiertes zu positionierendes Objekt
+	 */
 	private ImageView setPosition(ImageView imgObject, SubscriberDaten data) {
 		
 		ImageView help = imgObject;
@@ -226,11 +248,13 @@ public class GameScene extends Scene implements SubscriberInterface {
 		return help;
 	}
 	
+
 	/**
-	 * Hilfsfunktion zum auslesen des angetriggerten Objektes
-	 *
+	 * Hilfsfunktion zum auslesen des angetriggerten Objektes (Baum / Auto)
+	 * 
+	 * @param data / DatenObjekt mit Identifikationsdaten
+	 * @return getObject / angetriggertes Objekt (Baum / Auto)
 	 */
-	
 	private ImageView getGUIObject(SubscriberDaten data) {
 		ImageView getObject = new ImageView();
 				
@@ -240,14 +264,15 @@ public class GameScene extends Scene implements SubscriberInterface {
 			}
 		}
 		return getObject;
-		
 	}
 	
-	/**
-	 * Hilfsfunktion zum auslesen des angetriggerten Objektes
-	 *
-	 */
 	
+	/**
+	 * Hilfsfunktion zum auslesen des angetriggerten Objektes (Frosch)
+	 * 
+	 * @param data / DatenObjekt mit Identifikationsdaten
+	 * @return getObject / angetriggertes Objekt (Frosch)
+	 */
 	private ImageView getFrogObject(SubscriberDaten data) {
 		ImageView getObject = new ImageView();
 				
@@ -263,8 +288,9 @@ public class GameScene extends Scene implements SubscriberInterface {
 	/**
 	 * Hilfsfunktion zum formatieren der Zeitausgabe
 	 *
+	 * @param timeToFormat / übergebene Zeit in Millisekunden
+	 * @return formatierter ZeitString in Sekunden
 	 */
-	
 	private String formatTime(Integer timeToFormat) {
 		
 		if (timeToFormat != null) {
@@ -283,12 +309,13 @@ public class GameScene extends Scene implements SubscriberInterface {
 	/**
 	 * Funktion zum erstellen eines neuen Car Objektes
 	 *
+	 * @param data / DatenObjekt mit Indentifikationsmarkern für das neue Auto
 	 */
-	
 	private void createNewCarObject(SubscriberDaten data) {
 
 		//Hilfsvaraiblen deklarienen
 		ImageView help = this.getGUIObject(data);
+		
 		if (data.leftToRight) {
 			help.setImage(this.carLeftToRight[rand.nextInt(2)]); 
 		} else {
@@ -297,13 +324,13 @@ public class GameScene extends Scene implements SubscriberInterface {
 		help.setFitHeight(50);
 		help.setId(data.id.toString());
 		this.pictureCont.add(this.setPosition(help, data));
-		this.updateElements();
-		
+		this.updateElements();	
 	}
 	
 	/**
-	 * Funktion zum erstellen eines neuen Tree Objektes
+	 * Funktion zum erstellen eines neuen Baum Objektes
 	 *
+	 * @param data / DatenObjekt mit Indentifikationsmarkern für den neuen Baum
 	 */
 	private void createNewTreeObject(SubscriberDaten data) {
 		
@@ -316,13 +343,13 @@ public class GameScene extends Scene implements SubscriberInterface {
 		help.setImage(this.wood[woodLength]);
 		help.setId(data.id.toString());
 		this.pictureCont.add(this.setPosition(help, data));
-		this.updateElements();
-		
+		this.updateElements();		
 	}
 	
 	/**
 	 * Funktion zum erstellen eines neuen Frosch Objektes
 	 *
+	 * @param data / DatenObjekt mit Indentifikationsmarkern für den neuen Frosch
 	 */
 	private void createNewFrogObject(SubscriberDaten data) {
 		
@@ -332,14 +359,13 @@ public class GameScene extends Scene implements SubscriberInterface {
 		help.setImage(new Image(getClass().getResource("frog_"+data.facing+".png").toExternalForm()));
 		help.setId(data.id.toString());
 		this.frogs.add(this.setPosition(help, data));
-		this.updateElements();
-
-		
+		this.updateElements();		
 	}
 	
 	/**
-	 * Funktion zum Update eines Frosch Objektes
+	 * Funktion zum aktualisieren eines Frosch Objektes
 	 *
+	 * @param data / DatenObjekt mit Indentifikationsmarkern für den zu aktualisierenden Frosch
 	 */
 	private void updateFrogObject(SubscriberDaten data) {
 		
@@ -350,15 +376,14 @@ public class GameScene extends Scene implements SubscriberInterface {
 		this.frogs.remove(help);
 		help = this.setPosition(help, data);
 		this.frogs.add(help);
-		this.updateElements();
-		
+		this.updateElements();	
 	}
 	
 	/**
 	 * Funktion zum löschen eines GUI Objektes
 	 *
+	 * @param data / DatenObjekt mit Indentifikationsmarkern für das zu löschende GUI Objekt
 	 */
-	
 	private void deleteGUIObject(SubscriberDaten data) {
 		
 		for(ImageView help: this.pictureCont) {
@@ -372,10 +397,10 @@ public class GameScene extends Scene implements SubscriberInterface {
 	}
 	
 	/**
-	 * Funktion zum löschen eines GUI Objektes
+	 * Funktion zum löschen eines Frosch Objektes
 	 *
+	 * @param data / DatenObjekt mit Indentifikationsmarkern für das zu löschende Frosch Objekt
 	 */
-	
 	private void deleteFrogObject(SubscriberDaten data) {
 		
 		for(ImageView help: this.frogs) {
@@ -389,11 +414,11 @@ public class GameScene extends Scene implements SubscriberInterface {
 	}
 	
 	/**
-	 * Hilfsfunktion zum auslesen der Position des angetriggerten Objektes in der Liste
+	 * Funktion zum Anzeigen das Spieler verloren hat
 	 *
+	 * @param data / DatenObjekt mit Indentifikationsmarkern für das zu löschende GUI Objekt
 	 */
-	
-	 private void killFrog(SubscriberDaten data) {
+	private void killFrog(SubscriberDaten data) {
 		
 		//Hilfsvaraiblen deklarienen
 		ImageView help = this.getFrogObject(data);
@@ -422,7 +447,10 @@ public class GameScene extends Scene implements SubscriberInterface {
 	 *
 	 */
 	
-	 private void winningFrog(SubscriberDaten data) {
+	 /**
+	 * @param data
+	 */
+	private void winningFrog(SubscriberDaten data) {
 		
 		//Hilfsvaraiblen deklarienen
 		
@@ -448,8 +476,9 @@ public class GameScene extends Scene implements SubscriberInterface {
 	 } 
 	
 	/**
-	 * Funktion zum Update des angetriggerten GUI Objektes
+	 * Funktion zum aktualisieren eines Auto/Baum Objektes
 	 *
+	 * @param data / DatenObjekt mit Indentifikationsmarkern für das zu aktualisierende Objekt
 	 */
 	private void updateGUIObject(SubscriberDaten data) {
 		
@@ -458,9 +487,9 @@ public class GameScene extends Scene implements SubscriberInterface {
 			Boolean exist = this.checkImageExist(data);
 		
 		if (exist) {
-			
-			//int position = this.getPosition(data);
-			if (data.name == "Frog") help.setImage(new Image(getClass().getResource("frog_"+data.facing+".png").toExternalForm()));
+			if (data.name == "Frog") {
+				help.setImage(new Image(getClass().getResource("frog_"+data.facing+".png").toExternalForm()));
+			}
 			this.pictureCont.remove(help);
 			help = this.setPosition(help, data);
 			this.pictureCont.add(help);
@@ -472,6 +501,9 @@ public class GameScene extends Scene implements SubscriberInterface {
 	/**
 	 * Hilfsfunktion zum leeren und neu befüllen der Szene
 	 *
+	 */
+	/**
+	 * 
 	 */
 	private void updateElements() {
 		//Szene leeren 
@@ -494,6 +526,9 @@ public class GameScene extends Scene implements SubscriberInterface {
 	 * Hilfsfunktion zum Update des Timerfeldes
 	 *
 	 */
+	/**
+	 * @param data
+	 */
 	private void updateTimer(SubscriberDaten data) {
 		
 		Integer actTime = 0;
@@ -510,6 +545,9 @@ public class GameScene extends Scene implements SubscriberInterface {
 	/**
 	 * Funktion zum verarbeiten der Observertrigger
 	 *
+	 */
+	/* (non-Javadoc)
+	 * @see application.SubscriberInterface#calling(java.lang.String, application.SubscriberDaten)
 	 */
 	public void calling(String trigger, SubscriberDaten data) {
 		if (this.running) { 
@@ -591,6 +629,9 @@ public class GameScene extends Scene implements SubscriberInterface {
 	/**
 	 * Hilfsfunktion zur Rückgabe der Szene
 	 * @return komplette Szene mit allen Elementen
+	 */
+	/**
+	 * @return
 	 */
 	public Scene getScene() {
 		return this;
