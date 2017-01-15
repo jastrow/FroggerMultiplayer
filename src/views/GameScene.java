@@ -136,20 +136,27 @@ public class GameScene extends Scene implements SubscriberInterface {
 	 */
 	private HBox buildMenu() {
 		
-		MenuBar menuBar = new MenuBar();
+//		return MenuBuilder.buildMenu();
+		
 		HBox menuBox = new HBox();
 		menuBox.setPrefHeight(20);
+
+		MenuBar menuBar = new MenuBar();
+		
 		Menu froggerMenu = new Menu("Frogger");
 		MenuItem neuMenuItem = new MenuItem("Neues Spiel");
+
 		MenuItem exitMenuItem = new MenuItem("Exit");
-		//OnKlickEvents für Menüpunkt Frogger
 		exitMenuItem.setOnAction(actionEvent -> Platform.exit());
+		froggerMenu.getItems().addAll(neuMenuItem,new SeparatorMenuItem(), exitMenuItem);
+
+		
+		//OnKlickEvents für Menüpunkt Frogger
 		neuMenuItem.setOnAction(actionEvent -> {
 			if (!this.running) {		
 				this.sceneController.newGame();
 			}
 		});
-		froggerMenu.getItems().addAll(neuMenuItem,new SeparatorMenuItem(), exitMenuItem);
 		Menu infoMenu = new Menu("Info");
 		MenuItem highMenuItem = new MenuItem("Highscore");
 		//OnKlickEvents für MenüPunkt Info
@@ -157,7 +164,15 @@ public class GameScene extends Scene implements SubscriberInterface {
 		MenuItem overMenuItem = new MenuItem("Über..");
 		overMenuItem.setOnAction(actionEvent -> this.sceneController.showOver());
 		infoMenu.getItems().addAll(highMenuItem, overMenuItem);
+
+		MenuItem music = new MenuItem("Musik an/aus");
+		SubscriberDaten subDat = new SubscriberDaten();
+		subDat.typ = "toggle";
+		music.setOnAction( actionEvent -> Observer.trigger("sound", subDat) );
+		infoMenu.getItems().add(music);
+		
 		menuBar.getMenus().addAll(froggerMenu, infoMenu);
+
 		//Menüzeitlabel befüllen
 		this.timeLabel.setText("restliche Spielzeit: " + this.formatTime(Configuration.timeEnd) + " Sek.");
 		this.timeLabel.getStyleClass().add("timeLabel");

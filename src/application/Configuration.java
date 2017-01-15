@@ -16,4 +16,6 @@ public class Configuration {
 	public final static Integer treeSpeed = 300; 	// Bewegungsgeschwindigkeit Millisekunden pro Feld ()
 	
 	public final static Integer flyEatenPoints = 500; // Punkte wenn der Frosch eine Fliege fängt
+	public final static Integer flyRandom = 5; // Wahrscheinlichkeit jeder x-te Baumstaum eine Fliege
+	
 }

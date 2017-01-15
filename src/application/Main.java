@@ -18,6 +18,7 @@ public class Main extends Application {
 	public GameLogic gameData;	
 	public ActionController actionController; 
 	public ServerController server; 
+	public SoundController sound;
 
 	public void start(Stage primaryStage) {
 
@@ -25,6 +26,7 @@ public class Main extends Application {
 		this.sceneController = new SceneController();
 		this.gameData = new GameLogic();
 		this.actionController = new ActionController();
+		this.sound = new SoundController();
 
 		this.gameData.setScene(this.sceneController);
 
@@ -44,28 +46,12 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 		
-		
-		// Musik abspielen
-		this.playMusic();
-		
 	}
 
 	public static void main(String[] args) {
 		launch(args);
 	}
 
-	
-	public void playMusic() {
-		Media sound = new Media( 
-				ClassLoader.getSystemResource("views/music.mp3").toString()
-			);
-			MediaPlayer mediaPlayer = new MediaPlayer(sound);
-			mediaPlayer.setOnEndOfMedia(new Runnable() {
-				public void run() {
-					mediaPlayer.seek(Duration.ZERO);
-				}
-			});
-			mediaPlayer.play();		
-	}
+
 
 }
