@@ -19,6 +19,7 @@ public class GameLogic implements SubscriberInterface {
 	private Integer score;
 	private Integer fliesEaten;
 	private Boolean win;
+	private Integer zeit;
 
 	public GameLogic() {
 		this.streets = new Streets();
@@ -26,12 +27,14 @@ public class GameLogic implements SubscriberInterface {
 		this.flyfabric = new FlyFabric();
 		this.frogPlayer1 = new Frog(this.rivers, this.streets);
 		this.timer = new TimeMachine();
+		this.zeit = Configuration.timeEnd;
 		
 		// Observer anmeldung
 		Observer.add("start", this);
 		Observer.add("stopGame", this);
 		Observer.add("flyeaten", this);
 		Observer.add("frog", this);
+		Observer.add("time", this);
 
 	}
 
@@ -41,6 +44,7 @@ public class GameLogic implements SubscriberInterface {
 				this.fliesEaten = 0;
 				this.score = 0;
 				this.win = false;
+				this.zeit = Configuration.timeEnd;
 				this.timer.start(); 
 				break;
 			}
@@ -56,6 +60,11 @@ public class GameLogic implements SubscriberInterface {
 				if(daten.typ.equals("win")) {
 					this.win = true;
 				}
+				break;
+			}
+			case "time": {
+				this.zeit = daten.time;
+				break;
 			}
 			default: break;
 		}
@@ -69,7 +78,7 @@ public class GameLogic implements SubscriberInterface {
 		Integer timeBonus = 0;
 		Integer fliesBonus = 0;
 		if(this.win) {
-			timeBonus = (Configuration.timeEnd - this.timer.getTime()) / 10;
+			timeBonus = (int) (Configuration.timeEnd - this.zeit) / 10;
 			fliesBonus = this.fliesEaten * Configuration.flyEatenPoints;
 			this.score = timeBonus + fliesBonus;
 
@@ -77,9 +86,6 @@ public class GameLogic implements SubscriberInterface {
 			timeData.time = this.score;
 			Observer.trigger("entry", timeData);
 		}
-		System.out.println("Zeitbonus: "+timeBonus);
-		System.out.println("Fliegenbonus: "+fliesBonus+" ("+this.fliesEaten+")");
-		System.out.println("HighScore: "+this.score);
 	}
 
 }
