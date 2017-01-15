@@ -435,9 +435,13 @@ public class GameScene extends Scene implements SubscriberInterface {
 		this.updateElements();
 	}
 	
+	/**
+	 * Fliege setzen
+	 * 
+	 */
 	private void setFlyIcon () {
 		this.flyCounter = this.flyCounter + 1;
-		this.graphicsContextFly.drawImage(this.fly,10 + ((this.flyCounter * 50)-49), 550);
+		this.graphicsContextFly.drawImage(this.fly, 10 + ((this.flyCounter * 50)-49), 550);
 	}
 	
 	/**
