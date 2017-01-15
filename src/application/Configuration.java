@@ -4,7 +4,7 @@ public class Configuration {
 	
 	public final static Integer xFields = 19; // Number of horizontal Fields in Gamezone
 	public final static Integer yFields = 12; // Number of vertically Fields in Gamezone
-	public final static Integer timeEnd = 20000; // Milliseconds
+	public final static Integer timeEnd = 60000; // Milliseconds
 	public final static Integer timeSteps = 100; // Milliseconds
 
 	public final static Integer[] streetLines = {2,3,10,11}; // Y-Positions (num of = length) 2,3,10,11
