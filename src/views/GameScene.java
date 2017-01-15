@@ -44,6 +44,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 	private Image[] wood = new Image[3]; 
 	private Image[] carLeftToRight  = new Image[2];
 	private Image[] carRightToLeft  = new Image[2];
+	private Image fly;
 	private Label timeLabel = new Label();
 	private Integer time;
 	
@@ -75,6 +76,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 		//Anmeldung Observer
 		Observer.add("car", this);
 		Observer.add("tree", this);
+		Observer.add("fly", this);
 		Observer.add("frog", this);
 		Observer.add("time", this);
 		Observer.add("win", this);
@@ -84,6 +86,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 		this.fillImageWood();
 		this.fillImageCarToLeft();
 		this.fillImageCarToRight();
+		this.fly = new Image(getClass().getResource("fly.png").toExternalForm());
 		
 
 		//Szene Formatierungs CSS  zuweisen
@@ -320,6 +323,14 @@ public class GameScene extends Scene implements SubscriberInterface {
 		
 	}
 	
+	private void createNewFlyObject(SubscriberDaten data) {
+		ImageView help = this.getGUIObject(data);
+		help.setImage(this.fly);
+		help.setId(data.id.toString());
+		this.pictureCont.add(this.setPosition(help, data));
+		this.updateElements();
+	}
+	
 	/**
 	 * Funktion zum erstellen eines neuen Frosch Objektes
 	 *
@@ -336,6 +347,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 
 		
 	}
+
 	
 	/**
 	 * Funktion zum Update eines Frosch Objektes
@@ -535,6 +547,23 @@ public class GameScene extends Scene implements SubscriberInterface {
 					switch (data.typ) {
 						case "new": {
 										this.createNewTreeObject(data);
+										break;
+						}
+						case "move": {
+										this.updateGUIObject(data);
+										break;
+						}
+						case "delete": {
+										this.deleteGUIObject(data);
+										break;
+						}
+					}
+					break;
+				}
+				case "fly": {
+					switch (data.typ) {
+						case "new": {
+										this.createNewFlyObject(data);
 										break;
 						}
 						case "move": {
