@@ -70,7 +70,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 	/**
 	 * Konstruktor
 	 *
-	 * @param sceneController / für die Szenen zuständiger Controller
+	 * @param sceneController / für die Szenen zustaendiger Controller
 	 */
 	public GameScene(SceneController sceneController) {
 		
@@ -127,9 +127,9 @@ public class GameScene extends Scene implements SubscriberInterface {
 	
 
 	/** 
-	 * Menüleiste bauen
+	 * Menueleiste bauen
 	 *
-	 * @return HBox / HorizontalBox mit Menü 
+	 * @return HBox / HorizontalBox mit Menue 
 	 */
 	private HBox buildMenu() {
 		
@@ -165,7 +165,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 
 	
 	/**
-	 * Funktionen zum füllen des Bilderarrays für die Baumstämme
+	 * Funktionen zum fuellen des Bilderarrays für die Baumstaemme
 	 */
 	private void fillImageWood() {
 		
@@ -176,7 +176,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 	}
 	
 	/**
-	 * Funktionen zum füllen des Bilderarrays für die nach links fahrenden Autos
+	 * Funktionen zum fuellen des Bilderarrays für die nach links fahrenden Autos
 	 */
 	private void fillImageCarToLeft() {
 		
@@ -188,7 +188,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 	
 
 	/**
-	 * Funktionen zum füllen des Bilderarrays für die nach rechts fahrenden Autos
+	 * Funktionen zum fuellen des Bilderarrays für die nach rechts fahrenden Autos
 	 */
 	private void fillImageCarToRight() {
 		
@@ -202,10 +202,10 @@ public class GameScene extends Scene implements SubscriberInterface {
 	
 	
 	/**
-	 * Hilfsfunktion zum prüfen ob GUIObjekt (Baum / Auto) bereits in Liste vorhanden
+	 * Hilfsfunktion zum pruefen ob GUIObjekt (Baum / Auto) bereits in Liste vorhanden
 	 *
-	 *@param:	data DatenObjekt
-	 *@return:	boolean	/ true Objekt vorhanden - false Objekt nicht vorhanden
+	 * @param	data DatenObjekt
+	 * @return	boolean	/ true Objekt vorhanden - false Objekt nicht vorhanden
 	 */
 	private boolean checkImageExist(SubscriberDaten data) {
 	
@@ -216,10 +216,10 @@ public class GameScene extends Scene implements SubscriberInterface {
 	}
 	
 	/**
-	 * Hilfsfunktion zum prüfen ob GUIObjekt (Frosch) bereits in Liste vorhanden
+	 * Hilfsfunktion zum pruefen ob GUIObjekt (Frosch) bereits in Liste vorhanden
 	 *
-	 *@param:	data DatenObjekt
-	 *@return:	boolean	/ true Objekt vorhanden - false Objekt nicht vorhanden	
+	 * @param	data DatenObjekt
+	 * @return	boolean	/ true Objekt vorhanden - false Objekt nicht vorhanden	
 	 */
 	private boolean checkFrogExist(SubscriberDaten data) {
 	
@@ -288,7 +288,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 	/**
 	 * Hilfsfunktion zum formatieren der Zeitausgabe
 	 *
-	 * @param timeToFormat / übergebene Zeit in Millisekunden
+	 * @param timeToFormat / uebergebene Zeit in Millisekunden
 	 * @return formatierter ZeitString in Sekunden
 	 */
 	private String formatTime(Integer timeToFormat) {
@@ -380,9 +380,9 @@ public class GameScene extends Scene implements SubscriberInterface {
 	}
 	
 	/**
-	 * Funktion zum löschen eines GUI Objektes
+	 * Funktion zum loeschen eines GUI Objektes
 	 *
-	 * @param data / DatenObjekt mit Indentifikationsmarkern für das zu löschende GUI Objekt
+	 * @param data / DatenObjekt mit Indentifikationsmarkern für das zu loeschende GUI Objekt
 	 */
 	private void deleteGUIObject(SubscriberDaten data) {
 		
@@ -397,9 +397,9 @@ public class GameScene extends Scene implements SubscriberInterface {
 	}
 	
 	/**
-	 * Funktion zum löschen eines Frosch Objektes
+	 * Funktion zum loeschen eines Frosch Objektes
 	 *
-	 * @param data / DatenObjekt mit Indentifikationsmarkern für das zu löschende Frosch Objekt
+	 * @param data / DatenObjekt mit Indentifikationsmarkern für das zu loeschende Frosch Objekt
 	 */
 	private void deleteFrogObject(SubscriberDaten data) {
 		
@@ -416,7 +416,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 	/**
 	 * Funktion zum Anzeigen das Spieler verloren hat
 	 *
-	 * @param data / DatenObjekt mit Indentifikationsmarkern für das zu löschende GUI Objekt
+	 * @param data / DatenObjekt mit Indentifikationsmarkern für den gestorbenen Frosch
 	 */
 	private void killFrog(SubscriberDaten data) {
 		
@@ -436,24 +436,21 @@ public class GameScene extends Scene implements SubscriberInterface {
 			
 			//Großes GameOverBild setzen
 			this.graphicsContext.drawImage(dead, (Configuration.xFields/2*50)-200, (Configuration.yFields/2*50)-100);
-
 			this.graphicsContext.setFont(new Font("Arial", 20));
 			this.graphicsContext.fillText("Nochmal mit ENTER", 365, 583); 
 		}
 	} 
 	 
-	/**
-	 * Hilfsfunktion zum auslesen der Position des angetriggerten Objektes in der Liste
-	 *
-	 */
 	
-	 /**
-	 * @param data
+	
+	/**
+	 * Funktion zum Anzeigen das Spieler gewonnen hat
+	 *
+	 * @param data / DatenObjekt mit Indentifikationsmarkern für den gewinnenden Frosch
 	 */
 	private void winningFrog(SubscriberDaten data) {
 		
 		//Hilfsvaraiblen deklarienen
-		
 		Boolean exist = this.checkFrogExist(data);
 		ImageView help = this.getFrogObject(data);
 		Image winning = new Image(getClass().getResource("winning_big.png").toExternalForm());
@@ -469,7 +466,6 @@ public class GameScene extends Scene implements SubscriberInterface {
 			
 			//Großes GameOverBild setzen
 			this.graphicsContext.drawImage(winning, (Configuration.xFields/2*50)-200, (Configuration.yFields/2*50)-100);
-			
 			this.graphicsContext.setFont(new Font("Arial", 20));
 			this.graphicsContext.fillText("Nochmal mit ENTER", 365, 583); 
 		} 
@@ -499,16 +495,14 @@ public class GameScene extends Scene implements SubscriberInterface {
 	}
 	
 	/**
-	 * Hilfsfunktion zum leeren und neu befüllen der Szene
+	 * Funktion zum neu befuellen der Szene
 	 *
-	 */
-	/**
 	 * 
 	 */
 	private void updateElements() {
 		//Szene leeren 
 		this.graphicsContext.clearRect(0, 0, 950,600);
-		//Elemente in GUI setzen
+		//Bäume/Autos in GUI setzen
 		for(ImageView help: this.pictureCont){
 	        this.graphicsContext.restore();
 			this.graphicsContext.drawImage(help.getImage(), help.getX(), help.getY());
@@ -523,29 +517,22 @@ public class GameScene extends Scene implements SubscriberInterface {
 	}
 	
 	/**
-	 * Hilfsfunktion zum Update des Timerfeldes
+	 * Funktion zum Update des SpielzeitLabel
 	 *
-	 */
-	/**
-	 * @param data
+	 * @param data / Datenobjekt zur Uebergabe der aktuellen Spielzeit
 	 */
 	private void updateTimer(SubscriberDaten data) {
 		
 		Integer actTime = 0;
 		
-		if (data.time != null) actTime = data.time;
-		
-		this.timeLabel.setText("restliche Spielzeit: " + this.formatTime(Configuration.timeEnd - actTime) + " Sek.");
-		
+		if (data.time != null) {
+			actTime = data.time;
+		}
+		this.timeLabel.setText("restliche Spielzeit: " + this.formatTime(Configuration.timeEnd - actTime) + " Sek.");	
 	}
 		
 	/************************************** Observerhandling ***************************************/
 	
-	
-	/**
-	 * Funktion zum verarbeiten der Observertrigger
-	 *
-	 */
 	/* (non-Javadoc)
 	 * @see application.SubscriberInterface#calling(java.lang.String, application.SubscriberDaten)
 	 */
@@ -627,11 +614,8 @@ public class GameScene extends Scene implements SubscriberInterface {
 	}
 
 	/**
-	 * Hilfsfunktion zur Rückgabe der Szene
+	 * Funktion zur Rueckgabe der Szene
 	 * @return komplette Szene mit allen Elementen
-	 */
-	/**
-	 * @return
 	 */
 	public Scene getScene() {
 		return this;

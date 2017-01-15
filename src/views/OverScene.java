@@ -14,6 +14,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 /**
+ * Szene zum anzeigen der Programmiererdaten
+ * 
  * @author JackRyan
  *
  */
@@ -28,8 +30,11 @@ public class OverScene {
 	private String[] labelText = new String[4];
 
 	
+
 	/**
-	 * @param sceneController
+	 * Konstruktor
+	 *
+	 * @param sceneController / für die Szenen zustaendiger Controller
 	 */
 	public OverScene(SceneController sceneController) {
 		
@@ -49,57 +54,49 @@ public class OverScene {
 
 	/**
 	 * Funktion zum erstellen der Szene mit ihren Elementen
-	 * @return komplette Szene mit allen Elementen
-	 */
-	/**
 	 * 
+	 * @return komplette Szene mit allen Elementen
 	 */
 	private void buildScene() {
 
 		//Äußere VertikalBox zur Aufnahme aller weiteren Elemente
 		VBox verboAeussereBox = new VBox();
 		
-		verboAeussereBox.getStyleClass().add("verboAeussereBox");
-			
-			for(int i = 0 ; i < 4; i++) {
-				overList[i] = new Label(this.labelText[i]);
-				overList[i].getStyleClass().add("labelOver"+(i+1));
-				verboAeussereBox.getChildren().add(overList[i]);
-			};
-			
+		verboAeussereBox.getStyleClass().add("verboAeussereBox");			
+		for(int i = 0 ; i < 4; i++) {
+			overList[i] = new Label(this.labelText[i]);
+			overList[i].getStyleClass().add("labelOver"+(i+1));
+			verboAeussereBox.getChildren().add(overList[i]);
+		}			
 		this.contentOver.getChildren().add(verboAeussereBox);
-		
 		this.rootOver.setTop(this.buildMenu());
 		this.rootOver.setBottom(this.contentOver);
 	}
 	
-	/**
-	 * @return
+	/** 
+	 * Menueleiste bauen
+	 *
+	 * @return HBox / HorizontalBox mit Menue 
 	 */
 	private VBox buildMenu() {
 		
 		MenuBar menuBar = new MenuBar();
 		VBox menuBox = new VBox();
-		
 		menuBox.setPrefHeight(20);
-		
 		Menu froggerMenu = new Menu("Frogger");
 		MenuItem neuMenuItem = new MenuItem("Neues Spiel");
 		MenuItem exitMenuItem = new MenuItem("Exit");
-    
 		exitMenuItem.setOnAction(actionEvent -> Platform.exit());
 		neuMenuItem.setOnAction(actionEvent -> this.sceneController.newGame());
-    
 		froggerMenu.getItems().addAll(neuMenuItem,new SeparatorMenuItem(), exitMenuItem);
- 
    		menuBar.getMenus().addAll(froggerMenu);
-		
 		menuBox.getChildren().add(menuBar);
 		return menuBox;
 	}
 		
 	/**
-	 * @return
+	 * Funktion zur Rueckgabe der Szene
+	 * @return komplette Szene mit allen Elementen
 	 */
 	public Scene getScene() {
 		return this.scene;

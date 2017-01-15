@@ -3,7 +3,6 @@ package views;
 import application.Configuration;
 import application.Observer;
 import application.SubscriberDaten;
-import application.SubscriberInterface;
 import controller.SceneController;
 import javafx.application.Platform;
 import javafx.scene.Scene;
