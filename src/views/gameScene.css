@@ -26,6 +26,7 @@
 }
 
 .timeLabel {
+	-fx-pref-width: 450;
 	-fx-pref-height: 20;
 	-fx-padding: 5px;
 	-fx-font-size: 15 pt;

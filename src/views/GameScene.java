@@ -38,6 +38,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 	// Hauptpanel
 	private BorderPane rootGame = new BorderPane();
 	private StackPane contentGame = new StackPane();
+
 	
 	//BilderArrays für Autos und Baumstämme
 	private Image[] wood = new Image[3]; 
@@ -61,9 +62,14 @@ public class GameScene extends Scene implements SubscriberInterface {
 	//Element zur Identifikation ob Spiel läuft
 	Boolean running = false;
 	
+	Integer flyCounter = 0;
+	Integer scoreCounter = 0;
+	
 	//GraphicElemente zum Zeichen der GUI Elemente
     Canvas canvas = new Canvas(950,650);
     GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
+    Canvas canvasFly = new Canvas(950,650);
+    GraphicsContext graphicsContextFly = canvasFly.getGraphicsContext2D();
     
 	
    /********************************************* Szeneninitialisierung *********************************************/ 
@@ -85,6 +91,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 		
 		//VertikalBox zur Aufnahme der GUI Elemente
 		VBox contentBox = new VBox();
+		VBox flyBox = new VBox();
 
 		//Anmeldung Observer
 		Observer.add("car", this);
@@ -94,6 +101,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 		Observer.add("time", this);
 		Observer.add("win", this);
 		Observer.add("stopGame", this);
+		Observer.add("flyeaten", this);
 		
 		//Bilderarrays füllen
 		this.fillImageWood();
@@ -119,9 +127,12 @@ public class GameScene extends Scene implements SubscriberInterface {
 		this.rootGame.setTop(this.buildMenu());
 
 		//restliche Szenenelemnte einfügen 
+		flyBox.getStyleClass().add("content");
+		flyBox.getChildren().add(canvasFly);
 		contentBox.getStyleClass().add("content");
 		contentBox.getChildren().add(canvas);
 		this.contentGame.getChildren().add(contentBox);
+		this.contentGame.getChildren().add(flyBox);
 		this.rootGame.setBottom(this.contentGame);
 		
 		//Szenenidentifikation setzen
@@ -174,7 +185,8 @@ public class GameScene extends Scene implements SubscriberInterface {
 		menuBar.getMenus().addAll(froggerMenu, infoMenu);
 
 		//Menüzeitlabel befüllen
-		this.timeLabel.setText("restliche Spielzeit: " + this.formatTime(Configuration.timeEnd) + " Sek.");
+		DecimalFormat format = new DecimalFormat("00000");
+		this.timeLabel.setText("Punkte: " + format.format(this.scoreCounter) + " - restliche Spielzeit: " + this.formatTime(Configuration.timeEnd) + " Sek.");
 		this.timeLabel.getStyleClass().add("timeLabel");
 		menuBox.getChildren().add(menuBar);
 		menuBox.getChildren().add(this.timeLabel);
@@ -423,6 +435,11 @@ public class GameScene extends Scene implements SubscriberInterface {
 		this.updateElements();
 	}
 	
+	private void setFlyIcon () {
+		this.flyCounter = this.flyCounter + 1;
+		this.graphicsContextFly.drawImage(this.fly,10 + ((this.flyCounter * 50)-49), 550);
+	}
+	
 	/**
 	 * Funktion zum loeschen eines Frosch Objektes
 	 *
@@ -555,7 +572,8 @@ public class GameScene extends Scene implements SubscriberInterface {
 		if (data.time != null) {
 			actTime = data.time;
 		}
-		this.timeLabel.setText("restliche Spielzeit: " + this.formatTime(Configuration.timeEnd - actTime) + " Sek.");	
+		DecimalFormat format = new DecimalFormat("00000");
+		this.timeLabel.setText("Punkte: " + format.format(this.scoreCounter) + " - restliche Spielzeit: " + this.formatTime(Configuration.timeEnd - actTime) + " Sek.");	
 	}
 		
 	/************************************** Observerhandling ***************************************/
@@ -652,6 +670,14 @@ public class GameScene extends Scene implements SubscriberInterface {
 							this.running = false;
 						}
 						break;
+				}
+				case "flyeaten": {
+					this.setFlyIcon();
+					break;
+				}
+				case "scoreUpdate": {
+					this.scoreCounter = data.time;
+					break;
 				}
 			}
 		}
