@@ -5,6 +5,8 @@ import java.util.Queue;
 import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import com.sun.prism.paint.Gradient;
+
 import application.*;
 import controller.SceneController;
 import javafx.application.Platform;
@@ -140,7 +142,7 @@ public class GameScene extends Scene implements SubscriberInterface {
     
 		menuBar.getMenus().addAll(froggerMenu, infoMenu);
 		
-		this.timeLabel.setText("restliche Spielzeit: " + this.formatTime(Configuration.timeEnd));
+		this.timeLabel.setText("restliche Spielzeit: " + this.formatTime(Configuration.timeEnd) + " Sek.");
 		this.timeLabel.getStyleClass().add("timeLabel");
 		menuBox.getChildren().add(menuBar);
 		menuBox.getChildren().add(this.timeLabel);
@@ -439,6 +441,9 @@ public class GameScene extends Scene implements SubscriberInterface {
 			
 			//Großes GameOverBild setzen
 			this.graphicsContext.drawImage(winning, (Configuration.xFields/2*50)-200, (Configuration.yFields/2*50)-100);
+			
+			this.graphicsContext.setFont(new Font("Arial", 20));
+			this.graphicsContext.fillText("Nochmal mit ENTER", 365, 583); 
 		} 
 	 } 
 	
@@ -495,7 +500,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 		
 		if (data.time != null) actTime = data.time;
 		
-		this.timeLabel.setText("restliche Spielzeit: " + this.formatTime(Configuration.timeEnd - actTime));
+		this.timeLabel.setText("restliche Spielzeit: " + this.formatTime(Configuration.timeEnd - actTime) + " Sek.");
 		
 	}
 		
