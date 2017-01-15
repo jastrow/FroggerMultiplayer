@@ -132,10 +132,10 @@ public class ScoreScene implements SubscriberInterface {
 			String formatedTime = "";
 			DecimalFormat format = new DecimalFormat("00");
 			timeToFormat = timeToFormat / 1000 ;
-			formatedTime = format.format(( timeToFormat / 60 )) + ":" + format.format((timeToFormat - ((timeToFormat/60) * 60))); 
+			formatedTime = format.format((timeToFormat - ((timeToFormat/60) * 60))) + " Sek."; 
 			return formatedTime; 
 		} else {
-			return "00:00";
+			return "00 Sek.";
 		}
 	}
 		
