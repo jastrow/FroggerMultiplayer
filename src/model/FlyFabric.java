@@ -107,6 +107,7 @@ public class FlyFabric implements SubscriberInterface {
 			Fly flyEaten = this.getById(flyId);
 			if(flyEaten != null) {
 				flyEaten.triggerObserver("delete");
+				Observer.trigger("flyeaten", data);
 			}
 		}
 	}

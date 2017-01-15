@@ -14,4 +14,6 @@ public class Configuration {
 	public final static Integer[] riverLines = {5,6,7,8}; // Y-Positions (num = length)
 	public final static Integer treeMaxPerLane = 4; // Maximale Anzahl von Baeumen auf einer Flussbahn
 	public final static Integer treeSpeed = 300; 	// Bewegungsgeschwindigkeit Millisekunden pro Feld ()
+	
+	public final static Integer flyEatenPoints = 500; // Punkte wenn der Frosch eine Fliege fängt
 }

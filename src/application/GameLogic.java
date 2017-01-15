@@ -15,6 +15,9 @@ public class GameLogic implements SubscriberInterface {
 	private FlyFabric flyfabric;
 
 	private SceneController scene;
+	
+	private Integer score;
+	private Integer timeMali;
 
 
 	public GameLogic() {
@@ -24,15 +27,21 @@ public class GameLogic implements SubscriberInterface {
 		this.frogPlayer1 = new Frog(this.rivers, this.streets);
 		this.timer = new TimeMachine();
 
+		// Startpuntke
+		this.score = Configuration.timeEnd / 10;
+		
 		// Observer anmeldung
 		Observer.add("start", this);
 		Observer.add("win", this);
+		Observer.add("flyeaten", this);
+		Observer.add("stopGame", this);
 
 	}
 
 	public void calling(String trigger, SubscriberDaten daten) {
 		switch(trigger) {
 			case "start": {
+				this.score = Configuration.timeEnd / 10;;
 				this.timer.start(); 
 				break;
 			}
@@ -41,6 +50,15 @@ public class GameLogic implements SubscriberInterface {
 				SubscriberDaten setTime = new SubscriberDaten();
 				setTime.time = this.timer.getTime();
 				Observer.trigger("winTime", setTime);
+				break;
+			}
+			case "flyeaten": {
+				this.score += Configuration.flyEatenPoints;
+				break;
+			}
+			case "stopGame": {
+				this.score += (Configuration.timeEnd - this.timer.getTime()) / 10; 
+				System.out.println(this.score);
 			}
 			default: break;
 		}
