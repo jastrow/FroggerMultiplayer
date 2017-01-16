@@ -682,7 +682,6 @@ public class GameScene extends Scene implements SubscriberInterface {
 				}
 				case "scoreUpdate": {
 					this.scoreCounter = data.time;
-					System.out.println(data.time);
 					break;
 				}
 			}
