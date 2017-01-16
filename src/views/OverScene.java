@@ -9,6 +9,8 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -28,6 +30,7 @@ public class OverScene {
 	private GridPane contentOver = new GridPane();
 	private Label[] overList = new Label[4];
 	private String[] labelText = new String[4];
+	private TextArea licenseText  = new TextArea();
 
 	
 
@@ -42,6 +45,13 @@ public class OverScene {
 		this.labelText[1] = "Salim Andreas Oussayfi - 797754";
 		this.labelText[2] = "Mike Jastrow - 798141";
 		this.labelText[3] = "Manuel Bogus - 791563";
+		
+		this.licenseText.insertText(0,("Music by Bart Kelsey as Bart on http://opengameart.org"));
+		this.licenseText.insertText(1,("http://opengameart.org/content/the-adventure-begins-8-bit-remix"));
+		this.licenseText.insertText(2,("CC By 3.0 https://creativecommons.org/licenses/by/3.0/"));
+		this.licenseText.insertText(3, ("Changes: Converted to MP3"));
+		this.licenseText.getStyleClass().add("license");
+		this.licenseText.setWrapText(true);
 		
 		this.sceneController = sceneController;
 		this.contentOver.getStyleClass().add("content");
@@ -67,7 +77,8 @@ public class OverScene {
 			overList[i] = new Label(this.labelText[i]);
 			overList[i].getStyleClass().add("labelOver"+(i+1));
 			verboAeussereBox.getChildren().add(overList[i]);
-		}			
+		}		
+		verboAeussereBox.getChildren().add(this.licenseText);
 		this.contentOver.getChildren().add(verboAeussereBox);
 		this.rootOver.setTop(this.buildMenu());
 		this.rootOver.setBottom(this.contentOver);

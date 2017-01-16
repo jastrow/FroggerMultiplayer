@@ -20,16 +20,35 @@
 	-fx-padding: 240 0 0 0;
 }
 
+.license {
+	-fx-pref-width: 500;
+	-fx-pref-height: 70;
+	-fx-font-size: 8pt;
+	-fx-text-fill: green;
+	-fx-border: 0;
+	-fx-background-insets: 0;
+    -fx-background-color: transparent, white, transparent, white;
 
+}
+
+.license .content {
+	-fx-background-repeat: no-repeat;   
+    -fx-background-position: center center;
+	-fx-background-image: url("/views/license.png");
+	-fx-border: 0;
+	-fx-background-insets: 0;
+    -fx-background-color: transparent, white, transparent, white;
+}
 
 .labelOver1 {
 	-fx-background-repeat: no-repeat;   
     -fx-background-position: center center;
-	-fx-pref-width: 520;
+	-fx-pref-width: 200;
 	-fx-pref-height: 50;
 	-fx-text-fill: green;
 	-fx-alignment: center;
 	-fx-background-color: white;
+
 
 }
 
@@ -37,31 +56,31 @@
 .labelOver2 {
 	-fx-background-repeat: no-repeat;   
     -fx-background-position: center center;
-	-fx-pref-width: 520;
+	-fx-pref-width: 500;
 	-fx-pref-height: 50;
-	-fx-padding: 0 0 0 60;
 	-fx-text-fill: green;
 	-fx-background-image: url("/views/over.png");
+	-fx-padding: 0 0 0 40;
 }
 
 .labelOver3 {
 	-fx-background-repeat: no-repeat;   
     -fx-background-position: center center;
-	-fx-pref-width: 520;
+	-fx-pref-width: 500;
 	-fx-pref-height: 50;
-	-fx-padding: 0 0 0 60;
 	-fx-text-fill: green;
 	-fx-background-image: url("/views/over.png");
+	-fx-padding: 0 0 0 40;
 }
 
 .labelOver4 {
 	-fx-background-repeat: no-repeat;   
     -fx-background-position: center center;
-	-fx-pref-width: 520;
+	-fx-pref-width: 500;
 	-fx-pref-height: 50;
-	-fx-padding: 0 0 0 60;
 	-fx-text-fill: green;
 	-fx-background-image: url("/views/over.png");
+	-fx-padding: 0 0 0 40;
 
 }
 

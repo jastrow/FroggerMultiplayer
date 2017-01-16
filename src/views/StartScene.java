@@ -96,6 +96,13 @@ public class StartScene {
 		MenuItem overMenuItem = new MenuItem("Über..");		
 		overMenuItem.setOnAction(actionEvent -> this.sceneController.showOver());	    
 		infoMenu.getItems().addAll(highMenuItem, overMenuItem);    
+		
+		MenuItem music = new MenuItem("Musik an/aus");
+		SubscriberDaten subDat = new SubscriberDaten();
+		subDat.typ = "toggle";
+		music.setOnAction( actionEvent -> Observer.trigger("sound", subDat) );
+		infoMenu.getItems().add(music);
+
 		menuBar.getMenus().addAll(froggerMenu, infoMenu);		
 		menuBox.getChildren().add(menuBar);		
 		return menuBox;
