@@ -22,17 +22,12 @@ public class SoundController implements SubscriberInterface {
 			ClassLoader.getSystemResource("views/music.mp3").toString()
 		);		
 		this.musicPlayer = new MediaPlayer(this.music);
-
-		this.hop = new Media( 
-			ClassLoader.getSystemResource("views/hop.mp3").toString()
-		);		
-		this.hopPlayer = new MediaPlayer(this.hop);
 		
 		this.musicOn = true;
 		
 		playMusic();
 		Observer.add("sound", this);
-		Observer.add("frog", this);
+		Observer.add("key", this);
 	}
 	
 	public void playMusic() {
@@ -45,16 +40,17 @@ public class SoundController implements SubscriberInterface {
 	}
 
 	public void playHop() {
-		Runnable test = new Runnable() {
-			public void run() {
-				hopPlayer.seek(Duration.ZERO);
-			}
-		};
-		hopPlayer.play();		
+
+		this.hop = new Media( 
+				ClassLoader.getSystemResource("views/hop.mp3").toString()
+			);		
+		this.hopPlayer = new MediaPlayer(this.hop);	
+		this.hopPlayer.play();
+
 	}
 
 	public void calling(String trigger, SubscriberDaten data) {
-		if(trigger == "frog") {
+		if(trigger == "key") {
 			this.playHop();
 		}
 		if(trigger == "sound") {
