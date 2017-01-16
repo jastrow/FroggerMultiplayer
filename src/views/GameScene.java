@@ -45,6 +45,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 	private Image[] carLeftToRight  = new Image[2];
 	private Image[] carRightToLeft  = new Image[2];
 	private Image fly;
+	private Image star;
 	
 	//Label zur Anzeige der Spielzeit und Punktestand
 	private Label timeLabel = new Label();
@@ -110,6 +111,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 		this.fillImageCarToLeft();
 		this.fillImageCarToRight();
 		this.fly = new Image(getClass().getResource("fly.png").toExternalForm());
+		this.star = new Image(getClass().getResource("star.png").toExternalForm());
 		
 
 		//Szene Formatierungs CSS  zuweisen
@@ -190,7 +192,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 		DecimalFormat format = new DecimalFormat("00000");
 		this.scoreLabel.setText("Punkte: " + format.format(this.scoreCounter));
 		this.scoreLabel.getStyleClass().add("scoreLabel");
-		this.timeLabel.setText(" - Restliche Spielzeit: " + this.formatTime(Configuration.timeEnd) + " Sek.");
+		this.timeLabel.setText("- Restliche Spielzeit: " + this.formatTime(Configuration.timeEnd) + " Sek.");
 		this.timeLabel.getStyleClass().add("timeLabel");
 		menuBox.getChildren().add(menuBar);
 		menuBox.getChildren().add(this.scoreLabel);
@@ -446,7 +448,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 	 */
 	private void setFlyIcon () {
 		this.flyCounter = this.flyCounter + 1;
-		this.graphicsContextFly.drawImage(this.fly, 10 + ((this.flyCounter * 50)-49), 550);
+		this.graphicsContextFly.drawImage(this.star, 10 + ((this.flyCounter * 50)-49), 550);
 	}
 	
 	/**
@@ -583,7 +585,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 		}
 		DecimalFormat format = new DecimalFormat("00000");
 		this.scoreLabel.setText("Punkte: " + format.format(this.scoreCounter));
-		this.timeLabel.setText(" - Restliche Spielzeit: " + this.formatTime(Configuration.timeEnd - actTime) + " Sek.");	
+		this.timeLabel.setText("- Restliche Spielzeit: " + this.formatTime(Configuration.timeEnd - actTime) + " Sek.");	
 	}
 		
 	/************************************** Observerhandling ***************************************/
