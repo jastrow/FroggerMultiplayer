@@ -3,12 +3,8 @@ package application;
 import controller.*;
 import javafx.application.Application;
 import javafx.event.EventHandler;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import javafx.util.Duration;
-
 
 
 public class Main extends Application {
@@ -16,7 +12,6 @@ public class Main extends Application {
 	public SceneController sceneController;
 	public HighScoreController highScoreController;
 	public GameLogic gameData;	
-	public ActionController actionController; 
 	public ServerController server; 
 	public SoundController sound;
 
@@ -25,7 +20,6 @@ public class Main extends Application {
 		this.highScoreController = new HighScoreController();
 		this.sceneController = new SceneController();
 		this.gameData = new GameLogic();
-		this.actionController = new ActionController();
 		this.sound = new SoundController();
 
 		this.gameData.setScene(this.sceneController);

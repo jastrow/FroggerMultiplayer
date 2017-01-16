@@ -15,22 +15,6 @@
     -fx-alignment: center;
 }
 
-.sucheSpieler {
-	-fx-background-repeat: no-repeat;   
-    -fx-background-position: center center;
-    -fx-background-image: url("/views/btn_SpielerSuchen.png");
-    -fx-background-color: rgb(255,255,255);
-   	-fx-padding: 0 0 60 0;
-}
-
-.sucheSpieler:hover {
-	-fx-background-repeat: no-repeat;   
-    -fx-background-position: center center;
-    -fx-background-image: url("/views/btn_SpielerSuchen_hover.png");
-    -fx-background-color: rgb(255,255,255);
-    -fx-padding: 0 0 60 0;
-}
-
 .starteSpiel {
 	-fx-background-repeat: no-repeat;   
     -fx-background-position: center center;

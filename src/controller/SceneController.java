@@ -22,9 +22,8 @@ public class SceneController implements SubscriberInterface {
 	private boolean firstStart = true;
 	private boolean keyPressed = false;
 
-	
-	
-	
+
+
 	public SceneController() {
 		this.startScene = new StartScene(this);
 		this.scoreScene = new ScoreScene(this);

@@ -151,10 +151,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 	 * @return HBox / HorizontalBox mit Menue 
 	 */
 	private HBox buildMenu() {
-		
-//		return MenuBuilder.buildMenu();
-
-		
+				
 		HBox menuBox = new HBox();
 		menuBox.setPrefHeight(20);
 
