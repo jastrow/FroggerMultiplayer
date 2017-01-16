@@ -3,6 +3,7 @@ package controller;
 import application.Observer;
 import application.SubscriberDaten;
 import application.SubscriberInterface;
+import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
@@ -14,14 +15,17 @@ public class SoundController implements SubscriberInterface {
 	Media music;
 	MediaPlayer musicPlayer;
 	
-	Media hop;
-	MediaPlayer hopPlayer;
+	AudioClip hop;
 	
 	public SoundController() {
 		this.music = new Media( 
 			ClassLoader.getSystemResource("views/music.mp3").toString()
 		);		
 		this.musicPlayer = new MediaPlayer(this.music);
+		
+		this.hop = new AudioClip( 
+				ClassLoader.getSystemResource("views/hop.mp3").toString()
+			);		
 		
 		this.musicOn = true;
 		
@@ -39,19 +43,9 @@ public class SoundController implements SubscriberInterface {
 		musicPlayer.play();		
 	}
 
-	public void playHop() {
-
-		this.hop = new Media( 
-				ClassLoader.getSystemResource("views/hop.mp3").toString()
-			);		
-		this.hopPlayer = new MediaPlayer(this.hop);	
-		this.hopPlayer.play();
-
-	}
-
 	public void calling(String trigger, SubscriberDaten data) {
 		if(trigger == "key") {
-			this.playHop();
+			this.hop.play();
 		}
 		if(trigger == "sound") {
 			switch (data.typ) {
