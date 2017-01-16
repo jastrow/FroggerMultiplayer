@@ -46,8 +46,9 @@ public class GameScene extends Scene implements SubscriberInterface {
 	private Image[] carRightToLeft  = new Image[2];
 	private Image fly;
 	
-	//Label zur Anzeige der Spielzeit
+	//Label zur Anzeige der Spielzeit und Punktestand
 	private Label timeLabel = new Label();
+	private Label scoreLabel = new Label();
 	
 	//Spielzeit
 	private Integer time;
@@ -132,8 +133,8 @@ public class GameScene extends Scene implements SubscriberInterface {
 		flyBox.getChildren().add(canvasFly);
 		contentBox.getStyleClass().add("content");
 		contentBox.getChildren().add(canvas);
-		this.contentGame.getChildren().add(contentBox);
 		this.contentGame.getChildren().add(flyBox);
+		this.contentGame.getChildren().add(contentBox);
 		this.rootGame.setBottom(this.contentGame);
 		
 		//Szenenidentifikation setzen
@@ -187,9 +188,12 @@ public class GameScene extends Scene implements SubscriberInterface {
 
 		//Menüzeitlabel befüllen
 		DecimalFormat format = new DecimalFormat("00000");
-		this.timeLabel.setText("Punkte: " + format.format(this.scoreCounter) + " - restliche Spielzeit: " + this.formatTime(Configuration.timeEnd) + " Sek.");
+		this.scoreLabel.setText("Punkte: " + format.format(this.scoreCounter));
+		this.scoreLabel.getStyleClass().add("scoreLabel");
+		this.timeLabel.setText(" - Restliche Spielzeit: " + this.formatTime(Configuration.timeEnd) + " Sek.");
 		this.timeLabel.getStyleClass().add("timeLabel");
 		menuBox.getChildren().add(menuBar);
+		menuBox.getChildren().add(this.scoreLabel);
 		menuBox.getChildren().add(this.timeLabel);
 		return menuBox;
 	}
@@ -578,7 +582,8 @@ public class GameScene extends Scene implements SubscriberInterface {
 			actTime = data.time;
 		}
 		DecimalFormat format = new DecimalFormat("00000");
-		this.timeLabel.setText("Punkte: " + format.format(this.scoreCounter) + " - restliche Spielzeit: " + this.formatTime(Configuration.timeEnd - actTime) + " Sek.");	
+		this.scoreLabel.setText("Punkte: " + format.format(this.scoreCounter));
+		this.timeLabel.setText(" - Restliche Spielzeit: " + this.formatTime(Configuration.timeEnd - actTime) + " Sek.");	
 	}
 		
 	/************************************** Observerhandling ***************************************/
