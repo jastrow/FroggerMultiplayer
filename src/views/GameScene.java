@@ -102,6 +102,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 		Observer.add("win", this);
 		Observer.add("stopGame", this);
 		Observer.add("flyeaten", this);
+		Observer.add("scoreUpdate", this);
 		
 		//Bilderarrays füllen
 		this.fillImageWood();
@@ -681,6 +682,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 				}
 				case "scoreUpdate": {
 					this.scoreCounter = data.time;
+					System.out.println(data.time);
 					break;
 				}
 			}

@@ -53,7 +53,7 @@ public class GameLogic implements SubscriberInterface {
 				break;
 			}
 			case "stopGame": {
-				this.getScore();
+				this.getScore(true);
 				break;
 			}
 			case "frog": {
@@ -64,6 +64,7 @@ public class GameLogic implements SubscriberInterface {
 			}
 			case "time": {
 				this.zeit = daten.time;
+				this.getScore();
 				break;
 			}
 			default: break;
@@ -75,17 +76,26 @@ public class GameLogic implements SubscriberInterface {
 	}
 
 	public void getScore() {
+		this.getScore(false);
+	}
+	
+	public void getScore(Boolean withUpload) {
 		Integer timeBonus = 0;
 		Integer fliesBonus = 0;
-		if(this.win) {
-			timeBonus = (int) (Configuration.timeEnd - this.zeit) / 10;
-			fliesBonus = this.fliesEaten * Configuration.flyEatenPoints;
-			this.score = timeBonus + fliesBonus;
 
-			SubscriberDaten timeData = new SubscriberDaten();
-			timeData.time = this.score;
+		timeBonus = (int) (Configuration.timeEnd - this.zeit) / 10;
+		fliesBonus = this.fliesEaten * Configuration.flyEatenPoints;
+		this.score = timeBonus + fliesBonus;
+
+		SubscriberDaten timeData = new SubscriberDaten();
+		timeData.time = this.score;
+		
+		Observer.trigger("scoreUpdate", timeData);
+		
+		if(withUpload && this.win) {
 			Observer.trigger("entry", timeData);
 		}
+
 	}
 
 }

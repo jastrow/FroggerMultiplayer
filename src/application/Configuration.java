@@ -9,7 +9,7 @@ public class Configuration {
 
 	public final static Integer[] streetLines = {2,3,10,11}; // Y-Positions (num of = length) 2,3,10,11
 	public final static Integer carMaxPerStreet = 3; // Maximale Anzahl von Autos auf einer Straße
-	public final static Integer carSpeed = 300; 	// Bewegungsgeschwindigkeit Millisekunden pro Feld ()
+	public final static Integer carSpeed = 200; 	// Bewegungsgeschwindigkeit Millisekunden pro Feld ()
 
 	public final static Integer[] riverLines = {5,6,7,8}; // Y-Positions (num = length)
 	public final static Integer treeMaxPerLane = 4; // Maximale Anzahl von Baeumen auf einer Flussbahn
