@@ -4,16 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import application.Configuration;
-import application.SubscriberDaten;
-import application.SubscriberInterface;
 
 /**
  * Klasse zur Erstellung der Fluesse in der Spielszene
- * 
+ *
  * @author Die UMeLs
  *
  */
-public class Rivers implements SubscriberInterface {
+public class Rivers  {
 
 	public List<River> riverlines = new ArrayList<River>();
 
@@ -29,17 +27,11 @@ public class Rivers implements SubscriberInterface {
 			);
 		}
 	}
-	
-	/* (non-Javadoc)
-	 * @see application.SubscriberInterface#calling(java.lang.String, application.SubscriberDaten)
-	 */
-	public void calling(String trigger, SubscriberDaten data) {
-		this.showRiversInConsole();
-	}
 
-	/** 
+
+	/**
 	 * showRiversInConsole
-	 * 
+	 *
 	 */
 	public void showRiversInConsole() {
 		for(River river: this.riverlines) {
@@ -47,13 +39,13 @@ public class Rivers implements SubscriberInterface {
 		}
 		System.out.println("\r\n");
 	}
-	
-	/** 
+
+	/**
 	 * Kollisionspruefung Fluesse
 	 *
 	 * @param positionX / xPosition des Flusses in Spielraster
 	 * @param positionY / yPosition des Flusses in Spielraster
-	 * 
+	 *
 	 * @return Integer / Kollisionsergebnis
 	 */
 	public Integer collisionCheck(Integer positionX, Integer positionY) {
