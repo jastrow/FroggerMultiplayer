@@ -3,6 +3,13 @@ package controller;
 import application.*;
 import javafx.application.Platform;
 
+/**
+ * Stellt einen Timer zur Synchronisierung der Ablaeufe zur Verfuegung
+ * 
+ * 
+ * @author Die UMeLs
+ *
+ */
 public class TimeMachine implements Runnable, SubscriberInterface {
 
 	private Thread t;
@@ -10,6 +17,10 @@ public class TimeMachine implements Runnable, SubscriberInterface {
 	private Integer timeLog;
 	private Integer timeEnd;
 	
+	/**
+	 * Konstruktor
+	 *
+	 */
 	public TimeMachine() {
 		this.timeEnd = Configuration.timeEnd;
 		this.reset();
@@ -17,15 +28,28 @@ public class TimeMachine implements Runnable, SubscriberInterface {
 		Observer.add("resetGame", this);
 	}
 	
+	/** 
+	 * gibt aktuelle Zeit zurueck
+	 *
+	 * @return Integer / aktuelle Zeit
+	 */
 	public Integer getTime() {
 		return this.timeLog;
 	}
 	
+	/** 
+	 * zuruecksetzen des Timers
+	 * 
+	 */
 	public void reset() {
 		this.running = false;
 		this.timeLog = 0;
 	}
 	
+	/** 
+	 * TimerThread starten
+	 * 
+	 */
 	public void start() {
 		this.running = true;
 		this.timeLog = 0;
@@ -38,11 +62,18 @@ public class TimeMachine implements Runnable, SubscriberInterface {
 		}
 	}
 	
+	/** 
+	 * Neustart Timer
+	 * 
+	 */
 	public void restart() {
 		this.reset();
 		this.start();
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
 	@Override
 	public void run() {
 		while(this.running) {
@@ -75,6 +106,9 @@ public class TimeMachine implements Runnable, SubscriberInterface {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see application.SubscriberInterface#calling(java.lang.String, application.SubscriberDaten)
+	 */
 	public void calling(String trigger, SubscriberDaten data) {
 		if(trigger == "stopGame") {
 			this.running = false;

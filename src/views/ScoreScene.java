@@ -26,7 +26,7 @@ import javafx.scene.layout.VBox;
 /** 
  * HighScoreSzene / Szene zur Darstellung der HighScores
  * 
- * @author JackRyan
+ * @author Die UMeLs
  *
  */
 public class ScoreScene implements SubscriberInterface {

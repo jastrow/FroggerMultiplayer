@@ -10,6 +10,12 @@ import javafx.stage.Stage;
 import views.*;
 
 
+/**
+ * Steuert die Anzeige und Umschaltung der notwendigen Szenen
+ * 
+ * @author Die UMeLs
+ *
+ */
 public class SceneController implements SubscriberInterface {
 	
 	public StartScene startScene;
@@ -24,6 +30,11 @@ public class SceneController implements SubscriberInterface {
 
 
 
+	/**
+	 * Konstruktor
+	 *
+	 *
+	 */
 	public SceneController() {
 		this.startScene = new StartScene(this);
 		this.scoreScene = new ScoreScene(this);
@@ -36,47 +47,86 @@ public class SceneController implements SubscriberInterface {
 	}
 
 	
+	/** 
+	 * Szene setzen auf aktuelle Buehne
+	 *
+	 * @param primaryStage / aktuelle Buehne 
+	 * 
+	 */
 	public void setStage(Stage primaryStage){
 		this.primaryStage = primaryStage;
 		this.primaryStage.setScene(this.getStartScene());
 		this.primaryStage.show();
 	}
 	
+	/** 
+	 * gibt GameScene zurueck
+	 *
+	 * @return scene / GameScene
+	 */
 	public Scene getGameScene() {
 		return this.gameScene.getScene();
 	}
 	
+	/** 
+	 * gibt HighScoreScene zurueck
+	 *
+	 * @return scene / HighScoreScene
+	 */
 	public Scene getScoreScene() {
 		return this.scoreScene.getScene();
 	}
 	
+	/** 
+	 * gibt StartScene zurueck
+	 *
+	 * @return scene / StartScene
+	 */
 	public Scene getStartScene() {
 		return this.startScene.getScene();
 	}
 	
+	/** 
+	 * gibt OverScene zurueck
+	 *
+	 * @return scene / OverScene
+	 */
 	public Scene getOverScene() {
 		return this.overScene.getScene();
 	}
 	
 	
+	/** 
+	 * fuehrt Szenenwechsel zu Startbildschirm durch
+	 * 
+	 */
 	public void newGame(){
 		Observer.trigger("resetGame", new SubscriberDaten());
 		this.primaryStage.setScene(this.getStartScene());
 	}
 	
+	/** 
+	 * fuehrt Szenenwechsel zu HighScoreBildschirm durch
+	 * 
+	 */
 	public void showHighscore(){
 		Observer.trigger("readHigh", new SubscriberDaten());
 		this.primaryStage.setScene(this.getScoreScene());
 	}
 	
+	/** 
+	 * fuehrt Szenenwechsel zu UeberBildschirm durch
+	 * 
+	 */
 	public void showOver(){
 		this.primaryStage.setScene(this.getOverScene());
 	}
 	
-	public void searchPlayer(){
-
-	}
 	
+	/** 
+	 * startet Spiel und setzt KeyListener fuer die Steuerung
+	 * 
+	 */
 	public void startGame(){
 		if(this.gameScene != null) {
 			Observer.removeMe(this.gameScene);
@@ -148,6 +198,10 @@ public class SceneController implements SubscriberInterface {
 		
 	}
 	
+	/** 
+	 * zeigt GameScene bzw StartScene je nachdem ob Spiel laeuft oder nicht
+	 * 
+	 */
 	public void showGameScene() {
 		if (gameRunning) {
 			this.primaryStage.setScene(this.getGameScene());
@@ -158,12 +212,22 @@ public class SceneController implements SubscriberInterface {
 		}
 	}
 
+	
+	/** 
+	 * setzt Trigger wenn Szene geschlossen wird
+	 *
+	 * @param actScene / aktuell aktive Szene
+	 * 
+	 */
 	public void submitClose(String actScene){
 		SubscriberDaten data = new SubscriberDaten();
 		data.name = actScene;
 		Observer.trigger("close", data);
 	}
 	
+	/* (non-Javadoc)
+	 * @see application.SubscriberInterface#calling(java.lang.String, application.SubscriberDaten)
+	 */
 	public void calling(String trigger, SubscriberDaten data) {
 		switch (trigger) {
 			case "time": { 

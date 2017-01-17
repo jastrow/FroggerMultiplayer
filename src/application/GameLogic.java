@@ -7,6 +7,8 @@ import model.*;
 
 
 /**
+ * Klasse fuer die SpielLogik und PunkteVergabe
+ * 
  * @author Die UMeLs
  *
  */

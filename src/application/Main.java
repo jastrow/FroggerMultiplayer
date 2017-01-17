@@ -8,6 +8,8 @@ import javafx.stage.WindowEvent;
 
 
 /**
+ * MainKlasse
+ * 
  * @author Die UMeLs
  *
  */

@@ -8,6 +8,12 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
+/**
+ * Steuert die Wiedergabe der implementierten Sounddateien
+ * 
+ * @author Die UMeLs
+ *
+ */
 public class SoundController implements SubscriberInterface {
 	
 	Boolean musicOn;
@@ -17,6 +23,11 @@ public class SoundController implements SubscriberInterface {
 	
 	AudioClip hop;
 	
+	/**
+	 * Konstruktor
+	 *
+	 *
+	 */
 	public SoundController() {
 		this.music = new Media( 
 			ClassLoader.getSystemResource("views/music.mp3").toString()
@@ -34,6 +45,10 @@ public class SoundController implements SubscriberInterface {
 		Observer.add("key", this);
 	}
 	
+	/** 
+	 * Musik abspielen
+	 * 
+	 */
 	public void playMusic() {
 		this.musicPlayer.setOnEndOfMedia(new Runnable() {
 			public void run() {
@@ -43,6 +58,9 @@ public class SoundController implements SubscriberInterface {
 		musicPlayer.play();		
 	}
 
+	/* (non-Javadoc)
+	 * @see application.SubscriberInterface#calling(java.lang.String, application.SubscriberDaten)
+	 */
 	public void calling(String trigger, SubscriberDaten data) {
 		if(trigger == "key") {
 			this.hop.play();

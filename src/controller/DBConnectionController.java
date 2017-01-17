@@ -11,6 +11,8 @@ import java.net.URLEncoder;
 
 
 /**
+ * Steuert den Zugriff auf die Datenbankschnittstelle
+ * 
  * @author Die UMeLs
  *
  */

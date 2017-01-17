@@ -1,6 +1,8 @@
 package application;
 
 /**
+ * Interface zur Definition der Callingmethode an Observer
+ * 
  * @author Die UMeLs
  *
  */

@@ -20,7 +20,7 @@ import javafx.scene.layout.VBox;
 /** 
  * StartSzene / StartSzene des Programms
  * 
- * @author JackRyan
+ * @author Die UMeLs
  *
  */
 public class StartScene {

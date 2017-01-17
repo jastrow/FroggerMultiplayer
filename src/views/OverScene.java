@@ -18,7 +18,7 @@ import javafx.scene.layout.VBox;
 /**
  * Szene zum anzeigen der Programmiererdaten
  * 
- * @author JackRyan
+ * @author Die UMeLs
  *
  */
 public class OverScene {

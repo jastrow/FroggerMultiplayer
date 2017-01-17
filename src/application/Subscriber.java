@@ -1,6 +1,8 @@
 package application;
 
 /**
+ * Klasse definiert Struktur der ObserverTrigger
+ * 
  * @author Die UMeLs
  *
  */

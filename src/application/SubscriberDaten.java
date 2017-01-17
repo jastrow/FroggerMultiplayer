@@ -1,6 +1,8 @@
 package application;
 
 /**
+ * Klasse zur Definition der TriggerDaten des Observers
+ * 
  * @author Die UMeLs
  *
  */

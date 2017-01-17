@@ -7,6 +7,8 @@ import application.SubscriberInterface;
 import javafx.application.Platform;
 
 /**
+ * Steuert das Auslesen und das Eintragen des HighScore in die Datenbank
+ * 
  * @author Die UMeLs
  *
  */

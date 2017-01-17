@@ -28,7 +28,7 @@ import javafx.scene.text.Font;
 /** 
  * SpielSzene / Hauptszene des Programms
  * 
- * @author JackRyan
+ * @author Die UMeLs
  *
  */
 public class GameScene extends Scene implements SubscriberInterface {
