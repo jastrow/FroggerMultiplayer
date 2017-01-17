@@ -5,6 +5,12 @@ import application.Observer;
 import application.SubscriberDaten;
 import application.SubscriberInterface;
 
+/**
+ * Klasse zur definition des Frosches und seiner Funktionen
+ * 
+ * @author Die UMeLs
+ *
+ */
 public class Frog implements SubscriberInterface {
 
 	private Integer id;
@@ -17,10 +23,23 @@ public class Frog implements SubscriberInterface {
 	private Rivers rivers = null;	// Hat nur Frosch 1
 	private Streets streets = null;	// Hat nur Frosch 1
 	
+	/**
+	 * Konstruktor
+	 *
+	 *
+	 */
 	public Frog() {
 		this.id = IdCounter.getId();
 		this.initializeFrog();
 	}
+	
+	/**
+	 * Konstruktor
+	 *
+	 * @param rivers / Fluesse auf Spielflaeche
+	 * @param streets / Strassen auf Spielflaeche
+	 *
+	 */
 	public Frog(Rivers rivers, Streets streets/*, River trees*/) {
 		this.id = IdCounter.getId();
 		this.initializeFrog();
@@ -35,6 +54,10 @@ public class Frog implements SubscriberInterface {
 		Observer.add("timeKilledFrog", this);
 	}
 	
+	/** 
+	 * Initialisierung des Frosches
+	 * 
+	 */
 	private void initializeFrog() {
 		this.positionX = (int)(Configuration.xFields / 2);
 		this.positionY = Configuration.yFields;
@@ -44,6 +67,9 @@ public class Frog implements SubscriberInterface {
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see application.SubscriberInterface#calling(java.lang.String, application.SubscriberDaten)
+	 */
 	public void calling(String trigger, SubscriberDaten data) {
 		if(trigger == "key" && !this.killed) {
 			if(!this.killed) {
@@ -74,6 +100,12 @@ public class Frog implements SubscriberInterface {
 		}
 	}
 	
+	/** 
+	 * bewegen des Frosches
+	 *
+	 * @param direction / Richtung
+	 * 
+	 */
 	private void move(String direction) {
 		Integer newX = this.positionX;
 		Integer newY = this.positionY;
@@ -106,6 +138,10 @@ public class Frog implements SubscriberInterface {
 		}
 	}
 	
+	/** 
+	 * pruefen ob Frosch kolliedert
+	 * 
+	 */
 	public void collisionCheck() {
 		// 1. Kollision mit Cars
 		if(this.streets != null) { 
@@ -129,6 +165,12 @@ public class Frog implements SubscriberInterface {
 		}
 	}
 	
+	/** 
+	 * senden eines Triggers an den Observer
+	 *
+	 * @param typ / Art des Triggers
+	 * 
+	 */
 	public void triggerObserver(String typ) {
 		SubscriberDaten data = new SubscriberDaten();
 		data.name = "Frog";
@@ -143,6 +185,9 @@ public class Frog implements SubscriberInterface {
 		Observer.trigger("frog", data);
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		String out = "";

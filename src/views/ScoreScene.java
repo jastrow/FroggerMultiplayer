@@ -1,7 +1,6 @@
 package views;
 
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import application.Configuration;
@@ -61,7 +60,6 @@ public class ScoreScene implements SubscriberInterface {
 	/**
 	 * Funktion zum erstellen der Szene mit ihren Elementen
 	 * 
-	 * @return komplette Szene mit allen Elementen
 	 */
 	private void buildScene() {
 
@@ -125,25 +123,6 @@ public class ScoreScene implements SubscriberInterface {
 		}	
 		return formatedDate;
 	}
-
-	/**
-	 * Hilfsfunktion zum formatieren der Zeitausgabe
-	 *
-	 * @param timeToFormat / uebergebene Zeit in Millisekunden
-	 * @return formatierter ZeitString in Sekunden
-	 */
-	private String formatTime(Integer timeToFormat) {
-		
-		if (timeToFormat != null) {
-			String formatedTime = "";
-			DecimalFormat format = new DecimalFormat("00");
-			timeToFormat = timeToFormat / 1000 ;
-			formatedTime = format.format((timeToFormat - ((timeToFormat/60) * 60))) + " Sek."; 
-			return formatedTime; 
-		} else {
-			return "00 Sek.";
-		}
-	}
 	
 	/**
 	 * Funktion zur Rueckgabe der Szene
@@ -166,7 +145,6 @@ public class ScoreScene implements SubscriberInterface {
 						+ this.playerName[i] 
 						+ " | "
 						+ this.formatDate(this.playerDate[i]) 
-						//+ " - " + this.formatTime(this.playerTime[i])
 				);
 			}
 		}		

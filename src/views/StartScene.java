@@ -51,7 +51,6 @@ public class StartScene {
 	/**
 	 * Funktion zum erstellen der Szene mit ihren Elementen
 	 * 
-	 * @return komplette Szene mit allen Elementen
 	 */
 	private void buildScene() {
 

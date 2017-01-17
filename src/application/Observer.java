@@ -3,8 +3,6 @@ package application;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import model.IdCounter;
-
 
 /**
  * Observer ermoeglicht es, dass verschiedene Klassen sich hier anmelden koennen,

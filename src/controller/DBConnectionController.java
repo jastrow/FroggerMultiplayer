@@ -37,7 +37,7 @@ public class DBConnectionController {
 	 *
 	 * @param playerName  / Spielername
 	 * @param playerScore / PunkteStand
-	 * @throws IOException 
+	 * @throws IOException / Ausnahme wenn Anfrage fehlschlaegt
 	 * 
 	 */
 	public void writeData(String playerName, Integer playerScore) throws IOException {	
@@ -69,7 +69,7 @@ public class DBConnectionController {
 	/** 
 	 * schickt Trigger an Schnittstelle um HighScoreDaten zu erhalten
 	 *
-	 * @throws Exception 
+	 * @throws Exception / Ausnahme wenn Anfrage fehlschlaegt
 	 * @return String[] / Daten von DB Schnittstelle
 	 */
 	public String[] readData() throws Exception {

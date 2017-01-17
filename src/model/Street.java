@@ -9,6 +9,13 @@ import application.Observer;
 import application.SubscriberDaten;
 import application.SubscriberInterface;
 
+/**
+ * erstellen einer Strasse auf der Spielflaeche und erzeugen 
+ * der Autos auf der Strasse
+ * 
+ * @author Die UMeLs
+ *
+ */
 public class Street implements SubscriberInterface{
 
 	private Integer positionY; // Position der Straße auf y-Feldern
@@ -16,6 +23,12 @@ public class Street implements SubscriberInterface{
 	private Boolean leftToRight = false;	// Autos fahren von links nach rechts (ansonsten andersrum)
 	private Car lastCar;
 
+	/**
+	 * Konstruktor
+	 *
+	 * @param position / yPosition der Strasse im Spielfeldraster
+	 *
+	 */
 	public Street(Integer position) {
 		this.positionY = position;
 		
@@ -31,8 +44,8 @@ public class Street implements SubscriberInterface{
 		Observer.add("resetGame", this);
 	}
 
-	/**
-	 * Subscriber Schnittstelle.
+	/* (non-Javadoc)
+	 * @see application.SubscriberInterface#calling(java.lang.String, application.SubscriberDaten)
 	 */
 	public void calling(String trigger, SubscriberDaten daten) {
 		if(trigger == "car") {
@@ -59,14 +72,21 @@ public class Street implements SubscriberInterface{
 
 	}
 	
+	/** 
+	 * loesche Auto
+	 * 
+	 */
 	public void reset() {
 		for(Car car: this.cars) {
 			Observer.removeMe(car);
 		}
 		this.cars.clear();
-		//this.showInConsole();
 	}	
 	
+	/** 
+	 * starte Zufallsauto
+	 * 
+	 */
 	public void startRandomCars() {
 		Integer maxTime = Configuration.xFields * Configuration.carSpeed;
 		Integer startTime;
@@ -106,7 +126,7 @@ public class Street implements SubscriberInterface{
 	/**
 	 * Fortschritt der Gamezeit. 
 	 * Zufallsgenerator, ob ein neues Auto auftaucht.
-	 * @param newTime
+	 * 
 	 */
 	public void randomCar() {
 		if(this.cars.isEmpty()) {
@@ -129,7 +149,8 @@ public class Street implements SubscriberInterface{
 	/**
 	 * Ermittelt ob ein Auto erstellt werden soll.
 	 * Umso weiter sich das letzte Auto vom Start entfernt hat,
-	 * desto höher wird die Wahrscheinlichkeit, dass ein neues auftaucht. 
+	 * desto hoeher wird die Wahrscheinlichkeit, dass ein neues auftaucht. 
+	 * 
 	 * @param lastDistance Distanz des letzten Autos
 	 * @return Boolean true für neues Auto
 	 */
@@ -145,7 +166,8 @@ public class Street implements SubscriberInterface{
 	/**
 	 * Ermittelt die Distanz der Autos zum Anfang der Strecke,
 	 * je nach dem ob links-rechts Verkehr oder umgekehrt ist.
-	 * @return
+	 * 
+	 * @return distance / Abstand zum forderen Auto
 	 */
 	public Integer lastCarDistance() {
 		Integer distance = null;
@@ -162,7 +184,9 @@ public class Street implements SubscriberInterface{
 	
 	/**
 	 * Ein Auto hat die Straße verlassen.
-	 * @param id
+	 * 
+	 * @param carid / ID des betreffenden Autos
+	 * 
 	 */
 	public void carLeftStreet(Integer carid) {
 		for(Car car: this.cars) {
@@ -173,6 +197,14 @@ public class Street implements SubscriberInterface{
 		}
 	}
 	
+	/** 
+	 * Kollisionspruefung
+	 *
+	 * @param positionX / xPosition des Autos auf der Spielflaeche
+	 * @param positionY2 / positionY2
+	 * 
+	 * @return boolean / es gab eine/keine Kollission 
+	 */
 	public boolean collisionCheck(Integer positionX, Integer positionY2) {
 		for(Car car: this.cars) {
 			if(
@@ -185,6 +217,12 @@ public class Street implements SubscriberInterface{
 		return false;
 	}
 	
+	/** 
+	 * ermitteln der yPosition der Strasse im Spielraster
+	 *
+	 * @return Integer / yPosition im Spielraster
+	 * 
+	 */
 	public Integer getPositionY() {
 		return this.positionY;
 	}
@@ -199,6 +237,13 @@ public class Street implements SubscriberInterface{
 			this.showStreet()
 		);
 	}
+	
+	
+	/** 
+	 * showStreet
+	 *
+	 * @return String / showStreet
+	 */
 	public String showStreet() {
 		String ASCIIstreet = String.format("%02d", this.positionY) + " ";
 		for(int i = 1; i <= Configuration.xFields; i++) {
@@ -210,6 +255,13 @@ public class Street implements SubscriberInterface{
 		}
 		return ASCIIstreet;
 	}
+	
+	/** 
+	 * Positiosnspruefung Auto
+	 *
+	 * @param p / xPosition eines Autos auf dem Spielraster
+	 * @return Boolean / Kollission
+	 */
 	public Boolean checkPosition(int p) {
 		for(Car car: this.cars) {
 			if(car.getPositionX() == p) {

@@ -12,14 +12,21 @@ import application.SubscriberInterface;
 /**
  * Fliegen sitzen nur auf Bäumen.
  * Werden generiert, wenn ein neuer Baum entsteht.
- * @author max
+ * 
+ * @author Die UMeLs
  *
  */
+
 public class FlyFabric implements SubscriberInterface {
 
 	private Queue<Fly> flys = new ConcurrentLinkedQueue<Fly>();
 	private Random rand;
 	
+	/**
+	 * Konstruktor
+	 *
+	 *
+	 */
 	public FlyFabric() {
 		this.rand = new Random();
 		Observer.add("tree", this);
@@ -29,6 +36,9 @@ public class FlyFabric implements SubscriberInterface {
 		Observer.add("frog", this);
 	}
 	
+	/* (non-Javadoc)
+	 * @see application.SubscriberInterface#calling(java.lang.String, application.SubscriberDaten)
+	 */
 	public void calling(String trigger, SubscriberDaten data) {
 		if(trigger.equals("tree")) {
 			if(data.typ.equals("new")) {
@@ -55,6 +65,10 @@ public class FlyFabric implements SubscriberInterface {
 		}
 	}
 	
+	/** 
+	 * loescht alle Fliegen
+	 * 
+	 */
 	private void reset() {
 		for(Fly fly: this.flys) {
 			Observer.removeMe(fly);
@@ -62,6 +76,12 @@ public class FlyFabric implements SubscriberInterface {
 		this.flys.clear();
 	}
 	
+	/** 
+	 * erstellt eine zufaellige Fliege
+	 *
+	 * @param data / Datenobjekt mit Positionsdaten
+	 * 
+	 */
 	private void randomFly(SubscriberDaten data) {
 		Integer num = this.rand.nextInt(Configuration.flyRandom);
 		if(num == 0) {
@@ -72,6 +92,12 @@ public class FlyFabric implements SubscriberInterface {
 		
 	}
 	
+	/** 
+	 * loescht Fliege
+	 *
+	 * @param id / FliegenID
+	 * 
+	 */
 	private void deleteFly(Integer id) {
 		for(Fly fly: this.flys) {
 			if(fly.getId().equals(id)) {
@@ -82,6 +108,12 @@ public class FlyFabric implements SubscriberInterface {
 		}
 	}
 	
+	/** 
+	 * Fliege wird durch Baumstamm geloescht
+	 *
+	 * @param id / FliegenID
+	 * 
+	 */
 	private void deleteByTree(Integer id) {
 		for(Fly fly: this.flys) {
 			if(fly.getFlyOnTreeId().equals(id)) {
@@ -92,6 +124,14 @@ public class FlyFabric implements SubscriberInterface {
 		}
 	}
 	
+	/** 
+	 * Fliege an Hand ID auslesen
+	 *
+	 * @param id / FliegenID
+	 * 
+	 * @return Fly / Fliegenobjekt
+	 * 
+	 */
 	private Fly getById(Integer id) {
 		for(Fly fly: this.flys) {
 			if(fly.getId().equals(id)) {
@@ -101,6 +141,12 @@ public class FlyFabric implements SubscriberInterface {
 		return null;
 	}
 	
+	/** 
+	 * prueft ob Frosch auf Fliegenfeld
+	 *
+	 * @param data  / Datenobjekt mit Positionsdaten
+	 * 
+	 */
 	private void checkFrog(SubscriberDaten data) {
 		Integer flyId = this.checkPosition(data.xPosition, data.yPosition);
 		if(flyId.compareTo(0) > 0) {
@@ -112,6 +158,14 @@ public class FlyFabric implements SubscriberInterface {
 		}
 	}
 	
+	/** 
+	 * pruefen welche Fliege auf Position sitzt
+	 *
+	 * @param x / xPosition im Spielraster
+	 * @param y / yPosition im Spielraster
+	 * 
+	 * @return Integer / ID der Fliege
+	 */
 	public Integer checkPosition(Integer x, Integer y) {
 		for(Fly fly: this.flys) {
 			if(fly.getY() == y && fly.getX() == x) {
@@ -121,6 +175,10 @@ public class FlyFabric implements SubscriberInterface {
 		return 0;
 	}
 	
+	/** 
+	 * showInConsole / Kontrollausgabe
+	 * 
+	 */
 	public void showInConsole() {
 		String out = "";
 		for(Integer y = 5; y <= 8; y++) {

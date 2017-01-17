@@ -6,6 +6,13 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import application.*;
 
+/**
+ * erstellen eines Flusses auf der Spielflaeche und erzeugen 
+ * der Baeume auf dem Fluss
+ * 
+ * @author Die UMeLs
+ *
+ */
 public class River implements SubscriberInterface {
 
 	Integer positionY;
@@ -13,6 +20,12 @@ public class River implements SubscriberInterface {
 	public Queue<Tree> trees = new ConcurrentLinkedQueue<Tree>();
 	Tree lastTree;
 
+	/**
+	 * Konstruktor
+	 *
+	 * @param position / yPosition des Flusses im Spielfeldraster
+	 *
+	 */
 	public River(Integer position) {
 		this.positionY = position;
 		Integer modulo = position % 2;
@@ -25,6 +38,9 @@ public class River implements SubscriberInterface {
 		Observer.add("resetGame", this);		
 	}
 
+	/* (non-Javadoc)
+	 * @see application.SubscriberInterface#calling(java.lang.String, application.SubscriberDaten)
+	 */
 	@Override
 	public void calling(String trigger, SubscriberDaten daten) {
 		if(trigger.equals("time")) {
@@ -44,6 +60,10 @@ public class River implements SubscriberInterface {
 		}
 	}
 
+	/** 
+	 * pruefen ob Stamm auf Fluss mit genuegend Abstand vorhanden
+	 * 
+	 */
 	public void checkForTrees() {
 
 		Integer distanceToNewTree = (new Random()).nextInt(5) + 5; 
@@ -69,6 +89,10 @@ public class River implements SubscriberInterface {
 			}
 	}
 
+	/** 
+	 * erzeuge Stamm auf Fluss
+	 * 
+	 */
 	public void makeTree(){
 
 		Integer length = (new Random()).nextInt(3) + 2;
@@ -84,6 +108,12 @@ public class River implements SubscriberInterface {
 
 	}
 
+	/** 
+	 * loesche Stamm
+	 *
+	 * @param id / StammID
+	 * 
+	 */
 	public void deleteTree(Integer id) {
 		for(Tree tree: trees) {
 			Integer tid = tree.getId();
@@ -94,6 +124,12 @@ public class River implements SubscriberInterface {
 		}
 	}
 
+	/** 
+	 * Kollisionspruefung Baustaemme
+	 *
+	 * @param positionX / xPosition des Stammes 
+	 * @return Integer / ID des kollidierenden Stammes
+	 */
 	public Integer collisionCheck(Integer positionX) {
 		for(Tree tree: this.trees) {
 			Integer treeStart = tree.getPositionX();
@@ -105,6 +141,12 @@ public class River implements SubscriberInterface {
 		return 0;
 	}
 
+	/** 
+	 * ermitteln der yPosition des Flusses im Spielraster
+	 *
+	 * @return Integer / yPosition im Spielraster
+	 * 
+	 */
 	public Integer getPositionY() {
 		return this.positionY;
 	}
@@ -112,13 +154,19 @@ public class River implements SubscriberInterface {
 	
 	
 	/**
-	 * Nur für Ausgabetests
+	 * Nur fuer Ausgabetests
 	 */
 	public void showInConsole() {
 		System.out.println(
 			this.showRiver()
 		);
 	}
+	
+	/** 
+	 * showRiver
+	 *
+	 * @return String / showRiver
+	 */
 	public String showRiver() {
 		String ASCIIstreet = String.format("%02d", this.positionY) + " ";
 		for(int i = 1; i <= Configuration.xFields; i++) {
@@ -131,6 +179,14 @@ public class River implements SubscriberInterface {
 		ASCIIstreet += " "+this.trees.size();
 		return ASCIIstreet;
 	}
+	
+	/** 
+	 * Positionspruefung eines Stammes
+	 *
+	 * @param p / xPosition des Stammes
+	 * 
+	 * @return Boolean / Position belegt
+	 */
 	public Boolean checkPosition(int p) {
 		for(Tree tree: this.trees) {
 			if(tree.getPositionX() == p) {
