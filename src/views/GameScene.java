@@ -7,7 +7,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import application.*;
 import controller.SceneController;
 import javafx.application.Platform;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;

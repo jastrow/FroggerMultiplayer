@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import application.Configuration;
-import application.Observer;
-import application.SubscriberDaten;
-import application.SubscriberInterface;
 
 public class Streets {
 

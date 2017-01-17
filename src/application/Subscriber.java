@@ -16,8 +16,8 @@ public class Subscriber {
 	/**
 	 * Konstruktor
 	 *
-	 * @param subscriber
-	 * @param keyword
+	 * @param subscriber / subscriber
+	 * @param keyword / Schluesselwort des Trigger
 	 *
 	 */
 	public Subscriber(Object subscriber, String keyword) {
@@ -28,8 +28,8 @@ public class Subscriber {
 	/**
 	 * Konstruktor
 	 *
-	 * @param subscriber
-	 * @param keyword
+	 * @param subscriber / subscriber
+	 * @param keyword / Schluesselwort des Trigger
 	 *
 	 */
 	public Subscriber(String keyword, Object subscriber) {
@@ -41,9 +41,9 @@ public class Subscriber {
 	/** 
 	 * listenTo
 	 *
-	 * @param keyword
-	 * @param daten 
-	 * @return void
+	 * @param keyword / Schluesselwort
+	 * @param daten / Daten des Trigger
+	 * 
 	 */
 	public void listenTo(String keyword, SubscriberDaten daten) {
 		((SubscriberInterface) this.listener).calling(keyword, daten);
@@ -53,7 +53,8 @@ public class Subscriber {
 	/** 
 	 * getTrigger
 	 *
-	 * @return String
+	 * @return String / trigger
+	 * 
 	 */
 	public String getTrigger() {
 		return trigger;
@@ -63,7 +64,7 @@ public class Subscriber {
 	/** 
 	 * getListener
 	 *
-	 * @return Object
+	 * @return Object / Listenerobjekt
 	 */
 	public Object getListener() {
 		return this.listener;

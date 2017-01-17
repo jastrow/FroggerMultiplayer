@@ -5,6 +5,12 @@ import application.Observer;
 import application.SubscriberDaten;
 import application.SubscriberInterface;
 
+/**
+ * definiert ein Baumstamm auf der SpielSzene
+ * 
+ * @author Die UMeLs
+ *
+ */
 public class Tree implements SubscriberInterface {
 
 	private int id;
@@ -16,10 +22,13 @@ public class Tree implements SubscriberInterface {
 
 
 	/**
+	 * Konstruktor
 	 *
-	 * @param id
-	 * @param positionX
-	 * @param positionY
+	 * @param leftToRight / gibt an in welche Richtung der Stamm schwimmt
+	 * @param positionY / gibt die yPosition des Stammes im Spielfeldraster an 
+	 * @param positionX / gibt die xPosition des Stammes im Spielfeldraster an 
+	 * @param length / gibt die laenge des erstellten Stammes an 
+	 *
 	 */
 	public Tree(Integer positionX, Integer positionY, Integer length, Boolean leftToRight) {
 		this.id = IdCounter.getId();
@@ -34,13 +43,28 @@ public class Tree implements SubscriberInterface {
 		this.sendObserver("new");
 	}
 
+	/** 
+	 * ermitteln der ID des Stammes
+	 *
+	 * @return Integer / ID des Stammes
+	 */
 	public Integer getId() {
 		return this.id;
 	}
+	
+	/** 
+	 * ermitteln der xPosition des Stammes im Spielraster
+	 *
+	 * @return Integer / xPosition im Spielraster
+	 * 
+	 */
 	public Integer getPositionX() {
 		return this.positionX;
 	}
 
+	/* (non-Javadoc)
+	 * @see application.SubscriberInterface#calling(java.lang.String, application.SubscriberDaten)
+	 */
 	@Override
 	public void calling(String trigger, SubscriberDaten daten) {
 		if(trigger == "time") {
@@ -48,7 +72,11 @@ public class Tree implements SubscriberInterface {
 		}
 	}
 
-	//Check position
+	/** 
+	 * Bewegung des Stammes
+	 *
+	 * @param timeNow / aktuelle Zeit
+	 */
 	private void movement(Integer timeNow) {
 		if(this.startTime == 0){
 			this.startTime = timeNow;
@@ -70,7 +98,10 @@ public class Tree implements SubscriberInterface {
 		}
 	}
 
-
+	/** 
+	 * prueft die Position des Stammes auf dem Fluss
+	 * 
+	 */
 	public void checkLeftTree() {
 		String typ = "move";
 		if(this.leftToRight) {
@@ -85,6 +116,12 @@ public class Tree implements SubscriberInterface {
 		this.sendObserver(typ);
 	}
 
+	/** 
+	 * senden eines Triggers an den Observer
+	 *
+	 * @param typ / Art des Triggers
+	 * 
+	 */
 	public void sendObserver(String typ) {
 		SubscriberDaten data = new SubscriberDaten();
 		data.id 		= this.id;
@@ -103,14 +140,30 @@ public class Tree implements SubscriberInterface {
 
 	}
 
+	/** 
+	 * checkInGame
+	 *
+	 * @return Boolean
+	 */
 	public Boolean checkInGame() {
 		return true;
 	}
 
+	/** 
+	 * ermittelt Laenge des Stammes
+	 *
+	 * @return int / Stammlaenge
+	 */
 	public int getLength() {
 		return this.length;
 	}
 
+	/** 
+	 * setzt Stammlaenge
+	 *
+	 * @param length / lange des Stammes
+	 * 
+	 */
 	public void setLength(int length) {
 		this.length = length;
 	}

@@ -58,8 +58,9 @@ public class Observer {
 	
 	/**
 	 * Statischer Aufruf von triggerObserver.
-	 * @param trigger
-	 * @param data
+	 * 
+	 * @param data / Subscriberdaten
+	 * @param trigger / Triggertyp
 	 */
 	public static void trigger(String trigger, SubscriberDaten data) {
 		Observer obs = Observer.getInstance();
@@ -77,8 +78,10 @@ public class Observer {
 	
 	/**
 	 * Statischer Aufruf von addSubscriber.
-	 * @param obj
-	 * @param trigger
+	 * 
+	 * @param trigger / Triggertyp
+	 * @param obj / Datenobjekt
+	 * 
 	 */
 	public static void add(String trigger, Object obj) {
 		Observer obs = Observer.getInstance();
@@ -89,7 +92,8 @@ public class Observer {
 	/**
 	 * Entfernt einen Subscriber mit all seinen Triggern.
 	 * 
-	 * @param obj 
+	 * @param obj / Subscriberobjekt
+	 * 
 	 */
 	public static void removeMe(Object obj) {
 		Observer obs = Observer.getInstance();
@@ -100,7 +104,7 @@ public class Observer {
 	/** 
 	 * Entfernt einen Subscriber mit all seinen Triggern.
 	 *
-	 * @param obj 
+	 * @param obj / Subscriberobjekt
 	 */
 	public void removeMeByInstance(Object obj) {
 		for(Subscriber sub: this.subscriber) {
@@ -114,7 +118,7 @@ public class Observer {
 	/** 
 	 * gibt die groesse der SubscriberQueue zurueck
 	 *
-	 * @return Integer
+	 * @return Integer / Queuegroesse
 	 */
 	public Integer size() {
 		return this.subscriber.size();
