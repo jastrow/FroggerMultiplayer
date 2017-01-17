@@ -18,7 +18,6 @@ public class Main extends Application {
 	public SceneController sceneController;
 	public HighScoreController highScoreController;
 	public GameLogic gameData;	
-	public ServerController server; 
 	public SoundController sound;
 
 	
