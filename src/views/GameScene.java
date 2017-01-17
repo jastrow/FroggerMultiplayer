@@ -80,7 +80,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 	/**
 	 * Konstruktor
 	 *
-	 * @param sceneController / für die Szenen zustaendiger Controller
+	 * @param sceneController / fuer die Szenen zustaendiger Controller
 	 */
 	public GameScene(SceneController sceneController) {
 		
@@ -201,7 +201,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 
 	
 	/**
-	 * Funktionen zum fuellen des Bilderarrays für die Baumstaemme
+	 * Funktionen zum fuellen des Bilderarrays fuer die Baumstaemme
 	 */
 	private void fillImageWood() {
 		
@@ -212,7 +212,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 	}
 	
 	/**
-	 * Funktionen zum fuellen des Bilderarrays für die nach links fahrenden Autos
+	 * Funktionen zum fuellen des Bilderarrays fuer die nach links fahrenden Autos
 	 */
 	private void fillImageCarToLeft() {
 		
@@ -224,7 +224,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 	
 
 	/**
-	 * Funktionen zum fuellen des Bilderarrays für die nach rechts fahrenden Autos
+	 * Funktionen zum fuellen des Bilderarrays fuer die nach rechts fahrenden Autos
 	 */
 	private void fillImageCarToRight() {
 		
