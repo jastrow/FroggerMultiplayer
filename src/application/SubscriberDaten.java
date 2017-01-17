@@ -1,5 +1,9 @@
 package application;
 
+/**
+ * @author Die UMeLs
+ *
+ */
 public class SubscriberDaten {
 	public String name;			// Identifizierung Classname (zB Frog)
 	public Integer id;			// Eineindeutige ID der ObjektInstanz
@@ -16,6 +20,9 @@ public class SubscriberDaten {
 	public Integer[] playerDate = new Integer[3];
 	public Integer[] playerTime = new Integer[3];
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		String ausgabe = "";

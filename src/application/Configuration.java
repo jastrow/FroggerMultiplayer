@@ -1,5 +1,9 @@
 package application;
 
+/**
+ * @author Die UMeLs
+ *
+ */
 public class Configuration {
 	
 	public final static Integer xFields = 19; // Number of horizontal Fields in Gamezone

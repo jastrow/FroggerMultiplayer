@@ -46,10 +46,10 @@ public class OverScene {
 		this.labelText[2] = "Mike Jastrow - 798141";
 		this.labelText[3] = "Manuel Bogus - 791563";
 		
-		this.licenseText.insertText(0,("Music by Bart Kelsey as Bart on http://opengameart.org"));
-		this.licenseText.insertText(1,("http://opengameart.org/content/the-adventure-begins-8-bit-remix"));
-		this.licenseText.insertText(2,("CC By 3.0 https://creativecommons.org/licenses/by/3.0/"));
-		this.licenseText.insertText(3, ("Changes: Converted to MP3"));
+		this.licenseText.setText("Music by Bart Kelsey as Bart on http://opengameart.org "
+				+ "http://opengameart.org/content/the-adventure-begins-8-bit-remix"
+				+ "CC By 3.0 https://creativecommons.org/licenses/by/3.0/" 
+				+ "Changes: Converted to MP3");
 		this.licenseText.getStyleClass().add("license");
 		this.licenseText.setWrapText(true);
 		

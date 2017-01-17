@@ -7,16 +7,16 @@ import model.IdCounter;
 
 
 /**
- * Observer ermöglicht es, dass verschiedene Klassen sich hier anmelden können,
+ * Observer ermoeglicht es, dass verschiedene Klassen sich hier anmelden koennen,
  * und bei bestimmten Ereignissen benachrichtigt werden.
- * Dafür müssen die zu benachrichtigen Klassen (Subscriber) das Interface
+ * Dafuer muessen die zu benachrichtigen Klassen (Subscriber) das Interface
  * "SubscriberInterface" implementieren, damit der Observer dann 
- * über die Methode "calling" die von anderen Systemen erstellten Daten 
- * "SubscriberDaten" übergeben werden können.
+ * ueber die Methode "calling" die von anderen Systemen erstellten Daten 
+ * "SubscriberDaten" uebergeben werden koennen.
  * Eine Klasse kann sich mehrmals beim Observer anmelden:
  * addSubscriber( trigger, SELF )
- * trigger ist ein String. Wenn der Observer Daten mit diesen String erhält,
- * werden alle, die sich dafür angemeldet haben benachrichtigt.
+ * trigger ist ein String. Wenn der Observer Daten mit diesen String erhaelt,
+ * werden alle, die sich dafuer angemeldet haben benachrichtigt.
  * SELF ist die Instanz des Subscribers (this).
  * Der Observer arbeitet intern zum Verwalten der Subscriber mit 
  * einer Subscriber-Klasse, in welcher der trigger und die Instanz 
@@ -31,7 +31,7 @@ public class Observer {
 	public Queue<Subscriber> subscriber = new ConcurrentLinkedQueue<Subscriber>();
 	
 	/**
-	 * (Erstellt und) Gibt die Observer-Instanz zurück.
+	 * (Erstellt und) Gibt die Observer-Instanz zurueck.
 	 * @return Observer instance
 	 */
 	public static Observer getInstance() {
@@ -43,8 +43,8 @@ public class Observer {
 	}
 	
 	/**
-	 * Löst eine Nachricht aus, an alle die es interessiert (durch trigger),
-	 * und übergibt jenen die SubscriberDaten durch die Methode "calling".
+	 * Loest eine Nachricht aus, an alle die es interessiert (durch trigger),
+	 * und uebergibt jenen die SubscriberDaten durch die Methode "calling".
 	 * @param trigger Benachrichtigungs Codewort
 	 * @param data Daten in Form von SubscriberDaten
 	 */
@@ -55,6 +55,7 @@ public class Observer {
 			}
 		}
 	}
+	
 	/**
 	 * Statischer Aufruf von triggerObserver.
 	 * @param trigger
@@ -66,13 +67,14 @@ public class Observer {
 	}
 	
 	/**
-	 * Fügt einen Subscriber hinzu.
+	 * Fuegt einen Subscriber hinzu.
 	 * @param obj Der Subscriber selbst (this).
-	 * @param trigger Das Auslöser-Codewort.
+	 * @param trigger Das Ausloeser-Codewort.
 	 */
 	public void addSubscriber(String trigger, Object obj) {
 		this.subscriber.add( new Subscriber(trigger, obj) );
 	}
+	
 	/**
 	 * Statischer Aufruf von addSubscriber.
 	 * @param obj
@@ -86,11 +88,20 @@ public class Observer {
 	
 	/**
 	 * Entfernt einen Subscriber mit all seinen Triggern.
+	 * 
+	 * @param obj 
 	 */
 	public static void removeMe(Object obj) {
 		Observer obs = Observer.getInstance();
 		obs.removeMeByInstance(obj);
 	}
+	
+	
+	/** 
+	 * Entfernt einen Subscriber mit all seinen Triggern.
+	 *
+	 * @param obj 
+	 */
 	public void removeMeByInstance(Object obj) {
 		for(Subscriber sub: this.subscriber) {
 			if(sub.getListener().equals(obj)) {
@@ -99,15 +110,26 @@ public class Observer {
 		}
 	}
 	
+	
+	/** 
+	 * gibt die groesse der SubscriberQueue zurueck
+	 *
+	 * @return Integer
+	 */
 	public Integer size() {
 		return this.subscriber.size();
 	}
+	
 	
 	public static void showSubs() {
 		Observer obs = Observer.getInstance();
 		obs.showSubscriber();
 	}
 	
+	/** 
+	 * gibt SubscriberListe aus
+	 *
+	 */
 	public void showSubscriber() {
 		System.out.println("############### START OBSERVERLIST #################");
 		System.out.println("OBSERVER Subscriber: "+this.subscriber.size());

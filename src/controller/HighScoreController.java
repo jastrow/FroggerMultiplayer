@@ -6,6 +6,10 @@ import application.SubscriberDaten;
 import application.SubscriberInterface;
 import javafx.application.Platform;
 
+/**
+ * @author Die UMeLs
+ *
+ */
 public class HighScoreController implements Runnable, SubscriberInterface {
 	
 	private Thread t;
@@ -18,6 +22,10 @@ public class HighScoreController implements Runnable, SubscriberInterface {
 	private Integer[] timeArray = new Integer[3];
 	private Integer[] dateArray = new Integer[3];
 	
+	/**
+	 * Konstruktor
+	 *
+	 */
 	public HighScoreController() {
 		Observer.add("player", this);
 		Observer.add("entry", this);
@@ -28,6 +36,10 @@ public class HighScoreController implements Runnable, SubscriberInterface {
 	}
 	
 		
+	/** 
+	 * liest HighScoreDaten aus Datenbank aus
+	 * 
+	 */
 	public void getHighScore() {
 		this.was = "get";
 		if(this.t == null) {
@@ -40,13 +52,22 @@ public class HighScoreController implements Runnable, SubscriberInterface {
 			}
 		}
 	}
-	public void setHighScore(Integer playerTime) {
-		this.playerTime = playerTime;
+	
+	/** 
+	 * speichert HighScore in Datenbank
+	 *
+	 * @param playerScore / Spielerpunkte
+	 */
+	public void setHighScore(Integer playerScore) {
+		this.playerTime = playerScore;
 		this.was = "set";
 		this.t = new Thread(this);
 		t.start();
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
 	public void run() {
 		
 		if(this.was.equals("get")) {
@@ -87,6 +108,9 @@ public class HighScoreController implements Runnable, SubscriberInterface {
 
 
 
+	/* (non-Javadoc)
+	 * @see application.SubscriberInterface#calling(java.lang.String, application.SubscriberDaten)
+	 */
 	@Override
 	public void calling(String trigger, SubscriberDaten data) {
 		

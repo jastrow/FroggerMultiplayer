@@ -10,20 +10,37 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 
 
+/**
+ * @author Die UMeLs
+ *
+ */
 public class DBConnectionController {
 	
 	private String dbURL;
 
 	
+	/**
+	 * Konstruktor
+	 *
+	 *
+	 */
 	public DBConnectionController () {
 		
 		this.dbURL = "http://mdnetz.de/frogger/";		
 	}
 	
 	
-	public void writeData(String playerName, Integer playerTime) throws IOException {	
+	/** 
+	 * sendet Post an DB Schnittstelle
+	 *
+	 * @param playerName  / Spielername
+	 * @param playerScore / PunkteStand
+	 * @throws IOException 
+	 * 
+	 */
+	public void writeData(String playerName, Integer playerScore) throws IOException {	
 		String body = "name=" + URLEncoder.encode( playerName, "UTF-8" ) + "&" +
-	                  "zeit=" + URLEncoder.encode( playerTime.toString(), "UTF-8" );
+	                  "zeit=" + URLEncoder.encode( playerScore.toString(), "UTF-8" );
 	
 		URL url = new URL(this.dbURL);
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -47,6 +64,12 @@ public class DBConnectionController {
 	}
 	
 	
+	/** 
+	 * schickt Trigger an Schnittstelle um HighScoreDaten zu erhalten
+	 *
+	 * @throws Exception 
+	 * @return String[] / Daten von DB Schnittstelle
+	 */
 	public String[] readData() throws Exception {
 		
 		//Daten empfangen - z.B. Anfrage auf eine API

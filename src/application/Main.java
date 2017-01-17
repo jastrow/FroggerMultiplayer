@@ -7,6 +7,10 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 
+/**
+ * @author Die UMeLs
+ *
+ */
 public class Main extends Application {
 
 	public SceneController sceneController;
@@ -15,6 +19,10 @@ public class Main extends Application {
 	public ServerController server; 
 	public SoundController sound;
 
+	
+	/* (non-Javadoc)
+	 * @see javafx.application.Application#start(javafx.stage.Stage)
+	 */
 	public void start(Stage primaryStage) {
 
 		this.highScoreController = new HighScoreController();
@@ -42,6 +50,11 @@ public class Main extends Application {
 		
 	}
 
+	/** 
+	 * main
+	 *
+	 * @param args 
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}

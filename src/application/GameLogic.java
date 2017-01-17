@@ -5,6 +5,11 @@ import java.util.List;
 import controller.*;
 import model.*;
 
+
+/**
+ * @author Die UMeLs
+ *
+ */
 public class GameLogic implements SubscriberInterface {
 
 	private TimeMachine timer; // millisecounds
@@ -21,6 +26,13 @@ public class GameLogic implements SubscriberInterface {
 	private Boolean win;
 	private Integer zeit;
 
+	
+	
+
+	/**
+	 * Konstruktor
+	 *
+	 */
 	public GameLogic() {
 		this.streets = new Streets();
 		this.rivers = new Rivers();
@@ -38,6 +50,10 @@ public class GameLogic implements SubscriberInterface {
 
 	}
 
+	
+	/* (non-Javadoc)
+	 * @see application.SubscriberInterface#calling(java.lang.String, application.SubscriberDaten)
+	 */
 	public void calling(String trigger, SubscriberDaten daten) {
 		switch(trigger) {
 			case "start": {
@@ -71,14 +87,29 @@ public class GameLogic implements SubscriberInterface {
 		}
 	}
 
+	
+	/** Uebergabe des SceneController
+	 *
+	 * @param scene  / Scenecontroller
+	 * 
+	 */
 	public void setScene(SceneController scene) {
 		this.scene = scene;
 	}
 
+	
+	/** berechnet aktuellen Punktestand 
+	 *
+	 */
 	public void getScore() {
 		this.getScore(false);
 	}
 	
+	
+	/** berechnet aktuellen Punktestand und triggere HighScoreUpload
+	 *
+	 * @param withUpload / Trigger ob UploadHighScore oder nicht
+	 */
 	public void getScore(Boolean withUpload) {
 		Integer timeBonus = 0;
 		Integer fliesBonus = 0;
