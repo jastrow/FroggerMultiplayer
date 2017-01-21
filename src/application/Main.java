@@ -1,5 +1,7 @@
 package application;
 
+import java.net.MalformedURLException;
+
 import controller.*;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -24,7 +26,7 @@ public class Main extends Application {
 	/* (non-Javadoc)
 	 * @see javafx.application.Application#start(javafx.stage.Stage)
 	 */
-	public void start(Stage primaryStage) {
+	public void start(Stage primaryStage) throws MalformedURLException {
 
 		this.highScoreController = new HighScoreController();
 		this.sceneController = new SceneController();

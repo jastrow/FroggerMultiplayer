@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
@@ -18,17 +19,21 @@ import java.net.URLEncoder;
  */
 public class DBConnectionController {
 	
-	private String dbURL;
+	private String dbURLHigh;
+	private String dbURLFrog;
+	private URL url;
 
 	
 	/**
 	 * Konstruktor
+	 * @throws MalformedURLException 
 	 *
 	 *
 	 */
 	public DBConnectionController () {
 		
-		this.dbURL = "http://mdnetz.de/frogger/";		
+		this.dbURLHigh = "http://mdnetz.de/frogger/";
+		this.dbURLFrog = "http://mdnetz.de/frogger/frogs.php";	
 	}
 	
 	
@@ -40,11 +45,12 @@ public class DBConnectionController {
 	 * @throws IOException / Ausnahme wenn Anfrage fehlschlaegt
 	 * 
 	 */
-	public void writeData(String playerName, Integer playerScore) throws IOException {	
-		String body = "name=" + URLEncoder.encode( playerName, "UTF-8" ) + "&" +
-	                  "zeit=" + URLEncoder.encode( playerScore.toString(), "UTF-8" );
-	
-		URL url = new URL(this.dbURL);
+	public void writeData(String body) throws IOException {	
+
+		try {
+			this.url = new URL(this.dbURLHigh);
+
+
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		connection.setRequestMethod( "POST" );
 		connection.setDoInput( true );
@@ -62,6 +68,9 @@ public class DBConnectionController {
 	
 		writer.close();
 		reader.close();
+		} catch (Exception e) {
+			System.out.println("Schreiben erfolglos");
+		}
 	
 	}
 	
@@ -72,23 +81,35 @@ public class DBConnectionController {
 	 * @throws Exception / Ausnahme wenn Anfrage fehlschlaegt
 	 * @return String[] / Daten von DB Schnittstelle
 	 */
-	public String[] readData() throws Exception {
+	public String[] readData(Boolean urlIdentifier) {
+		String[] result = new String[3];
+		
+		try {
 		
 		//Daten empfangen - z.B. Anfrage auf eine API
-		URL url = new URL(this.dbURL);
-		URLConnection connection = url.openConnection();
-		 
-		BufferedReader readBuffer = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-		String line;
-		String[] result = new String[3];
-		Integer i = 0; 
+		if (urlIdentifier) {
+			this.url = new URL(this.dbURLHigh);
+		} else {
+			this.url = new URL(this.dbURLFrog);
+		}
+			
+			URLConnection connection = url.openConnection();
+			 
+			BufferedReader readBuffer = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			String line;
+
+			Integer i = 0; 
+			
+			while ((line = readBuffer.readLine()) != null) {
+			result[i] = line;
+			i++;
+			}
+			return result;
 		
-		while ((line = readBuffer.readLine()) != null) {
-		result[i] = line;
-		i++;
+		} catch (Exception e) {
+			System.out.println("Lesen erfolglos");
 		}
 		return result;
-		
 	}
 
 }

@@ -399,7 +399,11 @@ public class GameScene extends Scene implements SubscriberInterface {
 		//Hilfsvaraiblen deklarienen
 		ImageView help = this.getFrogObject(data);
 		
-		help.setImage(new Image(getClass().getResource("frog_"+data.facing+".png").toExternalForm()));
+		if (data.leftToRight == null) {
+			help.setImage(new Image(getClass().getResource("frog_"+data.facing+".png").toExternalForm()));
+		} else {
+			help.setImage(new Image(getClass().getResource("frog_ghost_"+data.facing+".png").toExternalForm()));
+		}
 		help.setId(data.id.toString());
 		this.frogs.add(this.setPosition(help, data));
 		this.updateElements();		
@@ -416,7 +420,11 @@ public class GameScene extends Scene implements SubscriberInterface {
 		//Hilfsvaraiblen deklarienen
 		ImageView help = this.getFrogObject(data);
 		
-		help.setImage(new Image(getClass().getResource("frog_"+data.facing+".png").toExternalForm()));
+		if (data.leftToRight == null) {
+			help.setImage(new Image(getClass().getResource("frog_"+data.facing+".png").toExternalForm()));
+		} else {
+			help.setImage(new Image(getClass().getResource("frog_ghost_"+data.facing+".png").toExternalForm()));
+		}
 		this.frogs.remove(help);
 		help = this.setPosition(help, data);
 		this.frogs.add(help);
@@ -652,7 +660,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 										break;
 						}
 						case "move": {
-										this.updateFrogObject(data);;
+										this.updateFrogObject(data);
 										break;
 						}
 						case "delete": {
@@ -664,11 +672,21 @@ public class GameScene extends Scene implements SubscriberInterface {
 							break;
 						}
 						case "win": {
-							//SubscriberDaten timeData = new SubscriberDaten();
-							//timeData.time = this.time;
-							//Observer.trigger("entry", timeData);
 							this.winningFrog(data);
 							break;
+						}
+					}
+					break;
+				}
+				case "ghostfrog": {
+					switch (data.typ) {
+						case "new": {
+										this.createNewFrogObject(data);
+										break;
+						}
+						case "move": {
+										this.updateFrogObject(data);
+										break;
 						}
 					}
 					break;
