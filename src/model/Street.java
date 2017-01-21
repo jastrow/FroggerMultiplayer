@@ -22,6 +22,7 @@ public class Street implements SubscriberInterface{
 	public Queue<Car> cars = new ConcurrentLinkedQueue<Car>();
 	private Boolean leftToRight = false;	// Autos fahren von links nach rechts (ansonsten andersrum)
 	private Car lastCar;
+	private Integer nextRandomCarTime;
 
 	/**
 	 * Konstruktor
@@ -66,7 +67,7 @@ public class Street implements SubscriberInterface{
 		}
 		
 		if(trigger.equals("start")) {
-			//this.startRandomCars();
+			this.startRandomCars();
 		}
 		
 
@@ -88,28 +89,25 @@ public class Street implements SubscriberInterface{
 	 * 
 	 */
 	public void startRandomCars() {
-		Integer maxTime = Configuration.xFields * Configuration.carSpeed;
+		Integer maxTime = Configuration.xGameZone * Configuration.carSpeed;
 		Integer startTime;
 		Car newLastCar = null;
 		Integer lastCarTime = 0;
 		Integer posX;
-		Boolean collision = false;
+		Integer posXend;
 		
 		while(this.cars.size() < 3) {
 			startTime = (new Random()).nextInt(maxTime) * -1;
 			posX = (int) startTime / Configuration.carSpeed * -1;
+			posXend = posX + Configuration.xCar;
 			if(!this.leftToRight) {
-				posX = Configuration.xFields - posX;
-			}
+				posX = Configuration.xGameZone - posX;
+			}	
 			
-			collision = false;
-			for(Integer i = (posX-1); i <= (posX+2); i++) {
-				if(this.collisionCheck(i, this.positionY)) {
-					collision = true;
-					break;
-				}
+			if( this.collisionCheck(posX, this.positionY) || 
+			    this.collisionCheck(posXend, this.positionY)) {
+				continue;
 			}
-			if(collision) { continue; }
 			
 			Car neu = new Car(this.leftToRight, this.positionY, posX, startTime);
 			this.cars.add(neu);
@@ -175,7 +173,7 @@ public class Street implements SubscriberInterface{
 			return null;
 		}
 		if(this.leftToRight) {
-			distance = this.lastCar.getPositionX() - 1;
+			distance = this.lastCar.getPositionX();
 		} else {
 			distance = Configuration.xGameZone - this.lastCar.getPositionXend(); 
 		}
@@ -208,8 +206,8 @@ public class Street implements SubscriberInterface{
 	public boolean collisionCheck(Integer positionX, Integer positionY2) {
 		for(Car car: this.cars) {
 			if(
-				car.getPositionX()     == positionX || 
-				(car.getPositionX()+1 ) == positionX 
+				positionX.compareTo(car.getPositionX()) >= 0 &&
+				positionX.compareTo(car.getPositionXend()) <= 0
 			) {
 				return true;
 			}

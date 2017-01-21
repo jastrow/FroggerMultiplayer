@@ -31,7 +31,8 @@ public class Car implements SubscriberInterface {
 	public Car (Boolean leftToRight, Integer positionY) {
 		this.positionY = positionY;
 		this.leftToRight = leftToRight;
-		this.positionX = Configuration.xCar * -1;
+		this.positionX = Configuration.xCar * (-1);
+		System.out.println(this.positionX);
 		if(!this.leftToRight) {
 			this.positionX = Configuration.xGameZone;
 		}
@@ -85,12 +86,11 @@ public class Car implements SubscriberInterface {
 	 */
 	private void movement(Integer timeNow) {
 		Integer fieldsMoved = (int) (timeNow - this.startTime) / Configuration.carSpeed;
-		Integer lastPositionX = this.positionX;
 
 		if(this.leftToRight) {
-			this.positionX = 1 + fieldsMoved; // TODO sollte 0 sein
+			this.positionX = fieldsMoved - Configuration.xCar; 
 		} else {
-			this.positionX = Configuration.xFields - fieldsMoved - 1; // TODO -1 sollte raus
+			this.positionX = Configuration.xGameZone - fieldsMoved - 1; 
 		}
 		this.positionXend = this.positionX + Configuration.xCar;
 		this.checkLeftStreet();
@@ -104,7 +104,7 @@ public class Car implements SubscriberInterface {
 	public void checkLeftStreet() {
 		String typ = "move";
 		if(this.leftToRight) {
-			if(this.positionX.compareTo(Configuration.xFields) > 0) {
+			if(this.positionX.compareTo(Configuration.xGameZone) > 0) {
 				typ = "delete";
 			}
 		} else {
