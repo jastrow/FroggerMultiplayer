@@ -277,8 +277,10 @@ public class GameScene extends Scene implements SubscriberInterface {
 		
 		ImageView help = imgObject;
 					
-			imgObject.setX((data.xPosition*50)-49);
-			imgObject.setY((data.yPosition*50)-49);
+//		imgObject.setX((data.xPosition*50)-49);
+//		imgObject.setY((data.yPosition*50)-49);
+		imgObject.setX(data.xPosition);
+		imgObject.setY(data.yPosition);
 
 		return help;
 	}

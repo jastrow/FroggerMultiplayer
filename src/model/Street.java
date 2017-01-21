@@ -33,7 +33,7 @@ public class Street implements SubscriberInterface{
 		this.positionY = position;
 		
 		// Fahrrichtung abwechselnd
-		if((this.positionY % 2) == 0) {
+		if(((this.positionY / 50) % 2) == 0) {
 			this.leftToRight = true;
 		}
 		
@@ -66,7 +66,7 @@ public class Street implements SubscriberInterface{
 		}
 		
 		if(trigger.equals("start")) {
-			this.startRandomCars();
+			//this.startRandomCars();
 		}
 		
 
@@ -135,7 +135,7 @@ public class Street implements SubscriberInterface{
 			this.lastCar = neu;
 		} else if(this.cars.size() < Configuration.carMaxPerStreet) {
 			Integer lastDistance = this.lastCarDistance();
-			if(lastDistance >= 3) {
+			if(lastDistance.compareTo(200) > 0) {
 				if(this.random(lastDistance)) {
 					Car neu = new Car(this.leftToRight, this.positionY);
 					this.cars.add(neu);
@@ -177,7 +177,7 @@ public class Street implements SubscriberInterface{
 		if(this.leftToRight) {
 			distance = this.lastCar.getPositionX() - 1;
 		} else {
-			distance = Configuration.xFields - (this.lastCar.getPositionX() + 1); 
+			distance = Configuration.xGameZone - this.lastCar.getPositionXend(); 
 		}
 		return distance;
 	}

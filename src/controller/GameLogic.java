@@ -40,8 +40,8 @@ public class GameLogic implements SubscriberInterface {
 	public GameLogic() {
 		this.streets = new Streets();
 		this.rivers = new Rivers();
-		this.flyfabric = new FlyFabric();
-		this.frogPlayer1 = new Frog(this.rivers, this.streets);
+		//this.flyfabric = new FlyFabric();
+		//this.frogPlayer1 = new Frog(this.rivers, this.streets);
 		this.timer = new TimeMachine();
 		this.zeit = Configuration.timeEnd;
 		

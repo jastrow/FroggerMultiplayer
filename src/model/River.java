@@ -28,7 +28,7 @@ public class River implements SubscriberInterface {
 	 */
 	public River(Integer position) {
 		this.positionY = position;
-		Integer modulo = position % 2;
+		Integer modulo = (position / 50) % 2;
 		if(modulo.equals(0)) {
 			this.leftToRight = true;
 		}
@@ -66,22 +66,21 @@ public class River implements SubscriberInterface {
 	 */
 	public void checkForTrees() {
 
-		Integer distanceToNewTree = (new Random()).nextInt(5) + 5; 
+		Integer distanceToNewTree = (new Random()).nextInt(250) + 200; 
 
 		if(trees.isEmpty()) {
 			this.makeTree();
 		}	else if(this.trees.size() < Configuration.treeMaxPerLane) {
 
 				if(this.leftToRight){
-					Integer freeFieldsLeft = this.lastTree.getPositionX() - 1;
-
-					if(freeFieldsLeft.equals(distanceToNewTree)) {
+					Integer freeFieldsLeft = this.lastTree.getPositionX();
+					if(freeFieldsLeft.compareTo(distanceToNewTree) > 0) {
 						this.makeTree();
 					}
 				}
 				else{
-					Integer freeFieldsRight = Configuration.xFields - (this.lastTree.getPositionX() + this.lastTree.getLength() - 1);
-					if(freeFieldsRight.equals(distanceToNewTree)){
+					Integer freeFieldsRight = Configuration.xGameZone - this.lastTree.getPositionXend();
+					if(freeFieldsRight.compareTo(distanceToNewTree) > 0){
 						this.makeTree();
 					}
 				}
@@ -97,9 +96,9 @@ public class River implements SubscriberInterface {
 
 		Integer length = (new Random()).nextInt(3) + 2;
 
-		Integer positionX = Configuration.xFields;
+		Integer positionX = Configuration.xGameZone;
 		if(this.leftToRight) {
-			positionX = 1 - length;
+			positionX = 1 - Configuration.xTree[(length-2)];
 		}
 
 		Tree baum = new Tree(positionX, this.positionY, length, this.leftToRight);

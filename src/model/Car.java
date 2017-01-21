@@ -15,8 +15,10 @@ public class Car implements SubscriberInterface {
 
 	private Integer id;
 	private Boolean leftToRight = false;
-	private Integer positionX = 1;
+	private Integer positionX;
 	private Integer positionY; 
+	private Integer positionXend;
+	private Integer positionYend; 
 	private Integer startTime = 0;
 		
 	/**
@@ -29,9 +31,9 @@ public class Car implements SubscriberInterface {
 	public Car (Boolean leftToRight, Integer positionY) {
 		this.positionY = positionY;
 		this.leftToRight = leftToRight;
-		this.positionX = -1;
+		this.positionX = Configuration.xCar * -1;
 		if(!this.leftToRight) {
-			this.positionX = Configuration.xFields + 1;
+			this.positionX = Configuration.xGameZone;
 		}
 		this.initialize();
 	}
@@ -56,6 +58,9 @@ public class Car implements SubscriberInterface {
 	 * 
 	 */
 	private void initialize() {
+		this.positionXend = this.positionX + Configuration.xCar;
+		this.positionYend = this.positionY + Configuration.yElements;
+
 		this.id = IdCounter.getId();
 		Observer.add("time", this);
 		this.sendObserver("new");
@@ -87,11 +92,8 @@ public class Car implements SubscriberInterface {
 		} else {
 			this.positionX = Configuration.xFields - fieldsMoved - 1; // TODO -1 sollte raus
 		}
-		
-		// Prüfung und Meldung nur, wenn sich die Position verändert hat.
-		if(lastPositionX != this.positionX) {
-			this.checkLeftStreet();
-		}
+		this.positionXend = this.positionX + Configuration.xCar;
+		this.checkLeftStreet();
 		
 	}
 	
@@ -102,11 +104,11 @@ public class Car implements SubscriberInterface {
 	public void checkLeftStreet() {
 		String typ = "move";
 		if(this.leftToRight) {
-			if(this.positionX > Configuration.xFields) {
+			if(this.positionX.compareTo(Configuration.xFields) > 0) {
 				typ = "delete";
 			}
 		} else {
-			if(this.positionX < 1) {
+			if(this.positionXend < 1) {
 				typ = "delete";
 			}
 		}
@@ -154,6 +156,16 @@ public class Car implements SubscriberInterface {
 	 */
 	public Integer getPositionX() {
 		return this.positionX;
+	}
+	
+	/** 
+	 * ermitteln der xPosition des Autos im Spielraster
+	 *
+	 * @return Integer / xPosition im Spielraster
+	 * 
+	 */
+	public Integer getPositionXend() {
+		return this.positionXend;
 	}
 	
 	/** 

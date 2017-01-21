@@ -17,6 +17,8 @@ public class Tree implements SubscriberInterface {
 	private Boolean leftToRight = false;	// Baumstamm fliesst von links nach rechts (ansonsten andersrum)
 	private Integer positionX;
 	private Integer positionY;
+	private Integer positionXend;
+	private Integer positionYend;
 	private Integer length;
 	private Integer startTime = 0;
 
@@ -34,11 +36,14 @@ public class Tree implements SubscriberInterface {
 		this.id = IdCounter.getId();
 		this.positionX = positionX;
 		this.positionY = positionY;
+		this.length = length;
+		this.positionXend = positionX + Configuration.xTree[(length-2)];
+		this.positionYend = positionY + Configuration.yTree;
+		
 		this.leftToRight = leftToRight;
 		if(!leftToRight) {
-			this.positionX = Configuration.xFields;
+			this.positionX = Configuration.xGameZone;
 		}
-		this.length = length;
 		Observer.add("time", this);
 		this.sendObserver("new");
 	}
@@ -60,6 +65,10 @@ public class Tree implements SubscriberInterface {
 	 */
 	public Integer getPositionX() {
 		return this.positionX;
+	}
+	
+	public Integer getPositionXend() {
+		return this.positionXend;
 	}
 
 	/* (non-Javadoc)
@@ -88,13 +97,12 @@ public class Tree implements SubscriberInterface {
 	
 			Integer lastPositionX = this.positionX;
 			if(this.leftToRight) {
-				this.positionX = 1 - length + fieldsMoved; // TODO sollte 0 sein
+				this.positionX = 1 - Configuration.xTree[(length-2)] + fieldsMoved; 
 			} else {
-				this.positionX = Configuration.xFields - fieldsMoved; // TODO -1 sollte raus
+				this.positionX = Configuration.xGameZone - fieldsMoved; 
 			}
-			if(lastPositionX != this.positionX) {
-				this.checkLeftTree();
-			}
+			this.positionXend = this.positionX + Configuration.xTree[(this.length - 2)];;
+			this.checkLeftTree();
 		}
 	}
 
@@ -105,11 +113,11 @@ public class Tree implements SubscriberInterface {
 	public void checkLeftTree() {
 		String typ = "move";
 		if(this.leftToRight) {
-			if(this.positionX > Configuration.xFields) {
+			if(this.positionX.compareTo(Configuration.xGameZone) > 0) {
 				typ = "delete";
 			}
 		} else {
-			if((this.positionX + this.length - 1) < 1) {
+			if(this.positionXend < 1) {
 				typ = "delete";
 			}
 		}
