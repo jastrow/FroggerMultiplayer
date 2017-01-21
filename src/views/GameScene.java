@@ -105,6 +105,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 		Observer.add("stopGame", this);
 		Observer.add("flyeaten", this);
 		Observer.add("scoreUpdate", this);
+		Observer.add("ghostfrog", this);
 		
 		//Bilderarrays füllen
 		this.fillImageWood();

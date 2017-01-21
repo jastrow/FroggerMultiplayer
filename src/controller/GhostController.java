@@ -9,19 +9,24 @@ import application.SubscriberInterface;
 import javafx.application.Platform;
 import model.IdCounter;
 
-public class GhostController implements SubscriberInterface {
+public class GhostController implements Runnable, SubscriberInterface {
 	
 	private DBConnectionController dbConnectionController;
+	private String body;
 	private String[] resultQuery = new String[3];
-	String name;
-	Integer id = IdCounter.getId();
-	String typ;
-	String facing;
-	Integer xPosition;
-	Integer yPosition;
-	Integer time;
-	Integer length;
-	Boolean leftToRight;
+	private String name;
+	private Integer id = IdCounter.getId();
+	private String typ;
+	private String facing;
+	private Integer xPosition;
+	private Integer yPosition;
+	private Integer time;
+	private Integer length;
+	private Boolean leftToRight;
+	private SubscriberDaten data;
+	private String readWrite;
+	private Thread t;
+	private Integer lastTime = 0;
 	
 	
 	public GhostController(DBConnectionController dbConnectionController) {
@@ -30,80 +35,102 @@ public class GhostController implements SubscriberInterface {
 		Observer.add("time", this);
 	}
 	
-	private void writeGhostFrog(SubscriberDaten data)  {
-		
-		try {
-		
-		String leftToRoghtString;
-		
-		if (data.leftToRight == null) {
-			leftToRoghtString = "f";
+	/** 
+	 * liest GhostFrogDaten aus Datenbank aus
+	 * 
+	 */
+	public void readGhostFrog() {
+		this.readWrite = "read";
+		if(this.t == null) {
+			this.t = new Thread(this);
+			t.start();
 		} else {
-			leftToRoghtString = "t";
+			if(!this.t.isAlive()) {
+				this.t = new Thread(this);
+				t.start();
+			}
 		}
-		
-		String body = "name=" + URLEncoder.encode( data.name, "UTF-8" ) + "&" +
-                	  "id=" + URLEncoder.encode( data.id.toString(), "UTF-8" ) + "&" +
-                	  "typ=" + URLEncoder.encode( data.typ, "UTF-8" ) + "&" +
-                	  "facing=" + URLEncoder.encode( data.facing, "UTF-8" ) + "&" +
-                	  "xPosition=" + URLEncoder.encode( data.xPosition.toString(), "UTF-8" ) + "&" +
-                	  "yPosition=" + URLEncoder.encode( data.yPosition.toString(), "UTF-8" ) + "&" +
-                	  "time=" + URLEncoder.encode( data.time.toString(), "UTF-8" ) + "&" +
-                	  "length=" + URLEncoder.encode( data.length.toString(), "UTF-8" ) + "&" +
-                	  "lestToRight=" + URLEncoder.encode( leftToRoghtString, "UTF-8" );	
-		
-		this.dbConnectionController.writeData(body);
-		
-		} catch (Exception e) {
-			System.out.println("GeisterfroschDaten nicht geschrieben");
-		}
-		
 	}
 	
-	private void readGhostFrog() {
+	/** 
+	 * speichert GhostFrogDaten in Datenbank
+	 *
+	 * @param data / GhostFrogDaten
+	 */
+	public void writeGhostFrog(SubscriberDaten data) {
+		this.data = data;
+		this.readWrite = "write";
+		this.t = new Thread(this);
+		t.start();
+	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
+	public void run() {
 		
-		try {
-			this.resultQuery = this.dbConnectionController.readData(false);
+		if(this.readWrite.equals("write")) {
+		
+			try {
+						
+				this.body =   "name=" + URLEncoder.encode( this.data.name, "UTF-8" ) + "&" +
+		                	  "id=" + URLEncoder.encode( this.data.id.toString(), "UTF-8" ) + "&" +
+		                	  "typ=" + URLEncoder.encode( this.data.typ, "UTF-8" ) + "&" +
+		                	  "facing=" + URLEncoder.encode( this.data.facing, "UTF-8" ) + "&" +
+		                	  "xPosition=" + URLEncoder.encode( this.data.xPosition.toString(), "UTF-8" ) + "&" +
+		                	  "yPosition=" + URLEncoder.encode( this.data.yPosition.toString(), "UTF-8" ) + "&" +
+		                	  "time=" + URLEncoder.encode( "0", "UTF-8" ) + "&" +
+		                	  "length=" + URLEncoder.encode( "0", "UTF-8" ) + "&" +
+		                	  "leftToRight=" + URLEncoder.encode( "t", "UTF-8" ) + "&" +
+		                	  "treeRide=" + URLEncoder.encode( "0", "UTF-8" );	
+				
+				this.dbConnectionController.writeData(this.body,false);
 			
-			for (int i = 0 ; i < this.resultQuery.length; i++) {
-				String[] actString = this.resultQuery[i].split(Pattern.quote("|"));
-				this.name = actString[0];
-				this.typ = actString[2];
-				this.facing = actString[3]; 
-				this.xPosition = Integer.valueOf(actString[4]);
-				this.yPosition = Integer.valueOf(actString[6]);
-				this.time = Integer.valueOf(actString[7]);
-				this.length = Integer.valueOf(actString[8]);
-				if (actString[9] == "t") {
-					this.leftToRight = true;
-				} else {
-					this.leftToRight = null;
+			} catch (Exception e) {
+				System.out.println("GeisterfroschDaten nicht geschrieben");
+			}			
+		} else {
+	
+			try {
+				this.resultQuery = this.dbConnectionController.readData(false);
+
+				for (int i = 0 ; i < this.resultQuery.length; i++) {
+					String[] actString = this.resultQuery[i].split(Pattern.quote("|"));
+					this.name = actString[0];
+					this.typ = actString[2];
+					this.facing = actString[3]; 
+					this.xPosition = Integer.valueOf(actString[4]);
+					this.yPosition = Integer.valueOf(actString[6]);
+					this.time = Integer.valueOf(actString[7]);
+					this.length = Integer.valueOf(actString[8]);
+					if (actString[9] == "t") {
+						this.leftToRight = true;
+					} else {
+						this.leftToRight = null;
+					}
+					System.out.println(actString);
 				}
-				System.out.println(actString);
+				
+				SubscriberDaten data = new SubscriberDaten();
+				data.name = this.name;
+				data.id = this.id;
+				data.typ = this.typ;
+				data.facing = this.facing;
+				data.xPosition = this.xPosition;
+				data.yPosition = this.yPosition;
+				data.time = this.time;
+				data.length = this.length;
+				data.leftToRight = this.leftToRight;
+				Platform.runLater(new Runnable() {
+					public void run() {
+						Observer.trigger("ghostfrog", data);
+					}
+				});	
+			} catch (Exception e) {
+				System.out.println("GeisterfroschDaten nicht gelesen");
 			}
-			
-			SubscriberDaten data = new SubscriberDaten();
-			data.name = this.name;
-			data.id = this.id;
-			data.typ = this.typ;
-			data.facing = this.facing;
-			data.xPosition = this.xPosition;
-			data.yPosition = this.yPosition;
-			data.time = this.time;
-			data.length = this.length;
-			data.leftToRight = this.leftToRight;
 
-			Platform.runLater(new Runnable() {
-				public void run() {
-					Observer.trigger("ghostfrog", data);
-				}
-			});
-
-			
-		} catch (Exception e) {
-			System.out.println("GeisterfroschDaten nicht gelesen");
 		}
-
 	}
 
 
@@ -126,7 +153,12 @@ public class GhostController implements SubscriberInterface {
 				break;
 			}
 			case "time": {
-				//this.readGhostFrog();
+				this.time = data.time;
+				Integer diff = data.time - this.lastTime;
+				if (diff.compareTo(1000) > 0) {
+					this.lastTime = data.time;
+					this.readGhostFrog();
+				}
 				break;
 			}
 		}

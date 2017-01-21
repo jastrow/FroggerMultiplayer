@@ -108,13 +108,12 @@ public class HighScoreController implements Runnable, SubscriberInterface {
 			String body = "name=" + URLEncoder.encode( this.playerName, "UTF-8" ) + "&" +
 		                  "zeit=" + URLEncoder.encode( this.playerTime.toString(), "UTF-8" );	
 			
-			this.dbConnection.writeData(body);
+			this.dbConnection.writeData(body,true);
 			} catch (Exception e) {
 				
 			}
 		}
 	}
-
 
 
 	/* (non-Javadoc)

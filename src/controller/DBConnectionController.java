@@ -2,6 +2,7 @@ package controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -40,34 +41,44 @@ public class DBConnectionController {
 	/** 
 	 * sendet Post an DB Schnittstelle
 	 *
-	 * @param playerName  / Spielername
-	 * @param playerScore / PunkteStand
+	 * @param body  / Datensatz
+	 * @param urlIdentifier / Identifikator welche URL verwendet werden soll
 	 * @throws IOException / Ausnahme wenn Anfrage fehlschlaegt
 	 * 
 	 */
-	public void writeData(String body) throws IOException {	
+	public void writeData(String body,Boolean urlIdentifier) {	
 
 		try {
-			this.url = new URL(this.dbURLHigh);
+			if (urlIdentifier) {
+				this.url = new URL(this.dbURLHigh);
+			} else {
+				this.url = new URL(this.dbURLFrog);
+			}
 
-
-		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-		connection.setRequestMethod( "POST" );
-		connection.setDoInput( true );
-		connection.setDoOutput( true );
-		connection.setUseCaches( false );
-		connection.setRequestProperty( "Content-Type","application/x-www-form-urlencoded" );
-		connection.setRequestProperty( "Content-Length", String.valueOf(body.length()) );
-	
-		OutputStreamWriter writer = new OutputStreamWriter( connection.getOutputStream() );
-		writer.write( body );
-		writer.flush();
-	
-	
-		BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()) );
-	
-		writer.close();
-		reader.close();
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod( "POST" );
+			connection.setDoInput( true );
+			connection.setDoOutput( true );
+			connection.setUseCaches( false );
+			connection.setRequestProperty( "Content-Type","application/x-www-form-urlencoded" );
+			connection.setRequestProperty( "Content-Length", String.valueOf(body.length()) );
+		
+			OutputStreamWriter writer = new OutputStreamWriter( connection.getOutputStream() );
+			writer.write( body );
+			writer.flush();
+		
+			BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()) );
+			System.out.println(reader.toString());
+			
+			String line;
+			while ((line = reader.readLine()) != null) {
+				System.out.println(line);
+			}
+		
+			writer.close();
+			reader.close();
+		
+			
 		} catch (Exception e) {
 			System.out.println("Schreiben erfolglos");
 		}
@@ -87,11 +98,11 @@ public class DBConnectionController {
 		try {
 		
 		//Daten empfangen - z.B. Anfrage auf eine API
-		if (urlIdentifier) {
-			this.url = new URL(this.dbURLHigh);
-		} else {
-			this.url = new URL(this.dbURLFrog);
-		}
+			if (urlIdentifier) {
+				this.url = new URL(this.dbURLHigh);
+			} else {
+				this.url = new URL(this.dbURLFrog);
+			}
 			
 			URLConnection connection = url.openConnection();
 			 
@@ -103,6 +114,7 @@ public class DBConnectionController {
 			while ((line = readBuffer.readLine()) != null) {
 			result[i] = line;
 			i++;
+			System.out.println(line);
 			}
 			return result;
 		
