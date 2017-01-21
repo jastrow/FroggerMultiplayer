@@ -44,6 +44,7 @@ public class Rivers  {
 	 * Kollisionspruefung Fluesse
 	 *
 	 * @param positionX / xPosition des Flusses in Spielraster
+	 * @param positionXend / positionXend
 	 * @param positionY / yPosition des Flusses in Spielraster
 	 *
 	 * @return Integer / Kollisionsergebnis

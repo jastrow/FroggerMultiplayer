@@ -25,7 +25,8 @@ public class Car implements SubscriberInterface {
 	 * Konstruktor
 	 *
 	 * @param leftToRight / gibt an in welche Richtung das Auto faehrt
-	 * @param positionY / gibt die yPosition des Autos im Spielfeldraster an 
+	 * @param positionY / gibt die yPosition des Autos im Spielfeldraster an
+	 * @param startTime / StartZeit  
 	 *
 	 */
 	public Car (Boolean leftToRight, Integer positionY, Integer startTime) {
@@ -201,9 +202,8 @@ public class Car implements SubscriberInterface {
 	
 	/** 
 	 * Startzeit geben
-	 *
-	 * @param zeit / Startzeit
 	 * 
+	 * @return startTime / Startzeit
 	 */
 	public Integer getStartTime() {
 		return this.startTime;

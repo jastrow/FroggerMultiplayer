@@ -125,6 +125,8 @@ public class Street implements SubscriberInterface{
 	 * Fortschritt der Gamezeit. 
 	 * Zufallsgenerator, ob ein neues Auto auftaucht.
 	 * 
+	 * @param data / Datenobjekt mit Identifikationsangeben zum Auto
+	 * 
 	 */
 	public void randomCar(SubscriberDaten data) {
 		if(this.cars.isEmpty()) {
@@ -141,6 +143,11 @@ public class Street implements SubscriberInterface{
 		}
 	}
 
+	/**
+	 * Fortschritt der Gamezeit. 
+	 * Zufallsgenerator, ob ein neues Auto auftaucht.
+	 * 
+	 */
 	public void nextRandomCar() {
 		this.nextRandomCarTime = (new Random()).nextInt(Configuration.carRandom);
 		this.nextRandomCarTime += this.lastCar.getStartTime();
@@ -203,6 +210,7 @@ public class Street implements SubscriberInterface{
 	 *
 	 * @param positionX / xPosition des Autos auf der Spielflaeche
 	 * @param positionY2 / positionY2
+	 * @param positionXend / positionXend
 	 * 
 	 * @return boolean / es gab eine/keine Kollission 
 	 */

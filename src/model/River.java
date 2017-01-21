@@ -127,7 +127,8 @@ public class River implements SubscriberInterface {
 	/** 
 	 * Kollisionspruefung Baustaemme
 	 *
-	 * @param positionX / xPosition des Stammes 
+	 * @param positionX / xPosition des Stammes
+	 * @param positionXend / positionXend  
 	 * @return Integer / ID des kollidierenden Stammes
 	 */
 	public Integer collisionCheck(Integer positionX, Integer positionXend) {

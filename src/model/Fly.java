@@ -25,6 +25,7 @@ public class Fly implements SubscriberInterface {
 	/**
 	 * Konstruktor
 	 *
+	 * @param xOnTree / xOnTree
 	 * @param x / xPosition der Fliege auf dem Spielraster
 	 * @param y / yPosition der Fliege auf dem Spielraster
 	 * @param id / ID der Fliege

@@ -44,6 +44,7 @@ public class Streets {
 	 *
 	 * @param positionX / xPosition der Strasse in Spielraster
 	 * @param positionY / yPosition der Strasse in Spielraster
+	 * @param positionXend / positionXend
 	 * 
 	 * @return Integer / Kollisionsergebnis
 	 */
