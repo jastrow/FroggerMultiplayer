@@ -686,7 +686,11 @@ public class GameScene extends Scene implements SubscriberInterface {
 										break;
 						}
 						case "move": {
-										this.updateFrogObject(data);
+										if (this.frogs.size() > 1) {
+											this.updateFrogObject(data);
+										} else {
+											this.createNewFrogObject(data);
+										}
 										break;
 						}
 					}

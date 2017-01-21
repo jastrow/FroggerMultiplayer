@@ -15,7 +15,7 @@ public class GhostController implements Runnable, SubscriberInterface {
 	private String body;
 	private String[] resultQuery = new String[3];
 	private String name;
-	private Integer id = IdCounter.getId();
+	private Integer id;
 	private String typ;
 	private String facing;
 	private Integer xPosition;
@@ -31,6 +31,7 @@ public class GhostController implements Runnable, SubscriberInterface {
 	
 	public GhostController(DBConnectionController dbConnectionController) {
 		this.dbConnectionController = dbConnectionController;	
+		this.id = IdCounter.getId()+ 1000;
 		Observer.add("frog", this);
 		Observer.add("time", this);
 	}
@@ -93,22 +94,18 @@ public class GhostController implements Runnable, SubscriberInterface {
 	
 			try {
 				this.resultQuery = this.dbConnectionController.readData(false);
-
-				for (int i = 0 ; i < this.resultQuery.length; i++) {
-					String[] actString = this.resultQuery[i].split(Pattern.quote("|"));
-					this.name = actString[0];
-					this.typ = actString[2];
-					this.facing = actString[3]; 
-					this.xPosition = Integer.valueOf(actString[4]);
-					this.yPosition = Integer.valueOf(actString[6]);
-					this.time = Integer.valueOf(actString[7]);
-					this.length = Integer.valueOf(actString[8]);
-					if (actString[9] == "t") {
-						this.leftToRight = true;
-					} else {
-						this.leftToRight = null;
-					}
-					System.out.println(actString);
+				String[] actString = this.resultQuery[0].split(Pattern.quote("|"));
+				this.name = actString[0];
+				this.typ = actString[2];
+				this.facing = actString[3]; 
+				this.xPosition = Integer.valueOf(actString[4]);
+				this.yPosition = Integer.valueOf(actString[5]);
+				this.time = Integer.valueOf(actString[6]);
+				this.length = Integer.valueOf(actString[7]);
+				if (actString[8].toString() != null) {
+					this.leftToRight = true;
+				} else {
+					this.leftToRight = null;
 				}
 				
 				SubscriberDaten data = new SubscriberDaten();
@@ -127,7 +124,8 @@ public class GhostController implements Runnable, SubscriberInterface {
 					}
 				});	
 			} catch (Exception e) {
-				System.out.println("GeisterfroschDaten nicht gelesen");
+				
+				System.out.println("GeisterfroschDaten nicht gelesen: " + e.getMessage());
 			}
 
 		}

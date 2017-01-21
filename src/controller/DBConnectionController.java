@@ -68,11 +68,11 @@ public class DBConnectionController {
 			writer.flush();
 		
 			BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()) );
-			System.out.println(reader.toString());
+			//System.out.println(reader.toString());
 			
 			String line;
 			while ((line = reader.readLine()) != null) {
-				System.out.println(line);
+				//System.out.println(line);
 			}
 		
 			writer.close();
@@ -114,7 +114,7 @@ public class DBConnectionController {
 			while ((line = readBuffer.readLine()) != null) {
 			result[i] = line;
 			i++;
-			System.out.println(line);
+			//System.out.println(line);
 			}
 			return result;
 		
