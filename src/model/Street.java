@@ -59,7 +59,7 @@ public class Street implements SubscriberInterface{
 		}
 		
 		if(trigger == "time") {
-			this.randomCar();
+			this.randomCar(daten);
 		}
 		
 		if(trigger.equals("resetGame")) {
@@ -99,13 +99,12 @@ public class Street implements SubscriberInterface{
 		while(this.cars.size() < 3) {
 			startTime = (new Random()).nextInt(maxTime) * -1;
 			posX = (int) startTime / Configuration.carSpeed * -1;
-			posXend = posX + Configuration.xCar;
 			if(!this.leftToRight) {
 				posX = Configuration.xGameZone - posX;
 			}	
+			posXend = posX + Configuration.xCar;
 			
-			if( this.collisionCheck(posX, this.positionY) || 
-			    this.collisionCheck(posXend, this.positionY)) {
+			if( this.collisionCheck(posX, posXend, this.positionY)) {
 				continue;
 			}
 			
@@ -119,6 +118,7 @@ public class Street implements SubscriberInterface{
 		}
 
 		this.lastCar = newLastCar;
+		this.nextRandomCar();
 	}
 	
 	/**
@@ -126,23 +126,26 @@ public class Street implements SubscriberInterface{
 	 * Zufallsgenerator, ob ein neues Auto auftaucht.
 	 * 
 	 */
-	public void randomCar() {
+	public void randomCar(SubscriberDaten data) {
 		if(this.cars.isEmpty()) {
-			Car neu = new Car(this.leftToRight, this.positionY);
+			Car neu = new Car(this.leftToRight, this.positionY, data.time);
 			this.cars.add(neu);
 			this.lastCar = neu;
-		} else if(this.cars.size() < Configuration.carMaxPerStreet) {
-			Integer lastDistance = this.lastCarDistance();
-			if(lastDistance.compareTo(200) > 0) {
-				if(this.random(lastDistance)) {
-					Car neu = new Car(this.leftToRight, this.positionY);
-					this.cars.add(neu);
-					this.lastCar = neu;
-				}
-			}
+			this.nextRandomCar();
+		} else if(this.cars.size() < Configuration.carMaxPerStreet &&
+			this.nextRandomCarTime.compareTo(data.time) <= 0) {
+			Car neu = new Car(this.leftToRight, this.positionY, data.time);
+			this.cars.add(neu);
+			this.lastCar = neu;
+			this.nextRandomCar();
 		}
 	}
 
+	public void nextRandomCar() {
+		this.nextRandomCarTime = (new Random()).nextInt(Configuration.carRandom);
+		this.nextRandomCarTime += this.lastCar.getStartTime();
+		this.nextRandomCarTime += Configuration.carSpeed * Configuration.xCar;
+	}
 	
 	/**
 	 * Ermittelt ob ein Auto erstellt werden soll.
@@ -203,11 +206,14 @@ public class Street implements SubscriberInterface{
 	 * 
 	 * @return boolean / es gab eine/keine Kollission 
 	 */
-	public boolean collisionCheck(Integer positionX, Integer positionY2) {
+	public boolean collisionCheck(Integer positionX, Integer positionXend, Integer positionY2) {
 		for(Car car: this.cars) {
 			if(
-				positionX.compareTo(car.getPositionX()) >= 0 &&
-				positionX.compareTo(car.getPositionXend()) <= 0
+				(positionX.compareTo(car.getPositionX()) >= 0 &&
+				positionX.compareTo(car.getPositionXend()) <= 0)
+				||
+				(positionXend.compareTo(car.getPositionX()) >= 0 &&
+				positionXend.compareTo(car.getPositionXend()) <= 0)
 			) {
 				return true;
 			}

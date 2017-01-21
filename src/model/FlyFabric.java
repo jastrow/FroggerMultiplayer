@@ -85,8 +85,9 @@ public class FlyFabric implements SubscriberInterface {
 	private void randomFly(SubscriberDaten data) {
 		Integer num = this.rand.nextInt(Configuration.flyRandom);
 		if(num == 0) {
-			Integer xpos = data.xPosition + this.rand.nextInt(data.length);
-			Fly newfly = new Fly(xpos, data.yPosition, data.id, data.leftToRight);
+			Integer xOnTree = this.rand.nextInt( Configuration.xTree[(data.length-2)] - Configuration.xFly );
+			Integer xpos = data.xPosition + xOnTree;
+			Fly newfly = new Fly(xOnTree, xpos, data.yPosition, data.id, data.leftToRight);
 			this.flys.add(newfly);
 		}
 		

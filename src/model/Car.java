@@ -28,14 +28,14 @@ public class Car implements SubscriberInterface {
 	 * @param positionY / gibt die yPosition des Autos im Spielfeldraster an 
 	 *
 	 */
-	public Car (Boolean leftToRight, Integer positionY) {
+	public Car (Boolean leftToRight, Integer positionY, Integer startTime) {
 		this.positionY = positionY;
 		this.leftToRight = leftToRight;
 		this.positionX = Configuration.xCar * (-1);
-		System.out.println(this.positionX);
 		if(!this.leftToRight) {
 			this.positionX = Configuration.xGameZone;
 		}
+		this.startTime = startTime;
 		this.initialize();
 	}
 	/**
@@ -197,5 +197,15 @@ public class Car implements SubscriberInterface {
 	 */
 	public void setStartTime(Integer zeit) {
 		this.startTime = zeit;
+	}
+	
+	/** 
+	 * Startzeit geben
+	 *
+	 * @param zeit / Startzeit
+	 * 
+	 */
+	public Integer getStartTime() {
+		return this.startTime;
 	}
 }

@@ -13,9 +13,11 @@ public class Configuration {
 	public final static Integer timeEnd = 60000; // Milliseconds
 	public final static Integer timeSteps = 40; // Milliseconds (25fps = 40)
 
+//	public final static Integer[] streetLines = {50}; // Y-Positions (num of = length) 2,3,10,11
 	public final static Integer[] streetLines = {50,100,450,500}; // Y-Positions (num of = length) 2,3,10,11
 	public final static Integer carMaxPerStreet = 3; // Maximale Anzahl von Autos auf einer Straße
 	public final static Integer carSpeed = 3; 	// Bewegungsgeschwindigkeit Millisekunden pro Pixel
+	public final static Integer carRandom = 1500; // Maximale Zufalls-Millisekunden bis zu einem neuen Auto
 
 	public final static Integer[] riverLines = {200,250,300,350}; // Y-Positions (num = length)
 	public final static Integer treeMaxPerLane = 4; // Maximale Anzahl von Baeumen auf einer Flussbahn
@@ -37,6 +39,8 @@ public class Configuration {
 	public final static Integer yTree = 50; // Höhe der Baumstämme
 	public final static Integer xFrog = 50; // Breite Frosch
 	public final static Integer yFrog = 50; // Höhe Frosch
+	public final static Integer xFly = 50; // Breite Frosch
+	public final static Integer yFly = 50; // Höhe Frosch
 	
 	
 	

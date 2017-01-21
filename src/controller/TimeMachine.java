@@ -89,7 +89,7 @@ public class TimeMachine implements Runnable, SubscriberInterface {
 
 			this.timeLog += Configuration.timeSteps;
 
-			if(this.timeLog.equals(this.timeEnd - 100)) {
+			if(this.timeLog.compareTo((this.timeEnd - 100)) >= 0) {
 				this.running = false;
 				Platform.runLater(new Runnable() {
 					public void run() {

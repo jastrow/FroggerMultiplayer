@@ -16,6 +16,8 @@ public class Frog implements SubscriberInterface {
 	private Integer id;
 	private Integer positionX; 	// GameRaster X
 	private Integer positionY; 	// GameRaster Y
+	private Integer positionXend; 	// GameRaster X
+	private Integer positionYend; 	// GameRaster Y
 	private String 	facing; 	// Facing n,s,w,o
 	private Boolean killed;		// Frosch schon tot
 	private Integer frogOnTreeId; // Tree-ID des Baumes auf dem der Frosch sitzt
@@ -59,11 +61,14 @@ public class Frog implements SubscriberInterface {
 	 * 
 	 */
 	private void initializeFrog() {
-		this.positionX = (int)(Configuration.xFields / 2);
-		this.positionY = Configuration.yFields;
+		this.positionX = (int)(Configuration.xGameZone / 2) - (int) Configuration.xFrog / 2;
+		this.positionY = Configuration.yFields * 50 - 50;
+		this.positionXend = this.positionX + Configuration.xFrog;
+		this.positionYend = this.positionY + Configuration.yFrog;
 		this.facing = "n";
 		this.killed = false;
 		this.frogOnTreeId = -1;
+		System.out.println(this.toString());
 	}
 	
 	
@@ -100,6 +105,7 @@ public class Frog implements SubscriberInterface {
 		}
 	}
 	
+	
 	/** 
 	 * bewegen des Frosches
 	 *
@@ -111,27 +117,30 @@ public class Frog implements SubscriberInterface {
 		Integer newY = this.positionY;
 		String newFacing = "";
 		// Auswertung Tastatureingabe
-		if(direction == "left" && this.positionX != 1) {
-			newX = this.positionX - 1;
+		if(direction == "left" && this.positionX.compareTo(1) > 0) {
+			newX = this.positionX - Configuration.frogHop;
 			newFacing = "w";
-		} else if(direction == "right" && this.positionX != Configuration.xFields) {
-			newX = this.positionX + 1;
+		} else if(direction == "right" && this.positionX.compareTo(Configuration.xGameZone - Configuration.xFrog) < 0) {
+			newX = this.positionX + Configuration.frogHop;
 			newFacing = "o";
-		} else if(direction == "up" && this.positionY != 1) {
-			newY = this.positionY - 1;
+		} else if(direction == "up" && this.positionY.compareTo(1) > 0) {
+			newY = this.positionY - Configuration.frogHop;
 			newFacing = "n";
-		} else if(direction == "down" && this.positionY != Configuration.yFields) {
-			newY = this.positionY + 1;
+		} else if(direction == "down" && this.positionYend.compareTo(Configuration.yGameZone) < 0) {
+			newY = this.positionY + Configuration.frogHop;
 			newFacing = "s";
 		}
 		// Wenn er sich bewegt hat
 		if(newX != this.positionX || newY != this.positionY) {
 			this.positionX = newX;
 			this.positionY = newY;
+			this.positionXend = newX + Configuration.xFrog;
+			this.positionYend = newY + Configuration.yFrog;
 			this.facing = newFacing;
 			this.triggerObserver("move");
+			System.out.println(this.toString());
 			
-			if(this.positionY == 1) {
+			if(this.positionY <= 1) {
 				this.triggerObserver("win");
 				Observer.trigger("stopGame", new SubscriberDaten());
 			}
@@ -147,6 +156,7 @@ public class Frog implements SubscriberInterface {
 		if(this.streets != null) { 
 			if(this.streets.collisionCheck(
 					this.positionX, 
+					this.positionXend,
 					this.positionY) && !this.killed) {
 				this.killed = true;
 				this.triggerObserver("killed");
@@ -155,14 +165,14 @@ public class Frog implements SubscriberInterface {
 		}
 		
 		// 2. Kollision mit Baum
-		if(this.rivers != null) { 
-			this.frogOnTreeId = this.rivers.collisionCheck(this.positionX, this.positionY);
-			if(this.frogOnTreeId == 0 && !this.killed) {
-				this.killed = true;
-				this.triggerObserver("killed");
-				Observer.trigger("stopGame", new SubscriberDaten());
-			}
-		}
+//		if(this.rivers != null) { 
+//			this.frogOnTreeId = this.rivers.collisionCheck(this.positionX, this.positionY);
+//			if(this.frogOnTreeId == 0 && !this.killed) {
+//				this.killed = true;
+//				this.triggerObserver("killed");
+//				Observer.trigger("stopGame", new SubscriberDaten());
+//			}
+//		}
 	}
 	
 	/** 
@@ -193,6 +203,7 @@ public class Frog implements SubscriberInterface {
 		String out = "";
 		out += "ID: "+this.id+"\r\n";
 		out += "Position: "+this.positionX+":"+this.positionY+"\r\n";
+		out += "PositionEnd: "+this.positionXend+":"+this.positionYend+"\r\n";
 		out += "Facing: "+this.facing+"\r\n";
 		out += "Killed: "+this.killed+"\r\n";
 		out += "On Tree: "+this.frogOnTreeId+"\r\n";

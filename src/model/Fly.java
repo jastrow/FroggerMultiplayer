@@ -15,8 +15,11 @@ public class Fly implements SubscriberInterface {
 
 	private Integer id;
 	private Integer positionX; 
+	private Integer positionXend; 
 	private Integer positionY;
+	private Integer positionYend;
 	private Integer flyOnTreeId;
+	private Integer xOnTree;
 	private Boolean leftToRight;
 	
 	/**
@@ -28,15 +31,21 @@ public class Fly implements SubscriberInterface {
 	 * @param direction / Richtung in welche sich die Fliege bewegt
 	 *
 	 */
-	public Fly(Integer x, Integer y, Integer id, Boolean direction) {
+	public Fly(Integer xOnTree, Integer x, Integer y, Integer id, Boolean direction) {
 		this.id = IdCounter.getId();
+
+		this.xOnTree = xOnTree;
 		this.positionX = x;
+		this.positionXend = xOnTree + Configuration.xFly;
 		this.positionY = y;
+		this.positionYend = y + Configuration.yFly;
 		this.flyOnTreeId = id;
 		this.leftToRight = direction; 
 		
 		Observer.add("tree", this);
 		this.triggerObserver("new");
+		
+//		System.out.println(this.positionX +":"+this.positionY);
 	}
 	
 	/* (non-Javadoc)
@@ -55,20 +64,11 @@ public class Fly implements SubscriberInterface {
 	 * 
 	 */
 	private void moveMe(SubscriberDaten data) {
-		Boolean moved = false;
 		if(data.id.equals(this.flyOnTreeId) && data.typ == "move") {
-			if(data.leftToRight) {
-				this.positionX++;
-				moved = true;
-			} else {
-				this.positionX--;
-				moved = true;
- 			}
+			this.positionX = data.xPosition + this.xOnTree;
 		}
-		if(moved) {
-			this.triggerObserver("move");
-			this.checkForLeaving();
-		}
+		this.triggerObserver("move");
+		this.checkForLeaving();
 	}
 	
 	/** 
@@ -76,10 +76,10 @@ public class Fly implements SubscriberInterface {
 	 * 
 	 */
 	private void checkForLeaving() {
-		if(this.leftToRight && this.positionX >= Configuration.xFields) {
+		if(this.leftToRight && this.positionX.compareTo((Configuration.xGameZone - 1)) >= 0) {
 			this.triggerObserver("delete");
 		}
-		if(!this.leftToRight && this.positionX <= 1) {
+		if(!this.leftToRight && this.positionXend <= 1) {
 			this.triggerObserver("delete");
 		}
 	}

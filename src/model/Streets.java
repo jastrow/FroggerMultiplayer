@@ -47,10 +47,10 @@ public class Streets {
 	 * 
 	 * @return Integer / Kollisionsergebnis
 	 */
-	public boolean collisionCheck(Integer positionX, Integer positionY) {
+	public boolean collisionCheck(Integer positionX, Integer positionXend, Integer positionY) {
 		for(Street street: this.streetlines) {
-			if(street.getPositionY() == positionY) {
-				if(street.collisionCheck(positionX, positionY)) {
+			if(street.getPositionY().compareTo(positionY) == 0) {
+				if(street.collisionCheck(positionX, positionXend, positionY)) {
 					return true;
 				}
 			}
