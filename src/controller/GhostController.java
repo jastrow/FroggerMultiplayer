@@ -1,6 +1,10 @@
 package controller;
 
 import java.net.URLEncoder;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 import application.Observer;
@@ -27,11 +31,12 @@ public class GhostController implements Runnable, SubscriberInterface {
 	private String readWrite;
 	private Thread t;
 	private Integer lastTime = 0;
+	private Date date;
 	
 	
 	public GhostController(DBConnectionController dbConnectionController) {
 		this.dbConnectionController = dbConnectionController;	
-		this.id = IdCounter.getId()+ 1000;
+		this.id = IdCounter.getId();
 		Observer.add("frog", this);
 		Observer.add("time", this);
 	}
@@ -120,7 +125,19 @@ public class GhostController implements Runnable, SubscriberInterface {
 				data.leftToRight = this.leftToRight;
 				Platform.runLater(new Runnable() {
 					public void run() {
-						Observer.trigger("ghostfrog", data);
+						String string = actString[11];
+						DateFormat format = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+						Date date;
+						try {
+							date = format.parse(string);
+							Date actDate = new Date();
+							if ( ((actDate.getTime() - date.getTime())/60000) < 1) {
+							Observer.trigger("ghostfrog", data);
+							}
+						} catch (ParseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 				});	
 			} catch (Exception e) {
