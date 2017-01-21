@@ -19,6 +19,7 @@ public class River implements SubscriberInterface {
 	Boolean leftToRight = false;
 	public Queue<Tree> trees = new ConcurrentLinkedQueue<Tree>();
 	Tree lastTree;
+	Integer newRandomTree;
 
 	/**
 	 * Konstruktor
@@ -64,9 +65,7 @@ public class River implements SubscriberInterface {
 	 * pruefen ob Stamm auf Fluss mit genuegend Abstand vorhanden
 	 * 
 	 */
-	public void checkForTrees() {
-
-		Integer distanceToNewTree = (new Random()).nextInt(250) + 200; 
+	public void checkForTrees() { 
 
 		if(trees.isEmpty()) {
 			this.makeTree();
@@ -74,13 +73,13 @@ public class River implements SubscriberInterface {
 
 				if(this.leftToRight){
 					Integer freeFieldsLeft = this.lastTree.getPositionX();
-					if(freeFieldsLeft.compareTo(distanceToNewTree) > 0) {
+					if(freeFieldsLeft.compareTo(this.newRandomTree) > 0) {
 						this.makeTree();
 					}
 				}
 				else{
 					Integer freeFieldsRight = Configuration.xGameZone - this.lastTree.getPositionXend();
-					if(freeFieldsRight.compareTo(distanceToNewTree) > 0){
+					if(freeFieldsRight.compareTo(this.newRandomTree) > 0){
 						this.makeTree();
 					}
 				}
@@ -104,6 +103,8 @@ public class River implements SubscriberInterface {
 		Tree baum = new Tree(positionX, this.positionY, length, this.leftToRight);
 		this.trees.add(baum);
 		this.lastTree = baum;
+		this.newRandomTree = (new Random()).nextInt(250) + 200;
+
 
 	}
 
@@ -129,11 +130,18 @@ public class River implements SubscriberInterface {
 	 * @param positionX / xPosition des Stammes 
 	 * @return Integer / ID des kollidierenden Stammes
 	 */
-	public Integer collisionCheck(Integer positionX) {
+	public Integer collisionCheck(Integer positionX, Integer positionXend) {
+		Integer quarterFrog = (int)Configuration.xFrog / 4;
+		Integer treeStart;
+		Integer treeEnd;
 		for(Tree tree: this.trees) {
-			Integer treeStart = tree.getPositionX();
-			Integer treeEnd = tree.getPositionX() + tree.getLength() - 1;
-			if(positionX >= treeStart && positionX <= treeEnd) {
+			treeStart = tree.getPositionX() + quarterFrog;
+			treeEnd = tree.getPositionXend() - quarterFrog;
+			if(
+				(positionX.compareTo(treeStart) > 0 && positionX.compareTo(treeEnd) < 0)
+				||
+				(positionXend.compareTo(treeStart) > 0 && positionXend.compareTo(treeEnd) < 0)
+			) {
 				return tree.getId();
 			}
 		}	

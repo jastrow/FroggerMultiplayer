@@ -13,10 +13,13 @@ public class SubscriberDaten {
 	public String facing;		// Ausrichtung des Frosches [n,s,w,o]
 	public Integer xPosition; 	// Rasterfeld
 	public Integer yPosition; 	// Rasterfeld 
+	public Integer xPositionEnd; // Rasterfeld
+	public Integer yPositionEnd; // Rasterfeld 
 	public Integer time;		// aktueller Spielzeitpunkt in Millisekunden
 	public Integer length;		// Länge des Balken 1/ 2 /3 // bei Frosch Spieler: 1 / 2 
 	public Boolean leftToRight; // Ob das Objekt sich von links nach rechts bewegt oder umgekehrt (Tree, Car)
 	public String treeRide;		// Wenn ein Frog move von einem Baum ausgelöst wurde
+	public Integer lastMovementDistanceX; // Distanz der letzten Bewegung des Objektes
 	
 	public String[] playerName = new String[3];
 	public Integer[] playerDate = new Integer[3];

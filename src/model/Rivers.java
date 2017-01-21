@@ -48,10 +48,10 @@ public class Rivers  {
 	 *
 	 * @return Integer / Kollisionsergebnis
 	 */
-	public Integer collisionCheck(Integer positionX, Integer positionY) {
+	public Integer collisionCheck(Integer positionX, Integer positionXend, Integer positionY) {
 		for(River river: this.riverlines) {
-			if(river.getPositionY() == positionY) {
-				return river.collisionCheck(positionX);
+			if(river.getPositionY().compareTo(positionY) == 0) {
+				return river.collisionCheck(positionX, positionXend);
 			}
 		}
 		return -1;

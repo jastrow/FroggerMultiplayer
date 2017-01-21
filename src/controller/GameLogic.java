@@ -4,7 +4,6 @@ import application.Configuration;
 import application.Observer;
 import application.SubscriberDaten;
 import application.SubscriberInterface;
-import controller.*;
 import model.*;
 
 

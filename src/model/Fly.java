@@ -66,6 +66,7 @@ public class Fly implements SubscriberInterface {
 	private void moveMe(SubscriberDaten data) {
 		if(data.id.equals(this.flyOnTreeId) && data.typ == "move") {
 			this.positionX = data.xPosition + this.xOnTree;
+			this.positionXend = this.positionX + Configuration.xFly;;
 		}
 		this.triggerObserver("move");
 		this.checkForLeaving();
@@ -96,6 +97,8 @@ public class Fly implements SubscriberInterface {
 		data.id = this.id;
 		data.xPosition = this.positionX;
 		data.yPosition = this.positionY;
+		data.xPositionEnd = this.positionXend;
+		data.yPositionEnd = this.positionYend;
 		data.typ = typ;
 		Observer.trigger("fly", data);
 	}
@@ -117,6 +120,16 @@ public class Fly implements SubscriberInterface {
 	 */
 	public Integer getX() {
 		return this.positionX;
+	}
+	
+	/** 
+	 * ermitteln der xPosition der Fliege im Spielraster
+	 *
+	 * @return Integer / xPosition im Spielraster
+	 * 
+	 */
+	public Integer getXend() {
+		return this.positionXend;
 	}
 	
 	/** 

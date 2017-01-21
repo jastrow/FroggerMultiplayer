@@ -68,7 +68,6 @@ public class Frog implements SubscriberInterface {
 		this.facing = "n";
 		this.killed = false;
 		this.frogOnTreeId = -1;
-		System.out.println(this.toString());
 	}
 	
 	
@@ -88,9 +87,9 @@ public class Frog implements SubscriberInterface {
 		if(trigger == "tree") {
 			if(data.id.equals(this.frogOnTreeId)) {
 				if(data.leftToRight) {
-					this.move("right");
+					this.moveOnTree(data);
 				} else {
-					this.move("left");
+					this.moveOnTree(data);
 				}
 			}
 		}
@@ -106,6 +105,49 @@ public class Frog implements SubscriberInterface {
 	}
 	
 	
+	private void moveOnTree(SubscriberDaten data) {
+		Integer newX;
+		Integer newY;
+		if(data.leftToRight) {
+			newX = this.positionX + data.lastMovementDistanceX;
+		} else {
+			newX = this.positionX - data.lastMovementDistanceX;
+		}
+		this.checkGameZoneMove(newX,this.positionY);
+	}
+	
+	private void checkGameZoneMove(Integer newX, Integer newY) {
+
+		Integer newXend = newX + Configuration.xFrog;
+		if(newX.compareTo(1) < 0) {
+			newX = 0;
+		}
+		if(newXend.compareTo(Configuration.xGameZone) > 0) {
+			newX = Configuration.xGameZone - Configuration.xFrog;
+		}
+
+		Integer newYend = newY + Configuration.yFrog;
+		if(newY.compareTo(1) < 0) {
+			newY = 1;
+		}
+		if(newYend.compareTo(Configuration.yGameZone) > 0) {
+			newY = Configuration.yGameZone - Configuration.yFrog;
+		}
+		
+		this.positionX = newX;
+		this.positionY = newY;
+		this.positionXend = newX + Configuration.xFrog;
+		this.positionYend = newY + Configuration.yFrog;
+		
+		this.triggerObserver("move");
+		
+		if(this.positionY <= 1) {
+			this.triggerObserver("win");
+			Observer.trigger("stopGame", new SubscriberDaten());
+		}
+		
+	}
+	
 	/** 
 	 * bewegen des Frosches
 	 *
@@ -113,37 +155,19 @@ public class Frog implements SubscriberInterface {
 	 * 
 	 */
 	private void move(String direction) {
-		Integer newX = this.positionX;
-		Integer newY = this.positionY;
-		String newFacing = "";
 		// Auswertung Tastatureingabe
-		if(direction == "left" && this.positionX.compareTo(1) > 0) {
-			newX = this.positionX - Configuration.frogHop;
-			newFacing = "w";
-		} else if(direction == "right" && this.positionX.compareTo(Configuration.xGameZone - Configuration.xFrog) < 0) {
-			newX = this.positionX + Configuration.frogHop;
-			newFacing = "o";
-		} else if(direction == "up" && this.positionY.compareTo(1) > 0) {
-			newY = this.positionY - Configuration.frogHop;
-			newFacing = "n";
-		} else if(direction == "down" && this.positionYend.compareTo(Configuration.yGameZone) < 0) {
-			newY = this.positionY + Configuration.frogHop;
-			newFacing = "s";
-		}
-		// Wenn er sich bewegt hat
-		if(newX != this.positionX || newY != this.positionY) {
-			this.positionX = newX;
-			this.positionY = newY;
-			this.positionXend = newX + Configuration.xFrog;
-			this.positionYend = newY + Configuration.yFrog;
-			this.facing = newFacing;
-			this.triggerObserver("move");
-			System.out.println(this.toString());
-			
-			if(this.positionY <= 1) {
-				this.triggerObserver("win");
-				Observer.trigger("stopGame", new SubscriberDaten());
-			}
+		if(direction == "left") {
+			this.facing = "w";
+			this.checkGameZoneMove(this.positionX-Configuration.frogHop, this.positionY);
+		} else if(direction == "right") {
+			this.facing = "o";
+			this.checkGameZoneMove(this.positionX+Configuration.frogHop, this.positionY);
+		} else if(direction == "up") {
+			this.facing = "n";
+			this.checkGameZoneMove(this.positionX, this.positionY-Configuration.frogHop);
+		} else if(direction == "down") {
+			this.facing = "s";
+			this.checkGameZoneMove(this.positionX, this.positionY+Configuration.frogHop);
 		}
 	}
 	
@@ -165,14 +189,14 @@ public class Frog implements SubscriberInterface {
 		}
 		
 		// 2. Kollision mit Baum
-//		if(this.rivers != null) { 
-//			this.frogOnTreeId = this.rivers.collisionCheck(this.positionX, this.positionY);
-//			if(this.frogOnTreeId == 0 && !this.killed) {
-//				this.killed = true;
-//				this.triggerObserver("killed");
-//				Observer.trigger("stopGame", new SubscriberDaten());
-//			}
-//		}
+		if(this.rivers != null) { 
+			this.frogOnTreeId = this.rivers.collisionCheck(this.positionX, this.positionXend, this.positionY);
+			if(this.frogOnTreeId == 0 && !this.killed) {
+				this.killed = true;
+				this.triggerObserver("killed");
+				Observer.trigger("stopGame", new SubscriberDaten());
+			}
+		}
 	}
 	
 	/** 
@@ -183,12 +207,14 @@ public class Frog implements SubscriberInterface {
 	 */
 	public void triggerObserver(String typ) {
 		SubscriberDaten data = new SubscriberDaten();
-		data.name = "Frog";
-		data.id = this.id;
-		data.xPosition = this.positionX;
-		data.yPosition = this.positionY;
-		data.facing = this.facing;
-		data.typ = typ;
+		data.name 			= "Frog";
+		data.id				= this.id;
+		data.xPosition 		= this.positionX;
+		data.yPosition 		= this.positionY;
+		data.xPositionEnd	= this.positionXend;
+		data.yPositionEnd 	= this.positionYend;
+		data.facing			= this.facing;
+		data.typ 			= typ;
 		if(typ == "killed") {
 			this.initializeFrog();
 		}

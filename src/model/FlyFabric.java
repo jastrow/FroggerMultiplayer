@@ -149,7 +149,8 @@ public class FlyFabric implements SubscriberInterface {
 	 * 
 	 */
 	private void checkFrog(SubscriberDaten data) {
-		Integer flyId = this.checkPosition(data.xPosition, data.yPosition);
+		Integer flyId = this.collisionCheck(data.xPosition, data.xPositionEnd, data.yPosition);
+		
 		if(flyId.compareTo(0) > 0) {
 			Fly flyEaten = this.getById(flyId);
 			if(flyEaten != null) {
@@ -159,40 +160,24 @@ public class FlyFabric implements SubscriberInterface {
 		}
 	}
 	
-	/** 
-	 * pruefen welche Fliege auf Position sitzt
-	 *
-	 * @param x / xPosition im Spielraster
-	 * @param y / yPosition im Spielraster
-	 * 
-	 * @return Integer / ID der Fliege
-	 */
-	public Integer checkPosition(Integer x, Integer y) {
+	private Integer collisionCheck(Integer x, Integer xEnd, Integer y) {
 		for(Fly fly: this.flys) {
-			if(fly.getY() == y && fly.getX() == x) {
-				return fly.getId();
+			if( fly.getY().compareTo(y) == 0 ) {
+				if(
+					(fly.getX().compareTo(x) > 0 && fly.getX().compareTo(xEnd) < 0)
+					||
+					(fly.getXend().compareTo(x) > 0 && fly.getXend().compareTo(xEnd) < 0)
+				) {
+					return fly.getId();
+				}
 			}
 		}
 		return 0;
+		
 	}
 	
-	/** 
-	 * showInConsole / Kontrollausgabe
-	 * 
-	 */
-	public void showInConsole() {
-		String out = "";
-		for(Integer y = 5; y <= 8; y++) {
-			for(Integer x = 1; x <= Configuration.xFields; x++) {
-				if(this.checkPosition(x, y) > 0) {
-					out += "*";
-				} else {
-					out += "_";
-				}
-			}
-			out += "\r\n";
-		}
-		System.out.println(out);
-	}
+
+	
+
 	
 }

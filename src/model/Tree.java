@@ -21,6 +21,7 @@ public class Tree implements SubscriberInterface {
 	private Integer positionYend;
 	private Integer length;
 	private Integer startTime = 0;
+	private Integer lastMoveDistanceX = 0;
 
 
 	/**
@@ -97,10 +98,11 @@ public class Tree implements SubscriberInterface {
 	
 			Integer lastPositionX = this.positionX;
 			if(this.leftToRight) {
-				this.positionX = 1 - Configuration.xTree[(length-2)] + fieldsMoved; 
+				this.positionX = 1 - Configuration.xTree[(this.length - 2)] + fieldsMoved; 
 			} else {
 				this.positionX = Configuration.xGameZone - fieldsMoved; 
 			}
+			this.lastMoveDistanceX = Math.abs(lastPositionX - this.positionX);
 			this.positionXend = this.positionX + Configuration.xTree[(this.length - 2)];;
 			this.checkLeftTree();
 		}
@@ -132,13 +134,16 @@ public class Tree implements SubscriberInterface {
 	 */
 	public void sendObserver(String typ) {
 		SubscriberDaten data = new SubscriberDaten();
-		data.id 		= this.id;
-		data.name 		= "Tree";
-		data.xPosition 	= this.positionX;
-		data.yPosition 	= this.positionY;
-		data.typ 		= typ;
-		data.length		= this.length;
-		data.leftToRight= this.leftToRight;
+		data.id 			= this.id;
+		data.name 			= "Tree";
+		data.xPosition 		= this.positionX;
+		data.yPosition 		= this.positionY;
+		data.xPositionEnd 	= this.positionXend;
+		data.yPositionEnd 	= this.positionYend;
+		data.typ 			= typ;
+		data.length			= this.length;
+		data.leftToRight	= this.leftToRight;
+		data.lastMovementDistanceX = this.lastMoveDistanceX;
 
 		Observer.trigger("tree", data);
 
