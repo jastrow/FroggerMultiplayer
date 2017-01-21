@@ -1,5 +1,7 @@
 package controller;
 
+import java.net.MalformedURLException;
+import java.net.URLEncoder;
 import java.util.regex.Pattern;
 import application.Observer;
 import application.SubscriberDaten;
@@ -16,8 +18,9 @@ public class HighScoreController implements Runnable, SubscriberInterface {
 	
 	private Thread t;
 	private DBConnectionController dbConnection;
+	private GhostController ghostcontroller;
 	private String playerName;
-	private int playerTime;
+	private Integer playerTime;
 	private String was;
 	private String[] resultQuery = new String[3];
 	private String[] playerArray = new String[3];
@@ -34,6 +37,7 @@ public class HighScoreController implements Runnable, SubscriberInterface {
 		Observer.add("readHigh", this);
 		
 		this.dbConnection = new DBConnectionController();
+		this.ghostcontroller = new GhostController(this.dbConnection);
 		
 	}
 	
@@ -75,7 +79,7 @@ public class HighScoreController implements Runnable, SubscriberInterface {
 		if(this.was.equals("get")) {
 			
 				try {
-					this.resultQuery = this.dbConnection.readData();
+					this.resultQuery = this.dbConnection.readData(true);
 					
 					for (int i = 0 ; i < this.resultQuery.length; i++) {
 						String[] actString = this.resultQuery[i].split(Pattern.quote("|"));
@@ -101,13 +105,15 @@ public class HighScoreController implements Runnable, SubscriberInterface {
 	
 		} else {	
 			try {
-			this.dbConnection.writeData(this.playerName, this.playerTime);
+			String body = "name=" + URLEncoder.encode( this.playerName, "UTF-8" ) + "&" +
+		                  "zeit=" + URLEncoder.encode( this.playerTime.toString(), "UTF-8" );	
+			
+			this.dbConnection.writeData(body,true);
 			} catch (Exception e) {
 				
 			}
 		}
 	}
-
 
 
 	/* (non-Javadoc)
