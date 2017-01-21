@@ -13,6 +13,12 @@ import application.SubscriberInterface;
 import javafx.application.Platform;
 import model.IdCounter;
 
+/**
+ * Controller zur Implementierung der Multiplayerfunktion
+ * 
+ * @author Die UMeLs
+ *
+ */
 public class GhostController implements Runnable, SubscriberInterface {
 	
 	private DBConnectionController dbConnectionController;
@@ -31,9 +37,14 @@ public class GhostController implements Runnable, SubscriberInterface {
 	private String readWrite;
 	private Thread t;
 	private Integer lastTime = 0;
-	private Date date;
 	
 	
+	/**
+	 * Konstruktor
+	 *
+	 * @param dbConnectionController / Dantenbankcontroller
+	 *
+	 */
 	public GhostController(DBConnectionController dbConnectionController) {
 		this.dbConnectionController = dbConnectionController;	
 		this.id = IdCounter.getId();
@@ -140,6 +151,7 @@ public class GhostController implements Runnable, SubscriberInterface {
 						}
 					}
 				});	
+				
 			} catch (Exception e) {
 				
 				System.out.println("GeisterfroschDaten nicht gelesen: " + e.getMessage());
@@ -149,6 +161,9 @@ public class GhostController implements Runnable, SubscriberInterface {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see application.SubscriberInterface#calling(java.lang.String, application.SubscriberDaten)
+	 */
 	@Override
 	public void calling(String trigger, SubscriberDaten data) {
 		// TODO Auto-generated method stub

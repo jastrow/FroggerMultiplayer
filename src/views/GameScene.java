@@ -382,6 +382,11 @@ public class GameScene extends Scene implements SubscriberInterface {
 		this.updateElements();		
 	}
 	
+	/** 
+	 * Funktion zum erstellen eines neuen Fliegen Objektes
+	 *
+	 * @param data / DatenObjekt mit Indentifikationsmarkern für eine neue Fliege 
+	 */
 	private void createNewFlyObject(SubscriberDaten data) {
 		ImageView help = this.getGUIObject(data);
 		help.setImage(this.fly);

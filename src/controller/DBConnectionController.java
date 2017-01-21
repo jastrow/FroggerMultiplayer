@@ -2,14 +2,12 @@ package controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.URLEncoder;
 
 
 /**
@@ -27,7 +25,6 @@ public class DBConnectionController {
 	
 	/**
 	 * Konstruktor
-	 * @throws MalformedURLException 
 	 *
 	 *
 	 */
@@ -43,7 +40,6 @@ public class DBConnectionController {
 	 *
 	 * @param body  / Datensatz
 	 * @param urlIdentifier / Identifikator welche URL verwendet werden soll
-	 * @throws IOException / Ausnahme wenn Anfrage fehlschlaegt
 	 * 
 	 */
 	public void writeData(String body,Boolean urlIdentifier) {	
@@ -89,7 +85,7 @@ public class DBConnectionController {
 	/** 
 	 * schickt Trigger an Schnittstelle um HighScoreDaten zu erhalten
 	 *
-	 * @throws Exception / Ausnahme wenn Anfrage fehlschlaegt
+	 * @param urlIdentifier / Identifikator welche URL verwendet werden soll
 	 * @return String[] / Daten von DB Schnittstelle
 	 */
 	public String[] readData(Boolean urlIdentifier) {
