@@ -7,7 +7,7 @@ import application.SubscriberInterface;
 
 /**
  * Klasse zur definition des Frosches und seiner Funktionen.
- * 
+ *
  * @author Die UMeLs
  *
  */
@@ -21,10 +21,10 @@ public class Frog implements SubscriberInterface {
 	private String 	facing; 	// Facing n,s,w,o
 	private Boolean killed;		// Frosch schon tot
 	private Integer frogOnTreeId; // Tree-ID des Baumes auf dem der Frosch sitzt
-	
+
 	private Rivers rivers = null;	// Hat nur Frosch 1
 	private Streets streets = null;	// Hat nur Frosch 1
-	
+
 	/**
 	 * Konstruktor.
 	 *
@@ -34,7 +34,7 @@ public class Frog implements SubscriberInterface {
 		this.id = IdCounter.getId();
 		this.initializeFrog();
 	}
-	
+
 	/**
 	 * Konstruktor.
 	 *
@@ -55,10 +55,10 @@ public class Frog implements SubscriberInterface {
 		Observer.add("resetGame", this);
 		Observer.add("timeKilledFrog", this);
 	}
-	
-	/** 
+
+	/**
 	 * Initialisierung des Frosches.
-	 * 
+	 *
 	 */
 	private void initializeFrog() {
 		this.positionX = (int)(Configuration.xGameZone / 2) - (int) Configuration.xFrog / 2;
@@ -69,8 +69,8 @@ public class Frog implements SubscriberInterface {
 		this.killed = false;
 		this.frogOnTreeId = -1;
 	}
-	
-	
+
+
 	/* (non-Javadoc)
 	 * @see application.SubscriberInterface#calling(java.lang.String, application.SubscriberDaten)
 	 */
@@ -97,23 +97,22 @@ public class Frog implements SubscriberInterface {
 			this.collisionCheck();
 		}
 		if(trigger == "timeKilledFrog") {
-			if(this.killed) 
+			if(this.killed)
 			this.killed = true;
 			this.triggerObserver("killed");
 			Observer.trigger("stopGame", new SubscriberDaten());
 		}
 	}
-	
-	
-	/** 
+
+
+	/**
 	 * Bewegung auf Baumstamm.
 	 *
 	 * @param data / Datenobjekt mit Positions- und Identifikationsdaten
-	 * 
+	 *
 	 */
 	private void moveOnTree(SubscriberDaten data) {
 		Integer newX;
-		Integer newY;
 		if(data.leftToRight) {
 			newX = this.positionX + data.lastMovementDistanceX;
 		} else {
@@ -121,13 +120,13 @@ public class Frog implements SubscriberInterface {
 		}
 		this.checkGameZoneMove(newX,this.positionY);
 	}
-	
-	/** 
+
+	/**
 	 * Methode prueft Bewegung auf dem Spielfeld.
 	 *
 	 * @param newX / neue X Position
 	 * @param newY / neue Y Position
-	 * 
+	 *
 	 */
 	private void checkGameZoneMove(Integer newX, Integer newY) {
 
@@ -146,26 +145,26 @@ public class Frog implements SubscriberInterface {
 		if(newYend.compareTo(Configuration.yGameZone) > 0) {
 			newY = Configuration.yGameZone - Configuration.yFrog;
 		}
-		
+
 		this.positionX = newX;
 		this.positionY = newY;
 		this.positionXend = newX + Configuration.xFrog;
 		this.positionYend = newY + Configuration.yFrog;
-		
+
 		this.triggerObserver("move");
-		
+
 		if(this.positionY <= 1) {
 			this.triggerObserver("win");
 			Observer.trigger("stopGame", new SubscriberDaten());
 		}
-		
+
 	}
-	
-	/** 
+
+	/**
 	 * Methode bewegt den Frosch.
 	 *
 	 * @param direction / Richtung
-	 * 
+	 *
 	 */
 	private void move(String direction) {
 		// Auswertung Tastatureingabe
@@ -183,16 +182,16 @@ public class Frog implements SubscriberInterface {
 			this.checkGameZoneMove(this.positionX, this.positionY+Configuration.frogHop);
 		}
 	}
-	
-	/** 
+
+	/**
 	 * Methode prueft ob Frosch kolliedert.
-	 * 
+	 *
 	 */
 	public void collisionCheck() {
 		// 1. Kollision mit Cars
-		if(this.streets != null) { 
+		if(this.streets != null) {
 			if(this.streets.collisionCheck(
-					this.positionX, 
+					this.positionX,
 					this.positionXend,
 					this.positionY) && !this.killed) {
 				this.killed = true;
@@ -200,9 +199,9 @@ public class Frog implements SubscriberInterface {
 				Observer.trigger("stopGame", new SubscriberDaten());
 			}
 		}
-		
+
 		// 2. Kollision mit Baum
-		if(this.rivers != null) { 
+		if(this.rivers != null) {
 			this.frogOnTreeId = this.rivers.collisionCheck(this.positionX, this.positionXend, this.positionY);
 			if(this.frogOnTreeId == 0 && !this.killed) {
 				this.killed = true;
@@ -211,12 +210,12 @@ public class Frog implements SubscriberInterface {
 			}
 		}
 	}
-	
-	/** 
+
+	/**
 	 * Methode sendet einen Trigger an den Observer.
 	 *
 	 * @param typ / Art des Triggers
-	 * 
+	 *
 	 */
 	public void triggerObserver(String typ) {
 		SubscriberDaten data = new SubscriberDaten();
@@ -233,7 +232,7 @@ public class Frog implements SubscriberInterface {
 		}
 		Observer.trigger("frog", data);
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -248,5 +247,5 @@ public class Frog implements SubscriberInterface {
 		out += "On Tree: "+this.frogOnTreeId+"\r\n";
 		return out;
 	}
-	
+
 }
