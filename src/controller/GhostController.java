@@ -143,8 +143,8 @@ public class GhostController implements Runnable, SubscriberInterface {
 							date = format.parse(string);
 							Date actDate = new Date();
 							//System.out.println(date.getTime() + "   " + actDate.getTime());
-							System.out.println(((actDate.getTime() - date.getTime())/6000));
-							if ( ((actDate.getTime() - date.getTime())/6000) < 60) {
+							//System.out.println(((actDate.getTime() - date.getTime())/1000));
+							if ( ((actDate.getTime() - date.getTime())/1000) < 30) {
 								Observer.trigger("ghostfrog", data);
 							}
 						} catch (ParseException e) {
