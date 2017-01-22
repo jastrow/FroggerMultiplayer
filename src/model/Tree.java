@@ -7,13 +7,13 @@ import application.SubscriberInterface;
 
 /**
  * Klasse definiert ein Baumstamm auf der SpielSzene.
- * 
+ *
  * @author Die UMeLs
  *
  */
 public class Tree implements SubscriberInterface {
 
-	private int id;
+	private Integer id;
 	private Boolean leftToRight = false;	// Baumstamm fliesst von links nach rechts (ansonsten andersrum)
 	private Integer positionX;
 	private Integer positionY;
@@ -28,9 +28,9 @@ public class Tree implements SubscriberInterface {
 	 * Konstruktor.
 	 *
 	 * @param leftToRight / gibt an in welche Richtung der Stamm schwimmt
-	 * @param positionY / gibt die yPosition des Stammes im Spielfeldraster an 
-	 * @param positionX / gibt die xPosition des Stammes im Spielfeldraster an 
-	 * @param length / gibt die laenge des erstellten Stammes an 
+	 * @param positionY / gibt die yPosition des Stammes im Spielfeldraster an
+	 * @param positionX / gibt die xPosition des Stammes im Spielfeldraster an
+	 * @param length / gibt die laenge des erstellten Stammes an
 	 *
 	 */
 	public Tree(Integer positionX, Integer positionY, Integer length, Boolean leftToRight) {
@@ -40,7 +40,7 @@ public class Tree implements SubscriberInterface {
 		this.length = length;
 		this.positionXend = positionX + Configuration.xTree[(length-2)];
 		this.positionYend = positionY + Configuration.yTree;
-		
+
 		this.leftToRight = leftToRight;
 		if(!leftToRight) {
 			this.positionX = Configuration.xGameZone;
@@ -49,7 +49,7 @@ public class Tree implements SubscriberInterface {
 		this.sendObserver("new");
 	}
 
-	/** 
+	/**
 	 * Methode zum ermitteln der ID des Stammes.
 	 *
 	 * @return Integer / ID des Stammes
@@ -57,18 +57,18 @@ public class Tree implements SubscriberInterface {
 	public Integer getId() {
 		return this.id;
 	}
-	
-	/** 
+
+	/**
 	 * Methode zum ermitteln der xPosition des Stammes im Spielraster.
 	 *
 	 * @return Integer / xPosition im Spielraster
-	 * 
+	 *
 	 */
 	public Integer getPositionX() {
 		return this.positionX;
 	}
-	
-	/** 
+
+	/**
 	 * Methode getPositionXend.
 	 *
 	 * @return Integer / positionXend
@@ -87,7 +87,7 @@ public class Tree implements SubscriberInterface {
 		}
 	}
 
-	/** 
+	/**
 	 * Bewegung des Stammes.
 	 *
 	 * @param timeNow / aktuelle Zeit
@@ -98,14 +98,14 @@ public class Tree implements SubscriberInterface {
 		} else if(this.startTime.compareTo(timeNow) > 0) {
 				this.sendObserver("delete");
 		} else {
-		
+
 			Integer fieldsMoved = (int) (timeNow - this.startTime) / Configuration.treeSpeed;
-	
+
 			Integer lastPositionX = this.positionX;
 			if(this.leftToRight) {
-				this.positionX = 1 - Configuration.xTree[(this.length - 2)] + fieldsMoved; 
+				this.positionX = 1 - Configuration.xTree[(this.length - 2)] + fieldsMoved;
 			} else {
-				this.positionX = Configuration.xGameZone - fieldsMoved; 
+				this.positionX = Configuration.xGameZone - fieldsMoved;
 			}
 			this.lastMoveDistanceX = Math.abs(lastPositionX - this.positionX);
 			this.positionXend = this.positionX + Configuration.xTree[(this.length - 2)];;
@@ -113,9 +113,9 @@ public class Tree implements SubscriberInterface {
 		}
 	}
 
-	/** 
+	/**
 	 * Methode prueft die Position des Stammes auf dem Fluss.
-	 * 
+	 *
 	 */
 	public void checkLeftTree() {
 		String typ = "move";
@@ -131,11 +131,11 @@ public class Tree implements SubscriberInterface {
 		this.sendObserver(typ);
 	}
 
-	/** 
+	/**
 	 * Methode sendent einen Triggers an den Observer.
 	 *
 	 * @param typ / Art des Triggers
-	 * 
+	 *
 	 */
 	public void sendObserver(String typ) {
 		SubscriberDaten data = new SubscriberDaten();
@@ -158,7 +158,7 @@ public class Tree implements SubscriberInterface {
 
 	}
 
-	/** 
+	/**
 	 * Methode checkInGame.
 	 *
 	 * @return Boolean
@@ -167,7 +167,7 @@ public class Tree implements SubscriberInterface {
 		return true;
 	}
 
-	/** 
+	/**
 	 * Methode ermittelt Laenge des Stammes.
 	 *
 	 * @return int / Stammlaenge
@@ -176,11 +176,11 @@ public class Tree implements SubscriberInterface {
 		return this.length;
 	}
 
-	/** 
+	/**
 	 * Methode setzt Stammlaenge.
 	 *
 	 * @param length / lange des Stammes
-	 * 
+	 *
 	 */
 	public void setLength(int length) {
 		this.length = length;
