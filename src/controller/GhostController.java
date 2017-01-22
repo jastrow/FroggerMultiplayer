@@ -137,13 +137,15 @@ public class GhostController implements Runnable, SubscriberInterface {
 				Platform.runLater(new Runnable() {
 					public void run() {
 						String string = actString[11];
-						DateFormat format = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+						DateFormat format = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
 						Date date;
 						try {
 							date = format.parse(string);
 							Date actDate = new Date();
+							//System.out.println(date.getTime() + "   " + actDate.getTime());
+							//System.out.println(((actDate.getTime() - date.getTime())/60000));
 							if ( ((actDate.getTime() - date.getTime())/60000) < 1) {
-							Observer.trigger("ghostfrog", data);
+								Observer.trigger("ghostfrog", data);
 							}
 						} catch (ParseException e) {
 							// TODO Auto-generated catch block
@@ -185,7 +187,7 @@ public class GhostController implements Runnable, SubscriberInterface {
 			case "time": {
 				this.time = data.time;
 				Integer diff = data.time - this.lastTime;
-				if (diff.compareTo(1000) > 0) {
+				if (diff.compareTo(100) > 0) {
 					this.lastTime = data.time;
 					this.readGhostFrog();
 				}
