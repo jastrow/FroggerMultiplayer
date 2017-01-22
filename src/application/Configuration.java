@@ -1,7 +1,7 @@
 package application;
 
 /**
- * statische Klasse fuer modifizierbare Spielvariablen
+ * Statische Klasse fuer modifizierbare Spielvariablen.
  * 
  * @author Die UMeLs
  *

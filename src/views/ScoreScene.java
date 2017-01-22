@@ -23,7 +23,7 @@ import javafx.scene.layout.VBox;
 
 
 /** 
- * HighScoreSzene / Szene zur Darstellung der HighScores
+ * HighScoreSzene / Szene zur Darstellung der HighScores.
  * 
  * @author Die UMeLs
  *
@@ -41,7 +41,7 @@ public class ScoreScene implements SubscriberInterface {
 	private Integer[] playerTime = new Integer[3];
 	
 	/**
-	 * Konstruktor
+	 * Konstruktor.
 	 *
 	 * @param sceneController / für die Szenen zustaendiger Controller
 	 */
@@ -58,7 +58,7 @@ public class ScoreScene implements SubscriberInterface {
 	}
 
 	/**
-	 * Funktion zum erstellen der Szene mit ihren Elementen
+	 * Funktion zum erstellen der Szene mit ihren Elementen.
 	 * 
 	 */
 	private void buildScene() {
@@ -84,7 +84,7 @@ public class ScoreScene implements SubscriberInterface {
 	}
 	
 	/** 
-	 * Menueleiste bauen
+	 * Menueleiste bauen.
 	 *
 	 * @return HBox / HorizontalBox mit Menue 
 	 */
@@ -105,7 +105,7 @@ public class ScoreScene implements SubscriberInterface {
 	}
 	
 	/**
-	 * Hilfsfunktion zum formatieren der Datumsausgabe
+	 * Hilfsfunktion zum formatieren der Datumsausgabe.
 	 *
 	 * @param dateToFormat / uebergebenes Datum in UnixTimeStamp
 	 * @return formatierter DatumsString In Tag.Monat.Jahr
@@ -125,13 +125,16 @@ public class ScoreScene implements SubscriberInterface {
 	}
 	
 	/**
-	 * Funktion zur Rueckgabe der Szene
+	 * Funktion zur Rueckgabe der Szene.
 	 * @return komplette Szene mit allen Elementen
 	 */	
 	public Scene getScene() {
 		return this.scene;
 	}
 
+	/* (non-Javadoc)
+	 * @see application.SubscriberInterface#calling(java.lang.String, application.SubscriberDaten)
+	 */
 	@Override
 	public void calling(String trigger, SubscriberDaten data) {
 		if (trigger == "getHigh") {

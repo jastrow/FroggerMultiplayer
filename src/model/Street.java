@@ -10,8 +10,8 @@ import application.SubscriberDaten;
 import application.SubscriberInterface;
 
 /**
- * erstellen einer Strasse auf der Spielflaeche und erzeugen 
- * der Autos auf der Strasse
+ * Klasse zum erstellen einer Strasse auf der Spielflaeche und erzeugen 
+ * der Autos auf der Strasse.
  * 
  * @author Die UMeLs
  *
@@ -25,7 +25,7 @@ public class Street implements SubscriberInterface{
 	private Integer nextRandomCarTime;
 
 	/**
-	 * Konstruktor
+	 * Konstruktor.
 	 *
 	 * @param position / yPosition der Strasse im Spielfeldraster
 	 *
@@ -74,7 +74,7 @@ public class Street implements SubscriberInterface{
 	}
 	
 	/** 
-	 * loesche Auto
+	 * Methode loescht Auto.
 	 * 
 	 */
 	public void reset() {
@@ -85,7 +85,7 @@ public class Street implements SubscriberInterface{
 	}	
 	
 	/** 
-	 * starte Zufallsauto
+	 * Methode startet Zufallsauto.
 	 * 
 	 */
 	public void startRandomCars() {
@@ -206,7 +206,7 @@ public class Street implements SubscriberInterface{
 	}
 	
 	/** 
-	 * Kollisionspruefung
+	 * Kollisionspruefung.
 	 *
 	 * @param positionX / xPosition des Autos auf der Spielflaeche
 	 * @param positionY2 / positionY2
@@ -230,9 +230,9 @@ public class Street implements SubscriberInterface{
 	}
 	
 	/** 
-	 * ermitteln der yPosition der Strasse im Spielraster
+	 * Methode zum ermitteln der yPosition der Strasse im Spiel.
 	 *
-	 * @return Integer / yPosition im Spielraster
+	 * @return Integer / yPosition im Spiel
 	 * 
 	 */
 	public Integer getPositionY() {
@@ -242,7 +242,7 @@ public class Street implements SubscriberInterface{
 	
 	
 	/**
-	 * Nur für Ausgabetests
+	 * Nur für Ausgabetests.
 	 */
 	public void  showInConsole() {
 		System.out.println(
@@ -252,7 +252,7 @@ public class Street implements SubscriberInterface{
 	
 	
 	/** 
-	 * showStreet
+	 * Methode showStreet.
 	 *
 	 * @return String / showStreet
 	 */
@@ -269,9 +269,9 @@ public class Street implements SubscriberInterface{
 	}
 	
 	/** 
-	 * Positiosnspruefung Auto
+	 * Positiosnspruefung Auto.
 	 *
-	 * @param p / xPosition eines Autos auf dem Spielraster
+	 * @param p / xPosition eines Autos auf dem Spiel
 	 * @return Boolean / Kollission
 	 */
 	public Boolean checkPosition(int p) {

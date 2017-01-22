@@ -4,7 +4,7 @@ import application.*;
 import javafx.application.Platform;
 
 /**
- * Stellt einen Timer zur Synchronisierung der Ablaeufe zur Verfuegung
+ * Methode stellt einen Timer zur Synchronisierung der Ablaeufe zur Verfuegung.
  * 
  * 
  * @author Die UMeLs
@@ -18,7 +18,7 @@ public class TimeMachine implements Runnable, SubscriberInterface {
 	private Integer timeEnd;
 	
 	/**
-	 * Konstruktor
+	 * Konstruktor.
 	 *
 	 */
 	public TimeMachine() {
@@ -29,7 +29,7 @@ public class TimeMachine implements Runnable, SubscriberInterface {
 	}
 	
 	/** 
-	 * gibt aktuelle Zeit zurueck
+	 * Methode gibt aktuelle Zeit zurueck.
 	 *
 	 * @return Integer / aktuelle Zeit
 	 */
@@ -38,7 +38,7 @@ public class TimeMachine implements Runnable, SubscriberInterface {
 	}
 	
 	/** 
-	 * zuruecksetzen des Timers
+	 * Methode setzt Timer zurueck.
 	 * 
 	 */
 	public void reset() {
@@ -47,7 +47,7 @@ public class TimeMachine implements Runnable, SubscriberInterface {
 	}
 	
 	/** 
-	 * TimerThread starten
+	 * Methode zum starten des TimerThread.
 	 * 
 	 */
 	public void start() {
@@ -63,7 +63,7 @@ public class TimeMachine implements Runnable, SubscriberInterface {
 	}
 	
 	/** 
-	 * Neustart Timer
+	 * Methode zum Neustart des Timer.
 	 * 
 	 */
 	public void restart() {

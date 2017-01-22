@@ -11,7 +11,7 @@ public class IdCounter {
 	private static final AtomicInteger counter = new AtomicInteger();
 	
 	/** 
-	 * liefert Eineindeutige ID zur Laufzeit
+	 * Methode liefert Eineindeutige ID zur Laufzeit.
 	 *
 	 * @return Integer / ID
 	 */

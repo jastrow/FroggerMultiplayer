@@ -1,7 +1,7 @@
 package application;
 
 /**
- * Klasse definiert Struktur der ObserverTrigger
+ * Klasse definiert Struktur der ObserverTrigger.
  * 
  * @author Die UMeLs
  *
@@ -14,7 +14,7 @@ public class Subscriber {
 	
 	
 	/**
-	 * Konstruktor
+	 * Konstruktor.
 	 *
 	 * @param subscriber / subscriber
 	 * @param keyword / Schluesselwort des Trigger
@@ -26,7 +26,7 @@ public class Subscriber {
 	}
 	
 	/**
-	 * Konstruktor
+	 * Konstruktor.
 	 *
 	 * @param subscriber / subscriber
 	 * @param keyword / Schluesselwort des Trigger
@@ -39,7 +39,7 @@ public class Subscriber {
 	
 	
 	/** 
-	 * listenTo
+	 * Methode ListenTo.
 	 *
 	 * @param keyword / Schluesselwort
 	 * @param daten / Daten des Trigger
@@ -51,7 +51,7 @@ public class Subscriber {
 	
 	
 	/** 
-	 * gibt Trigger zurueck
+	 * Methode gibt Trigger zurueck.
 	 *
 	 * @return String / trigger
 	 * 
@@ -62,7 +62,7 @@ public class Subscriber {
 	
 	
 	/** 
-	 * getListener
+	 * Methode getListener.
 	 *
 	 * @return Object / Listenerobjekt
 	 */

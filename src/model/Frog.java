@@ -6,7 +6,7 @@ import application.SubscriberDaten;
 import application.SubscriberInterface;
 
 /**
- * Klasse zur definition des Frosches und seiner Funktionen
+ * Klasse zur definition des Frosches und seiner Funktionen.
  * 
  * @author Die UMeLs
  *
@@ -26,7 +26,7 @@ public class Frog implements SubscriberInterface {
 	private Streets streets = null;	// Hat nur Frosch 1
 	
 	/**
-	 * Konstruktor
+	 * Konstruktor.
 	 *
 	 *
 	 */
@@ -36,7 +36,7 @@ public class Frog implements SubscriberInterface {
 	}
 	
 	/**
-	 * Konstruktor
+	 * Konstruktor.
 	 *
 	 * @param rivers / Fluesse auf Spielflaeche
 	 * @param streets / Strassen auf Spielflaeche
@@ -57,7 +57,7 @@ public class Frog implements SubscriberInterface {
 	}
 	
 	/** 
-	 * Initialisierung des Frosches
+	 * Initialisierung des Frosches.
 	 * 
 	 */
 	private void initializeFrog() {
@@ -106,7 +106,7 @@ public class Frog implements SubscriberInterface {
 	
 	
 	/** 
-	 * Bewegung auf Baumstamm
+	 * Bewegung auf Baumstamm.
 	 *
 	 * @param data / Datenobjekt mit Positions- und Identifikationsdaten
 	 * 
@@ -123,7 +123,7 @@ public class Frog implements SubscriberInterface {
 	}
 	
 	/** 
-	 * prueft Bewegung auf dem Spielfeld
+	 * Methode prueft Bewegung auf dem Spielfeld.
 	 *
 	 * @param newX / neue X Position
 	 * @param newY / neue Y Position
@@ -162,7 +162,7 @@ public class Frog implements SubscriberInterface {
 	}
 	
 	/** 
-	 * bewegen des Frosches
+	 * Methode bewegt den Frosch.
 	 *
 	 * @param direction / Richtung
 	 * 
@@ -185,7 +185,7 @@ public class Frog implements SubscriberInterface {
 	}
 	
 	/** 
-	 * pruefen ob Frosch kolliedert
+	 * Methode prueft ob Frosch kolliedert.
 	 * 
 	 */
 	public void collisionCheck() {
@@ -213,7 +213,7 @@ public class Frog implements SubscriberInterface {
 	}
 	
 	/** 
-	 * senden eines Triggers an den Observer
+	 * Methode sendet einen Trigger an den Observer.
 	 *
 	 * @param typ / Art des Triggers
 	 * 

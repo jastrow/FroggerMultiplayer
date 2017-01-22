@@ -6,7 +6,7 @@ import application.SubscriberDaten;
 import application.SubscriberInterface;
 
 /**
- * Klasse zur Definition einer Fliege
+ * Klasse zur Definition einer Fliege.
  * 
  * @author Die UMeLs
  *
@@ -23,11 +23,11 @@ public class Fly implements SubscriberInterface {
 	private Boolean leftToRight;
 	
 	/**
-	 * Konstruktor
+	 * Konstruktor.
 	 *
 	 * @param xOnTree / xOnTree
-	 * @param x / xPosition der Fliege auf dem Spielraster
-	 * @param y / yPosition der Fliege auf dem Spielraster
+	 * @param x / xPosition der Fliege auf dem Spiel
+	 * @param y / yPosition der Fliege auf dem Spiel
 	 * @param id / ID der Fliege
 	 * @param direction / Richtung in welche sich die Fliege bewegt
 	 *
@@ -59,7 +59,7 @@ public class Fly implements SubscriberInterface {
 	}
 	
 	/** 
-	 * bewege die Fliege
+	 * Methode zum bewegen der Fliege.
 	 *
 	 * @param data / DatenObjekt mit Positionsdaten und ID der Fliege
 	 * 
@@ -74,7 +74,7 @@ public class Fly implements SubscriberInterface {
 	}
 	
 	/** 
-	 * Positionspruefung und wenn Rand erreicht loeschen der Fliege
+	 * Positionspruefung und wenn Rand erreicht loeschen der Fliege.
 	 * 
 	 */
 	private void checkForLeaving() {
@@ -87,7 +87,7 @@ public class Fly implements SubscriberInterface {
 	}
 	
 	/** 
-	 * senden eines Triggers an den Observer
+	 * Methode zum senden eines Triggers an den Observer.
 	 *
 	 * @param typ / Art des Triggers
 	 * 
@@ -105,7 +105,7 @@ public class Fly implements SubscriberInterface {
 	}
 	
 	/** 
-	 * ermitteln der ID der Fliege
+	 * Methode zum ermitteln der ID der Fliege.
 	 *
 	 * @return Integer / ID der Fliege
 	 */
@@ -114,9 +114,9 @@ public class Fly implements SubscriberInterface {
 	}
 	
 	/** 
-	 * ermitteln der xPosition der Fliege im Spielraster
+	 * Methode zum ermitteln der xPosition der Fliege im Spiel.
 	 *
-	 * @return Integer / xPosition im Spielraster
+	 * @return Integer / xPosition im Spiel
 	 * 
 	 */
 	public Integer getX() {
@@ -124,9 +124,9 @@ public class Fly implements SubscriberInterface {
 	}
 	
 	/** 
-	 * ermitteln der xPosition der Fliege im Spielraster
+	 * Methode zum ermitteln der xPosition der Fliege im Spiel.
 	 *
-	 * @return Integer / xPosition im Spielraster
+	 * @return Integer / xPosition im Spiel
 	 * 
 	 */
 	public Integer getXend() {
@@ -134,9 +134,9 @@ public class Fly implements SubscriberInterface {
 	}
 	
 	/** 
-	 * ermitteln der yPosition der Fliege im Spielraster
+	 * Methode zum ermitteln der yPosition der Fliege im Spiel.
 	 *
-	 * @return Integer / yPosition im Spielraster
+	 * @return Integer / yPosition im Spiel
 	 * 
 	 */
 	public Integer getY() {
@@ -144,7 +144,7 @@ public class Fly implements SubscriberInterface {
 	}
 	
 	/** 
-	 * getFlyOnTreeId
+	 * Methode getFlyOnTreeId.
 	 *
 	 * @return Integer / ID 
 	 */

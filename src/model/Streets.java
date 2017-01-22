@@ -6,7 +6,7 @@ import java.util.List;
 import application.Configuration;
 
 /**
- * Klasse zur Erstellung der Strassen in der Spielszene
+ * Klasse zur Erstellung der Strassen in der Spielszene.
  * 
  * @author Die UMeLs
  *
@@ -16,7 +16,7 @@ public class Streets {
 	public List<Street> streetlines = new ArrayList<Street>(); 
 	
 	/**
-	 * Konstruktor
+	 * Konstruktor.
 	 *
 	 *
 	 */
@@ -29,7 +29,7 @@ public class Streets {
 	}
 	
 	/** 
-	 * showStreetsInConsole
+	 * Methode showStreetsInConsole.
 	 * 
 	 */
 	public void showStreetsInConsole() {
@@ -40,7 +40,7 @@ public class Streets {
 	}
 
 	/** 
-	 * Kollisionspruefung Strasse
+	 * Kollisionspruefung Strasse.
 	 *
 	 * @param positionX / xPosition der Strasse in Spielraster
 	 * @param positionY / yPosition der Strasse in Spielraster

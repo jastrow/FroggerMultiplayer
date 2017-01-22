@@ -6,7 +6,7 @@ import application.SubscriberDaten;
 import application.SubscriberInterface;
 
 /**
- * definiert ein Auto auf der SpielSzene
+ * Klasse definiert ein Auto auf der SpielSzene.
  * 
  * @author Die UMeLs
  *
@@ -22,7 +22,7 @@ public class Car implements SubscriberInterface {
 	private Integer startTime = 0;
 		
 	/**
-	 * Konstruktor
+	 * Konstruktor.
 	 *
 	 * @param leftToRight / gibt an in welche Richtung das Auto faehrt
 	 * @param positionY / gibt die yPosition des Autos im Spielfeldraster an
@@ -40,7 +40,7 @@ public class Car implements SubscriberInterface {
 		this.initialize();
 	}
 	/**
-	 * Konstruktor
+	 * Konstruktor.
 	 *
 	 * @param leftToRight / gibt an in welche Richtung das Auto faehrt
 	 * @param positionY / gibt die yPosition des Autos im Spielfeldraster an 
@@ -56,7 +56,7 @@ public class Car implements SubscriberInterface {
 		this.initialize();
 	}
 	/** 
-	 * Initialisierung des Autos
+	 * Methode zur Initialisierung des Autos.
 	 * 
 	 */
 	private void initialize() {
@@ -81,7 +81,7 @@ public class Car implements SubscriberInterface {
 	}
 	
 	/** 
-	 * Bewegung des Autos
+	 * Methode zur Bewegung des Autos.
 	 *
 	 * @param timeNow / aktuelle Zeit
 	 */
@@ -99,7 +99,7 @@ public class Car implements SubscriberInterface {
 	}
 	
 	/** 
-	 * prueft die Position des Autos auf der Starsse
+	 * Methode prueft die Position des Autos auf der Starsse.
 	 * 
 	 */
 	public void checkLeftStreet() {
@@ -117,7 +117,7 @@ public class Car implements SubscriberInterface {
 	}
 	
 	/** 
-	 * senden eines Triggers an den Observer
+	 * Methode sendet einen Trigger an den Observer.
 	 *
 	 * @param typ / Art des Triggers
 	 * 
@@ -140,7 +140,7 @@ public class Car implements SubscriberInterface {
   
 
 	/** 
-	 * ermitteln der ID des Autos
+	 * Methode ermittelt die ID des Autos.
 	 *
 	 * @return Integer / ID des Autos
 	 */
@@ -150,9 +150,9 @@ public class Car implements SubscriberInterface {
 	
 	
 	/** 
-	 * ermitteln der xPosition des Autos im Spielraster
+	 * Methode ermittelt die xPosition des Autos im Spiel.
 	 *
-	 * @return Integer / xPosition im Spielraster
+	 * @return Integer / xPosition im Spiel
 	 * 
 	 */
 	public Integer getPositionX() {
@@ -160,9 +160,9 @@ public class Car implements SubscriberInterface {
 	}
 	
 	/** 
-	 * ermitteln der xPosition des Autos im Spielraster
+	 * Methode ermittelt die xPosition des Autos im Spiel.
 	 *
-	 * @return Integer / xPosition im Spielraster
+	 * @return Integer / xPosition im Spiel
 	 * 
 	 */
 	public Integer getPositionXend() {
@@ -170,9 +170,9 @@ public class Car implements SubscriberInterface {
 	}
 	
 	/** 
-	 * setzen der xPosition des Autos im Spielraster
+	 * Methode setzt die xPosition des Autos im Spiel.
 	 *
-	 * @param x / xPosition im Spielraster
+	 * @param x / xPosition im Spiel
 	 * 
 	 */
 	public void setPositionX(Integer x) {
@@ -181,9 +181,9 @@ public class Car implements SubscriberInterface {
 	}
 
 	/** 
-	 * ermitteln der yPosition des Autos im Spielraster
+	 * Methode ermittelt die yPosition des Autos im Spiel.
 	 *
-	 * @return Integer / yPosition im Spielraster
+	 * @return Integer / yPosition im Spiel
 	 * 
 	 */
 	public Integer getPositionY() {
@@ -191,7 +191,7 @@ public class Car implements SubscriberInterface {
 	}
 	
 	/** 
-	 * Startzeit setzen
+	 * Methode setzt Startzeit.
 	 *
 	 * @param zeit / Startzeit
 	 * 
@@ -201,7 +201,7 @@ public class Car implements SubscriberInterface {
 	}
 	
 	/** 
-	 * Startzeit geben
+	 * Methode gibt Startzeit.
 	 * 
 	 * @return startTime / Startzeit
 	 */

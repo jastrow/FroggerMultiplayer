@@ -7,8 +7,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import application.*;
 
 /**
- * erstellen eines Flusses auf der Spielflaeche und erzeugen 
- * der Baeume auf dem Fluss
+ * Klasse zum erstellen eines Flusses auf der Spielflaeche und erzeugen 
+ * der Baeume auf dem Fluss.
  * 
  * @author Die UMeLs
  *
@@ -22,7 +22,7 @@ public class River implements SubscriberInterface {
 	Integer newRandomTree;
 
 	/**
-	 * Konstruktor
+	 * Konstruktor.
 	 *
 	 * @param position / yPosition des Flusses im Spielfeldraster
 	 *
@@ -62,7 +62,7 @@ public class River implements SubscriberInterface {
 	}
 
 	/** 
-	 * pruefen ob Stamm auf Fluss mit genuegend Abstand vorhanden
+	 * Methode zum pruefen ob Stamm auf Fluss mit genuegend Abstand vorhanden.
 	 * 
 	 */
 	public void checkForTrees() { 
@@ -88,7 +88,7 @@ public class River implements SubscriberInterface {
 	}
 
 	/** 
-	 * erzeuge Stamm auf Fluss
+	 * Methode erzeugt Stamm auf Fluss.
 	 * 
 	 */
 	public void makeTree(){
@@ -109,7 +109,7 @@ public class River implements SubscriberInterface {
 	}
 
 	/** 
-	 * loesche Stamm
+	 * Methode loescht Stamm.
 	 *
 	 * @param id / StammID
 	 * 
@@ -125,7 +125,7 @@ public class River implements SubscriberInterface {
 	}
 
 	/** 
-	 * Kollisionspruefung Baustaemme
+	 * Kollisionspruefung Baustaemme.
 	 *
 	 * @param positionX / xPosition des Stammes
 	 * @param positionXend / positionXend  
@@ -150,9 +150,9 @@ public class River implements SubscriberInterface {
 	}
 
 	/** 
-	 * ermitteln der yPosition des Flusses im Spielraster
+	 * Methode zum ermitteln der yPosition des Flusses im Spiel.
 	 *
-	 * @return Integer / yPosition im Spielraster
+	 * @return Integer / yPosition im Spiel
 	 * 
 	 */
 	public Integer getPositionY() {

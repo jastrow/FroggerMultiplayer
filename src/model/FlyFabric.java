@@ -23,7 +23,7 @@ public class FlyFabric implements SubscriberInterface {
 	private Random rand;
 	
 	/**
-	 * Konstruktor
+	 * Konstruktor.
 	 *
 	 *
 	 */
@@ -66,7 +66,7 @@ public class FlyFabric implements SubscriberInterface {
 	}
 	
 	/** 
-	 * loescht alle Fliegen
+	 * Methode loescht alle Fliegen.
 	 * 
 	 */
 	private void reset() {
@@ -77,7 +77,7 @@ public class FlyFabric implements SubscriberInterface {
 	}
 	
 	/** 
-	 * erstellt eine zufaellige Fliege
+	 * Methode erstellt eine zufaellige Fliege.
 	 *
 	 * @param data / Datenobjekt mit Positionsdaten
 	 * 
@@ -94,7 +94,7 @@ public class FlyFabric implements SubscriberInterface {
 	}
 	
 	/** 
-	 * loescht Fliege
+	 * Methode loescht Fliege.
 	 *
 	 * @param id / FliegenID
 	 * 
@@ -110,7 +110,7 @@ public class FlyFabric implements SubscriberInterface {
 	}
 	
 	/** 
-	 * Fliege wird durch Baumstamm geloescht
+	 * Fliege wird durch Baumstamm geloescht.
 	 *
 	 * @param id / FliegenID
 	 * 
@@ -126,7 +126,7 @@ public class FlyFabric implements SubscriberInterface {
 	}
 	
 	/** 
-	 * Fliege an Hand ID auslesen
+	 * Fliege an Hand ID auslesen.
 	 *
 	 * @param id / FliegenID
 	 * 
@@ -143,7 +143,7 @@ public class FlyFabric implements SubscriberInterface {
 	}
 	
 	/** 
-	 * prueft ob Frosch auf Fliegenfeld
+	 * Methode prueft ob Frosch auf Fliegenfeld.
 	 *
 	 * @param data  / Datenobjekt mit Positionsdaten
 	 * 
@@ -161,7 +161,7 @@ public class FlyFabric implements SubscriberInterface {
 	}
 	
 	/** 
-	 * Kollisionspruefung
+	 * Kollisionspruefung.
 	 *
 	 * @param x / x Position auf Spielfeld
 	 * @param xEnd  / xEnd

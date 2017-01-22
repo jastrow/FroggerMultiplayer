@@ -15,7 +15,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 /**
- * Szene zum anzeigen der Programmiererdaten
+ * Szene zum anzeigen der Programmiererdaten.
  * 
  * @author Die UMeLs
  *
@@ -34,7 +34,7 @@ public class OverScene {
 	
 
 	/**
-	 * Konstruktor
+	 * Konstruktor.
 	 *
 	 * @param sceneController / für die Szenen zustaendiger Controller
 	 */
@@ -62,7 +62,7 @@ public class OverScene {
 	}
 
 	/**
-	 * Funktion zum erstellen der Szene mit ihren Elementen
+	 * Funktion zum erstellen der Szene mit ihren Elementen.
 	 * 
 	 */
 	private void buildScene() {
@@ -83,7 +83,7 @@ public class OverScene {
 	}
 	
 	/** 
-	 * Menueleiste bauen
+	 * Menueleiste bauen.
 	 *
 	 * @return HBox / HorizontalBox mit Menue 
 	 */
@@ -104,7 +104,7 @@ public class OverScene {
 	}
 		
 	/**
-	 * Funktion zur Rueckgabe der Szene
+	 * Funktion zur Rueckgabe der Szene.
 	 * @return komplette Szene mit allen Elementen
 	 */
 	public Scene getScene() {

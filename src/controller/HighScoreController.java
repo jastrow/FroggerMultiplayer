@@ -1,6 +1,5 @@
 package controller;
 
-import java.net.MalformedURLException;
 import java.net.URLEncoder;
 import java.util.regex.Pattern;
 import application.Observer;
@@ -9,7 +8,7 @@ import application.SubscriberInterface;
 import javafx.application.Platform;
 
 /**
- * Steuert das Auslesen und das Eintragen des HighScore in die Datenbank
+ * Steuert das Auslesen und das Eintragen des HighScore in die Datenbank.
  * 
  * @author Die UMeLs
  *
@@ -28,7 +27,7 @@ public class HighScoreController implements Runnable, SubscriberInterface {
 	private Integer[] dateArray = new Integer[3];
 	
 	/**
-	 * Konstruktor
+	 * Konstruktor.
 	 *
 	 */
 	public HighScoreController() {
@@ -43,7 +42,7 @@ public class HighScoreController implements Runnable, SubscriberInterface {
 	
 		
 	/** 
-	 * liest HighScoreDaten aus Datenbank aus
+	 * Methode liest HighScoreDaten aus Datenbank aus.
 	 * 
 	 */
 	public void getHighScore() {
@@ -60,7 +59,7 @@ public class HighScoreController implements Runnable, SubscriberInterface {
 	}
 	
 	/** 
-	 * speichert HighScore in Datenbank
+	 * Methode speichert HighScore in Datenbank.
 	 *
 	 * @param playerScore / Spielerpunkte
 	 */

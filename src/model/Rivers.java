@@ -6,7 +6,7 @@ import java.util.List;
 import application.Configuration;
 
 /**
- * Klasse zur Erstellung der Fluesse in der Spielszene
+ * Klasse zur Erstellung der Fluesse in der Spielszene.
  *
  * @author Die UMeLs
  *
@@ -16,7 +16,7 @@ public class Rivers  {
 	public List<River> riverlines = new ArrayList<River>();
 
 	/**
-	 * Konstruktor
+	 * Konstruktor.
 	 *
 	 *
 	 */
@@ -30,7 +30,7 @@ public class Rivers  {
 
 
 	/**
-	 * showRiversInConsole
+	 * Methode showRiversInConsole.
 	 *
 	 */
 	public void showRiversInConsole() {
@@ -41,7 +41,7 @@ public class Rivers  {
 	}
 
 	/**
-	 * Kollisionspruefung Fluesse
+	 * Kollisionspruefung Fluesse.
 	 *
 	 * @param positionX / xPosition des Flusses in Spielraster
 	 * @param positionXend / positionXend

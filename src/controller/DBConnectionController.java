@@ -1,17 +1,15 @@
 package controller;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
 
 /**
- * Steuert den Zugriff auf die Datenbankschnittstelle
+ * Diese Klasse steuert den Zugriff auf die Datenbankschnittstelle.
  * 
  * @author Die UMeLs
  *
@@ -24,7 +22,7 @@ public class DBConnectionController {
 
 	
 	/**
-	 * Konstruktor
+	 * Konstruktor.
 	 *
 	 *
 	 */
@@ -36,7 +34,7 @@ public class DBConnectionController {
 	
 	
 	/** 
-	 * schickt Trigger an Schnittstelle um Daten zu schreiben
+	 * Methode schickt Trigger an Schnittstelle um Daten zu schreiben.
 	 *
 	 * @param body  / Datensatz
 	 * @param urlIdentifier / Identifikator welche URL verwendet werden soll
@@ -83,7 +81,7 @@ public class DBConnectionController {
 	
 	
 	/** 
-	 * schickt Trigger an Schnittstelle um Daten zu erhalten
+	 * Methode schickt Trigger an Schnittstelle um Daten zu erhalten.
 	 *
 	 * @param urlIdentifier / Identifikator welche URL verwendet werden soll
 	 * @return String[] / Daten von DB Schnittstelle

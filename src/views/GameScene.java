@@ -25,7 +25,7 @@ import javafx.scene.text.Font;
 
 
 /** 
- * SpielSzene / Hauptszene des Programms
+ * SpielSzene / Hauptszene des Programms.
  * 
  * @author Die UMeLs
  *
@@ -77,7 +77,7 @@ public class GameScene extends Scene implements SubscriberInterface {
    /********************************************* Szeneninitialisierung *********************************************/ 
     
 	/**
-	 * Konstruktor
+	 * Konstruktor.
 	 *
 	 * @param sceneController / fuer die Szenen zustaendiger Controller
 	 */
@@ -146,7 +146,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 	
 
 	/** 
-	 * Menueleiste bauen
+	 * Menueleiste bauen.
 	 *
 	 * @return HBox / HorizontalBox mit Menue 
 	 */
@@ -201,7 +201,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 
 	
 	/**
-	 * Funktionen zum fuellen des Bilderarrays fuer die Baumstaemme
+	 * Funktionen zum fuellen des Bilderarrays fuer die Baumstaemme.
 	 */
 	private void fillImageWood() {
 		
@@ -212,7 +212,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 	}
 	
 	/**
-	 * Funktionen zum fuellen des Bilderarrays fuer die nach links fahrenden Autos
+	 * Funktionen zum fuellen des Bilderarrays fuer die nach links fahrenden Autos.
 	 */
 	private void fillImageCarToLeft() {
 		
@@ -224,7 +224,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 	
 
 	/**
-	 * Funktionen zum fuellen des Bilderarrays fuer die nach rechts fahrenden Autos
+	 * Funktionen zum fuellen des Bilderarrays fuer die nach rechts fahrenden Autos.
 	 */
 	private void fillImageCarToRight() {
 		
@@ -238,7 +238,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 	
 	
 	/**
-	 * Hilfsfunktion zum pruefen ob GUIObjekt (Baum / Auto) bereits in Liste vorhanden
+	 * Hilfsfunktion zum pruefen ob GUIObjekt (Baum / Auto) bereits in Liste vorhanden.
 	 *
 	 * @param	data DatenObjekt
 	 * @return	boolean	/ true Objekt vorhanden - false Objekt nicht vorhanden
@@ -252,7 +252,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 	}
 	
 	/**
-	 * Hilfsfunktion zum pruefen ob GUIObjekt (Frosch) bereits in Liste vorhanden
+	 * Hilfsfunktion zum pruefen ob GUIObjekt (Frosch) bereits in Liste vorhanden.
 	 *
 	 * @param	data DatenObjekt
 	 * @return	boolean	/ true Objekt vorhanden - false Objekt nicht vorhanden	
@@ -268,7 +268,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 	
 	
 	/** 
-	 * Hilfsfunktion zur Positionierung des GUI Objektes
+	 * Hilfsfunktion zur Positionierung des GUI Objektes.
 	 *  
 	 * @param imgObject / zu Positionierendes Objekt
 	 * @param data / Datenobjekt mit Positionsdaten
@@ -288,7 +288,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 	
 
 	/**
-	 * Hilfsfunktion zum auslesen des angetriggerten Objektes (Baum / Auto)
+	 * Hilfsfunktion zum auslesen des angetriggerten Objektes (Baum / Auto).
 	 * 
 	 * @param data / DatenObjekt mit Identifikationsdaten
 	 * @return getObject / angetriggertes Objekt (Baum / Auto)
@@ -306,7 +306,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 	
 	
 	/**
-	 * Hilfsfunktion zum auslesen des angetriggerten Objektes (Frosch)
+	 * Hilfsfunktion zum auslesen des angetriggerten Objektes (Frosch).
 	 * 
 	 * @param data / DatenObjekt mit Identifikationsdaten
 	 * @return getObject / angetriggertes Objekt (Frosch)
@@ -324,7 +324,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 	}
 	
 	/**
-	 * Hilfsfunktion zum formatieren der Zeitausgabe
+	 * Hilfsfunktion zum formatieren der Zeitausgabe.
 	 *
 	 * @param timeToFormat / uebergebene Zeit in Millisekunden
 	 * @return formatierter ZeitString in Sekunden
@@ -345,7 +345,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 	  /********************************************** Arbeitsfuntionen  ***********************************************/		
 
 	/**
-	 * Funktion zum erstellen eines neuen Car Objektes
+	 * Funktion zum erstellen eines neuen Car Objektes.
 	 *
 	 * @param data / DatenObjekt mit Indentifikationsmarkern für das neue Auto
 	 */
@@ -366,7 +366,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 	}
 	
 	/**
-	 * Funktion zum erstellen eines neuen Baum Objektes
+	 * Funktion zum erstellen eines neuen Baum Objektes.
 	 *
 	 * @param data / DatenObjekt mit Indentifikationsmarkern für den neuen Baum
 	 */
@@ -385,7 +385,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 	}
 	
 	/** 
-	 * Funktion zum erstellen eines neuen Fliegen Objektes
+	 * Funktion zum erstellen eines neuen Fliegen Objektes.
 	 *
 	 * @param data / DatenObjekt mit Indentifikationsmarkern für eine neue Fliege 
 	 */
@@ -398,7 +398,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 	}
 	
 	/**
-	 * Funktion zum erstellen eines neuen Frosch Objektes
+	 * Funktion zum erstellen eines neuen Frosch Objektes.
 	 *
 	 * @param data / DatenObjekt mit Indentifikationsmarkern für den neuen Frosch
 	 */
@@ -419,7 +419,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 
 	
 	/**
-	 * Funktion zum aktualisieren eines Frosch Objektes
+	 * Funktion zum aktualisieren eines Frosch Objektes.
 	 *
 	 * @param data / DatenObjekt mit Indentifikationsmarkern für den zu aktualisierenden Frosch
 	 */
@@ -440,7 +440,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 	}
 	
 	/**
-	 * Funktion zum loeschen eines GUI Objektes
+	 * Funktion zum loeschen eines GUI Objektes.
 	 *
 	 * @param data / DatenObjekt mit Indentifikationsmarkern für das zu loeschende GUI Objekt
 	 */
@@ -457,7 +457,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 	}
 	
 	/**
-	 * Fliege setzen
+	 * Fliege setzen.
 	 * 
 	 */
 	private void setFlyIcon () {
@@ -466,7 +466,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 	}
 	
 	/**
-	 * Funktion zum loeschen eines Frosch Objektes
+	 * Funktion zum loeschen eines Frosch Objektes.
 	 *
 	 * @param data / DatenObjekt mit Indentifikationsmarkern für das zu loeschende Frosch Objekt
 	 */
@@ -483,7 +483,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 	}
 	
 	/**
-	 * Funktion zum Anzeigen das Spieler verloren hat
+	 * Funktion zum Anzeigen das Spieler verloren hat.
 	 *
 	 * @param data / DatenObjekt mit Indentifikationsmarkern für den gestorbenen Frosch
 	 */
@@ -513,7 +513,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 	
 	
 	/**
-	 * Funktion zum Anzeigen das Spieler gewonnen hat
+	 * Funktion zum Anzeigen das Spieler gewonnen hat.
 	 *
 	 * @param data / DatenObjekt mit Indentifikationsmarkern für den gewinnenden Frosch
 	 */
@@ -541,7 +541,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 	 } 
 	
 	/**
-	 * Funktion zum aktualisieren eines Auto/Baum Objektes
+	 * Funktion zum aktualisieren eines Auto/Baum Objektes.
 	 *
 	 * @param data / DatenObjekt mit Indentifikationsmarkern für das zu aktualisierende Objekt
 	 */
@@ -564,7 +564,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 	}
 	
 	/**
-	 * Funktion zum neu befuellen der Szene
+	 * Funktion zum neu befuellen der Szene.
 	 *
 	 * 
 	 */
@@ -586,7 +586,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 	}
 	
 	/**
-	 * Funktion zum Update des SpielzeitLabel
+	 * Funktion zum Update des SpielzeitLabel.
 	 *
 	 * @param data / Datenobjekt zur Uebergabe der aktuellen Spielzeit
 	 */
@@ -689,7 +689,9 @@ public class GameScene extends Scene implements SubscriberInterface {
 				case "ghostfrog": {
 					switch (data.typ) {
 						case "new": {
-										this.createNewFrogObject(data);
+										if (this.frogs.size() < 2) {
+											this.createNewFrogObject(data); 
+										}
 										break;
 						}
 						case "move": {
@@ -724,7 +726,7 @@ public class GameScene extends Scene implements SubscriberInterface {
 	}
 
 	/**
-	 * Funktion zur Rueckgabe der Szene
+	 * Funktion zur Rueckgabe der Szene.
 	 * @return komplette Szene mit allen Elementen
 	 */
 	public Scene getScene() {

@@ -8,7 +8,7 @@ import model.*;
 
 
 /**
- * Klasse fuer die SpielLogik und PunkteVergabe
+ * Klasse fuer die SpielLogik und PunkteVergabe.
  * 
  * @author Die UMeLs
  *
@@ -33,7 +33,7 @@ public class GameLogic implements SubscriberInterface {
 	
 
 	/**
-	 * Konstruktor
+	 * Konstruktor.
 	 *
 	 */
 	public GameLogic() {
@@ -91,7 +91,7 @@ public class GameLogic implements SubscriberInterface {
 	}
 
 	
-	/** Uebergabe des SceneController
+	/** Uebergabe des SceneController.
 	 *
 	 * @param scene  / Scenecontroller
 	 * 
@@ -101,7 +101,8 @@ public class GameLogic implements SubscriberInterface {
 	}
 
 	
-	/** berechnet aktuellen Punktestand 
+	/** 
+	 * Methode berechnet aktuellen Punktestand.
 	 *
 	 */
 	public void getScore() {
@@ -109,7 +110,8 @@ public class GameLogic implements SubscriberInterface {
 	}
 	
 	
-	/** berechnet aktuellen Punktestand und triggere HighScoreUpload
+	/** 
+	 * Methode berechnet aktuellen Punktestand und triggere HighScoreUpload.
 	 *
 	 * @param withUpload / Trigger ob UploadHighScore oder nicht
 	 */

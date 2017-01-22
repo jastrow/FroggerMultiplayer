@@ -11,7 +11,7 @@ import views.*;
 
 
 /**
- * Steuert die Anzeige und Umschaltung der notwendigen Szenen
+ * Klasse steuert die Anzeige und Umschaltung der notwendigen Szenen.
  * 
  * @author Die UMeLs
  *
@@ -31,7 +31,7 @@ public class SceneController implements SubscriberInterface {
 
 
 	/**
-	 * Konstruktor
+	 * Konstruktor.
 	 *
 	 *
 	 */
@@ -48,7 +48,7 @@ public class SceneController implements SubscriberInterface {
 
 	
 	/** 
-	 * Szene setzen auf aktuelle Buehne
+	 * Szene setzen auf aktuelle Buehne.
 	 *
 	 * @param primaryStage / aktuelle Buehne 
 	 * 
@@ -60,7 +60,7 @@ public class SceneController implements SubscriberInterface {
 	}
 	
 	/** 
-	 * gibt GameScene zurueck
+	 * Methode gibt GameScene zurueck.
 	 *
 	 * @return scene / GameScene
 	 */
@@ -69,7 +69,7 @@ public class SceneController implements SubscriberInterface {
 	}
 	
 	/** 
-	 * gibt HighScoreScene zurueck
+	 * Methode gibt HighScoreScene zurueck.
 	 *
 	 * @return scene / HighScoreScene
 	 */
@@ -78,7 +78,7 @@ public class SceneController implements SubscriberInterface {
 	}
 	
 	/** 
-	 * gibt StartScene zurueck
+	 * Methode gibt StartScene zurueck.
 	 *
 	 * @return scene / StartScene
 	 */
@@ -87,7 +87,7 @@ public class SceneController implements SubscriberInterface {
 	}
 	
 	/** 
-	 * gibt OverScene zurueck
+	 * Methode gibt OverScene zurueck.
 	 *
 	 * @return scene / OverScene
 	 */
@@ -97,7 +97,7 @@ public class SceneController implements SubscriberInterface {
 	
 	
 	/** 
-	 * fuehrt Szenenwechsel zu Startbildschirm durch
+	 * Methode fuehrt Szenenwechsel zu Startbildschirm durch.
 	 * 
 	 */
 	public void newGame(){
@@ -106,7 +106,7 @@ public class SceneController implements SubscriberInterface {
 	}
 	
 	/** 
-	 * fuehrt Szenenwechsel zu HighScoreBildschirm durch
+	 * Methode fuehrt Szenenwechsel zu HighScoreBildschirm durch.
 	 * 
 	 */
 	public void showHighscore(){
@@ -115,7 +115,7 @@ public class SceneController implements SubscriberInterface {
 	}
 	
 	/** 
-	 * fuehrt Szenenwechsel zu UeberBildschirm durch
+	 * Methode fuehrt Szenenwechsel zu UeberBildschirm durch.
 	 * 
 	 */
 	public void showOver(){
@@ -124,7 +124,7 @@ public class SceneController implements SubscriberInterface {
 	
 	
 	/** 
-	 * startet Spiel und setzt KeyListener fuer die Steuerung
+	 * Methode startet Spiel und setzt KeyListener fuer die Steuerung.
 	 * 
 	 */
 	public void startGame(){
@@ -199,7 +199,7 @@ public class SceneController implements SubscriberInterface {
 	}
 	
 	/** 
-	 * zeigt GameScene bzw StartScene je nachdem ob Spiel laeuft oder nicht
+	 * Methode zeigt GameScene bzw StartScene je nachdem ob Spiel laeuft oder nicht.
 	 * 
 	 */
 	public void showGameScene() {
@@ -214,7 +214,7 @@ public class SceneController implements SubscriberInterface {
 
 	
 	/** 
-	 * setzt Trigger wenn Szene geschlossen wird
+	 * Methode setzt Trigger wenn Szene geschlossen wird.
 	 *
 	 * @param actScene / aktuell aktive Szene
 	 * 

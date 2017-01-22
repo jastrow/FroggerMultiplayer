@@ -10,7 +10,7 @@ import javafx.stage.WindowEvent;
 
 
 /**
- * MainKlasse
+ * MainKlasse.
  * 
  * @author Die UMeLs
  *
@@ -54,7 +54,7 @@ public class Main extends Application {
 	}
 
 	/** 
-	 * main
+	 * Main.
 	 *
 	 * @param args / Startparameter
 	 */

@@ -6,7 +6,7 @@ import application.SubscriberDaten;
 import application.SubscriberInterface;
 
 /**
- * definiert ein Baumstamm auf der SpielSzene
+ * Klasse definiert ein Baumstamm auf der SpielSzene.
  * 
  * @author Die UMeLs
  *
@@ -25,7 +25,7 @@ public class Tree implements SubscriberInterface {
 
 
 	/**
-	 * Konstruktor
+	 * Konstruktor.
 	 *
 	 * @param leftToRight / gibt an in welche Richtung der Stamm schwimmt
 	 * @param positionY / gibt die yPosition des Stammes im Spielfeldraster an 
@@ -50,7 +50,7 @@ public class Tree implements SubscriberInterface {
 	}
 
 	/** 
-	 * ermitteln der ID des Stammes
+	 * Methode zum ermitteln der ID des Stammes.
 	 *
 	 * @return Integer / ID des Stammes
 	 */
@@ -59,7 +59,7 @@ public class Tree implements SubscriberInterface {
 	}
 	
 	/** 
-	 * ermitteln der xPosition des Stammes im Spielraster
+	 * Methode zum ermitteln der xPosition des Stammes im Spielraster.
 	 *
 	 * @return Integer / xPosition im Spielraster
 	 * 
@@ -69,7 +69,7 @@ public class Tree implements SubscriberInterface {
 	}
 	
 	/** 
-	 * getPositionXend
+	 * Methode getPositionXend.
 	 *
 	 * @return Integer / positionXend
 	 */
@@ -88,7 +88,7 @@ public class Tree implements SubscriberInterface {
 	}
 
 	/** 
-	 * Bewegung des Stammes
+	 * Bewegung des Stammes.
 	 *
 	 * @param timeNow / aktuelle Zeit
 	 */
@@ -114,7 +114,7 @@ public class Tree implements SubscriberInterface {
 	}
 
 	/** 
-	 * prueft die Position des Stammes auf dem Fluss
+	 * Methode prueft die Position des Stammes auf dem Fluss.
 	 * 
 	 */
 	public void checkLeftTree() {
@@ -132,7 +132,7 @@ public class Tree implements SubscriberInterface {
 	}
 
 	/** 
-	 * senden eines Triggers an den Observer
+	 * Methode sendent einen Triggers an den Observer.
 	 *
 	 * @param typ / Art des Triggers
 	 * 
@@ -159,7 +159,7 @@ public class Tree implements SubscriberInterface {
 	}
 
 	/** 
-	 * checkInGame
+	 * Methode checkInGame.
 	 *
 	 * @return Boolean
 	 */
@@ -168,7 +168,7 @@ public class Tree implements SubscriberInterface {
 	}
 
 	/** 
-	 * ermittelt Laenge des Stammes
+	 * Methode ermittelt Laenge des Stammes.
 	 *
 	 * @return int / Stammlaenge
 	 */
@@ -177,7 +177,7 @@ public class Tree implements SubscriberInterface {
 	}
 
 	/** 
-	 * setzt Stammlaenge
+	 * Methode setzt Stammlaenge.
 	 *
 	 * @param length / lange des Stammes
 	 * 

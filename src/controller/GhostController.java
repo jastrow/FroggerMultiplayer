@@ -14,7 +14,7 @@ import javafx.application.Platform;
 import model.IdCounter;
 
 /**
- * Controller zur Implementierung der Multiplayerfunktion
+ * Controller zur Implementierung der Multiplayerfunktion.
  * 
  * @author Die UMeLs
  *
@@ -40,7 +40,7 @@ public class GhostController implements Runnable, SubscriberInterface {
 	
 	
 	/**
-	 * Konstruktor
+	 * Konstruktor.
 	 *
 	 * @param dbConnectionController / Dantenbankcontroller
 	 *
@@ -53,7 +53,7 @@ public class GhostController implements Runnable, SubscriberInterface {
 	}
 	
 	/** 
-	 * liest GhostFrogDaten aus Datenbank aus
+	 * Methode liest GhostFrogDaten aus Datenbank aus.
 	 * 
 	 */
 	public void readGhostFrog() {
@@ -70,7 +70,7 @@ public class GhostController implements Runnable, SubscriberInterface {
 	}
 	
 	/** 
-	 * speichert GhostFrogDaten in Datenbank
+	 * Methode speichert GhostFrogDaten in Datenbank.
 	 *
 	 * @param data / GhostFrogDaten
 	 */

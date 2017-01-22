@@ -18,7 +18,7 @@ import javafx.scene.layout.VBox;
 
 
 /** 
- * StartSzene / StartSzene des Programms
+ * StartSzene / StartSzene des Programms.
  * 
  * @author Die UMeLs
  *
@@ -34,7 +34,7 @@ public class StartScene {
 	private TextField spielerName = new TextField("Spielername");
 		
 	/**
-	 * Konstruktor
+	 * Konstruktor.
 	 *
 	 * @param sceneController / für die Szenen zustaendiger Controller
 	 */
@@ -49,7 +49,7 @@ public class StartScene {
 	}
 
 	/**
-	 * Funktion zum erstellen der Szene mit ihren Elementen
+	 * Funktion zum erstellen der Szene mit ihren Elementen.
 	 * 
 	 */
 	private void buildScene() {
@@ -75,7 +75,7 @@ public class StartScene {
 	}
 
 	/** 
-	 * Menueleiste bauen
+	 * Menueleiste bauen.
 	 *
 	 * @return HBox / HorizontalBox mit Menue 
 	 */
@@ -108,7 +108,7 @@ public class StartScene {
 	}
 	
 	/** 
-	 * Hilfsfunktion zum ausloesen eines StartTriggers an den Observer
+	 * Hilfsfunktion zum ausloesen eines StartTriggers an den Observer.
 	 *
 	 */
 	private void submitStart() {
@@ -121,7 +121,7 @@ public class StartScene {
 	}
 
 	/**
-	 * Funktion zur Rueckgabe der Szene
+	 * Funktion zur Rueckgabe der Szene.
 	 * @return komplette Szene mit allen Elementen
 	 */
 	public Scene getScene() {

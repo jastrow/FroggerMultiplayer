@@ -9,7 +9,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
 /**
- * Steuert die Wiedergabe der implementierten Sounddateien
+ * Klasse steuert die Wiedergabe der implementierten Sounddateien.
  * 
  * @author Die UMeLs
  *
@@ -24,7 +24,7 @@ public class SoundController implements SubscriberInterface {
 	AudioClip hop;
 	
 	/**
-	 * Konstruktor
+	 * Konstruktor.
 	 *
 	 *
 	 */
@@ -46,7 +46,7 @@ public class SoundController implements SubscriberInterface {
 	}
 	
 	/** 
-	 * Musik abspielen
+	 * Methode zum Musik abspielen.
 	 * 
 	 */
 	public void playMusic() {

@@ -29,7 +29,7 @@ public class Observer {
 	public Queue<Subscriber> subscriber = new ConcurrentLinkedQueue<Subscriber>();
 	
 	/**
-	 * (Erstellt und) Gibt die Observer-Instanz zurueck.
+	 * Erstellt und gibt die Observer-Instanz zurueck.
 	 * @return Observer instance
 	 */
 	public static Observer getInstance() {
@@ -43,6 +43,7 @@ public class Observer {
 	/**
 	 * Loest eine Nachricht aus, an alle die es interessiert (durch trigger),
 	 * und uebergibt jenen die SubscriberDaten durch die Methode "calling".
+	 * 
 	 * @param trigger Benachrichtigungs Codewort
 	 * @param data Daten in Form von SubscriberDaten
 	 */
@@ -67,6 +68,7 @@ public class Observer {
 	
 	/**
 	 * Fuegt einen Subscriber hinzu.
+	 * 
 	 * @param obj Der Subscriber selbst (this).
 	 * @param trigger Das Ausloeser-Codewort.
 	 */
@@ -114,7 +116,7 @@ public class Observer {
 	
 	
 	/** 
-	 * gibt die groesse der SubscriberQueue zurueck
+	 * Gibt die groesse der SubscriberQueue zurueck.
 	 *
 	 * @return Integer / Queuegroesse
 	 */
@@ -124,7 +126,7 @@ public class Observer {
 	
 	
 	/** 
-	 * zeigt Subscriber
+	 * Methode zeigt Subscriber.
 	 * 
 	 */
 	public static void showSubs() {
@@ -133,7 +135,7 @@ public class Observer {
 	}
 	
 	/** 
-	 * gibt SubscriberListe aus
+	 * Methode gibt SubscriberListe aus.
 	 *
 	 */
 	public void showSubscriber() {
