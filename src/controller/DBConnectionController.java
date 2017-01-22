@@ -36,7 +36,7 @@ public class DBConnectionController {
 	
 	
 	/** 
-	 * sendet Post an DB Schnittstelle
+	 * schickt Trigger an Schnittstelle um Daten zu schreiben
 	 *
 	 * @param body  / Datensatz
 	 * @param urlIdentifier / Identifikator welche URL verwendet werden soll
@@ -83,7 +83,7 @@ public class DBConnectionController {
 	
 	
 	/** 
-	 * schickt Trigger an Schnittstelle um HighScoreDaten zu erhalten
+	 * schickt Trigger an Schnittstelle um Daten zu erhalten
 	 *
 	 * @param urlIdentifier / Identifikator welche URL verwendet werden soll
 	 * @return String[] / Daten von DB Schnittstelle

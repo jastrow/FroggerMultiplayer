@@ -160,6 +160,15 @@ public class FlyFabric implements SubscriberInterface {
 		}
 	}
 	
+	/** 
+	 * Kollisionspruefung
+	 *
+	 * @param x / x Position auf Spielfeld
+	 * @param xEnd  / xEnd
+	 * @param y / y Position auf Spielfeld
+	 * @return Integer / Kollisionsmarker
+	 * 
+	 */
 	private Integer collisionCheck(Integer x, Integer xEnd, Integer y) {
 		for(Fly fly: this.flys) {
 			if( fly.getY().compareTo(y) == 0 ) {

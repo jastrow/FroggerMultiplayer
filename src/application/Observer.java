@@ -123,6 +123,10 @@ public class Observer {
 	}
 	
 	
+	/** 
+	 * zeigt Subscriber
+	 * 
+	 */
 	public static void showSubs() {
 		Observer obs = Observer.getInstance();
 		obs.showSubscriber();

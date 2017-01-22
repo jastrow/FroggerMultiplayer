@@ -68,6 +68,11 @@ public class Tree implements SubscriberInterface {
 		return this.positionX;
 	}
 	
+	/** 
+	 * getPositionXend
+	 *
+	 * @return Integer / positionXend
+	 */
 	public Integer getPositionXend() {
 		return this.positionXend;
 	}

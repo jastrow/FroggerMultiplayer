@@ -51,7 +51,7 @@ public class Subscriber {
 	
 	
 	/** 
-	 * getTrigger
+	 * gibt Trigger zurueck
 	 *
 	 * @return String / trigger
 	 * 

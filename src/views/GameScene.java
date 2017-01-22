@@ -573,15 +573,15 @@ public class GameScene extends Scene implements SubscriberInterface {
 		this.graphicsContext.clearRect(0, 0, 950,600);
 		//Bäume/Autos in GUI setzen
 		for(ImageView help: this.pictureCont){
-	        this.graphicsContext.restore();
+	        //this.graphicsContext.restore();
 			this.graphicsContext.drawImage(help.getImage(), help.getX(), help.getY());
-	        this.graphicsContext.save();
+	        //this.graphicsContext.save();
 		}
 		//Frogs in GUI setzen
 		for(ImageView help: this.frogs){
-	        this.graphicsContext.restore();
+	        //this.graphicsContext.restore();
 			this.graphicsContext.drawImage(help.getImage(), help.getX(), help.getY());
-	        this.graphicsContext.save();
+	        //this.graphicsContext.save();
 		}
 	}
 	

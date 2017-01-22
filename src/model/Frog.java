@@ -105,6 +105,12 @@ public class Frog implements SubscriberInterface {
 	}
 	
 	
+	/** 
+	 * Bewegung auf Baumstamm
+	 *
+	 * @param data / Datenobjekt mit Positions- und Identifikationsdaten
+	 * 
+	 */
 	private void moveOnTree(SubscriberDaten data) {
 		Integer newX;
 		Integer newY;
@@ -116,6 +122,13 @@ public class Frog implements SubscriberInterface {
 		this.checkGameZoneMove(newX,this.positionY);
 	}
 	
+	/** 
+	 * prueft Bewegung auf dem Spielfeld
+	 *
+	 * @param newX / neue X Position
+	 * @param newY / neue Y Position
+	 * 
+	 */
 	private void checkGameZoneMove(Integer newX, Integer newY) {
 
 		Integer newXend = newX + Configuration.xFrog;
