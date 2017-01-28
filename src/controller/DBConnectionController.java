@@ -64,10 +64,10 @@ public class DBConnectionController {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()) );
 			//System.out.println(reader.toString());
 			
-			String line;
-			while ((line = reader.readLine()) != null) {
+			//String line;
+			//while ((line = reader.readLine()) != null) {
 				//System.out.println(line);
-			}
+			//}
 		
 			writer.close();
 			reader.close();

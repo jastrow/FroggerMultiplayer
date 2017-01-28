@@ -50,6 +50,7 @@ public class GhostController implements Runnable, SubscriberInterface {
 		this.id = IdCounter.getId();
 		Observer.add("frog", this);
 		Observer.add("time", this);
+		Observer.add("resetGame", this);
 	}
 	
 	/** 
@@ -187,10 +188,14 @@ public class GhostController implements Runnable, SubscriberInterface {
 			case "time": {
 				this.time = data.time;
 				Integer diff = data.time - this.lastTime;
-				if (diff.compareTo(100) > 0) {
+				if (diff.compareTo(500) > 0) {
 					this.lastTime = data.time;
 					this.readGhostFrog();
 				}
+				break;
+			}
+			case "resetGame": {
+				this.lastTime = 0;
 				break;
 			}
 		}
