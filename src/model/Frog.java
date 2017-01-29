@@ -189,25 +189,21 @@ public class Frog implements SubscriberInterface {
 	 */
 	public void collisionCheck() {
 		// 1. Kollision mit Cars
-		if(this.streets != null) {
-			if(this.streets.collisionCheck(
-					this.positionX,
-					this.positionXend,
-					this.positionY) && !this.killed) {
-				this.killed = true;
-				this.triggerObserver("killed");
-				Observer.trigger("stopGame", new SubscriberDaten());
-			}
+		if(this.streets.collisionCheck(
+			this.positionX,
+			this.positionXend,
+			this.positionY) && !this.killed) {
+			this.killed = true;
+			this.triggerObserver("killed");
+			Observer.trigger("stopGame", new SubscriberDaten());
 		}
 
 		// 2. Kollision mit Baum
-		if(this.rivers != null) {
-			this.frogOnTreeId = this.rivers.collisionCheck(this.positionX, this.positionXend, this.positionY);
-			if(this.frogOnTreeId == 0 && !this.killed) {
-				this.killed = true;
-				this.triggerObserver("killed");
-				Observer.trigger("stopGame", new SubscriberDaten());
-			}
+		this.frogOnTreeId = this.rivers.collisionCheck(this.positionX, this.positionXend, this.positionY);
+		if(this.frogOnTreeId == 0 && !this.killed) {
+			this.killed = true;
+			this.triggerObserver("killed");
+			Observer.trigger("stopGame", new SubscriberDaten());
 		}
 	}
 
