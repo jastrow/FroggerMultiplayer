@@ -48,7 +48,8 @@ public class OverScene {
 		this.licenseText.setText("Music by Bart Kelsey as Bart on http://opengameart.org "
 				+ "http://opengameart.org/content/the-adventure-begins-8-bit-remix"
 				+ "CC By 3.0 https://creativecommons.org/licenses/by/3.0/" 
-				+ "Changes: Converted to MP3");
+				+ "Changes: Converted to MP3"
+				+ "\ncar fig.: http://publicdomainvectors.org/");
 		this.licenseText.getStyleClass().add("license");
 		this.licenseText.setWrapText(true);
 		
